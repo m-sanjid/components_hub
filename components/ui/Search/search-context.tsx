@@ -17,8 +17,8 @@ export interface SearchContextType {
   focusedIndex: number;
   setFocusedIndex: (index: number) => void;
   navigateToComponent: (component: Components) => void;
-  searchInputRef: React.RefObject<HTMLInputElement>;
-  resultsContainerRef: React.RefObject<HTMLDivElement>;
+  searchInputRef: React.RefObject<HTMLInputElement | null>;
+  resultsContainerRef: React.RefObject<HTMLDivElement | null>;
   getDisplayedResults: () => Components[];
 }
 
