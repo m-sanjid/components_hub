@@ -1,0 +1,22 @@
+{
+  "title": "SocialLinks",
+  "description": "A versatile SocialLinks component. Built with Motion/react for smooth animations and transitions.",
+  "tags": [
+    "React",
+    "TypeScript",
+    "Motion/react",
+    "Tailwind CSS"
+  ],
+  "author": "Muhammed Sanjid",
+  "createdAt": "2024-04-07",
+  "downloads": 1234,
+  "likes": 567,
+  "language": "tsx",
+  "usage": "import SocialLinks from '@/components/SocialLinks';\n\n// Basic usage\n<SocialLinks>\n\n// With variants\n<SocialLinks variant=\"primary\">Primary</SocialLinks>\n<SocialLinks variant=\"secondary\">Secondary</SocialLinks>\n<SocialLinks variant=\"outline\">Outline</SocialLinks>\n\n// With sizes\n<SocialLinks size=\"sm\">Small</SocialLinks>\n<SocialLinks size=\"md\">Medium</SocialLinks>\n<SocialLinks size=\"lg\">Large</SocialLinks>\n\n// With states\n<SocialLinks isLoading>Loading</SocialLinks>\n<SocialLinks disabled>Disabled</SocialLinks>",
+  "examples": [
+    {
+      "title": "SocialLinks",
+      "code": "<SocialLinks/>"
+    }
+  ]
+}
