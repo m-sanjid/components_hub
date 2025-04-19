@@ -1,0 +1,101 @@
+---
+title: Navbar
+description: A customizable navbar component with multiple variants and sizes
+category: Inputs
+keywords: ["click", "action", "control", "submit", "interactive"]
+---
+
+
+import { ComponentPreview } from '@/components/docs/ComponentPreview';
+import Navbar from '@/data/components/Navbar/Navbar';
+
+<ComponentPreview>
+  <Navbar />
+</ComponentPreview>
+
+import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
+import {ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
+
+<div className="flex justify-end mb-6">
+  <ThemeSwitcher />
+</div>
+
+# Navbar Component
+
+Navbars are used to navigate between pages and sections of a website.
+
+## Basic Usage
+
+<EnhancedCodePreview
+  componentName="Navbar"
+  code={`<Navbar/>`}
+  props={[
+    { name: "variant", type: "'primary' | 'secondary' | 'outline' | 'ghost'", required: false, defaultValue: "'primary'", description: "The visual style of the button" },
+    { name: "size", type: "'sm' | 'md' | 'lg'", required: false, defaultValue: "'md'", description: "The size of the button" },
+    { name: "disabled", type: "boolean", required: false, defaultValue: "false", description: "Whether the button is disabled" },
+    { name: "onClick", type: "function", required: false, description: "Function called when the button is clicked" }
+  ]}
+  withA11yCheck={true}
+>
+  <ComponentPreview>
+    <Navbar />
+  </ComponentPreview>
+</EnhancedCodePreview>
+
+## Variants
+
+<EnhancedCodePreview
+  componentName="NavbarVariants"
+  code={`
+<div className="flex flex-wrap gap-4">
+  <Navbar variant="primary" />
+  <Navbar variant="secondary" />
+  <Navbar variant="outline" />
+  <Navbar variant="ghost" />
+</div>
+  `}
+>
+  <div className="flex flex-wrap gap-4">
+    <Navbar variant="primary" />
+    <Navbar variant="secondary" />
+    <Navbar variant="outline" />
+    <Navbar variant="ghost" />
+  </div>
+</EnhancedCodePreview>
+
+## Sizes
+
+<EnhancedCodePreview
+  componentName="NavbarSizes"
+  code={`
+<div className="flex flex-wrap items-center gap-4">
+  <Navbar size="sm" />
+  <Navbar size="md" />
+  <Navbar size="lg" />
+</div>
+  `}
+>
+  <div className="flex flex-wrap items-center gap-4">
+    <Navbar size="sm" />
+    <Navbar size="md" />
+    <Navbar size="lg" />
+  </div>
+</EnhancedCodePreview>
+
+## Responsive Preview
+
+<EnhancedCodePreview
+  componentName="NavbarResponsive"
+  code={`
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+  <Navbar />
+</div>
+  `}
+  responsivePreview={true}
+>
+  <div className="grid grid-cols-1 gap-4 w-full">
+    <Navbar />
+  </div>
+</EnhancedCodePreview>
+
+
