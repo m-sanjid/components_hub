@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { IconMail, IconPhone, IconMapPin, IconSend, IconCheck } from "@tabler/icons-react";
 import { fadeIn, slideInFromBottom, slideInFromLeft, slideInFromRight } from "@/lib/animations";
 
@@ -58,7 +58,7 @@ export default function ContactPage() {
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Get in Touch</h1>
           <p className="text-xl text-muted-foreground">
-            Have questions about our components? We'd love to hear from you.
+            Have questions about our components? We&apos;d love to hear from you.
           </p>
         </motion.div>
       </motion.section>
@@ -191,7 +191,7 @@ export default function ContactPage() {
                   </motion.div>
                   <h3 className="text-xl font-medium text-green-800 mb-2">Message Sent!</h3>
                   <p className="text-green-700">
-                    Thank you for reaching out. We'll get back to you as soon as possible.
+                    Thank you for reaching out. We&apos;ll get back to you as soon as possible.
                   </p>
                 </motion.div>
               ) : (
