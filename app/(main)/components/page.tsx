@@ -14,9 +14,9 @@ export default async function ComponentsPage() {
           const Demo = await getComponentDemoOnly(component.slug, componentsRegistry);
 
           return (
-            <Link href={`/components/${component.slug}`} key={component.slug} className="relative flex flex-col justify-between border h-[20rem] rounded-xl p-4 shadow">
-              <div className="demo-preview">{Demo}</div>
-              <div className='relative'>
+            <Link href={`/components/${component.slug}`} key={component.slug} className="relative flex flex-col justify-between border h-[20rem] rounded-xl p-4 shadow overflow-auto">
+              <div className="demo-preview pt-8">{Demo}</div>
+              <div className='relative border-t'>
               <h3 className="text-lg font-semibold mb-2">{component.title}</h3>
               <p className='text-muted-foreground text-sm'>{component.description}</p>
               <div className='absolute text-xs px-2 py-1 flex items-center rounded-full bg-accent top-2 right-2'>
