@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { useSearch } from './search-context';
 import { SearchInput } from './search-input';
 import { SearchTabs } from './search-tabs';
@@ -49,7 +49,7 @@ export function SearchDialogContent({
           transition={{ duration: 0.2 }}
         >
           <motion.div 
-            className="w-full max-w-xl bg-white rounded-lg shadow-2xl overflow-hidden"
+            className="w-full max-w-xl bg-white dark:bg-neutral-900 rounded-lg shadow-2xl overflow-hidden"
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}

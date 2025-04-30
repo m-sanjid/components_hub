@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { IconArrowRight, IconHistory } from '@tabler/icons-react';
 import { useSearch } from './search-context';
 
@@ -15,10 +15,8 @@ export function SearchResults() {
     focusedIndex, 
     navigateToComponent,
     resultsContainerRef,
-    getDisplayedResults
   } = useSearch();
 
-  const displayedResults = getDisplayedResults();
 
   return (
     <div 
@@ -71,7 +69,7 @@ export function SearchResults() {
               exit={{ opacity: 0 }}
               className="p-8 text-center text-gray-500"
             >
-              <div className="mb-2">No results found for "{query}"</div>
+              <div className="mb-2">No results found for &quot;{query}&quot;</div>
               <div className="text-sm text-gray-400">Try different keywords or browse components below</div>
             </motion.div>
           )
