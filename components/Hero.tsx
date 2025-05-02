@@ -2,16 +2,8 @@
 
 import { motion } from "motion/react";
 import React from "react";
-import { fadeIn, slideInFromLeft, slideInFromRight } from "@/lib/animations";
-import Image from "next/image";
-import {
-  IconArrowRight,
-  IconBrandGithub,
-  IconCode,
-  IconStar,
-} from "@tabler/icons-react";
-import Link from "next/link";
 import { ArrowRight, Code, Package } from "lucide-react";
+
 
 const Hero = () => {
   return (
@@ -50,7 +42,7 @@ const Hero = () => {
         }}
       />
 
-      <div className="container mx-auto relative z-10">
+      <div className="max-w-5xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12">
           <motion.div
             className="md:w-1/2 space-y-6"
@@ -64,10 +56,10 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent dark:from-primary/80 dark:to-accent/80">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-black via-black/90 to-black/70 dark:from-white/90 dark:via-white/90 dark:to-white/80">
                 Build Beautiful Interfaces
               </span>{" "}
-              with Our UI Components Library
+              with <span className="text-primary inline-block">S ui</span>
             </motion.h1>
             <motion.p
               className="text-xl text-muted-foreground"
@@ -85,7 +77,7 @@ const Hero = () => {
               transition={{ duration: 0.5, delay: 0.9 }}
             >
               <motion.a
-                href="#docs"
+                href="/login"
                 className="group px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium flex items-center gap-2 overflow-hidden relative"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -106,7 +98,7 @@ const Hero = () => {
                 />
               </motion.a>
               <motion.a
-                href="#components"
+                href="/components"
                 className="group px-6 py-3 border border-border rounded-lg font-medium flex items-center gap-2 hover:border-primary transition-colors relative overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
