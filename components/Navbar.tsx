@@ -3,23 +3,36 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import { Sun, Moon, Menu } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
+import { SearchDialog } from "./ui/Search";
+import { IconMenu, IconComponents, IconTemplate, IconInfoCircle, IconMail, IconBook, IconNews, IconSettings, IconCrown, IconChevronDown } from "@tabler/icons-react";
 
-const navItems = [
-  { title: "Components", href: "/components" },
-  { title: "Templates", href: "/templates" },
-  { title: "Pro", href: "/pricing" },
-  { title: "Settings", href: "/settings" },
+const mainNavItems = [
+  { title: "Components", href: "/components", icon: <IconComponents className="w-4 h-4" /> },
+  { title: "Templates", href: "/templates", icon: <IconTemplate className="w-4 h-4" /> },
+];
+
+const resourcesNavItems = [
+  { title: "Documentation", href: "/documentation", icon: <IconBook className="w-4 h-4" /> },
+  { title: "Blog", href: "/blog", icon: <IconNews className="w-4 h-4" /> },
+];
+
+const companyNavItems = [
+  { title: "About", href: "/about", icon: <IconInfoCircle className="w-4 h-4" /> },
+  { title: "Contact", href: "/contact", icon: <IconMail className="w-4 h-4" /> },
+  { title: "Settings", href: "/settings", icon: <IconSettings className="w-4 h-4" /> },
 ];
 
 export default function Navbar() {
@@ -28,6 +41,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -45,32 +59,59 @@ export default function Navbar() {
         width: rect.width,
       });
       setIsHovered(true);
+      toggleDropdown(e.currentTarget.textContent || "");
     }
   };
+  
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+  
+  const toggleDropdown = (name: string) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
+  };
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setActiveDropdown(null);
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <nav
+    <motion.nav
       className={`sticky z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? "top-4 mx-auto max-w-5xl border rounded-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+          ? "top-4 mx-auto max-w-5xl border rounded-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-lg"
           : "top-0 border-b bg-background/95 backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
+      onClick={(e) => e.stopPropagation()}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="max-w-7xl mx-auto flex h-14 items-center px-4 md:px-8 justify-between">
+      <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-8 justify-between">
         {/* Logo */}
-        <Logo />
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Logo />
+        </motion.div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:block">
-          <nav className="relative flex space-x-2" ref={navRef}>
+          <nav className="relative flex space-x-1" ref={navRef}>
             {/* Hover Effect */}
             {isHovered && (
               <motion.div
-                className="absolute top-0 bottom-0 z-0 bg-black/10 dark:bg-white/10 rounded-lg"
+                className="absolute top-0 bottom-0 z-0 bg-primary/10 dark:bg-primary/20 rounded-lg"
                 initial={false}
                 animate={{
                   left: hoverPosition.left,
@@ -80,22 +121,81 @@ export default function Navbar() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
             )}
-            {navItems.map((item, idx) => (
+            
+            {/* Main Nav Items */}
+            {mainNavItems.map((item, idx) => (
               <Link href={item.href} key={idx} passHref>
                 <Button
                   variant={"ghost"}
                   size="sm"
-                  className={`gap-2 relative z-10 ${
-                    pathname === item.href
-                      ? "text-muted-foreground"
-                      : "text-primary"
+                  className={`gap-2 relative z-10 px-4 py-2 ${
+                    pathname === item.href || pathname.startsWith(item.href + "/")
+                      ? "text-primary font-medium"
+                      : "text-foreground hover:text-primary"
                   }`}
                   onMouseEnter={handleHover}
                 >
+                  {item.icon}
                   {item.title}
                 </Button>
               </Link>
             ))}
+
+            {/* Resources Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2 px-4 py-2"
+                  onMouseEnter={handleHover}
+                >
+                  Resources
+                  <IconChevronDown className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel>Resources</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {resourcesNavItems.map(({ title, href, icon }) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href} className="flex items-center gap-2 w-full">
+                      {icon}
+                      {title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Company Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="gap-2 px-4 py-2"
+                  onMouseEnter={handleHover}
+                >
+                  Company
+                  <IconChevronDown className="w-4 h-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuLabel>Company</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {companyNavItems.map(({ title, href, icon }) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href} className="flex items-center gap-2 w-full">
+                      {icon}
+                      {title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <SearchDialog placeholder="Search components..." shortcut="⌘K" apiUrl="/api/search" componentsApiUrl="/api/components" />
           </nav>
         </div>
 
@@ -103,25 +203,67 @@ export default function Navbar() {
         <div className="md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="relative">
+                <IconMenu className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-48">
-              {navItems.map(({ title, href }) => (
-                <DropdownMenuItem key={href} asChild>
-                  <Link href={href} className="flex items-center gap-2 w-full">
-                    {title}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>Navigation</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              
+              <DropdownMenuGroup>
+                {mainNavItems.map(({ title, href, icon }) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href} className="flex items-center gap-2 w-full">
+                      {icon}
+                      {title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+              
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Resources</DropdownMenuLabel>
+              <DropdownMenuGroup>
+                {resourcesNavItems.map(({ title, href, icon }) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href} className="flex items-center gap-2 w-full">
+                      {icon}
+                      {title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+              
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Company</DropdownMenuLabel>
+              <DropdownMenuGroup>
+                {companyNavItems.map(({ title, href, icon }) => (
+                  <DropdownMenuItem key={href} asChild>
+                    <Link href={href} className="flex items-center gap-2 w-full">
+                      {icon}
+                      {title}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuGroup>
+              
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <SearchDialog placeholder="Search..." shortcut="⌘K" apiUrl="/api/search" componentsApiUrl="/api/components" />
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
         {/* Theme Toggle */}
-        <ThemeToggle />
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <ThemeToggle />
+        </motion.div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
