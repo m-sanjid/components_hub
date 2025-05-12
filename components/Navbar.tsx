@@ -17,22 +17,19 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { SearchDialog } from "./ui/Search";
-import { IconMenu, IconComponents, IconTemplate, IconInfoCircle, IconMail, IconBook, IconNews, IconSettings, IconCrown, IconChevronDown } from "@tabler/icons-react";
+import { IconMenu, IconComponents, IconTemplate } from "@tabler/icons-react";
 
 const mainNavItems = [
-  { title: "Components", href: "/components", icon: <IconComponents className="w-4 h-4" /> },
-  { title: "Templates", href: "/templates", icon: <IconTemplate className="w-4 h-4" /> },
-];
-
-const resourcesNavItems = [
-  { title: "Documentation", href: "/documentation", icon: <IconBook className="w-4 h-4" /> },
-  { title: "Blog", href: "/blog", icon: <IconNews className="w-4 h-4" /> },
-];
-
-const companyNavItems = [
-  { title: "About", href: "/about", icon: <IconInfoCircle className="w-4 h-4" /> },
-  { title: "Contact", href: "/contact", icon: <IconMail className="w-4 h-4" /> },
-  { title: "Settings", href: "/settings", icon: <IconSettings className="w-4 h-4" /> },
+  {
+    title: "Components",
+    href: "/components",
+    icon: <IconComponents className="w-4 h-4" />,
+  },
+  {
+    title: "Templates",
+    href: "/templates",
+    icon: <IconTemplate className="w-4 h-4" />,
+  },
 ];
 
 export default function Navbar() {
@@ -62,24 +59,24 @@ export default function Navbar() {
       toggleDropdown(e.currentTarget.textContent || "");
     }
   };
-  
+
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  
+
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
-  
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = () => {
       setActiveDropdown(null);
     };
-    
-    document.addEventListener('click', handleClickOutside);
+
+    document.addEventListener("click", handleClickOutside);
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, []);
 
@@ -98,10 +95,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-8 justify-between">
         {/* Logo */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Logo />
         </motion.div>
 
@@ -121,15 +115,14 @@ export default function Navbar() {
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               />
             )}
-            
+
             {/* Main Nav Items */}
             {mainNavItems.map((item, idx) => (
               <Link href={item.href} key={idx} passHref>
-                <Button
-                  variant={"ghost"}
-                  size="sm"
-                  className={`gap-2 relative z-10 px-4 py-2 ${
-                    pathname === item.href || pathname.startsWith(item.href + "/")
+                <button
+                  className={`gap-2 text-sm flex items-center relative z-10 px-4 py-2 ${
+                    pathname === item.href ||
+                    pathname.startsWith(item.href + "/")
                       ? "text-primary font-medium"
                       : "text-foreground hover:text-primary"
                   }`}
@@ -137,65 +130,19 @@ export default function Navbar() {
                 >
                   {item.icon}
                   {item.title}
-                </Button>
+                </button>
               </Link>
             ))}
 
             {/* Resources Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2 px-4 py-2"
-                  onMouseEnter={handleHover}
-                >
-                  Resources
-                  <IconChevronDown className="w-4 h-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuLabel>Resources</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {resourcesNavItems.map(({ title, href, icon }) => (
-                  <DropdownMenuItem key={href} asChild>
-                    <Link href={href} className="flex items-center gap-2 w-full">
-                      {icon}
-                      {title}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            {/* Company Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="gap-2 px-4 py-2"
-                  onMouseEnter={handleHover}
-                >
-                  Company
-                  <IconChevronDown className="w-4 h-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuLabel>Company</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {companyNavItems.map(({ title, href, icon }) => (
-                  <DropdownMenuItem key={href} asChild>
-                    <Link href={href} className="flex items-center gap-2 w-full">
-                      {icon}
-                      {title}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <SearchDialog placeholder="Search components..." shortcut="⌘K" apiUrl="/api/search" componentsApiUrl="/api/components" />
+            <div className="ml-20">
+            <SearchDialog
+              placeholder="Search components..."
+              shortcut="⌘K"
+              apiUrl="/api/search"
+              componentsApiUrl="/api/components"
+            />
+            </div>
           </nav>
         </div>
 
@@ -210,57 +157,36 @@ export default function Navbar() {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>Navigation</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              
+
               <DropdownMenuGroup>
                 {mainNavItems.map(({ title, href, icon }) => (
                   <DropdownMenuItem key={href} asChild>
-                    <Link href={href} className="flex items-center gap-2 w-full">
+                    <Link
+                      href={href}
+                      className="flex items-center gap-2 w-full"
+                    >
                       {icon}
                       {title}
                     </Link>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
-              
-              <DropdownMenuSeparator />
-              <DropdownMenuLabel>Resources</DropdownMenuLabel>
-              <DropdownMenuGroup>
-                {resourcesNavItems.map(({ title, href, icon }) => (
-                  <DropdownMenuItem key={href} asChild>
-                    <Link href={href} className="flex items-center gap-2 w-full">
-                      {icon}
-                      {title}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-              
-              <DropdownMenuSeparator />
-              <DropdownMenuLabel>Company</DropdownMenuLabel>
-              <DropdownMenuGroup>
-                {companyNavItems.map(({ title, href, icon }) => (
-                  <DropdownMenuItem key={href} asChild>
-                    <Link href={href} className="flex items-center gap-2 w-full">
-                      {icon}
-                      {title}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuGroup>
-              
+
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <SearchDialog placeholder="Search..." shortcut="⌘K" apiUrl="/api/search" componentsApiUrl="/api/components" />
+                <SearchDialog
+                  placeholder="Search..."
+                  shortcut="⌘K"
+                  apiUrl="/api/search"
+                  componentsApiUrl="/api/components"
+                />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
         {/* Theme Toggle */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <ThemeToggle />
         </motion.div>
       </div>
