@@ -124,7 +124,7 @@ export default function TemplateDetailsPage() {
 
             <div className="space-y-4">
               <motion.button
-                className="w-full bg-primary text-white py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
+                className="w-full bg-primary text-white dark:text-black py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >

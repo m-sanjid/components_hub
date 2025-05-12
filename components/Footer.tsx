@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="border-t border-border bg-card">
       <div className="container py-12 max-w-6xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
           <div className="col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Logo />
@@ -97,8 +97,9 @@ const Footer: React.FC = () => {
             </div>
           ))}
         </div>
-
-        <div className="mt-12 pt-6 border-t border-border flex flex-col md:flex-row justify-between items-center">
+      </div>
+      <div className="border-t border-border mt-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center px-4 py-6">
           <p className="text-sm text-muted-foreground">
             &copy; {year} Components Hub. All rights reserved.
           </p>
@@ -123,7 +124,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </div>
-      </div>
+        </div>
     </footer>
   );
 };
