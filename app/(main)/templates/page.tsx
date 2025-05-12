@@ -205,7 +205,7 @@ export default function TemplatesPage() {
         variants={fadeIn()}
       >
         <motion.div
-          className="bg-primary rounded-3xl overflow-hidden"
+          className="bg-primary/90 rounded-3xl overflow-hidden"
           variants={slideInFromBottom(0.2)}
         >
           <div className="px-8 py-16 md:p-16 text-center">
