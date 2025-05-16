@@ -40,7 +40,7 @@ export async function getComponentBySlug(slug: string) {
   };
 }
 
-// Process full MDX content (including markdown/docs)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function processMdx(source: string, components: any) {
   const { content } = await compileMDX({
     source,

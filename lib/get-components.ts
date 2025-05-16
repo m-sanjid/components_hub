@@ -1,4 +1,3 @@
-// lib/get-components.ts
 import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
@@ -14,6 +13,7 @@ export async function getComponentBySlug(slug: string) {
 
   return {
     frontmatter: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ...(data as any),
       slug,
     },
