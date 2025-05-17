@@ -1,11 +1,44 @@
-"use client";
+---
+title: Modal
+description: A customizable modal component with micro-interactions and various states
+category: Feedback
+keywords: ["modal", "dialog", "popup", "animated", "interactive"]
+---
 
-import { Button } from "@/components/ui/button";
-import { Modal } from "./Modal";
-import { useState } from "react";
-import { IconX } from "@tabler/icons-react";
+import { ComponentPreview } from '@/components/docs/ComponentPreview';
+import { Modal } from '@/data/components/Modal/Modal';
+import { Button } from '@/data/components/button/Button';
+import { ComplexModalExample, ModalExample } from '@/data/components/Modal/ModalExample';
 
-export const ModalExample = () => {
+
+
+
+
+
+<ComponentPreview>
+  <ModalExample />
+</ComponentPreview>
+
+import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
+import { ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
+
+<div className="flex justify-end mb-6">
+  <ThemeSwitcher />
+</div>
+
+# Modal Component
+
+Modal components are used to display content in a layer above the main application. This component includes micro-interactions and animations for better user experience.
+
+## Basic Usage
+
+<EnhancedCodePreview
+  componentName="Modal"
+  code={`import { Modal } from '@/data/components/Modal/Modal';
+import { Button } from '@/data/components/Button/Button';
+import { useState } from 'react';
+
+const ModalExample = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -26,9 +59,24 @@ export const ModalExample = () => {
       </Modal>
     </>
   );
-};
+};`}
+>
+  <ModalExample />
+</EnhancedCodePreview>
 
-export const ComplexModalExample = () => {
+  
+## Complex Example
+
+Here's a more complex example showing how modals can be used in a real-world scenario:
+
+<EnhancedCodePreview
+  componentName="ComplexModalExample"
+  code={`import { Modal } from '@/data/components/Modal/Modal';
+import { Button } from '@/data/components/Button/Button';
+import { useState } from 'react';
+import { IconX } from '@tabler/icons-react';
+
+const ComplexModalExample = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -47,14 +95,11 @@ export const ComplexModalExample = () => {
               <h4 className="font-medium">Warning</h4>
             </div>
             <p className="mt-2 text-sm text-destructive">
-              Deleting your account will permanently remove all your data and
-              cannot be recovered.
+              Deleting your account will permanently remove all your data and cannot be recovered.
             </p>
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">
-              Type "DELETE" to confirm
-            </label>
+            <label className="text-sm font-medium">Type "DELETE" to confirm</label>
             <input
               type="text"
               className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
@@ -73,4 +118,7 @@ export const ComplexModalExample = () => {
       </Modal>
     </>
   );
-};
+};`}
+>
+  <ComplexModalExample />
+</EnhancedCodePreview> 
