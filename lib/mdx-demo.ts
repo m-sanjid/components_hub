@@ -8,6 +8,7 @@ export function extractComponentPreview(mdx: string) {
   return match ? `<div>${match[0]}</div>` : '';
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getComponentDemoOnly(slug: string, components: any) {
   const filePath = path.join(process.cwd(), 'content/components', `${slug}.mdx`);
   const fileContent = fs.readFileSync(filePath, 'utf8');

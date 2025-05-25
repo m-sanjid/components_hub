@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { IconMenu, IconStar, IconX } from "@tabler/icons-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import clsx from "clsx";
+
 
 const navItems = [
   { path: "/", label: "Home" },
@@ -38,11 +40,12 @@ const Navbar = () => {
   return (
     <div className="relative w-full">
       <nav
-        className={`w-full z-50 ${
+        className={clsx(
+          "w-full z-50",
           isScrolled
             ? "rounded-lg bg-neutral-200/80 dark:bg-black/80 backdrop-blur-xl mx-10 max-w-4xl duration-300 ease-in-out px-10"
-            : "max-w-7xl"
-        }`}
+            : "max-w-7xl" 
+        )}
         onMouseLeave={handleMouseLeave}
       >
         <div className="container mx-auto px-4 max-w-5xl">

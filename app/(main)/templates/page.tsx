@@ -68,7 +68,7 @@ export default function TemplatesPage() {
       {/* Featured Templates */}
       {featuredTemplates.length > 0 && (
         <motion.section
-          className="container mx-auto px-4 mb-16"
+          className="container mx-auto px-4 mb-16 transition-all duration-300"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -79,7 +79,7 @@ export default function TemplatesPage() {
             {featuredTemplates.map((template, index) => (
               <motion.div
                 key={template.id}
-                className="group"
+                className="group transition-all duration-300"
                 variants={fadeIn(0.1 * index)}
                 whileHover={{ y: -8 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -94,10 +94,10 @@ export default function TemplatesPage() {
                     /> */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-6">
-                      <span className="inline-block bg-primary text-white text-xs font-medium px-2 py-1 rounded-full mb-2">
+                      <span className="inline-block bg-primary text-xs text-secondary font-medium px-2 py-1 rounded-full mb-2">
                         {template.category}
                       </span>
-                      <h3 className="text-xl font-bold text-white mb-2">
+                      <h3 className="text-xl font-bold mb-2">
                         {template.title}
                       </h3>
                     </div>
@@ -205,21 +205,21 @@ export default function TemplatesPage() {
         variants={fadeIn()}
       >
         <motion.div
-          className="bg-primary rounded-3xl overflow-hidden"
+          className="bg-primary/90 rounded-3xl overflow-hidden"
           variants={slideInFromBottom(0.2)}
         >
           <div className="px-8 py-16 md:p-16 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-white dark:text-black mb-6">
               Need a Custom Template?
             </h2>
-            <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
+            <p className="text-white/90 dark:text-black/90 text-lg mb-8 max-w-2xl mx-auto">
               Our team can help you build a custom template tailored to your
               specific requirements.
             </p>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/contact"
-                className="bg-white text-primary hover:bg-white/90 px-8 py-3 rounded-lg font-medium inline-block"
+                className="bg-secondary hover:bg-secondary/80 px-8 py-3 rounded-lg font-medium inline-block"
               >
                 Contact Us
               </Link>
@@ -246,7 +246,7 @@ interface TemplateCardProps {
 function TemplateCard({ template, index }: TemplateCardProps) {
   return (
     <motion.div
-      className="group bg-card border border-border rounded-xl overflow-hidden"
+      className="group bg-card border border-border rounded-xl overflow-hidden hover:px-2 transition-all duration-300"
       variants={fadeIn(0.1 * index)}
       whileHover={{ y: -5 }}
       transition={{ type: "spring", stiffness: 300 }}
@@ -284,7 +284,7 @@ function TemplateCard({ template, index }: TemplateCardProps) {
           </div>
           <span className="text-primary font-medium inline-flex items-center text-sm">
             View Template
-            <IconArrowRight className="ml-1 w-4 h-4" />
+            <IconArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </span>
         </div>
       </Link>

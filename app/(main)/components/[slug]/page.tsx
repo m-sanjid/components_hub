@@ -7,7 +7,7 @@ export default async function ComponentDetail({ params }: { params: Promise<{ sl
   const MDXContent = await processMdx(content, componentsRegistry);
 
   return (
-    <article className="prose dark:prose-invert max-w-none">
+    <article className="prose dark:prose-invert max-w-none py-8 lg:py-16">
       <h1>{meta.title}</h1>
       <p className="text-gray-500">{meta.description}</p>
       <div>{MDXContent}</div>
