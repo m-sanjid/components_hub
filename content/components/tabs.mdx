@@ -5,20 +5,20 @@ category: Navigation
 keywords: ["tabs", "navigation", "switching", "animated", "interactive"]
 ---
 
-import { ComponentPreview } from '@/components/docs/ComponentPreview';
-import { Tabs } from '@/data/components/Tabs/Tabs';
-import { TabsExample } from '@/data/components/Tabs/TabsExample';
-
- 
+import { ComponentPreview } from "@/components/docs/ComponentPreview";
+import { Tabs } from "@/data/components/Tabs/Tabs";
+import { TabsExample } from "@/data/components/Tabs/TabsExample";
 
 <ComponentPreview>
-  <TabsExample/>
+  <TabsExample />
 </ComponentPreview>
 
-import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
-import { ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
+import { EnhancedCodePreview } from "@/components/docs/EnhancedCodePreview";
+import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
+import { TabsWithOnChangeExample } from "@/data/components/Tabs/TabsExample";
+import { ComplexTabsExample } from "@/data/components/Tabs/TabsExample";
 
-<div className="flex justify-end mb-6">
+<div className="mb-6 flex justify-end">
   <ThemeSwitcher />
 </div>
 
@@ -33,26 +33,26 @@ Tabs components are used to organize content into separate views that can be swi
   code={`import { Tabs } from '@/data/components/Tabs/Tabs';
 
 const tabs = [
-  {
-    value: "tab1",
-    label: "Tab 1",
-    content: <p>Content for tab 1</p>,
-  },
-  {
-    value: "tab2",
-    label: "Tab 2",
-    content: <p>Content for tab 2</p>,
-  },
-  {
-    value: "tab3",
-    label: "Tab 3",
-    content: <p>Content for tab 3</p>,
-  },
+{
+value: "tab1",
+label: "Tab 1",
+content: <p>Content for tab 1</p>,
+},
+{
+value: "tab2",
+label: "Tab 2",
+content: <p>Content for tab 2</p>,
+},
+{
+value: "tab3",
+label: "Tab 3",
+content: <p>Content for tab 3</p>,
+},
 ];
 
 <Tabs tabs={tabs} />`}
 >
-  <Tabs tabs={tabs} />
+<TabsExample/>
 </EnhancedCodePreview>
 
 ## With Default Value
@@ -64,21 +64,21 @@ Tabs can have a default active tab:
   code={`import { Tabs } from '@/data/components/Tabs/Tabs';
 
 const tabs = [
-  {
-    value: "tab1",
-    label: "Tab 1",
-    content: <p>Content for tab 1</p>,
-  },
-  {
-    value: "tab2",
-    label: "Tab 2",
-    content: <p>Content for tab 2</p>,
-  },
-  {
-    value: "tab3",
-    label: "Tab 3",
-    content: <p>Content for tab 3</p>,
-  },
+{
+value: "tab1",
+label: "Tab 1",
+content: <p>Content for tab 1</p>,
+},
+{
+value: "tab2",
+label: "Tab 2",
+content: <p>Content for tab 2</p>,
+},
+{
+value: "tab3",
+label: "Tab 3",
+content: <p>Content for tab 3</p>,
+},
 ];
 
 <TabsExample defaultValue="tab2" />`}
@@ -95,22 +95,22 @@ Tabs can be disabled:
   code={`import { Tabs } from '@/data/components/Tabs/Tabs';
 
 const tabs = [
-  {
-    value: "tab1",
-    label: "Tab 1",
-    content: <p>Content for tab 1</p>,
-  },
-  {
-    value: "tab2",
-    label: "Tab 2",
-    content: <p>Content for tab 2</p>,
-    disabled: true,
-  },
-  {
-    value: "tab3",
-    label: "Tab 3",
-    content: <p>Content for tab 3</p>,
-  },
+{
+value: "tab1",
+label: "Tab 1",
+content: <p>Content for tab 1</p>,
+},
+{
+value: "tab2",
+label: "Tab 2",
+content: <p>Content for tab 2</p>,
+disabled: true,
+},
+{
+value: "tab3",
+label: "Tab 3",
+content: <p>Content for tab 3</p>,
+},
 ];
 
 <Tabs tabs={tabs} />`}
@@ -147,43 +147,45 @@ Tabs can have an onChange handler to respond to tab changes:
 import { useState } from 'react';
 
 const TabsWithOnChangeExample = () => {
-  const [activeTab, setActiveTab] = useState("tab1");
-  
-  const tabs = [
-    {
-      value: "tab1",
-      label: "Tab 1",
-      content: <p>Content for tab 1</p>,
-    },
-    {
-      value: "tab2",
-      label: "Tab 2",
-      content: <p>Content for tab 2</p>,
-    },
-    {
-      value: "tab3",
-      label: "Tab 3",
-      content: <p>Content for tab 3</p>,
-    },
-  ];
+const [activeTab, setActiveTab] = useState("tab1");
 
-  return (
-    <div className="space-y-4">
-      <Tabs
-        tabs={tabs}
-        defaultValue={activeTab}
-        onValueChange={(value) => {
-          setActiveTab(value);
-          console.log("Active tab:", value);
-        }}
-      />
-      <p className="text-sm text-muted-foreground">
-        Active tab: {activeTab}
-      </p>
-    </div>
-  );
+const tabs = [
+{
+value: "tab1",
+label: "Tab 1",
+content: <p>Content for tab 1</p>,
+},
+{
+value: "tab2",
+label: "Tab 2",
+content: <p>Content for tab 2</p>,
+},
+{
+value: "tab3",
+label: "Tab 3",
+content: <p>Content for tab 3</p>,
+},
+];
+
+return (
+<div className="space-y-4">
+<Tabs
+tabs={tabs}
+defaultValue={activeTab}
+onValueChange={(value) => {
+setActiveTab(value);
+console.log("Active tab:", value);
+}}
+/>
+<p className="text-sm text-muted-foreground">
+Active tab: {activeTab}
+</p>
+</div>
+);
 };`}
+
 >
+
   <TabsWithOnChangeExample />
 </EnhancedCodePreview>
 
@@ -198,120 +200,122 @@ import { Card } from '@/data/components/Card/Card';
 import { Button } from '@/data/components/Button/Button';
 
 const ComplexTabsExample = () => {
-  const tabs = [
-    {
-      value: "overview",
-      label: "Overview",
-      content: (
-        <div className="space-y-4">
-          <Card>
-            <div className="p-6">
-              <h3 className="text-lg font-semibold">Project Overview</h3>
-              <p className="mt-2 text-muted-foreground">
-                This is a brief overview of the project. It includes key metrics
-                and important information.
-              </p>
-            </div>
-          </Card>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Card>
-              <div className="p-6">
-                <h4 className="text-sm font-medium">Total Users</h4>
-                <p className="mt-2 text-2xl font-bold">1,234</p>
-              </div>
-            </Card>
-            <Card>
-              <div className="p-6">
-                <h4 className="text-sm font-medium">Active Users</h4>
-                <p className="mt-2 text-2xl font-bold">567</p>
-              </div>
-            </Card>
-            <Card>
-              <div className="p-6">
-                <h4 className="text-sm font-medium">Conversion Rate</h4>
-                <p className="mt-2 text-2xl font-bold">45%</p>
-              </div>
-            </Card>
-          </div>
-        </div>
-      ),
-    },
-    {
-      value: "settings",
-      label: "Settings",
-      content: (
-        <div className="space-y-4">
-          <Card>
-            <div className="p-6">
-              <h3 className="text-lg font-semibold">Project Settings</h3>
-              <p className="mt-2 text-muted-foreground">
-                Configure your project settings here.
-              </p>
-              <div className="mt-4 space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Project Name</label>
-                  <input
+const tabs = [
+{
+value: "overview",
+label: "Overview",
+content: (
+<div className="space-y-4">
+<Card>
+<div className="p-6">
+<h3 className="text-lg font-semibold">Project Overview</h3>
+<p className="mt-2 text-muted-foreground">
+This is a brief overview of the project. It includes key metrics
+and important information.
+</p>
+</div>
+</Card>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+<Card>
+<div className="p-6">
+<h4 className="text-sm font-medium">Total Users</h4>
+<p className="mt-2 text-2xl font-bold">1,234</p>
+</div>
+</Card>
+<Card>
+<div className="p-6">
+<h4 className="text-sm font-medium">Active Users</h4>
+<p className="mt-2 text-2xl font-bold">567</p>
+</div>
+</Card>
+<Card>
+<div className="p-6">
+<h4 className="text-sm font-medium">Conversion Rate</h4>
+<p className="mt-2 text-2xl font-bold">45%</p>
+</div>
+</Card>
+</div>
+</div>
+),
+},
+{
+value: "settings",
+label: "Settings",
+content: (
+<div className="space-y-4">
+<Card>
+<div className="p-6">
+<h3 className="text-lg font-semibold">Project Settings</h3>
+<p className="mt-2 text-muted-foreground">
+Configure your project settings here.
+</p>
+<div className="mt-4 space-y-4">
+<div className="space-y-2">
+<label className="text-sm font-medium">Project Name</label>
+<input
                     type="text"
                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     placeholder="Enter project name"
                   />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Description</label>
-                  <textarea
+</div>
+<div className="space-y-2">
+<label className="text-sm font-medium">Description</label>
+<textarea
                     className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
                     placeholder="Enter project description"
                     rows={3}
                   />
-                </div>
-                <div className="flex justify-end">
-                  <Button>Save Changes</Button>
-                </div>
-              </div>
-            </div>
-          </Card>
-        </div>
-      ),
-    },
-    {
-      value: "team",
-      label: "Team",
-      content: (
-        <div className="space-y-4">
-          <Card>
-            <div className="p-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Team Members</h3>
-                <Button>Add Member</Button>
-              </div>
-              <div className="mt-4 space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div
+</div>
+<div className="flex justify-end">
+<Button>Save Changes</Button>
+</div>
+</div>
+</div>
+</Card>
+</div>
+),
+},
+{
+value: "team",
+label: "Team",
+content: (
+<div className="space-y-4">
+<Card>
+<div className="p-6">
+<div className="flex items-center justify-between">
+<h3 className="text-lg font-semibold">Team Members</h3>
+<Button>Add Member</Button>
+</div>
+<div className="mt-4 space-y-4">
+{[1, 2, 3].map((i) => (
+<div
                     key={i}
                     className="flex items-center justify-between rounded-lg border p-4"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-muted" />
-                      <div>
-                        <p className="font-medium">Team Member {i}</p>
-                        <p className="text-sm text-muted-foreground">
-                          team.member{i}@example.com
-                        </p>
-                      </div>
-                    </div>
-                    <Button variant="outline">Remove</Button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Card>
-        </div>
-      ),
-    },
-  ];
+<div className="flex items-center gap-3">
+<div className="h-10 w-10 rounded-full bg-muted" />
+<div>
+<p className="font-medium">Team Member {i}</p>
+<p className="text-sm text-muted-foreground">
+team.member{i}@example.com
+</p>
+</div>
+</div>
+<Button variant="outline">Remove</Button>
+</div>
+))}
+</div>
+</div>
+</Card>
+</div>
+),
+},
+];
 
-  return <Tabs tabs={tabs} />;
+return <Tabs tabs={tabs} />;
 };`}
+
 >
+
   <ComplexTabsExample />
-</EnhancedCodePreview> 
+</EnhancedCodePreview>
