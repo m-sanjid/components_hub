@@ -4,7 +4,15 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowLeft, IconHeart, IconShare, IconDownload, IconCode, IconEye, IconStar } from "@tabler/icons-react";
+import {
+  IconArrowLeft,
+  IconHeart,
+  IconShare,
+  IconDownload,
+  IconCode,
+  IconEye,
+  IconStar,
+} from "@tabler/icons-react";
 import { fadeIn, slideInFromLeft, slideInFromRight } from "@/lib/animations";
 import { template } from "@/lib/constants";
 
@@ -20,82 +28,90 @@ export default function TemplateDetailsPage() {
   return (
     <div className="min-h-screen py-12">
       {/* Back Navigation */}
-      <motion.div 
-        className="container mx-auto px-4 mb-8"
+      <motion.div
+        className="container mx-auto mb-8 px-4"
         initial="hidden"
         animate="visible"
         variants={slideInFromLeft(0.2)}
       >
-        <Link 
+        <Link
           href="/templates"
-          className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+          className="text-muted-foreground hover:text-foreground inline-flex items-center transition-colors"
         >
-          <IconArrowLeft className="w-5 h-5 mr-2" />
+          <IconArrowLeft className="mr-2 h-5 w-5" />
           Back to Templates
         </Link>
       </motion.div>
 
       {/* Template Header */}
-      <motion.section 
-        className="container mx-auto px-4 mb-12"
+      <motion.section
+        className="container mx-auto mb-12 px-4"
         initial="hidden"
         animate="visible"
         variants={fadeIn()}
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
           {/* Template Preview */}
-          <motion.div 
-            className="relative rounded-2xl overflow-hidden bg-card border border-border"
+          <motion.div
+            className="bg-card border-border relative overflow-hidden rounded-2xl border"
             variants={slideInFromLeft(0.2)}
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="relative h-[400px]">
-              <Image 
-                src={template.screenshots[selectedImage]} 
+              <Image
+                src={template.screenshots[selectedImage]}
                 alt={template.title}
                 fill
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="bg-primary/10 text-primary text-xs font-medium px-2 py-1 rounded-full">
+            <div className="absolute right-0 bottom-0 left-0 p-6">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="bg-primary/10 text-primary rounded-full px-2 py-1 text-xs font-medium">
                   {template.category}
                 </span>
-                <span className="text-white/80 text-sm">
-                  {template.rating} <IconStar className="w-4 h-4 inline-block" /> ({template.reviews} reviews)
+                <span className="text-sm text-white/80">
+                  {template.rating}{" "}
+                  <IconStar className="inline-block h-4 w-4" /> (
+                  {template.reviews} reviews)
                 </span>
               </div>
-              <h1 className="text-3xl font-bold text-white mb-2">{template.title}</h1>
-              <p className="text-white/80 line-clamp-2">{template.description}</p>
+              <h1 className="mb-2 text-3xl font-bold text-white">
+                {template.title}
+              </h1>
+              <p className="line-clamp-2 text-white/80">
+                {template.description}
+              </p>
             </div>
           </motion.div>
 
           {/* Template Info */}
-          <motion.div 
-            className="space-y-6"
-            variants={slideInFromRight(0.2)}
-          >
+          <motion.div className="space-y-6" variants={slideInFromRight(0.2)}>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <motion.button
-                  className={`p-2 rounded-full transition-colors ${
-                    isLiked ? "text-red-500" : "text-muted-foreground hover:text-foreground"
+                  className={`rounded-full p-2 transition-colors ${
+                    isLiked
+                      ? "text-red-500"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                   onClick={handleLike}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <IconHeart className="w-6 h-6" fill={isLiked ? "currentColor" : "none"} />
+                  <IconHeart
+                    className="h-6 w-6"
+                    fill={isLiked ? "currentColor" : "none"}
+                  />
                 </motion.button>
                 <motion.button
-                  className="p-2 rounded-full text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-muted-foreground hover:text-foreground rounded-full p-2 transition-colors"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <IconShare className="w-6 h-6" />
+                  <IconShare className="h-6 w-6" />
                 </motion.button>
               </div>
               <motion.div
@@ -112,7 +128,7 @@ export default function TemplateDetailsPage() {
               {template.tags.map((tag, index) => (
                 <motion.span
                   key={tag}
-                  className="bg-secondary text-foreground text-sm px-3 py-1 rounded-full"
+                  className="bg-secondary text-foreground rounded-full px-3 py-1 text-sm"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1 * index }}
@@ -124,27 +140,27 @@ export default function TemplateDetailsPage() {
 
             <div className="space-y-4">
               <motion.button
-                className="w-full bg-primary text-white dark:text-black py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors"
+                className="bg-primary hover:bg-primary/90 flex w-full items-center justify-center gap-2 rounded-lg py-3 font-medium text-white transition-colors dark:text-black"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <IconDownload className="w-5 h-5" />
+                <IconDownload className="h-5 w-5" />
                 Download Template
               </motion.button>
               <motion.button
-                className="w-full bg-secondary text-foreground py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-secondary/80 transition-colors"
+                className="bg-secondary text-foreground hover:bg-secondary/80 flex w-full items-center justify-center gap-2 rounded-lg py-3 font-medium transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <IconEye className="w-5 h-5" />
+                <IconEye className="h-5 w-5" />
                 Live Preview
               </motion.button>
               <motion.button
-                className="w-full border border-border py-3 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-secondary/50 transition-colors"
+                className="border-border hover:bg-secondary/50 flex w-full items-center justify-center gap-2 rounded-lg border py-3 font-medium transition-colors"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <IconCode className="w-5 h-5" />
+                <IconCode className="h-5 w-5" />
                 View Source Code
               </motion.button>
             </div>
@@ -153,34 +169,36 @@ export default function TemplateDetailsPage() {
       </motion.section>
 
       {/* Tabs Navigation */}
-      <motion.section 
-        className="container mx-auto px-4 mb-12"
+      <motion.section
+        className="container mx-auto mb-12 px-4"
         initial="hidden"
         animate="visible"
         variants={fadeIn()}
       >
-        <div className="border-b border-border">
+        <div className="border-border border-b">
           <div className="flex gap-8">
-            {["overview", "features", "requirements", "screenshots"].map((tab) => (
-              <motion.button
-                key={tab}
-                className={`pb-4 font-medium capitalize ${
-                  activeTab === tab
-                    ? "text-primary border-b-2 border-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                onClick={() => setActiveTab(tab)}
-                whileHover={{ y: -2 }}
-              >
-                {tab}
-              </motion.button>
-            ))}
+            {["overview", "features", "requirements", "screenshots"].map(
+              (tab) => (
+                <motion.button
+                  key={tab}
+                  className={`pb-4 font-medium capitalize ${
+                    activeTab === tab
+                      ? "text-primary border-primary border-b-2"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  onClick={() => setActiveTab(tab)}
+                  whileHover={{ y: -2 }}
+                >
+                  {tab}
+                </motion.button>
+              ),
+            )}
           </div>
         </div>
       </motion.section>
 
       {/* Tab Content */}
-      <motion.section 
+      <motion.section
         className="container mx-auto px-4"
         initial="hidden"
         animate="visible"
@@ -195,11 +213,14 @@ export default function TemplateDetailsPage() {
               exit={{ opacity: 0, y: -20 }}
               className="prose max-w-none"
             >
-              <h2 className="text-2xl font-bold mb-4">Overview</h2>
-              <p className="text-muted-foreground mb-6">{template.description}</p>
+              <h2 className="mb-4 text-2xl font-bold">Overview</h2>
+              <p className="text-muted-foreground mb-6">
+                {template.description}
+              </p>
               <p className="text-muted-foreground">
-                This template is perfect for building modern web applications with a focus on user experience and performance.
-                It includes all the necessary components and features to get started quickly.
+                This template is perfect for building modern web applications
+                with a focus on user experience and performance. It includes all
+                the necessary components and features to get started quickly.
               </p>
             </motion.div>
           )}
@@ -211,18 +232,18 @@ export default function TemplateDetailsPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <h2 className="text-2xl font-bold mb-6">Features</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <h2 className="mb-6 text-2xl font-bold">Features</h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {template.features.map((feature, index) => (
                   <motion.div
                     key={feature}
-                    className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border"
+                    className="bg-card border-border flex items-center gap-3 rounded-lg border p-4"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index }}
                     whileHover={{ x: 5 }}
                   >
-                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <div className="bg-primary h-2 w-2 rounded-full" />
                     <span>{feature}</span>
                   </motion.div>
                 ))}
@@ -237,18 +258,18 @@ export default function TemplateDetailsPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <h2 className="text-2xl font-bold mb-6">Requirements</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <h2 className="mb-6 text-2xl font-bold">Requirements</h2>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {template.requirements.map((requirement, index) => (
                   <motion.div
                     key={requirement}
-                    className="flex items-center gap-3 p-4 bg-card rounded-lg border border-border"
+                    className="bg-card border-border flex items-center gap-3 rounded-lg border p-4"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.1 * index }}
                     whileHover={{ x: 5 }}
                   >
-                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <div className="bg-primary h-2 w-2 rounded-full" />
                     <span>{requirement}</span>
                   </motion.div>
                 ))}
@@ -263,12 +284,12 @@ export default function TemplateDetailsPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <h2 className="text-2xl font-bold mb-6">Screenshots</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <h2 className="mb-6 text-2xl font-bold">Screenshots</h2>
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {template.screenshots.map((screenshot, index) => (
                   <motion.div
                     key={index}
-                    className="relative aspect-video rounded-lg overflow-hidden cursor-pointer"
+                    className="relative aspect-video cursor-pointer overflow-hidden rounded-lg"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 * index }}
@@ -290,4 +311,4 @@ export default function TemplateDetailsPage() {
       </motion.section>
     </div>
   );
-} 
+}
