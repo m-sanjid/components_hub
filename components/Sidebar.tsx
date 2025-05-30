@@ -33,17 +33,16 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
         setIsLoading(false);
       }
     }
-  
+
     loadSnippets();
   }, []);
-  
 
   return (
     <motion.aside
-      className={`sticky top-0 bg-white dark:bg-neutral-900 min-h-screen w-64 z-20 hidden md:block ${className}`}
+      className={`sticky top-14 h-[calc(100vh-4rem)] z-20 hidden overflow-y-auto w-64 bg-white md:block dark:bg-neutral-900 ${className}`}
     >
-      <div className="h-full border-r border-neutral-200 dark:border-neutral-800 bg-inherit flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-800">
+      <div className="flex h-full flex-col border-r border-neutral-200 bg-inherit dark:border-neutral-800">
+        <div className="flex items-center justify-between border-b border-neutral-200 p-4 dark:border-neutral-800">
           <h2 className="text-lg font-semibold text-neutral-800 dark:text-neutral-200">
             Components
           </h2>
@@ -51,16 +50,16 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
 
         <nav className="flex-grow overflow-y-auto py-2">
           {isLoading ? (
-            <div className="flex items-center justify-center h-20 text-neutral-500">
-              <IconLoader2 className="animate-spin mr-2" size={18} />
+            <div className="flex h-20 items-center justify-center text-neutral-500">
+              <IconLoader2 className="mr-2 animate-spin" size={18} />
               <span>Loading components...</span>
             </div>
           ) : error ? (
-            <div className="p-4 text-red-500 text-sm">
+            <div className="p-4 text-sm text-red-500">
               Failed to load components. Please try again.
             </div>
           ) : components.length === 0 ? (
-            <div className="p-4 text-neutral-500 text-sm">
+            <div className="p-4 text-sm text-neutral-500">
               No components found.
             </div>
           ) : (
@@ -86,8 +85,9 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
                   >
                     <Link
                       href={`/components/${component.slug}`}
-                      className={`flex px-3 py-2 rounded-md text-sm transition-colors transition-duration-300 ${isActive ? "font-bold text-primary" : ""
-                        } ${isHovered && hoveredIndex === index ? "text-primary" : "text-muted-foreground"}`}
+                      className={`transition-duration-300 flex rounded-md px-3 py-2 text-sm transition-colors ${
+                        isActive ? "text-primary font-bold" : ""
+                      } ${isHovered && hoveredIndex === index ? "text-primary" : "text-muted-foreground"}`}
                     >
                       <span className="truncate">{component.title}</span>
                       {isHovered && hoveredIndex === index && (
@@ -109,12 +109,12 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
           )}
         </nav>
 
-        <div className="border-t border-neutral-200 dark:border-neutral-800 p-4">
+        <div className="border-t border-neutral-200 p-4 dark:border-neutral-800">
           <div className="text-sm text-neutral-500 dark:text-neutral-400">
             <p className="mb-2">Need help with components?</p>
             <Link
               href="#"
-              className="text-blue-600 dark:text-blue-400 hover:underline flex items-center text-sm"
+              className="flex items-center text-sm text-blue-600 hover:underline dark:text-blue-400"
             >
               <IconHelp size={16} className="mr-1 flex-shrink-0" />
               <span className="truncate">View documentation</span>
@@ -127,4 +127,3 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
 };
 
 export default Sidebar;
-
