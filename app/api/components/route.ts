@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 import { getComponentList } from "@/lib/mdx-server";
 
@@ -8,6 +7,9 @@ export async function GET() {
     return NextResponse.json(components);
   } catch (error) {
     console.error("getAllComponents failed:", error);
-    return NextResponse.json({ error: "Failed to load components" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to load components" },
+      { status: 500 },
+    );
   }
 }

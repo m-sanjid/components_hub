@@ -1,333 +1,181 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { useTheme } from '@/lib/theme-context';
 import {
   IconDeviceMobile,
   IconDeviceTablet,
   IconDeviceDesktop,
-  IconRotate,
-  IconRuler,
   IconMaximize,
   IconMinimize,
-  IconDeviceLaptop,
-  IconDownload
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEventListener } from "usehooks-ts";
+import { cn } from "@/lib/utils";
 
 interface ResponsivePreviewProps {
   children: React.ReactNode;
-  initialViewport?: string;
-  showDimensions?: boolean;
-  allowCustomSize?: boolean;
-  showDownloadOption?: boolean;
 }
 
-interface Viewport {
-  name: string;
-  width: string;
-  height?: string;
-  icon: React.ReactNode;
-}
+const viewports = {
+  mobile: {
+    name: "Mobile",
+    width: 375,
+    height: 667,
+    icon: <IconDeviceMobile className="h-4 w-4" />,
+  },
+  tablet: {
+    name: "Tablet",
+    width: 768,
+    height: 1024,
+    icon: <IconDeviceTablet className="h-4 w-4" />,
+  },
+  desktop: {
+    name: "Desktop",
+    width: 1280,
+    height: 800,
+    icon: <IconDeviceDesktop className="h-4 w-4" />,
+  },
+};
 
-export function ResponsivePreview({
-  children,
-  initialViewport = 'desktop',
-  showDimensions = true,
-  allowCustomSize = true,
-  showDownloadOption = true
-}: ResponsivePreviewProps) {
-  const [viewport, setViewport] = useState(initialViewport);
-  const [isRotated, setIsRotated] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
-  const [customWidth, setCustomWidth] = useState("800");
-  const [customHeight, setCustomHeight] = useState("600");
-  const [isCustomSize, setIsCustomSize] = useState(false);
-  const [scale, setScale] = useState('scale(1)');
+type ViewportKey = keyof typeof viewports;
+
+export function ResponsivePreview({ children }: ResponsivePreviewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const previewRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
+  const [viewport, setViewport] = useState<ViewportKey>("desktop");
+  const [customSize, setCustomSize] = useState(viewports.desktop);
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [resizing, setResizing] = useState(false);
 
-  const viewports: Record<string, Viewport> = {
-    mobile: {
-      name: 'Mobile',
-      width: '375px',
-      height: '667px',
-      icon: <IconDeviceMobile className="w-4 h-4" />
-    },
-    tablet: {
-      name: 'Tablet',
-      width: '768px',
-      height: '1024px',
-      icon: <IconDeviceTablet className="w-4 h-4" />
-    },
-    laptop: {
-      name: 'Laptop',
-      width: '1024px',
-      height: '768px',
-      icon: <IconDeviceLaptop className="w-4 h-4" />
-    },
-    desktop: {
-      name: 'Desktop',
-      width: '100%',
-      height: 'auto',
-      icon: <IconDeviceDesktop className="w-4 h-4" />
-    }
+  const startResizing = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setResizing(true);
   };
 
-  useEffect(() => {
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isFullScreen) {
-        setIsFullScreen(false);
-      }
-    };
-    document.addEventListener('keydown', handleEscapeKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [isFullScreen]);
+  const stopResizing = () => setResizing(false);
 
-  const toggleFullscreen = () => setIsFullScreen(!isFullScreen);
-  const toggleOrientation = () => {
-    if (viewport === 'desktop') return;
-    setIsRotated(!isRotated);
-  };
-
-  const getCurrentDimensions = () => {
-    if (isCustomSize) {
-      return isRotated
-        ? `${customHeight}px × ${customWidth}px`
-        : `${customWidth}px × ${customHeight}px`;
-    }
-    const current = viewports[viewport];
-    if (current.width === '100%') return 'Responsive';
-    return isRotated && current.height
-      ? `${current.height} × ${current.width}`
-      : `${current.width} × ${current.height}`;
-  };
-
-  const handleDownload = () => {
-    alert('Download functionality would capture the current preview as an image');
-  };
-
-  const getContentStyle = () => {
-    if (isCustomSize) {
-      return {
-        width: isRotated ? customHeight + 'px' : customWidth + 'px',
-        height: isRotated ? customWidth + 'px' : customHeight + 'px',
-        maxWidth: '100%',
-        transition: 'width 0.3s ease, height 0.3s ease',
-        overflow: 'auto',
-        position: 'relative'
-      };
-    }
-    const { width, height } = viewports[viewport];
-    if (width === '100%') {
-      return {
-        width: '100%',
-        maxWidth: '100%',
-        transition: 'width 0.3s ease',
-      };
-    }
-    return {
-      width: isRotated && height ? height : width,
-      height: isRotated ? width : height,
-      maxWidth: '100%',
-      transition: 'width 0.3s ease, height 0.3s ease',
-      overflow: 'auto',
-      position: 'relative'
-    };
-  };
-
-  const calculateScale = () => {
-    if (typeof window === 'undefined') return 'scale(1)';
-    if (viewport === 'desktop' && !isCustomSize) return 'scale(1)';
-    const targetWidth = isCustomSize
-      ? (isRotated ? parseInt(customHeight) : parseInt(customWidth))
-      : (isRotated && viewports[viewport].height
-          ? parseInt(viewports[viewport].height!)
-          : parseInt(viewports[viewport].width));
-    const padding = 32;
-    const maxAvailable = window.innerWidth - padding;
-    const scale = Math.min(1, maxAvailable / targetWidth);
-    return `scale(${scale})`;
-  };
-
-  useEffect(() => {
-    setScale(calculateScale());
-    const handleResize = () => setScale(calculateScale());
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [viewport, isCustomSize, customWidth, customHeight, isRotated]);
-
-  // --- DRAG TO RESIZE ---
-  const isDraggingRef = useRef(false);
-
-  const onDrag = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDraggingRef.current) return;
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
-    const rect = previewRef.current?.getBoundingClientRect();
+  const onResize = (e: MouseEvent) => {
+    if (!resizing) return;
+    const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
+    const newWidth = e.clientX - rect.left;
+    const newHeight = e.clientY - rect.top;
+    setCustomSize({
+      ...customSize,
+      width: Math.max(320, newWidth),
+      height: Math.max(300, newHeight),
+    });
+  };
 
-    const newWidth = clientX - rect.left;
-    const newHeight = clientY - rect.top;
-
-    if (!isRotated) {
-      setCustomWidth(String(Math.max(200, Math.round(newWidth))));
-      setCustomHeight(String(Math.max(200, Math.round(newHeight))));
-    } else {
-      setCustomHeight(String(Math.max(200, Math.round(newWidth))));
-      setCustomWidth(String(Math.max(200, Math.round(newHeight))));
+  useEffect(() => {
+    if (resizing) {
+      window.addEventListener("mousemove", onResize);
+      window.addEventListener("mouseup", stopResizing);
     }
-  };
+    return () => {
+      window.removeEventListener("mousemove", onResize);
+      window.removeEventListener("mouseup", stopResizing);
+    };
+  }, [resizing]);
 
-  const startDrag = () => {
-    isDraggingRef.current = true;
-    window.addEventListener('mousemove', onDrag as any);
-    window.addEventListener('mouseup', stopDrag);
-    window.addEventListener('touchmove', onDrag as any);
-    window.addEventListener('touchend', stopDrag);
-  };
+  useEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isMaximized) {
+      setIsMaximized(false);
+    }
+  });
 
-  const stopDrag = () => {
-    isDraggingRef.current = false;
-    window.removeEventListener('mousemove', onDrag as any);
-    window.removeEventListener('mouseup', stopDrag);
-    window.removeEventListener('touchmove', onDrag as any);
-    window.removeEventListener('touchend', stopDrag);
-  };
+  const activeSize = customSize;
 
   return (
-    <div
-      className={`my-6 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden ${
-        isFullScreen ? 'fixed inset-0 z-50 my-0 rounded-none' : ''
-      }`}
-      ref={containerRef}
-    >
-      <div className="p-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex flex-wrap md:flex-nowrap justify-between items-center gap-2">
-        <div className="flex gap-2">
-          {Object.entries(viewports).map(([key, { name, icon }]) => (
+    <div className="relative my-6 space-y-4">
+      {/* Controls */}
+      <div className="flex items-center gap-2">
+        {(Object.keys(viewports) as ViewportKey[]).map((key) => {
+          const isActive = key === viewport;
+          return (
             <button
               key={key}
               onClick={() => {
                 setViewport(key);
-                setIsCustomSize(false);
+                setCustomSize(viewports[key]);
               }}
-              className={`flex items-center px-2 py-1 rounded text-sm ${
-                viewport === key && !isCustomSize
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-                  : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
+              className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                isActive
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/50"
               }`}
-              title={name}
             >
-              {icon}
-              <span className="ml-1 hidden sm:inline">{name}</span>
+              {viewports[key].icon}
+              <span className="hidden sm:inline">{viewports[key].name}</span>
             </button>
-          ))}
-          {allowCustomSize && (
-            <button
-              onClick={() => setIsCustomSize(!isCustomSize)}
-              className={`flex items-center px-2 py-1 rounded text-sm ${
-                isCustomSize
-                  ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-                  : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700'
-              }`}
-              title="Custom Size"
-            >
-              <IconRuler className="w-4 h-4" />
-              <span className="ml-1 hidden sm:inline">Custom</span>
-            </button>
-          )}
-        </div>
-
-        <div className="flex items-center space-x-2">
-          {isCustomSize && (
-            <div className="flex items-center space-x-2">
-              <input
-                type="number"
-                value={customWidth}
-                onChange={(e) => setCustomWidth(e.target.value)}
-                className="w-16 px-2 py-1 text-xs rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                aria-label="Width"
-              />
-              <span className="text-gray-500 dark:text-gray-400">×</span>
-              <input
-                type="number"
-                value={customHeight}
-                onChange={(e) => setCustomHeight(e.target.value)}
-                className="w-16 px-2 py-1 text-xs rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-                aria-label="Height"
-              />
-            </div>
-          )}
-
-          {viewport !== 'desktop' && (
-            <button
-              onClick={toggleOrientation}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-              title="Rotate device"
-            >
-              <IconRotate className="w-4 h-4" />
-            </button>
-          )}
-
-          <button
-            onClick={toggleFullscreen}
-            className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-            title={isFullScreen ? "Exit fullscreen" : "Fullscreen"}
-          >
-            {isFullScreen ? <IconMinimize className="w-4 h-4" /> : <IconMaximize className="w-4 h-4" />}
-          </button>
-
-          {showDownloadOption && (
-            <button
-              onClick={handleDownload}
-              className="p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
-              title="Download as image"
-            >
-              <IconDownload className="w-4 h-4" />
-            </button>
-          )}
-
-          {showDimensions && (
-            <div className="text-xs text-gray-500 dark:text-gray-400 ml-2 hidden sm:block">
-              {getCurrentDimensions()}
-            </div>
-          )}
-        </div>
+          );
+        })}
+        <button
+          onClick={() => setIsMaximized(true)}
+          className="text-muted-foreground hover:bg-muted ml-auto rounded-md p-2"
+        >
+          <IconMaximize className="h-4 w-4" />
+        </button>
       </div>
 
+      {/* Normal Preview Container */}
       <div
-        className={`overflow-auto ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'} p-4 ${
-          isFullScreen ? 'h-[calc(100vh-60px)]' : ''
-        }`}
+        ref={containerRef}
+        className="bg-background relative mx-auto overflow-hidden rounded-md border p-4 shadow"
+        style={{
+          width: activeSize.width,
+          height: activeSize.height,
+        }}
       >
-        <div className="flex justify-center">
-          <div
-            className="relative inline-block"
-            style={{
-              transform: scale,
-              transformOrigin: 'top left',
-            }}
-          >
-            <div
-              ref={previewRef}
-              style={getContentStyle()}
-              className="border border-gray-200 dark:border-gray-700 rounded shadow-sm"
-            >
-              {children}
-              {isCustomSize && (
-                <div
-                  onMouseDown={startDrag}
-                  onTouchStart={startDrag}
-                  className="absolute right-0 bottom-0 w-4 h-4 cursor-se-resize bg-gray-400 dark:bg-gray-600 z-10"
-                />
-              )}
-            </div>
-          </div>
+        <div
+          className={cn(
+            "h-full w-full bg-white dark:bg-zinc-900",
+            viewport === "mobile" ? "grid grid-cols-1" : "",
+          )}
+        >
+          {children}
         </div>
+
+        {/* Resize Handle */}
+        <div
+          onMouseDown={startResizing}
+          className="bg-muted absolute right-0 bottom-0 h-4 w-4 cursor-nwse-resize"
+          title="Resize"
+        />
       </div>
+
+      {/* Maximize Modal */}
+      <AnimatePresence>
+        {isMaximized && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-80 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="bg-background relative overflow-hidden rounded-md border p-4 shadow-2xl"
+              style={{ width: customSize.width, height: customSize.height }}
+            >
+              <div className="absolute top-2 right-2 z-10">
+                <button
+                  onClick={() => setIsMaximized(false)}
+                  className="text-muted-foreground hover:bg-muted rounded-md p-2"
+                >
+                  <IconMinimize className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="h-full w-full overflow-auto bg-white dark:bg-zinc-900">
+                {children}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

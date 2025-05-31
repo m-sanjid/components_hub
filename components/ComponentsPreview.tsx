@@ -12,28 +12,26 @@ const ComponentsPreview = () => {
   const filteredComponents = () => {
     if (currentTab === "all") return components;
     return components.filter((component) =>
-      component.tags.includes(currentTab)
+      component.tags.includes(currentTab),
     );
   };
 
   const handleLike = (componentId: number) => {
-    setVisibleComponent((prev) =>
-      prev === componentId ? null : componentId
-    );
+    setVisibleComponent((prev) => (prev === componentId ? null : componentId));
   };
 
   return (
-    <section id="components" className="py-24 px-4">
+    <section id="components" className="px-4 py-24">
       <div className="container mx-auto">
         <motion.div
-          className="text-center mb-16"
+          className="mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
         >
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="mb-4 text-3xl font-bold md:text-4xl"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -42,7 +40,7 @@ const ComponentsPreview = () => {
             Browse Our <span className="text-primary">Components</span>
           </motion.h2>
           <motion.p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-xl"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -55,20 +53,20 @@ const ComponentsPreview = () => {
 
           {/* Search Bar */}
           <motion.div
-            className="mt-8 max-w-md mx-auto relative"
+            className="relative mx-auto mt-8 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
             <Search
-              className="absolute left-3 top-3 text-muted-foreground"
+              className="text-muted-foreground absolute top-3 left-3"
               size={20}
             />
             <input
               type="text"
               placeholder="Search components..."
-              className="w-full py-3 pl-10 pr-4 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary dark:bg-card dark:text-foreground transition-all duration-300"
+              className="border-border focus:ring-primary focus:border-primary dark:bg-card dark:text-foreground w-full rounded-lg border py-3 pr-4 pl-10 transition-all duration-300 focus:ring-2"
             />
           </motion.div>
 
@@ -85,7 +83,7 @@ const ComponentsPreview = () => {
                 <motion.button
                   key={tab}
                   onClick={() => setCurrentTab(tab)}
-                  className={`px-4 py-2 rounded-full text-sm ${
+                  className={`rounded-full px-4 py-2 text-sm ${
                     currentTab === tab
                       ? "bg-primary text-primary-foreground"
                       : "bg-accent/5 hover:bg-accent/10 text-muted-foreground"
@@ -95,12 +93,12 @@ const ComponentsPreview = () => {
                 >
                   {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 </motion.button>
-              )
+              ),
             )}
           </motion.div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="wait">
             {filteredComponents().map((component) => (
               <motion.div
@@ -112,7 +110,7 @@ const ComponentsPreview = () => {
                 whileHover={{ y: -10 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.4 }}
-                className="bg-card rounded-lg shadow-md overflow-hidden group"
+                className="bg-card group overflow-hidden rounded-lg shadow-md"
                 onMouseEnter={() => setVisibleComponent(component.id)}
                 onMouseLeave={() => setVisibleComponent(null)}
               >
@@ -120,15 +118,15 @@ const ComponentsPreview = () => {
                   <img
                     src={component.image}
                     alt={component.name}
-                    className="w-full h-48 object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="h-48 w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-4 w-full">
-                      <div className="flex gap-2 flex-wrap">
+                  <div className="from-background/70 absolute inset-0 flex items-end bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div className="w-full p-4">
+                      <div className="flex flex-wrap gap-2">
                         {component.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-primary/80 text-primary-foreground text-xs rounded-full"
+                            className="bg-primary/80 text-primary-foreground rounded-full px-2 py-1 text-xs"
                           >
                             {tag}
                           </span>
@@ -138,7 +136,7 @@ const ComponentsPreview = () => {
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+                  <h3 className="mb-2 flex items-center gap-2 text-xl font-bold">
                     {component.name}
                     <motion.div
                       initial={{ opacity: 0, scale: 0 }}
@@ -166,7 +164,7 @@ const ComponentsPreview = () => {
                   <div className="flex items-center justify-between">
                     <motion.a
                       href="#"
-                      className="text-primary hover:text-primary/80 font-medium flex items-center gap-1 group"
+                      className="text-primary hover:text-primary/80 group flex items-center gap-1 font-medium"
                       whileHover={{ x: 3 }}
                     >
                       View Docs
@@ -184,7 +182,7 @@ const ComponentsPreview = () => {
                     </motion.a>
                     <motion.button
                       whileTap={{ scale: 0.95 }}
-                      className="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-4 py-2 transition-colors"
                       onClick={() => {
                         if (visibleComponent === component.id) {
                           setVisibleComponent(null);
