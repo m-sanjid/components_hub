@@ -2,19 +2,14 @@
 
 import { useState } from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import { useTheme } from "@/lib/theme-context";
 import { PropTable } from "./PropsTable";
 import { ResponsivePreview } from "./ResponsivePreview";
 import { CodeBlockWrapper } from "../CodeBlock";
-import {
-  IconCode,
-  IconCopy,
-  IconEye,
-  IconSettings,
-} from "@tabler/icons-react";
+import { IconCode, IconCopy, IconEye, IconSettings } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import AnimatedCheck from "../AnimatedCheck";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 interface EnhancedCodePreviewProps {
   code: string;
@@ -111,11 +106,8 @@ export function EnhancedCodePreview({
           <div className="transition-all duration-300 ease-in-out">
             {responsivePreview ? (
               <ResponsivePreview>
-                <div
-                  id={previewId}
-                  className="flex min-h-[200px] items-center justify-center p-6"
-                >
-                  <div className="w-full max-w-md">{children}</div>
+                <div id={previewId} className="min-h-[200px] p-6">
+                  {children}
                 </div>
               </ResponsivePreview>
             ) : (
@@ -123,9 +115,7 @@ export function EnhancedCodePreview({
                 id={previewId}
                 className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-8"
               >
-                <div className="flex items-center justify-center">
-                  {children}
-                </div>
+                <div className="mx-auto">{children}</div>
               </div>
             )}
           </div>

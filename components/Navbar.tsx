@@ -16,19 +16,19 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
-import { SearchDialog } from "./ui/Search";
 import { IconMenu, IconComponents, IconTemplate } from "@tabler/icons-react";
+import { CommandPalette } from "./Cmdk";
 
 const mainNavItems = [
   {
     title: "Components",
     href: "/components",
-    icon: <IconComponents className="w-4 h-4" />,
+    icon: <IconComponents className="h-4 w-4" />,
   },
   {
     title: "Templates",
     href: "/templates",
-    icon: <IconTemplate className="w-4 h-4" />,
+    icon: <IconTemplate className="h-4 w-4" />,
   },
 ];
 
@@ -84,8 +84,8 @@ export default function Navbar() {
     <motion.nav
       className={`sticky z-50 w-full transition-all duration-300 ${
         isScrolled
-          ? "top-4 mx-auto max-w-5xl border rounded-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-lg"
-          : "top-0 border-b bg-background/95 backdrop-blur"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/60 top-4 mx-auto max-w-5xl rounded-full border shadow-lg backdrop-blur"
+          : "bg-background/95 top-0 border-b backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
@@ -93,7 +93,7 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
-      <div className="max-w-7xl mx-auto flex h-16 items-center px-4 md:px-8 justify-between">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Logo */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Logo />
@@ -105,7 +105,7 @@ export default function Navbar() {
             {/* Hover Effect */}
             {isHovered && (
               <motion.div
-                className="absolute top-0 bottom-0 z-0 bg-primary/10 dark:bg-primary/20 rounded-lg"
+                className="bg-primary/10 dark:bg-primary/20 absolute top-0 bottom-0 z-0 rounded-lg"
                 initial={false}
                 animate={{
                   left: hoverPosition.left,
@@ -120,7 +120,7 @@ export default function Navbar() {
             {mainNavItems.map((item, idx) => (
               <Link href={item.href} key={idx} passHref>
                 <button
-                  className={`gap-2 text-sm flex items-center relative z-10 px-4 py-2 ${
+                  className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm ${
                     pathname === item.href ||
                     pathname.startsWith(item.href + "/")
                       ? "text-primary font-medium"
@@ -136,12 +136,7 @@ export default function Navbar() {
 
             {/* Resources Dropdown */}
             <div className="ml-20">
-            <SearchDialog
-              placeholder="Search components..."
-              shortcut="⌘K"
-              apiUrl="/api/search"
-              componentsApiUrl="/api/components"
-            />
+              <CommandPalette />
             </div>
           </nav>
         </div>
@@ -163,7 +158,7 @@ export default function Navbar() {
                   <DropdownMenuItem key={href} asChild>
                     <Link
                       href={href}
-                      className="flex items-center gap-2 w-full"
+                      className="flex w-full items-center gap-2"
                     >
                       {icon}
                       {title}
@@ -174,12 +169,7 @@ export default function Navbar() {
 
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <SearchDialog
-                  placeholder="Search..."
-                  shortcut="⌘K"
-                  apiUrl="/api/search"
-                  componentsApiUrl="/api/components"
-                />
+                <CommandPalette />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
