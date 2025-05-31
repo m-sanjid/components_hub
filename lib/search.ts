@@ -1,4 +1,4 @@
-import { getComponentList } from './mdx-server';
+import { getComponentList } from "./mdx-server";
 
 type SearchableComponent = {
   slug: string;
@@ -10,7 +10,9 @@ type SearchableComponent = {
 
 let componentCache: SearchableComponent[] | null = null;
 
-export async function searchComponents(query: string): Promise<SearchableComponent[]> {
+export async function searchComponents(
+  query: string,
+): Promise<SearchableComponent[]> {
   if (!componentCache) {
     componentCache = await getComponentList();
   }
@@ -19,16 +21,18 @@ export async function searchComponents(query: string): Promise<SearchableCompone
     return componentCache;
   }
 
-  const searchTerms = query.toLowerCase().split(' ');
-  
-  return componentCache.filter(component => {
+  const searchTerms = query.toLowerCase().split(" ");
+
+  return componentCache.filter((component) => {
     const searchableText = [
       component.title,
       component.description,
       component.category,
-      ...(component.keywords || [])
-    ].join(' ').toLowerCase();
-    
-    return searchTerms.every(term => searchableText.includes(term));
+      ...(component.keywords || []),
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return searchTerms.every((term) => searchableText.includes(term));
   });
 }

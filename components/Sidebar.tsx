@@ -39,7 +39,7 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
 
   return (
     <motion.aside
-      className={`sticky top-14 h-[calc(100vh-4rem)] z-20 hidden overflow-y-auto w-64 bg-white md:block dark:bg-neutral-900 ${className}`}
+      className={`sticky top-14 z-20 hidden h-[calc(100vh-4rem)] w-64 overflow-y-auto bg-white md:block dark:bg-neutral-900 ${className}`}
     >
       <div className="flex h-full flex-col border-r border-neutral-200 bg-inherit dark:border-neutral-800">
         <div className="flex items-center justify-between border-b border-neutral-200 p-4 dark:border-neutral-800">

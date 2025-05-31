@@ -1,22 +1,11 @@
-'use client';
-
-import React from 'react'
-import { ResponsivePreview } from './ResponsivePreview';
-
-export const ComponentPreview = ({ children, showResponsiveView = false }: { children: React.ReactNode, showResponsiveView?: boolean }) => {
-  if (showResponsiveView) {
-    return (
-      <ResponsivePreview initialViewport="desktop">
-        <div className="w-full">
-          {children}
-        </div>
-      </ResponsivePreview>
-    );
-  }
-  
+export const ComponentPreview = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
-    <div className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800">
-      {children}
+    <div className="group border-border bg-background my-8 flex min-h-[200px] w-full items-center justify-center overflow-hidden rounded-xl border p-4">
+      <div className="relative">{children}</div>
     </div>
   );
-}
+};
