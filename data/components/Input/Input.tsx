@@ -1,10 +1,11 @@
 "use client";
 
 import { forwardRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 
-export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -27,6 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       inputSize = "md",
       onFocus,
       onBlur,
+      value,
       ...props
     },
     ref
@@ -43,31 +45,33 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onBlur?.(e);
     };
 
-    const baseClasses = "relative w-full transition-all duration-200 focus:outline-none";
+    const baseClasses =
+      "peer w-full transition-all duration-200 focus:outline-none bg-background text-foreground shadow-sm focus:shadow-md";
 
     const variantClasses = {
-      default: "bg-gradient-to-br from-gray-100 to-gray-200 text-gray-900 shadow-[5px_5px_10px_rgba(0,0,0,0.1),-5px_-5px_10px_rgba(255,255,255,0.8)] focus:shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)]",
-      primary: "bg-gradient-to-br from-primary/10 to-primary/20 text-primary shadow-[5px_5px_10px_rgba(0,0,0,0.1),-5px_-5px_10px_rgba(255,255,255,0.8)] focus:shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)]",
-      secondary: "bg-gradient-to-br from-secondary/10 to-secondary/20 text-secondary shadow-[5px_5px_10px_rgba(0,0,0,0.1),-5px_-5px_10px_rgba(255,255,255,0.8)] focus:shadow-[3px_3px_6px_rgba(0,0,0,0.1),-3px_-3px_6px_rgba(255,255,255,0.8)]",
+      default:
+        "bg-white text-neutral-900 placeholder:text-neutral-400",
+      primary:
+        "bg-primary/10 text-primary placeholder:text-primary/60",
+      secondary:
+        "bg-secondary/10 text-secondary placeholder:text-secondary/60",
     };
 
     const sizeClasses = {
-      sm: "text-sm px-3 py-1.5",
-      md: "text-base px-4 py-2",
-      lg: "text-lg px-6 py-3",
+      sm: "text-sm px-3 py-2",
+      md: "text-base px-4 py-2.5",
+      lg: "text-lg px-5 py-3",
     };
 
+    const isFloating = isFocused || (!!value || !!props.defaultValue);
+
     return (
-      <div className="w-full">
-        {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            {label}
-          </label>
-        )}
+      <div className="relative w-full">
         <div className="relative">
+          {/* Left Icon */}
           {leftIcon && (
             <motion.div
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none z-10"
               initial={{ opacity: 0, x: -5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
@@ -75,27 +79,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {leftIcon}
             </motion.div>
           )}
-          <input
-            ref={ref}
-            className={clsx(
-              baseClasses,
-              variantClasses[variant],
-              sizeClasses[inputSize],
-              "rounded-lg",
-              {
-                "pl-10": leftIcon,
-                "pr-10": rightIcon,
-                "border-red-500": error,
-              },
-              className
-            )}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            {...props}
-          />
+
+          {/* Right Icon */}
           {rightIcon && (
             <motion.div
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none z-10"
               initial={{ opacity: 0, x: 5 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2 }}
@@ -103,39 +91,83 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {rightIcon}
             </motion.div>
           )}
-          {isFocused && (
-            <motion.div
-              className="absolute inset-0 rounded-lg ring-2 ring-primary/20"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
+
+          {/* Input Field */}
+          <input
+            ref={ref}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            className={clsx(
+              baseClasses,
+              variantClasses[variant],
+              sizeClasses[inputSize],
+              "rounded-md border border-neutral-300 focus:ring-2 focus:ring-primary/50 focus:border-primary",
+              {
+                "pl-10": leftIcon,
+                "pr-10": rightIcon,
+                "border-red-500 focus:ring-red-400": error,
+              },
+              className
+            )}
+            {...props}
+          />
+
+          {/* Floating Label */}
+          {label && (
+            <motion.label
+              className={clsx(
+                "absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 pointer-events-none bg-white px-1 transition-all",
+                {
+                  "text-sm top-0 translate-y-[-50%] scale-90": isFloating,
+                  "left-10": leftIcon,
+                  "text-red-500": error,
+                }
+              )}
+              initial={false}
+              animate={{
+                top: isFloating ? "0.1rem" : "50%",
+                left: leftIcon ? "2.5rem" : "1rem",
+                fontSize: isFloating ? "0.75rem" : "1rem",
+                color: error
+                  ? "#ef4444"
+                  : isFocused
+                  ? "#3b82f6"
+                  : "#737373",
+              }}
               transition={{ duration: 0.2 }}
-            />
+            >
+              {label}
+            </motion.label>
           )}
         </div>
-        {error && (
-          <motion.p
-            className="mt-1 text-sm text-red-500"
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {error}
-          </motion.p>
-        )}
-        {helperText && !error && (
-          <motion.p
-            className="mt-1 text-sm text-gray-500"
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {helperText}
-          </motion.p>
-        )}
+
+        {/* Error or Helper Text */}
+        <AnimatePresence>
+          {error ? (
+            <motion.p
+              className="mt-1 text-sm text-red-500"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
+              {error}
+            </motion.p>
+          ) : helperText ? (
+            <motion.p
+              className="mt-1 text-sm text-neutral-500"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+            >
+              {helperText}
+            </motion.p>
+          ) : null}
+        </AnimatePresence>
       </div>
     );
   }
 );
 
-Input.displayName = "Input"; 
+Input.displayName = "Input";
