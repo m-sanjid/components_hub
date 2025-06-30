@@ -5,243 +5,108 @@ category: Inputs
 keywords: ["click", "action", "control", "submit", "interactive"]
 ---
 
-import AnimatedButton from '@/data/components/animated-button/AnimatedButton';
-import { ComponentPreview } from '@/components/docs/ComponentPreview';
-
-<ComponentPreview>
-  <AnimatedButton label="Click Me" />
-</ComponentPreview>
-
-
-import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
-import {ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
-import { IconPlus, IconSettings } from '@tabler/icons-react';
-
-<div className="flex justify-end mb-6">
-  <ThemeSwitcher />
-</div>
-
-
-## Responsive Preview
-
-<EnhancedCodePreview
-  componentName="AnimatedButton"
-  code={`"use client";
-
-import { motion, AnimatePresence } from "motion/react";
-import { useState, ReactNode } from "react";
-import { IconArrowRight } from "@tabler/icons-react";
-import clsx from "clsx";
-
-type AnimatedButtonProps = {
-  label: string;
-  logo?: ReactNode;
-  className?: string;
-  to?: string;
-  onClick?: () => void;
-  external?: boolean;
-  variant?: "primary" | "secondary" | "ghost";
-  size?: "sm" | "md" | "lg";
-  isLoading?: boolean;
-  disabled?: boolean;
-};
-
-export const AnimatedButton = ({
-  label,
-  logo,
-  className,
-  to,
-  onClick,
-  external = false,
-  variant = "primary",
-  size = "md",
-  isLoading = false,
-  disabled = false,
-}: AnimatedButtonProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  const baseStyles =
-    "my-2 px-3 py-2 rounded-md transition-all duration-300 flex items-center justify-center gap-2";
-
-  const sizeVariants: Record<string, string> = {
-    sm: "text-xs",
-    md: "text-base",
-    lg: "text-lg",
-  };
-
-  const variants: Record<string, string> = {
-    primary:
-      "bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600",
-    secondary:
-      "bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600",
-    ghost:
-      "bg-transparent text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20",
-  };
-
-  return (
-    <div>
-      <motion.button
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        onClick={onClick}
-        className={clsx(baseStyles, variants[variant], sizeVariants[size], className)}
-      >
-        <span>{label}</span>
-
-        <div className="relative w-5 h-5">
-          <AnimatePresence mode="wait">
-            {!isHovered ? (
-              <motion.div
-                key="initial-arrow"
-                initial={{ x: 0, opacity: 1 }}
-                exit={{ x: 20, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="absolute top-0 left-0"
-              >
-                {logo ? (
-                  logo
-                ) : (
-                  <IconArrowRight className="w-4 h-4 -rotate-45" />
-                )}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="hover-arrow"
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: -20, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="absolute top-0 left-0"
-              >
-                {logo ? (
-                  logo
-                ) : (
-                  <IconArrowRight className="w-4 h-4 -rotate-45" />
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.button>
-    </div>
-  );
-};
-
-export default AnimatedButton;`}
-  responsivePreview={true}
->
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-    <AnimatedButton label="Save changes" variant="primary" className="w-full" />
-    <AnimatedButton label="Discard" variant="secondary" className="w-full" />
-    <AnimatedButton label="Cancel" variant="outline" className="w-full" />
-  </div>
-</EnhancedCodePreview>
-
-# Button Component
-
-Buttons allow users to take actions, make choices, and trigger events with a single click or tap.
-
-## Basic Usage
-
-<EnhancedCodePreview
-  componentName="Button"
-  code={`<Button>Click me</Button>`}
+<CodePreview
+  name="animated-button"
+  title="Animated Button"
+  description="A customizable button component with multiple variants and sizes"
   props={[
-    { name: "variant", type: "'primary' | 'secondary' | 'outline' | 'ghost'", required: false, defaultValue: "'primary'", description: "The visual style of the button" },
-    { name: "size", type: "'sm' | 'md' | 'lg'", required: false, defaultValue: "'md'", description: "The size of the button" },
-    { name: "disabled", type: "boolean", required: false, defaultValue: "false", description: "Whether the button is disabled" },
-    { name: "onClick", type: "function", required: false, description: "Function called when the button is clicked" }
+    {
+      name: "variant",
+      type: "string",
+      description: "The variant of the button",
+      required: false,
+      defaultValue: "primary",
+    },
+    {
+      name: "size",
+      type: "string",
+      description: "The size of the button",
+      required: false,
+      defaultValue: "md",
+    },
+    {
+      name: "isLoading",
+      type: "boolean",
+      description: "Whether the button is loading",
+      required: false,
+      defaultValue: "false",
+    },
+    {
+      name: "disabled",
+      type: "boolean",
+      description: "Whether the button is disabled",
+      required: false,
+      defaultValue: "false",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "The class name to apply to the button",
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "logo",
+      type: "ReactNode",
+      description: "The logo to display in the button",
+      required: false,
+      defaultValue: "undefined",
+    },
+    {
+      name: "to",
+      type: "string",
+      description: "The URL to navigate to when the button is clicked",
+      required: false,
+      defaultValue: "undefined",
+    },
   ]}
-  withA11yCheck={true}
->
-  <AnimatedButton label="Click me" />
-</EnhancedCodePreview>
+/>
 
-## Variants
+<CodeTabs>
 
-<EnhancedCodePreview
-  componentName="ButtonVariants"
-  code={`
-<div className="flex flex-wrap gap-4">
-  <AnimatedButton label="Primary" variant="primary" />
-  <AnimatedButton label="Secondary" variant="secondary" />
-  <AnimatedButton label="Outline" variant="outline" />
-  <AnimatedButton label="Ghost" variant="ghost" />
-</div>
-  `}
->
-  <div className="flex flex-wrap gap-4">
-    <AnimatedButton label="Primary" variant="primary" />
-    <AnimatedButton label="Secondary" variant="secondary" />
-    <AnimatedButton label="Outline" variant="outline" />
-    <AnimatedButton label="Ghost" variant="ghost" />
-  </div>
-</EnhancedCodePreview>
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
-## Sizes
+```bash
+npx shadcn@latest add animated-button --component
+```
 
-<EnhancedCodePreview
-  componentName="ButtonSizes"
-  code={`
-<div className="flex flex-wrap items-center gap-4">
-  <AnimatedButton label="Small" size="sm" />
-  <AnimatedButton label="Medium" size="md" />
-  <AnimatedButton label="Large" size="lg" />
-</div>
-  `}
->
-  <div className="flex flex-wrap items-center gap-4">
-    <AnimatedButton label="Small" size="sm" />
-    <AnimatedButton label="Medium" size="md" />
-    <AnimatedButton label="Large" size="lg" />
-  </div>
-</EnhancedCodePreview>
+</TabsContent>
 
-## Responsive Preview
+<TabsContent value="manual">
 
-<EnhancedCodePreview
-  componentName="ButtonResponsive"
-  code={`
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-  <Button variant="primary" className="w-full">Save changes</Button>
-  <Button variant="secondary" className="w-full">Discard</Button>
-  <Button variant="outline" className="w-full">Cancel</Button>
-</div>
-  `}
-  responsivePreview={true}
->
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-    <AnimatedButton label="Save changes" variant="primary" className="w-full" />
-    <AnimatedButton label="Discard" variant="secondary" className="w-full" />
-    <AnimatedButton label="Cancel" variant="outline" className="w-full" />
-  </div>
-</EnhancedCodePreview>
+<Steps>
 
-## With Icons
+<Step>Install the following dependencies:</Step>
 
-<EnhancedCodePreview
-  componentName="ButtonWithIcons"
-  code={`
-<div className="flex flex-wrap gap-4">
-  <Button>
-    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-    </svg>
-    Add item
-  </Button>
-  <Button variant="outline">
-    Settings
-    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  </Button>
-</div>
-  `}
->
-  <div className="flex flex-wrap gap-4">
-    <AnimatedButton label="Add item" size="sm" logo={<IconPlus className="w-5 h-5" />} />
-    <AnimatedButton label="Settings" variant="outline" logo={<IconSettings className="w-5 h-5" />} />
-  </div>
-</EnhancedCodePreview>
+```bash
+npm install motion lucide-react
+```
 
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="animated-button"
+  title="components/ui/animated-button.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import { AnimatedButton } from "@/components/ui/animated-button";
+```
+
+```tsx showLineNumbers
+<AnimatedButton />
+```

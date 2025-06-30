@@ -5,239 +5,86 @@ category: Display
 keywords: ["accordion", "expandable", "animated", "interactive", "collapsible"]
 ---
 
-import { ComponentPreview } from "@/components/docs/ComponentPreview";
-import { AnimatedAccordion } from "@/data/components/Accordion/AnimatedAccordion";
-import { AccordionExample } from "@/data/components/Accordion/AccordionExamples";
+<CodePreview
+  name="animated-accordion"
+  title="Animated Accordion"
+  description="A beautiful and interactive accordion component with smooth animations and customizable content"
+  props={[
+    {
+      name: "items",
+      type: "array",
+      description: "The items to display in the accordion",
+      required: true,
+    },
+    {
+      name: "type",
+      type: "string",
+      description: "The type of accordion to display",
+      required: false,
+      defaultValue: "single",
+    },
+    {
+      name: "defaultOpen",
+      type: "array",
+      description: "The items to display in the accordion",
+      required: false,
+      defaultValue: "[]",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "The class name to apply to the accordion",
+      required: false,
+      defaultValue: "",
+    },
+  ]}
+/>
 
-<ComponentPreview>
-<AccordionExample />
-</ComponentPreview>
+<CodeTabs>
 
-import { EnhancedCodePreview } from "@/components/docs/EnhancedCodePreview";
-import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
-<div className="mb-6 flex justify-end">
-  <ThemeSwitcher />
-</div>
-
-# Animated Accordion Component
-
-The Animated Accordion component provides a beautiful way to display expandable content sections with smooth animations. It supports both single and multiple item expansion modes, custom icons, and disabled states.
-
-## Key Features
-
-- **Smooth Animations**: Built with Framer Motion for fluid transitions
-- **Multiple Modes**: Support for single and multiple item expansion
-- **Custom Icons**: Add icons to accordion items
-- **Disabled States**: Disable specific accordion items
-- **Responsive Design**: Works seamlessly across all device sizes
-- **Accessibility**: Keyboard navigation and screen reader support
-- **Customizable**: Easy to style and extend with your own content
-
-## Basic Usage
-
-<EnhancedCodePreview
-  componentName="Accordion"
-  code={`import { AnimatedAccordion } from '@/data/components/Accordion/AnimatedAccordion';
-
-const accordionItems = [
-  {
-    id: "item-1",
-    title: "Getting Started",
-    content: "Learn how to get started with our platform and explore its features."
-  },
-  {
-    id: "item-2",
-    title: "Installation",
-    content: "Follow these steps to install and configure the platform."
-  },
-  {
-    id: "item-3",
-    title: "Configuration",
-    content: "Customize your settings and preferences to match your needs."
-  }
-];
-
-<AnimatedAccordion items={accordionItems} />`}
->
-  <AccordionExample />
-</EnhancedCodePreview>
-
-## Multiple Expansion Mode
-
-Allow multiple items to be expanded simultaneously:
-
-<EnhancedCodePreview
-  componentName="MultipleAccordion"
-  code={`import { AnimatedAccordion } from '@/data/components/Accordion/AnimatedAccordion';
-
-const multipleItems = [
-  {
-    id: "item-1",
-    title: "Features",
-    content: "Explore the key features of our platform."
-  },
-  {
-    id: "item-2",
-    title: "Pricing",
-    content: "View our pricing plans and choose the one that fits your needs."
-  },
-  {
-    id: "item-3",
-    title: "Support",
-    content: "Get help and support from our team."
-  }
-];
-
-<AnimatedAccordion 
-  items={multipleItems} 
-  type="multiple"
-  defaultOpen={["item-1"]}
-/>`}
->
-  <AccordionExample type="multiple" />
-</EnhancedCodePreview>
-
-## Customization Options
-
-### Accordion Item Structure
-
-```typescript
-interface AccordionItem {
-  id: string;
-  title: string;
-  content: React.ReactNode;
-  icon?: React.ReactNode;
-  disabled?: boolean;
-}
+```bash
+npx shadcn@latest add animated-accordion --component
 ```
 
-### Available Props
+</TabsContent>
 
-- `items`: Array of AccordionItem objects
-- `type`: Expansion mode ("single" | "multiple")
-- `defaultOpen`: Array of item IDs to be expanded by default
-- `className`: Additional CSS classes for styling
+<TabsContent value="manual">
 
-### Animation Configuration
+<Steps>
 
-Built with Framer Motion, the component includes:
+<Step>Install the following dependencies:</Step>
 
-- **Smooth Height Transitions**: Fluid animations for expanding/collapsing
-- **Rotation Animation**: Smooth rotation of the chevron icon
-- **Opacity Transitions**: Fade in/out effects for content
-- **Gesture Support**: Touch-friendly interactions
+```bash
+npm install motion lucide-react
+```
 
-## Accessibility Features
+<Step>Copy and paste the following code into your project.</Step>
 
-- **Keyboard Navigation**: Full keyboard support for expanding/collapsing
-- **Screen Reader Friendly**: Proper ARIA labels and semantic HTML
-- **Focus Management**: Clear focus indicators for interactive elements
-- **Disabled States**: Proper handling of disabled items
-- **High Contrast**: Ensures adequate color contrast for all states
+<ComponentSource
+  name="animated-accordion"
+  title="components/ui/animated-accordion.tsx"
+/>
 
-## Advanced Examples
+<Step>Update the import paths to match your project setup.</Step>
 
-### Accordion with Icons
+</Steps>
 
-Add custom icons to your accordion items:
+</TabsContent>
 
-<EnhancedCodePreview
-  componentName="AccordionWithIcons"
-  code={`import { AnimatedAccordion } from '@/data/components/Accordion/AnimatedAccordion';
-import { IconRocket, IconSettings, IconHelp } from '@tabler/icons-react';
+</CodeTabs>
 
-const itemsWithIcons = [
-  {
-    id: "item-1",
-    title: "Quick Start",
-    content: "Get up and running quickly with our platform.",
-    icon: <IconRocket className="h-5 w-5" />
-  },
-  {
-    id: "item-2",
-    title: "Settings",
-    content: "Configure your account and preferences.",
-    icon: <IconSettings className="h-5 w-5" />
-  },
-  {
-    id: "item-3",
-    title: "Help & Support",
-    content: "Find answers to common questions and get support.",
-    icon: <IconHelp className="h-5 w-5" />
-  }
-];
+## Usage
 
-<AnimatedAccordion items={itemsWithIcons} />`}
->
-  <AccordionExample withIcons />
-</EnhancedCodePreview>
+```tsx showLineNumbers
+import { AnimatedAccordion } from "@/components/ui/animated-accordion";
+```
 
-### Accordion with Rich Content
-
-Create accordions with rich, formatted content:
-
-<EnhancedCodePreview
-  componentName="RichAccordion"
-  code={`import { AnimatedAccordion } from '@/data/components/Accordion/AnimatedAccordion';
-
-const richItems = [
-  {
-    id: "item-1",
-    title: "Product Features",
-    content: (
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Key Features</h3>
-        <ul className="list-disc pl-4 space-y-2">
-          <li>Feature 1: Description of the first feature</li>
-          <li>Feature 2: Description of the second feature</li>
-          <li>Feature 3: Description of the third feature</li>
-        </ul>
-        <div className="bg-muted p-3 rounded-md">
-          <p className="text-sm">Additional information about the features.</p>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: "item-2",
-    title: "Pricing Plans",
-    content: (
-      <div className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="border rounded-lg p-4">
-            <h4 className="font-semibold">Basic</h4>
-            <p className="text-2xl font-bold">$9/mo</p>
-            <ul className="mt-2 space-y-1">
-              <li>Feature 1</li>
-              <li>Feature 2</li>
-            </ul>
-          </div>
-          <div className="border rounded-lg p-4">
-            <h4 className="font-semibold">Pro</h4>
-            <p className="text-2xl font-bold">$19/mo</p>
-            <ul className="mt-2 space-y-1">
-              <li>All Basic features</li>
-              <li>Feature 3</li>
-              <li>Feature 4</li>
-            </ul>
-          </div>
-          <div className="border rounded-lg p-4">
-            <h4 className="font-semibold">Enterprise</h4>
-            <p className="text-2xl font-bold">$49/mo</p>
-            <ul className="mt-2 space-y-1">
-              <li>All Pro features</li>
-              <li>Feature 5</li>
-              <li>Feature 6</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    )
-  }
-];
-
-<AnimatedAccordion items={richItems} />`}
->
-  <AccordionExample withRichContent />
-</EnhancedCodePreview> 
+```tsx showLineNumbers
+<AnimatedAccordion />
+```
