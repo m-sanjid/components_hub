@@ -5,153 +5,101 @@ category: Components
 keywords: ["click", "action", "control", "submit", "interactive"]
 ---
 
-import SocialLinks from '@/data/components/social-share/SocialShare';
-import { ComponentPreview } from '@/components/docs/ComponentPreview';
+<CodePreview
+  name="social-share"
+  title="Social Share"
+  description="An animated social share component"
+  props={[
+    {
+      name: "socialLinks",
+      type: "array",
+      description: "The social links to display",
+      required: true,
+      defaultValue:
+        "[{name: 'Github', icon: <IconBrandGithub />, link: 'https://github.com', color: 'bg-black'}, {name: 'LinkedIn', icon: <IconBrandLinkedin />, link: 'https://linkedin.com', color: 'bg-blue-500'}, {name: 'WhatsApp', icon: <IconBrandWhatsapp />, link: 'https://wa.me', color: 'bg-green-500'}, {name: 'X', icon: <IconBrandX />, link: 'https://x.com', color: 'bg-black'}]",
+    },
+  ]}
+/>
 
-<ComponentPreview>
-<SocialLinks/>
-</ComponentPreview>
+<CodeTabs>
 
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
-import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
-import {ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
+```bash
+npx shadcn@latest add social-share --component
+```
 
-<div className="flex justify-end mb-6">
-  <ThemeSwitcher />
-</div>
+</TabsContent>
 
+<TabsContent value="manual">
 
+<Steps>
 
-# Social Links Component
+<Step>Install the following dependencies:</Step>
 
-Social Links component allows users to share their social media profiles.
+```bash
+npm install motion @tabler/icons-react
+```
 
-## Basic Usage
+<Step>Copy and paste the following code into your project.</Step>
 
-<EnhancedCodePreview
-  componentName="SocialLinks"
-  code={`<SocialLinks />`}
->
-  <SocialLinks />
-</EnhancedCodePreview>
+<ComponentSource name="social-share" title="components/ui/social-share.tsx" />
 
-## Variants
+<Step>Update the import paths to match your project setup.</Step>
 
-<EnhancedCodePreview
-  componentName="SocialLinksVariants"
-  code={`
-<div className="flex flex-wrap gap-4">
-  <Button variant="primary">Primary</Button>
-  <Button variant="secondary">Secondary</Button>
-  <Button variant="outline">Outline</Button>
-  <Button variant="ghost">Ghost</Button>
-</div>
-  `}
->
-  <div className="flex flex-wrap gap-4">
-    <Button variant="primary">Primary</Button>
-    <Button variant="secondary">Secondary</Button>
-    <Button variant="outline">Outline</Button>
-    <Button variant="ghost">Ghost</Button>
-  </div>
-</EnhancedCodePreview>
+</Steps>
 
-## Sizes
+</TabsContent>
 
-<EnhancedCodePreview
-  componentName="SocialLinksSizes"
-  code={`
-<div className="flex flex-wrap items-center gap-4">
-  <Button size="sm">Small</Button>
-  <Button size="md">Medium</Button>
-  <Button size="lg">Large</Button>
-</div>
-  `}
->
-  <div className="flex flex-wrap items-center gap-4">
-    <Button size="sm">Small</Button>
-    <Button size="md">Medium</Button>
-    <Button size="lg">Large</Button>
-  </div>
-</EnhancedCodePreview>
+</CodeTabs>
 
-## Responsive Preview
+## Usage
 
-<EnhancedCodePreview
-  componentName="SocialLinksResponsive"
-  code={`
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-  <Button variant="primary" className="w-full">Save changes</Button>
-  <Button variant="secondary" className="w-full">Discard</Button>
-  <Button variant="outline" className="w-full">Cancel</Button>
-</div>
-  `}
-  responsivePreview={true}
->
-  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-    <Button variant="primary" className="w-full">Save changes</Button>
-    <Button variant="secondary" className="w-full">Discard</Button>
-    <Button variant="outline" className="w-full">Cancel</Button>
-  </div>
-</EnhancedCodePreview>
+Add Your Social Links to the `socialLinks` array in the `SocialShare` component.
 
-## With Icons
+```tsx showLineNumbers
+import { SocialShare } from "@/components/ui/social-share";
+```
 
-<EnhancedCodePreview
-  componentName="SocialLinksIcons"
-  code={`
-<div className="flex flex-wrap gap-4">
-  <Button>
-    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-    </svg>
-    Add item
-  </Button>
-  <Button variant="outline">
-    Settings
-    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  </Button>
-</div>
-  `}
->
-  <div className="flex flex-wrap gap-4">
-    <Button>
-      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-      </svg>
-      Add item
-    </Button>
-    <Button variant="outline">
-      Settings
-      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    </Button>
-  </div>
-</EnhancedCodePreview>
+```tsx showLineNumbers
+import {
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconBrandWhatsapp,
+  IconBrandX,
+} from "@tabler/icons-react";
 
-{/* ## Accessibility
+const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
+const socialLinks = [
+  {
+    name: "Github",
+    icon: <IconBrandGithub />,
+    link: "https://github.com/yourusername",
+    color: "bg-black",
+  },
+  {
+    name: "LinkedIn",
+    icon: <IconBrandLinkedin />,
+    link: "https://linkedin.com/in/yourusername",
+    color: "bg-blue-500",
+  },
+  {
+    name: "WhatsApp",
+    icon: <IconBrandWhatsapp />,
+    link: `https://wa.me/${phoneNumber}`,
+    color: "bg-green-500",
+  },
+  {
+    name: "X",
+    icon: <IconBrandX />,
+    link: "https://x.com/yourusername",
+    color: "bg-black",
+  },
+];
 
-The Button component follows WAI-ARIA guidelines:
-
-- Uses native `<button>` elements for proper keyboard interactions
-- Includes appropriate ARIA attributes when needed
-- Maintains sufficient color contrast in all variants
-- Provides focus styles for keyboard navigation
-
-## Best Practices
-
-- Use clear, action-oriented text that describes what happens when the button is clicked
-- Choose the appropriate variant based on the button's importance
-- Primary buttons should be used for the main action in a form or page
-- Limit the number of primary buttons on a page to avoid confusion
-- Keep button text concise (2-3 words is ideal)
-- Use icons to enhance meaning, not replace text (except for well-known icons)
-
-## Implementation Notes
-
-The Button component is built using Tailwind CSS for styling. The styles adjust automatically based on the selected theme. */}
+<SocialShare socialLinks={socialLinks} />;
+```
