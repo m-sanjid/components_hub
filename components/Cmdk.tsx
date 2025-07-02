@@ -18,6 +18,7 @@ import {
   IconSearch,
   IconTemplate,
 } from "@tabler/icons-react";
+import { useRouter } from "next/navigation";
 
 interface ComponentData {
   id: string;
@@ -40,11 +41,11 @@ export function CommandPalette() {
         e.preventDefault();
         setOpen(true);
       }
-      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "jk" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         window.location.href = "/components";
       }
-      if (e.key === "l" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "jl" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         window.location.href = "/templates";
       }
@@ -66,6 +67,12 @@ export function CommandPalette() {
     fetchComponents();
   }, []);
 
+  const router = useRouter();
+  const navigate = (path: string) => {
+    router.push(path);
+    setOpen(false);
+  };
+
   return (
     <>
       <div
@@ -85,18 +92,26 @@ export function CommandPalette() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Navigation">
-            <CommandItem>
+            <CommandItem
+              onSelect={() => {
+                navigate("/components");
+              }}
+            >
               <IconComponents />
               <span>Components</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
-                ⌘J
+                ⌘JK
               </CommandShortcut>
             </CommandItem>
-            <CommandItem>
+            <CommandItem
+              onSelect={() => {
+                navigate("/templates");
+              }}
+            >
               <IconTemplate />
               <span>Templates</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
-                ⌘L
+                ⌘JL
               </CommandShortcut>
             </CommandItem>
           </CommandGroup>
@@ -113,12 +128,11 @@ export function CommandPalette() {
                 <span>No components found</span>
               </CommandItem>
             ) : (
-              components.map((component) => (
+              components.map((component, index) => (
                 <CommandItem
-                  key={component.id}
+                  key={index}
                   onSelect={() => {
-                    setOpen(false);
-                    window.location.href = "/components/" + component.slug;
+                    navigate("/components/" + component.slug);
                   }}
                 >
                   <IconComponents />

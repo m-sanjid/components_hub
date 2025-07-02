@@ -1,12 +1,12 @@
-import React from 'react'
+import React from "react";
 
 const Usage = () => {
   return (
     <div>
-        <h2 className="text-lg font-semibold mb-2">Usage</h2>
-        <p>Here&apos;s how to use the component:</p>
+      <h2 className="mb-2 text-lg font-semibold">Usage</h2>
+      <p>Here&apos;s how to use the component:</p>
     </div>
-  )
-}
+  );
+};
 
-export default Usage
+export default Usage;

@@ -5,18 +5,17 @@ category: Navigation
 keywords: ["navigation", "menu", "links", "responsive", "mobile"]
 ---
 
-
-import { ComponentPreview } from '@/components/docs/ComponentPreview';
-import Navbar from '@/data/components/Navbar/Navbar';
+import { ComponentPreview } from "@/components/docs/ComponentPreview";
+import Navbar from "@/data/components/Navbar/Navbar";
 
 <ComponentPreview>
   <Navbar />
 </ComponentPreview>
 
-import { EnhancedCodePreview } from '@/components/docs/EnhancedCodePreview';
-import {ThemeSwitcher } from '@/components/docs/ThemeSwitcher';
+import { CodePreview } from "@/components/docs/CodePreview";
+import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
 
-<div className="flex justify-end mb-6">
+<div className="mb-6 flex justify-end">
   <ThemeSwitcher />
 </div>
 
@@ -26,7 +25,7 @@ Navbars are used to navigate between pages and sections of a website.
 
 ## Basic Usage
 
-<EnhancedCodePreview
+<CodePreview
   componentName="Navbar"
   code={`"use client";
 
@@ -36,51 +35,50 @@ import { IconMenu, IconStar, IconX } from "@tabler/icons-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import clsx from "clsx";
 
-
 const navItems = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/projects", label: "Projects" },
-  { path: "/blog", label: "Blog" },
-  { path: "/snippets", label: "Snippets" },
-  { path: "/contact", label: "Contact" },
+{ path: "/", label: "Home" },
+{ path: "/about", label: "About" },
+{ path: "/projects", label: "Projects" },
+{ path: "/blog", label: "Blog" },
+{ path: "/snippets", label: "Snippets" },
+{ path: "/contact", label: "Contact" },
 ];
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
-  const { scrollY } = useScroll();
-  const [isScrolled, setIsScrolled] = useState(false);
+const [isOpen, setIsOpen] = useState(false);
+const [isHovered, setIsHovered] = useState(false);
+const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
+const { scrollY } = useScroll();
+const [isScrolled, setIsScrolled] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 0);
-  });
+useMotionValueEvent(scrollY, "change", (latest) => {
+setIsScrolled(latest > 0);
+});
 
-  const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { offsetLeft, offsetWidth } = e.currentTarget;
-    setHoverPosition({ left: offsetLeft, width: offsetWidth });
-    setIsHovered(true);
-  };
+const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
+const { offsetLeft, offsetWidth } = e.currentTarget;
+setHoverPosition({ left: offsetLeft, width: offsetWidth });
+setIsHovered(true);
+};
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+const handleMouseLeave = () => {
+setIsHovered(false);
+};
 
-  return (
-    <div className="relative w-full">
-      <nav
-        className={clsx(
-          "w-full z-50",
-          isScrolled
-            ? "rounded-lg bg-neutral-200/80 dark:bg-black/80 backdrop-blur-xl mx-10 max-w-4xl duration-300 ease-in-out px-10"
-            : "max-w-7xl" 
-        )}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="container mx-auto px-4 max-w-5xl">
-          <div className="flex items-center justify-between h-16">
-            <IconStar size={20} />
+return (
+
+<div className="relative w-full">
+<nav
+className={clsx(
+"w-full z-50",
+isScrolled
+? "rounded-lg bg-neutral-200/80 dark:bg-black/80 backdrop-blur-xl mx-10 max-w-4xl duration-300 ease-in-out px-10"
+: "max-w-7xl"
+)}
+onMouseLeave={handleMouseLeave} >
+<div className="container mx-auto px-4 max-w-5xl">
+<div className="flex items-center justify-between h-16">
+<IconStar size={20} />
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-4 relative">
@@ -143,7 +141,8 @@ const Navbar = () => {
         </div>
       </nav>
     </div>
-  );
+
+);
 };
 
 export default Navbar;
@@ -152,11 +151,11 @@ export default Navbar;
   <ComponentPreview>
     <Navbar />
   </ComponentPreview>
-</EnhancedCodePreview>
+</CodePreview>
 
 ## Responsive Preview
 
-<EnhancedCodePreview
+<CodePreview
   componentName="NavbarResponsive"
   code={`
 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
@@ -165,9 +164,7 @@ export default Navbar;
   `}
   responsivePreview={true}
 >
-  <div className="grid grid-cols-1 gap-4 w-full">
+  <div className="grid w-full grid-cols-1 gap-4">
     <Navbar />
   </div>
-</EnhancedCodePreview>
-
-
+</CodePreview>

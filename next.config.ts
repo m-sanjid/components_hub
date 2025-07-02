@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   // Enable experimental features if needed
   experimental: {
     mdxRs: true,
@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'images.unsplash.com',
+        hostname: "images.unsplash.com",
       },
     ],
   },
@@ -21,9 +21,9 @@ const nextConfig: NextConfig = {
       test: /\.mdx?$/,
       use: [
         {
-          loader: '@mdx-js/loader',
+          loader: "@mdx-js/loader",
           options: {
-            providerImportSource: '@mdx-js/react',
+            providerImportSource: "@mdx-js/react",
           },
         },
       ],

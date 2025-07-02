@@ -8,19 +8,23 @@ export async function getComponentList() {
   const componentsDirectory = path.join(process.cwd(), "content/components");
   const filenames = fs.readdirSync(componentsDirectory);
 
-  return filenames.map((filename) => {
-    const slug = filename.replace(/\.mdx$/, "");
-    const fullPath = path.join(componentsDirectory, filename);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-    const { data } = matter(fileContents);
+  return filenames
+    .filter(
+      (filename) => filename.endsWith(".mdx") || filename.endsWith(".tsx"),
+    )
+    .map((filename) => {
+      const slug = filename.replace(/\.(mdx|tsx)$/, "");
+      const fullPath = path.join(componentsDirectory, filename);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
+      const { data } = matter(fileContents);
 
-    return {
-      slug,
-      title: data.title || slug,
-      description: data.description || "",
-      category: data.category || "Uncategorized",
-    };
-  });
+      return {
+        slug,
+        title: data.title || slug,
+        description: data.description || "",
+        category: data.category || "Uncategorized",
+      };
+    });
 }
 
 // Get a specific component's documentation
@@ -30,18 +34,22 @@ export async function getComponentBySlug(slug: string) {
     "content/components",
     `${slug}.mdx`,
   );
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  try {
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data, content } = matter(fileContents);
 
-  return {
-    meta: {
-      slug,
-      title: data.title || slug,
-      description: data.description || "",
-      category: data.category || "Uncategorized",
-    },
-    content,
-  };
+    return {
+      meta: {
+        slug,
+        title: data.title || slug,
+        description: data.description || "",
+        category: data.category || "Uncategorized",
+      },
+      content,
+    };
+  } catch (err) {
+    return undefined;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

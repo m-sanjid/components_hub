@@ -5,11 +5,11 @@ import { motion } from "motion/react";
 
 const Working = () => {
   return (
-    <section className="py-20 px-4 bg-accent/5">
+    <section className="bg-accent/5 px-4 py-20">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
+        <div className="mb-16 text-center">
           <motion.h2
-            className="text-3xl font-bold mb-4"
+            className="mb-4 text-3xl font-bold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -18,7 +18,7 @@ const Working = () => {
             How It Works
           </motion.h2>
           <motion.p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-muted-foreground mx-auto max-w-2xl text-xl"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -28,21 +28,21 @@ const Working = () => {
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid gap-8 md:grid-cols-3">
           {/* Step 1 */}
           <motion.div
-            className="bg-card p-6 rounded-lg shadow-md relative"
+            className="bg-card relative rounded-lg p-6 shadow-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             whileHover={{ y: -5 }}
           >
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-6">
+            <div className="bg-primary text-primary-foreground absolute -top-6 left-6 flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold">
               1
             </div>
-            <h3 className="text-xl font-bold mt-6 mb-4">Install the library</h3>
-            <div className="bg-accent/5 p-4 rounded mb-4 font-mono text-sm overflow-x-auto">
+            <h3 className="mt-6 mb-4 text-xl font-bold">Install the library</h3>
+            <div className="bg-accent/5 mb-4 overflow-x-auto rounded p-4 font-mono text-sm">
               <code>npm install components-ui</code>
             </div>
             <p className="text-muted-foreground">
@@ -52,19 +52,19 @@ const Working = () => {
 
           {/* Step 2 */}
           <motion.div
-            className="bg-card p-6 rounded-lg shadow-md relative"
+            className="bg-card relative rounded-lg p-6 shadow-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
             whileHover={{ y: -5 }}
           >
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-6">
+            <div className="bg-primary text-primary-foreground absolute -top-6 left-6 flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold">
               2
             </div>
-            <h3 className="text-xl font-bold mt-6 mb-4">Choose a component</h3>
-            <div className="bg-accent/5 p-4 rounded mb-4 font-mono text-sm overflow-x-auto">
-              <code>import {"{ Button }"} from 'components-ui'</code>
+            <h3 className="mt-6 mb-4 text-xl font-bold">Choose a component</h3>
+            <div className="bg-accent/5 mb-4 overflow-x-auto rounded p-4 font-mono text-sm">
+              <code>import {"{ Button }"} from &quot;components-ui&quot;</code>
             </div>
             <p className="text-muted-foreground">
               Import the components you need in your project.
@@ -73,20 +73,20 @@ const Working = () => {
 
           {/* Step 3 */}
           <motion.div
-            className="bg-card p-6 rounded-lg shadow-md relative"
+            className="bg-card relative rounded-lg p-6 shadow-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
             whileHover={{ y: -5 }}
           >
-            <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-xl absolute -top-6 left-6">
+            <div className="bg-primary text-primary-foreground absolute -top-6 left-6 flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold">
               3
             </div>
-            <h3 className="text-xl font-bold mt-6 mb-4">
+            <h3 className="mt-6 mb-4 text-xl font-bold">
               Customize to fit your needs
             </h3>
-            <div className="bg-accent/5 p-4 rounded mb-4 font-mono text-sm overflow-x-auto">
+            <div className="bg-accent/5 mb-4 overflow-x-auto rounded p-4 font-mono text-sm">
               <code>
                 {"<Button variant='primary' size='lg'>Get Started</Button>"}
               </code>

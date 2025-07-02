@@ -9,6 +9,8 @@ import { ComponentSource } from "./ComponentSource";
 import { getIconForLanguageExtension } from "./Icons";
 import { CodeTabs } from "./CodeTabs";
 import { PropsTable } from "./PropsTable";
+import { TemplateCard } from "./TemplateCard";
+import { TemplateShowcase } from "./TemplateShowcase";
 
 export const mdxComponents = {
   pre: (props: any) => {
@@ -310,4 +312,6 @@ export const mdxComponents = {
   CodeTabs,
   CodePreview,
   PropsTable,
+  TemplateCard,
+  TemplateShowcase,
 };

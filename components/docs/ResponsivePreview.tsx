@@ -8,7 +8,7 @@ import {
   IconMinimize,
 } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { useEventListener } from "usehooks-ts";
 import { cn } from "@/lib/utils";
 

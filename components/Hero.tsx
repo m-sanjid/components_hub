@@ -4,12 +4,11 @@ import { motion } from "motion/react";
 import React from "react";
 import { ArrowRight, Code, Package } from "lucide-react";
 
-
 const Hero = () => {
   return (
-    <section className="py-24 px-4 relative overflow-hidden">
+    <section className="relative overflow-hidden px-4 py-24">
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 dark:from-accent/10 dark:to-primary/10 z-0"
+        className="from-accent/20 to-primary/20 dark:from-accent/10 dark:to-primary/10 absolute inset-0 z-0 bg-gradient-to-br"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -17,7 +16,7 @@ const Hero = () => {
 
       {/* Background animated shapes */}
       <motion.div
-        className="absolute top-20 right-10 w-64 h-64 bg-primary/20 rounded-full mix-blend-multiply filter blur-xl opacity-20 dark:opacity-10"
+        className="bg-primary/20 absolute top-20 right-10 h-64 w-64 rounded-full opacity-20 mix-blend-multiply blur-xl filter dark:opacity-10"
         animate={{
           x: [0, 30, 0],
           y: [0, -30, 0],
@@ -29,7 +28,7 @@ const Hero = () => {
         }}
       />
       <motion.div
-        className="absolute bottom-20 left-10 w-80 h-80 bg-accent/20 rounded-full mix-blend-multiply filter blur-xl opacity-20 dark:opacity-10"
+        className="bg-accent/20 absolute bottom-20 left-10 h-80 w-80 rounded-full opacity-20 mix-blend-multiply blur-xl filter dark:opacity-10"
         animate={{
           x: [0, -20, 0],
           y: [0, 40, 0],
@@ -42,27 +41,27 @@ const Hero = () => {
         }}
       />
 
-      <div className="max-w-5xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-center gap-12">
+      <div className="relative z-10 mx-auto max-w-5xl">
+        <div className="flex flex-col items-center gap-12 md:flex-row">
           <motion.div
-            className="md:w-1/2 space-y-6"
+            className="space-y-6 md:w-1/2"
             initial={{ x: -100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <motion.h1
-              className="text-4xl md:text-6xl font-bold leading-tight"
+              className="text-4xl leading-tight font-bold md:text-6xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-black via-black/90 to-black/70 dark:from-white/90 dark:via-white/90 dark:to-white/80">
+              <span className="bg-gradient-to-r from-black via-black/90 to-black/70 bg-clip-text text-transparent dark:from-white/90 dark:via-white/90 dark:to-white/80">
                 Build Beautiful Interfaces
               </span>{" "}
               with <span className="text-primary inline-block">S ui</span>
             </motion.h1>
             <motion.p
-              className="text-xl text-muted-foreground"
+              className="text-muted-foreground text-xl"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.7 }}
@@ -78,7 +77,7 @@ const Hero = () => {
             >
               <motion.a
                 href="/login"
-                className="group px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium flex items-center gap-2 overflow-hidden relative"
+                className="group bg-primary text-primary-foreground relative flex items-center gap-2 overflow-hidden rounded-lg px-6 py-3 font-medium"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -90,7 +89,7 @@ const Hero = () => {
                   <ArrowRight size={18} />
                 </motion.div>
                 <motion.div
-                  className="absolute inset-0 bg-primary/90"
+                  className="bg-primary/90 absolute inset-0"
                   initial={{ x: "-100%" }}
                   whileHover={{ x: 0 }}
                   transition={{ duration: 0.3 }}
@@ -99,7 +98,7 @@ const Hero = () => {
               </motion.a>
               <motion.a
                 href="/components"
-                className="group px-6 py-3 border border-border rounded-lg font-medium flex items-center gap-2 hover:border-primary transition-colors relative overflow-hidden"
+                className="group border-border hover:border-primary relative flex items-center gap-2 overflow-hidden rounded-lg border px-6 py-3 font-medium transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -114,7 +113,7 @@ const Hero = () => {
             </motion.div>
 
             <motion.div
-              className="pt-4 flex items-center gap-6"
+              className="flex items-center gap-6 pt-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.2 }}
@@ -123,7 +122,7 @@ const Hero = () => {
                 {[...Array(4)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="w-8 h-8 rounded-full bg-accent border-2 border-background flex items-center justify-center text-xs font-bold"
+                    className="bg-accent border-background flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold"
                     initial={{ scale: 0, rotate: -180 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: i * 0.1 }}
@@ -133,36 +132,36 @@ const Hero = () => {
                   </motion.div>
                 ))}
               </div>
-              <div className="text-sm text-muted-foreground">
-                <span className="font-bold text-foreground">5,000+</span>{" "}
+              <div className="text-muted-foreground text-sm">
+                <span className="text-foreground font-bold">5,000+</span>{" "}
                 developers using our components
               </div>
             </motion.div>
           </motion.div>
 
           <motion.div
-            className="md:w-1/2 mt-8 md:mt-0"
+            className="mt-8 md:mt-0 md:w-1/2"
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <motion.div
-              className="bg-card p-6 rounded-lg shadow-xl relative"
+              className="bg-card relative rounded-lg p-6 shadow-xl"
               whileHover={{ y: -5 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute -top-2 -left-2 bg-primary text-primary-foreground px-3 py-1 rounded-md text-sm font-medium">
+              <div className="bg-primary text-primary-foreground absolute -top-2 -left-2 rounded-md px-3 py-1 text-sm font-medium">
                 Live preview
               </div>
-              <div className="flex gap-2 mb-3">
-                <div className="w-3 h-3 rounded-full bg-destructive"></div>
-                <div className="w-3 h-3 rounded-full bg-warning"></div>
-                <div className="w-3 h-3 rounded-full bg-success"></div>
+              <div className="mb-3 flex gap-2">
+                <div className="bg-destructive h-3 w-3 rounded-full"></div>
+                <div className="bg-warning h-3 w-3 rounded-full"></div>
+                <div className="bg-success h-3 w-3 rounded-full"></div>
               </div>
               <motion.img
                 src="/api/placeholder/600/400"
                 alt="UI Components Preview"
-                className="w-full h-auto rounded"
+                className="h-auto w-full rounded"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1, delay: 0.5 }}
@@ -170,7 +169,7 @@ const Hero = () => {
 
               {/* Floating element animations */}
               <motion.div
-                className="absolute -right-6 -bottom-6 bg-primary text-primary-foreground p-3 rounded-lg shadow-lg"
+                className="bg-primary text-primary-foreground absolute -right-6 -bottom-6 rounded-lg p-3 shadow-lg"
                 animate={{ y: [0, -10, 0] }}
                 transition={{
                   duration: 2,
