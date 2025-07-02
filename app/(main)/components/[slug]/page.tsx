@@ -1,5 +1,71 @@
-import { getComponentBySlug, processMdx } from "@/lib/mdx-server";
+import {
+  getComponentBySlug,
+  processMdx,
+  getComponentList,
+} from "@/lib/mdx-server";
 import { componentsRegistry } from "@/lib/component-registry";
+import PostNavigation from "@/components/PostNavigation";
+import { Metadata } from "next";
+import { absoluteUrl } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
+import React from "react";
+import { redirect } from "next/navigation";
+
+const getCachedRegistryItem = React.cache(async (slug: string) => {
+  return await getComponentBySlug(slug);
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const item = await getCachedRegistryItem(slug);
+
+  if (!item) {
+    return {
+      title: "Component not found",
+      description: "The component you are looking for does not exist.",
+    };
+  }
+
+  const title = item.meta.title;
+  const description = item.meta.description;
+
+  return {
+    title: item.meta.title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: absoluteUrl(`/components/${item.meta.slug}`),
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.ogImage],
+      creator: "@components_hub",
+    },
+  };
+}
+
+export async function generateStaticParams() {
+  const components = await getComponentList();
+  return components.map((component) => ({
+    slug: component.slug,
+  }));
+}
 
 export default async function ComponentDetail({
   params,
@@ -7,14 +73,25 @@ export default async function ComponentDetail({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { content, meta } = await getComponentBySlug(slug);
+  const result = await getComponentBySlug(slug);
+  if (!result) {
+    redirect("/components");
+  }
+  const { content, meta } = result;
   const MDXContent = await processMdx(content, componentsRegistry);
+  const allComponents = await getComponentList();
+  const currentIndex = allComponents.findIndex((comp) => comp.slug === slug);
+  const prevComponent =
+    currentIndex > 0 ? allComponents[currentIndex - 1] : null;
+  const nextComponent =
+    currentIndex < allComponents.length - 1
+      ? allComponents[currentIndex + 1]
+      : null;
 
   return (
     <div className="bg-background min-h-screen">
       <article className="container mx-auto px-4 py-8 lg:py-16">
-        {/* Header Section */}
-        <div className="mb-12 text-center">
+        <div className="mb-12 text-start">
           <h1 className="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">
             {meta.title}
           </h1>
@@ -22,13 +99,32 @@ export default async function ComponentDetail({
             {meta.description}
           </p>
         </div>
-
         {/* Content Section */}
         <div className="mx-auto max-w-4xl">
           <div className="prose prose-lg dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:rounded-lg prose-pre:p-4 prose-img:rounded-lg prose-img:shadow-md">
             {MDXContent}
           </div>
         </div>
+
+        <PostNavigation
+          basePath="components"
+          prevPost={
+            prevComponent
+              ? {
+                  slug: prevComponent.slug,
+                  title: prevComponent.title,
+                }
+              : null
+          }
+          nextPost={
+            nextComponent
+              ? {
+                  slug: nextComponent.slug,
+                  title: nextComponent.title,
+                }
+              : null
+          }
+        />
       </article>
     </div>
   );

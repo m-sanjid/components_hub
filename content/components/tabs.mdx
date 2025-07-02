@@ -5,317 +5,92 @@ category: Navigation
 keywords: ["tabs", "navigation", "switching", "animated", "interactive"]
 ---
 
-import { ComponentPreview } from "@/components/docs/ComponentPreview";
-import { Tabs } from "@/data/components/Tabs/Tabs";
-import { TabsExample } from "@/data/components/Tabs/TabsExample";
-
-<ComponentPreview>
-  <TabsExample />
-</ComponentPreview>
-
-import { EnhancedCodePreview } from "@/components/docs/EnhancedCodePreview";
-import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
-import { TabsWithOnChangeExample } from "@/data/components/Tabs/TabsExample";
-import { ComplexTabsExample } from "@/data/components/Tabs/TabsExample";
-
-<div className="mb-6 flex justify-end">
-  <ThemeSwitcher />
-</div>
-
-# Tabs Component
-
-Tabs components are used to organize content into separate views that can be switched between. This component includes micro-interactions and animations for better user experience.
-
-## Basic Usage
-
-<EnhancedCodePreview
-  componentName="Tabs"
-  code={`import { Tabs } from '@/data/components/Tabs/Tabs';
-
-const tabs = [
-{
-value: "tab1",
-label: "Tab 1",
-content: <p>Content for tab 1</p>,
-},
-{
-value: "tab2",
-label: "Tab 2",
-content: <p>Content for tab 2</p>,
-},
-{
-value: "tab3",
-label: "Tab 3",
-content: <p>Content for tab 3</p>,
-},
-];
-
-<Tabs tabs={tabs} />`}
->
-<TabsExample/>
-</EnhancedCodePreview>
-
-## With Default Value
-
-Tabs can have a default active tab:
-
-<EnhancedCodePreview
-  componentName="TabsWithDefault"
-  code={`import { Tabs } from '@/data/components/Tabs/Tabs';
-
-const tabs = [
-{
-value: "tab1",
-label: "Tab 1",
-content: <p>Content for tab 1</p>,
-},
-{
-value: "tab2",
-label: "Tab 2",
-content: <p>Content for tab 2</p>,
-},
-{
-value: "tab3",
-label: "Tab 3",
-content: <p>Content for tab 3</p>,
-},
-];
-
-<TabsExample defaultValue="tab2" />`}
->
-  <TabsExample defaultValue="tab2" />
-</EnhancedCodePreview>
-
-## With Disabled Tabs
-
-Tabs can be disabled:
-
-<EnhancedCodePreview
-  componentName="TabsWithDisabled"
-  code={`import { Tabs } from '@/data/components/Tabs/Tabs';
-
-const tabs = [
-{
-value: "tab1",
-label: "Tab 1",
-content: <p>Content for tab 1</p>,
-},
-{
-value: "tab2",
-label: "Tab 2",
-content: <p>Content for tab 2</p>,
-disabled: true,
-},
-{
-value: "tab3",
-label: "Tab 3",
-content: <p>Content for tab 3</p>,
-},
-];
-
-<Tabs tabs={tabs} />`}
->
-  <Tabs
-    tabs={[
-      {
-        value: "tab1",
-        label: "Tab 1",
-        content: <p>Content for tab 1</p>,
-      },
-      {
-        value: "tab2",
-        label: "Tab 2",
-        content: <p>Content for tab 2</p>,
-        disabled: true,
-      },
-      {
-        value: "tab3",
-        label: "Tab 3",
-        content: <p>Content for tab 3</p>,
-      },
-    ]}
-  />
-</EnhancedCodePreview>
-
-## With OnChange Handler
-
-Tabs can have an onChange handler to respond to tab changes:
-
-<EnhancedCodePreview
-  componentName="TabsWithOnChange"
-  code={`import { Tabs } from '@/data/components/Tabs/Tabs';
-import { useState } from 'react';
-
-const TabsWithOnChangeExample = () => {
-const [activeTab, setActiveTab] = useState("tab1");
-
-const tabs = [
-{
-value: "tab1",
-label: "Tab 1",
-content: <p>Content for tab 1</p>,
-},
-{
-value: "tab2",
-label: "Tab 2",
-content: <p>Content for tab 2</p>,
-},
-{
-value: "tab3",
-label: "Tab 3",
-content: <p>Content for tab 3</p>,
-},
-];
-
-return (
-<div className="space-y-4">
-<Tabs
-tabs={tabs}
-defaultValue={activeTab}
-onValueChange={(value) => {
-setActiveTab(value);
-console.log("Active tab:", value);
-}}
+<CodePreview
+  name="tabs"
+  title="Tabs"
+  description="A customizable tabs component with micro-interactions and various states"
+  props={[
+    {
+      name: "value",
+      type: "string",
+      description: "The value of the tab to display",
+    },
+    {
+      name: "label",
+      type: "string",
+      description: "The label of the tab to display",
+    },
+    {
+      name: "content",
+      type: "React.ReactNode",
+      description: "The content of the tab to display",
+    },
+  ]}
 />
-<p className="text-sm text-muted-foreground">
-Active tab: {activeTab}
-</p>
-</div>
-);
-};`}
 
->
+<CodeTabs>
 
-  <TabsWithOnChangeExample />
-</EnhancedCodePreview>
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
-## Complex Example
+```bash
+npx shadcn@latest add tabs --component
+```
 
-Here's a more complex example showing how tabs can be used in a real-world scenario:
+</TabsContent>
 
-<EnhancedCodePreview
-  componentName="ComplexTabsExample"
-  code={`import { Tabs } from '@/data/components/Tabs/Tabs';
-import { Card } from '@/data/components/Card/Card';
-import { Button } from '@/data/components/Button/Button';
+<TabsContent value="manual">
 
-const ComplexTabsExample = () => {
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install motion
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="tabs"
+  title="components/ui/tabs.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import { Tabs } from "@/components/ui/tabs";
+```
+
+```tsx showLineNumbers
 const tabs = [
-{
-value: "overview",
-label: "Overview",
-content: (
-<div className="space-y-4">
-<Card>
-<div className="p-6">
-<h3 className="text-lg font-semibold">Project Overview</h3>
-<p className="mt-2 text-muted-foreground">
-This is a brief overview of the project. It includes key metrics
-and important information.
-</p>
-</div>
-</Card>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-<Card>
-<div className="p-6">
-<h4 className="text-sm font-medium">Total Users</h4>
-<p className="mt-2 text-2xl font-bold">1,234</p>
-</div>
-</Card>
-<Card>
-<div className="p-6">
-<h4 className="text-sm font-medium">Active Users</h4>
-<p className="mt-2 text-2xl font-bold">567</p>
-</div>
-</Card>
-<Card>
-<div className="p-6">
-<h4 className="text-sm font-medium">Conversion Rate</h4>
-<p className="mt-2 text-2xl font-bold">45%</p>
-</div>
-</Card>
-</div>
-</div>
-),
-},
-{
-value: "settings",
-label: "Settings",
-content: (
-<div className="space-y-4">
-<Card>
-<div className="p-6">
-<h3 className="text-lg font-semibold">Project Settings</h3>
-<p className="mt-2 text-muted-foreground">
-Configure your project settings here.
-</p>
-<div className="mt-4 space-y-4">
-<div className="space-y-2">
-<label className="text-sm font-medium">Project Name</label>
-<input
-                    type="text"
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                    placeholder="Enter project name"
-                  />
-</div>
-<div className="space-y-2">
-<label className="text-sm font-medium">Description</label>
-<textarea
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
-                    placeholder="Enter project description"
-                    rows={3}
-                  />
-</div>
-<div className="flex justify-end">
-<Button>Save Changes</Button>
-</div>
-</div>
-</div>
-</Card>
-</div>
-),
-},
-{
-value: "team",
-label: "Team",
-content: (
-<div className="space-y-4">
-<Card>
-<div className="p-6">
-<div className="flex items-center justify-between">
-<h3 className="text-lg font-semibold">Team Members</h3>
-<Button>Add Member</Button>
-</div>
-<div className="mt-4 space-y-4">
-{[1, 2, 3].map((i) => (
-<div
-                    key={i}
-                    className="flex items-center justify-between rounded-lg border p-4"
-                  >
-<div className="flex items-center gap-3">
-<div className="h-10 w-10 rounded-full bg-muted" />
-<div>
-<p className="font-medium">Team Member {i}</p>
-<p className="text-sm text-muted-foreground">
-team.member{i}@example.com
-</p>
-</div>
-</div>
-<Button variant="outline">Remove</Button>
-</div>
-))}
-</div>
-</div>
-</Card>
-</div>
-),
-},
+  {
+    value: "tab1",
+    label: "Tab 1",
+    content: <p>This is content for Tab 1.</p>,
+  },
+  {
+    value: "tab2",
+    label: "Tab 2",
+    content: <p>This is content for Tab 2.</p>,
+  },
+  {
+    value: "tab3",
+    label: "Tab 3",
+    content: <p>This is content for Tab 3.</p>,
+  },
 ];
 
-return <Tabs tabs={tabs} />;
-};`}
-
->
-
-  <ComplexTabsExample />
-</EnhancedCodePreview>
+<Tabs tabs={tabs} />
+```

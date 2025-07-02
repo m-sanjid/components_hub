@@ -2,23 +2,11 @@ import { getComponentList } from "@/lib/mdx-server";
 import { componentsRegistry } from "@/lib/component-registry";
 import { getComponentDemoOnly } from "@/lib/mdx-demo";
 import { IconComponents, IconLayoutGrid } from "@tabler/icons-react";
+import Link from "next/link";
 
 export default async function ComponentsPage() {
   const components = await getComponentList();
 
-  const getCardLayout = (index: number) => {
-    const patterns = [
-      { cols: "lg:col-span-2", rows: "lg:row-span-2", size: "large" },
-      { cols: "lg:col-span-1", rows: "lg:row-span-1", size: "normal" },
-      { cols: "lg:col-span-1", rows: "lg:row-span-1", size: "normal" },
-      { cols: "lg:col-span-2", rows: "lg:row-span-1", size: "wide" },
-      { cols: "lg:col-span-1", rows: "lg:row-span-1", size: "normal" },
-      { cols: "lg:col-span-1", rows: "lg:row-span-1", size: "normal" },
-      { cols: "lg:col-span-1", rows: "lg:row-span-1", size: "normal" },
-    ];
-
-    return patterns[index % patterns.length];
-  };
 
   return (
     <div className="from-background via-background to-muted/20 min-h-screen bg-gradient-to-br">
@@ -41,39 +29,22 @@ export default async function ComponentsPage() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
           {await Promise.all(
             components.map(async (component, index) => {
-              const Demo = await getComponentDemoOnly(
-                component.slug,
-                componentsRegistry,
-              );
-
-              const layout = getCardLayout(index);
-              const isLarge = layout.size === "large";
-              const isWide = layout.size === "wide";
+              const Demo = await getComponentDemoOnly(component.slug);
 
               return (
-                <div
+                <Link
+                  href={`/components/${component.slug}`}
                   key={component.slug}
-                  className={`group border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${layout.cols} ${layout.rows}`}
+                  className={`group border-border/50 bg-card/50 hover:border-primary/30 hover:shadow-primary/5 relative overflow-hidden rounded-2xl border backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
                 >
                   {/* Component Preview */}
                   <div
-                    className={`from-muted/30 to-muted/10 relative bg-gradient-to-br p-6 ${
-                      isLarge
-                        ? "min-h-[400px]"
-                        : isWide
-                          ? "min-h-[220px]"
-                          : "min-h-[200px]"
+                    className={`from-muted/30 to-muted/10 relative bg-gradient-to-br p-6 min-h-[200px]"
                     }`}
                   >
                     <div className="flex h-full items-center justify-center">
                       <div
-                        className={`w-full ${
-                          isLarge
-                            ? "max-w-md"
-                            : isWide
-                              ? "max-w-lg"
-                              : "max-w-sm"
-                        } transform transition-transform duration-300 group-hover:scale-105`}
+                        className={`w-full  transform transition-transform duration-300 group-hover:scale-105`}
                       >
                         {Demo}
                       </div>
@@ -85,7 +56,7 @@ export default async function ComponentsPage() {
                     <div className="space-y-2">
                       <h3
                         className={`font-semibold tracking-tight ${
-                          isLarge ? "text-2xl" : "text-lg"
+                          "text-lg"
                         }`}
                       >
                         {component.title}
@@ -112,7 +83,7 @@ export default async function ComponentsPage() {
                       WebkitMaskComposite: "xor",
                     }}
                   />
-                </div>
+                </Link>
               );
             }),
           )}

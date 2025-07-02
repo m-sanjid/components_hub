@@ -12,7 +12,7 @@ const SocialLinks = () => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
 
   return (
-    <div className="flex gap-3 flex-wrap justify-center">
+    <div className="flex flex-wrap justify-center gap-3">
       {socialLink.map((item, index) => (
         <motion.div
           key={item.name}
@@ -31,7 +31,7 @@ const SocialLinks = () => {
               whileTap={{ scale: 0.95 }}
               onMouseEnter={() => setHoverIndex(index)}
               onMouseLeave={() => setHoverIndex(null)}
-              className="relative p-3 bg-black/10 dark:bg-white/10 hover:shadow-lg backdrop-blur-sm rounded-full transition-all duration-300"
+              className="relative rounded-full bg-black/10 p-3 backdrop-blur-sm transition-all duration-300 hover:shadow-lg dark:bg-white/10"
             >
               {item.icon}
             </motion.div>
@@ -44,14 +44,14 @@ const SocialLinks = () => {
                 animate={{ opacity: 1, y: -5, scale: 1 }}
                 exit={{ opacity: 0, y: 5, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute text-nowrap left-1/2 -translate-x-1/2 -top-10 py-1 px-3 text-xs bg-black dark:bg-white text-white dark:text-black backdrop-blur-sm rounded-md z-10 shadow-md"
+                className="absolute -top-10 left-1/2 z-10 -translate-x-1/2 rounded-md bg-black px-3 py-1 text-xs text-nowrap text-white shadow-md backdrop-blur-sm dark:bg-white dark:text-black"
                 style={{
                   boxShadow: `0 4px 12px rgba(0,0,0,0.1)`,
                   minWidth: "max-content",
                 }}
               >
                 {item.name}
-                <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-black dark:bg-white rotate-45"></div>
+                <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-black dark:bg-white"></div>
               </motion.div>
             )}
           </AnimatePresence>

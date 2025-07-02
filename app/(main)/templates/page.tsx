@@ -6,6 +6,7 @@ import Link from "next/link";
 import { IconArrowRight, IconSearch, IconFilter } from "@tabler/icons-react";
 import { fadeIn, slideInFromBottom, staggerContainer } from "@/lib/animations";
 import { categories, templates } from "@/lib/constants";
+import Image from "next/image";
 
 export default function TemplatesPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -86,12 +87,12 @@ export default function TemplatesPage() {
               >
                 <Link href={`/templates/${template.id}`}>
                   <div className="relative mb-4 h-56 overflow-hidden rounded-xl">
-                    {/* <Image 
-                      src={template.image} 
-                      alt={template.title} 
+                    <Image
+                      src={template.image}
+                      alt={template.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    /> */}
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-6">
                       <span className="bg-primary text-secondary mb-2 inline-block rounded-full px-2 py-1 text-xs font-medium">
@@ -230,7 +231,6 @@ export default function TemplatesPage() {
     </div>
   );
 }
-
 interface TemplateCardProps {
   template: {
     id: number;
@@ -291,3 +291,4 @@ function TemplateCard({ template, index }: TemplateCardProps) {
     </motion.div>
   );
 }
+

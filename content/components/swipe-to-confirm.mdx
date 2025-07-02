@@ -7,10 +7,25 @@ keywords: ["swipe", "gesture", "confirm", "dismiss", "interactive"]
 
 import { SwipeToConfirm } from "@/data/components/Swipe/SwipeToConfirm";
 import { ComponentPreview } from "@/components/docs/ComponentPreview";
-import { EnhancedCodePreview } from "@/components/docs/EnhancedCodePreview";
+import { CodePreview } from "@/components/docs/CodePreview";
 
 import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
-import { Check, X, Archive, Trash2, Heart, ShoppingCart, Star, Power, Lock, Unlock, Volume2, VolumeX, Send, Download } from "lucide-react";
+import {
+  Check,
+  X,
+  Archive,
+  Trash2,
+  Heart,
+  ShoppingCart,
+  Star,
+  Power,
+  Lock,
+  Unlock,
+  Volume2,
+  VolumeX,
+  Send,
+  Download,
+} from "lucide-react";
 import SwipeUseCasesDemo from "@/data/components/Swipe/SwipeToConfirmDemo";
 
 <div className="mb-6 flex justify-end">
@@ -19,7 +34,7 @@ import SwipeUseCasesDemo from "@/data/components/Swipe/SwipeToConfirmDemo";
 
 ## Component Code
 
-<EnhancedCodePreview
+<CodePreview
   componentName="SwipeToConfirm"
   code={`"use client";
 
@@ -104,13 +119,13 @@ export function SwipeToConfirm({
     dismissText="Dismiss"
     neutralText="Swipe to action"
   />
-</EnhancedCodePreview>
+</CodePreview>
 
 ## Use Cases
 
 ### Notification Management
 
-<EnhancedCodePreview
+<CodePreview
   componentName="NotificationSwipe"
   code={`
 <SwipeToConfirm
@@ -126,5 +141,5 @@ export function SwipeToConfirm({
 />
   `}
 >
-  <SwipeUseCasesDemo/>
-</EnhancedCodePreview>
+  <SwipeUseCasesDemo />
+</CodePreview>

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { Components } from "@/types";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { allTemplates } from "@/lib/constants";
 
 interface SidebarProps {
   className?: string;
@@ -63,49 +64,93 @@ const Sidebar = ({ className, currentSlug }: SidebarProps) => {
               No components found.
             </div>
           ) : (
-            <motion.ul className="space-y-1 px-3">
-              {components.map((component, index) => {
-                const isActive = component.slug === currentSlug;
+            <>
+              <motion.ul className="space-y-1 px-3">
+                {components.map((component, index) => {
+                  const isActive = component.slug === currentSlug;
 
-                return (
-                  <motion.li
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    exit={{ x: 0 }}
-                    transition={{ duration: 0.2, delay: 0.1 }}
-                    onMouseEnter={() => {
-                      setIsHovered(true);
-                      setHoveredIndex(index);
-                    }}
-                    onMouseLeave={() => {
-                      setIsHovered(false);
-                      setHoveredIndex(null);
-                    }}
-                    key={component.slug}
-                  >
-                    <Link
-                      href={`/components/${component.slug}`}
-                      className={`transition-duration-300 flex rounded-md px-3 py-2 text-sm transition-colors ${
-                        isActive ? "text-primary font-bold" : ""
-                      } ${isHovered && hoveredIndex === index ? "text-primary" : "text-muted-foreground"}`}
+                  return (
+                    <motion.li
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      exit={{ x: 0 }}
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                      onMouseEnter={() => {
+                        setIsHovered(true);
+                        setHoveredIndex(index);
+                      }}
+                      onMouseLeave={() => {
+                        setIsHovered(false);
+                        setHoveredIndex(null);
+                      }}
+                      key={component.slug}
                     >
-                      <span className="truncate">{component.title}</span>
-                      {isHovered && hoveredIndex === index && (
-                        <motion.div
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -10 }}
-                          transition={{ duration: 0.2 }}
-                          className="absolute right-3"
-                        >
-                          <IconArrowRight size={16} />
-                        </motion.div>
-                      )}
-                    </Link>
-                  </motion.li>
-                );
-              })}
-            </motion.ul>
+                      <Link
+                        href={`/components/${component.slug}`}
+                        className={`transition-duration-300 flex rounded-md px-3 py-2 text-sm transition-colors ${
+                          isActive ? "text-primary font-bold" : ""
+                        } ${isHovered && hoveredIndex === index ? "text-primary" : "text-muted-foreground"}`}
+                      >
+                        <span className="truncate">{component.title}</span>
+                        {isHovered && hoveredIndex === index && (
+                          <motion.div
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute right-3"
+                          >
+                            <IconArrowRight size={16} />
+                          </motion.div>
+                        )}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+              <motion.ul>
+                {allTemplates.map((template, index) => {
+                  const isActive = template === currentSlug;
+                  return (
+                    <motion.li
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      exit={{ x: 0 }}
+                      transition={{ duration: 0.2, delay: 0.1 }}
+                      onMouseEnter={() => {
+                        setIsHovered(true);
+                        setHoveredIndex(index);
+                      }}
+                      onMouseLeave={() => {
+                        setIsHovered(false);
+                        setHoveredIndex(null);
+                      }}
+                      key={template}
+                    >
+                      <Link
+                        href={`/templates/${template}`}
+                        className={`transition-duration-300 flex rounded-md px-3 py-2 text-sm transition-colors ${
+                          isActive ? "text-primary font-bold" : ""
+                        } ${isHovered && hoveredIndex === index ? "text-primary" : "text-muted-foreground"}`}
+                      >
+                        <span className="truncate">{template}</span>
+                        {isHovered && hoveredIndex === index && (
+                          <motion.div
+                            initial={{ opacity: 0, x: 10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="absolute right-3"
+                          >
+                            <IconArrowRight size={16} />
+                          </motion.div>
+                        )}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+            </>
           )}
         </nav>
 

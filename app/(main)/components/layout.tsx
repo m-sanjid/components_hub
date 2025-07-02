@@ -8,12 +8,12 @@ export default function ComponentsLayout({
 }) {
   return (
     <div className="relative min-h-screen">
-        <main className="mx-auto flex max-w-7xl gap-4 px-4 sm:px-6 lg:px-8">
-          <div className="w-64">
-            <Sidebar />
-          </div>
-          <div className="flex-1">{children}</div>
-        </main>
+      <main className="mx-auto flex max-w-7xl gap-4 px-4 sm:px-6 lg:px-8">
+        <div className="md:w-64">
+          <Sidebar />
+        </div>
+        <div className="flex-1">{children}</div>
+      </main>
     </div>
   );
 }

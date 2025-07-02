@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
+import { FloatingCTA } from "@/components/FCTA";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           <Toaster />
           <Navbar />
           {children}
+          {/* <FloatingCTA /> */}
         </div>
         <Footer />
       </body>

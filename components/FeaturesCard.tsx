@@ -17,14 +17,14 @@ const FeatureCard = ({
 }) => {
   return (
     <motion.div
-      className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-shadow border border-gray-100"
+      className="rounded-xl border border-neutral-100 bg-white p-8 shadow-md transition-shadow hover:shadow-lg"
       variants={fadeIn(animationDelay)}
     >
-      <div className="bg-primary/10 text-primary p-3 rounded-lg inline-block mb-4">
+      <div className="bg-primary/10 text-primary mb-4 inline-block rounded-lg p-3">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold mb-3">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="mb-3 text-xl font-semibold">{title}</h3>
+      <p className="text-neutral-600">{description}</p>
     </motion.div>
   );
 };
