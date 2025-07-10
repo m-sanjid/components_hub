@@ -2,9 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import { Highlight, themes } from "prism-react-renderer";
-import { PropsTable } from "./PropsTable";
 import { ResponsivePreview } from "./ResponsivePreview";
-import { IconCode, IconCopy, IconEye, IconSettings } from "@tabler/icons-react";
+import { IconCode, IconCopy, IconEye } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import AnimatedCheck from "../AnimatedCheck";
 import { cn } from "@/lib/utils";
@@ -15,7 +14,6 @@ interface CodePreviewProps {
   language?: string;
   children?: React.ReactNode;
   componentName?: string;
-  props?: any[];
   responsivePreview?: boolean;
   name?: string;
 }
@@ -25,13 +23,10 @@ export function CodePreview({
   language = "tsx",
   children: childrenProp,
   componentName,
-  props,
   responsivePreview = false,
   name,
 }: CodePreviewProps) {
-  const [activeTab, setActiveTab] = useState<"preview" | "code" | "props">(
-    "preview",
-  );
+  const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
@@ -58,6 +53,7 @@ export function CodePreview({
           const mod = await import(`../../data/components/demo/${name}.tsx`);
           setDemoComponent(React.createElement(mod.default));
         } catch (e) {
+          console.error("Failed to load demo:", e);
           setDemoComponent(
             <div className="text-red-500">Demo not available</div>,
           );
@@ -90,9 +86,6 @@ export function CodePreview({
   const tabs = [
     { id: "preview", label: "Preview", icon: <IconEye size={16} /> },
     { id: "code", label: "Code", icon: <IconCode size={16} /> },
-    ...(props?.length
-      ? [{ id: "props", label: "Props", icon: <IconSettings size={16} /> }]
-      : []),
   ];
 
   return (
@@ -104,9 +97,7 @@ export function CodePreview({
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() =>
-                  setActiveTab(tab.id as "preview" | "code" | "props")
-                }
+                onClick={() => setActiveTab(tab.id as "preview" | "code")}
                 className={cn(
                   "relative flex items-center space-x-2 rounded-md px-4 py-2 text-sm font-medium transition-colors",
                   activeTab === tab.id
@@ -173,15 +164,9 @@ export function CodePreview({
                   <Highlight
                     theme={selectedTheme}
                     code={code?.trim() || ""}
-                    language={language as any}
+                    language={language}
                   >
-                    {({
-                      className,
-                      style,
-                      tokens,
-                      getLineProps,
-                      getTokenProps,
-                    }) => (
+                    {({ className, tokens, getLineProps, getTokenProps }) => (
                       <pre className={`${className} relative`}>
                         {tokens.map((line, i) => (
                           <div key={i} {...getLineProps({ line })}>
@@ -219,29 +204,6 @@ export function CodePreview({
                     </>
                   )}
                 </motion.button>
-              </div>
-            </motion.div>
-          )}
-
-          {activeTab === "props" && props && (
-            <motion.div
-              key="props"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0 w-full overflow-y-auto p-6"
-            >
-              <div className="mb-4">
-                <h3 className="text-foreground text-lg font-semibold">
-                  Component Props
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Configure the properties for {componentName || name}
-                </p>
-              </div>
-              <div className="border-border bg-background rounded-lg border p-4">
-                <PropsTable props={props} />
               </div>
             </motion.div>
           )}

@@ -291,4 +291,3 @@ function TemplateCard({ template, index }: TemplateCardProps) {
     </motion.div>
   );
 }
-

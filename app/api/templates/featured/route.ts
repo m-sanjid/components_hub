@@ -7,6 +7,9 @@ export async function GET() {
     return NextResponse.json(featuredTemplates);
   } catch (error) {
     console.error("Error fetching featured templates:", error);
-    return NextResponse.json({ error: "Failed to fetch featured templates" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch featured templates" },
+      { status: 500 },
+    );
   }
-} 
+}

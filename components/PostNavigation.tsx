@@ -27,7 +27,7 @@ export default function PostNavigation({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.2 }}
-      className="mx-auto mt-12 max-w-2xl border-t pt-8 sm:mt-16 sm:pt-12"
+      className="mx-auto mt-12 max-w-xl border-t pt-8 sm:mt-16 sm:pt-12"
       aria-label="Post navigation"
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

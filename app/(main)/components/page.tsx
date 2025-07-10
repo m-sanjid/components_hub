@@ -1,12 +1,10 @@
 import { getComponentList } from "@/lib/mdx-server";
-import { componentsRegistry } from "@/lib/component-registry";
 import { getComponentDemoOnly } from "@/lib/mdx-demo";
 import { IconComponents, IconLayoutGrid } from "@tabler/icons-react";
 import Link from "next/link";
 
 export default async function ComponentsPage() {
   const components = await getComponentList();
-
 
   return (
     <div className="from-background via-background to-muted/20 min-h-screen bg-gradient-to-br">
@@ -25,10 +23,9 @@ export default async function ComponentsPage() {
           </p>
         </div>
 
-        {/* Bento Grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
           {await Promise.all(
-            components.map(async (component, index) => {
+            components.map(async (component) => {
               const Demo = await getComponentDemoOnly(component.slug);
 
               return (
@@ -39,12 +36,11 @@ export default async function ComponentsPage() {
                 >
                   {/* Component Preview */}
                   <div
-                    className={`from-muted/30 to-muted/10 relative bg-gradient-to-br p-6 min-h-[200px]"
-                    }`}
+                    className={`from-muted/30 to-muted/10 min-h-[200px]" } relative bg-gradient-to-br p-6`}
                   >
                     <div className="flex h-full items-center justify-center">
                       <div
-                        className={`w-full  transform transition-transform duration-300 group-hover:scale-105`}
+                        className={`min-h-[200px] w-full transform pt-10 transition-transform duration-300 group-hover:scale-105`}
                       >
                         {Demo}
                       </div>
@@ -55,9 +51,7 @@ export default async function ComponentsPage() {
                   <div className="from-card via-card/95 absolute right-0 bottom-0 left-0 bg-gradient-to-t to-transparent p-6 pt-12">
                     <div className="space-y-2">
                       <h3
-                        className={`font-semibold tracking-tight ${
-                          "text-lg"
-                        }`}
+                        className={`font-semibold tracking-tight ${"text-lg"}`}
                       >
                         {component.title}
                       </h3>
