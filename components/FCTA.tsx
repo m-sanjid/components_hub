@@ -42,7 +42,7 @@ export function FloatingCTA() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
           transition={{ duration: 0.3 }}
-          className="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-full bg-black px-5 py-3 text-sm font-medium text-white shadow-lg ring-1 ring-neutral-700/30 transition hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100"
+          className="fixed right-6 bottom-6 z-50 flex items-center gap-2 rounded-full bg-black px-5 py-3 text-sm font-medium text-white shadow-lg ring-1 ring-neutral-700/30 transition hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-100"
         >
           <Calendar className="h-4 w-4" />
           Book a Call

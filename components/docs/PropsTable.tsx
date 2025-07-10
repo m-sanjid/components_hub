@@ -1,4 +1,6 @@
-interface PropDefinition {
+import { cn } from "@/lib/utils";
+
+export interface PropDefinition {
   name: string;
   type: string;
   required: boolean;
@@ -8,47 +10,58 @@ interface PropDefinition {
 
 export function PropsTable({ props }: { props: PropDefinition[] }) {
   return (
-    <div className="my-6 overflow-auto">
-      <table className="min-w-full border-collapse">
-        <thead>
-          <tr className="bg-neutral-50 dark:bg-neutral-800">
-            <th className="border border-neutral-200 px-4 py-2 text-left text-sm font-medium dark:border-neutral-700">
+    <div className="border-muted bg-background relative my-6 w-full overflow-x-auto rounded-md border">
+      <table className="min-w-full text-sm">
+        <thead className="bg-muted/50 supports-[backdrop-filter]:bg-muted/60 sticky top-0 z-10 backdrop-blur">
+          <tr>
+            <th className="text-muted-foreground w-[150px] px-4 py-2 text-left font-medium">
               Prop
             </th>
-            <th className="border border-neutral-200 px-4 py-2 text-left text-sm font-medium dark:border-neutral-700">
+            <th className="text-muted-foreground w-[120px] px-4 py-2 text-left font-medium">
               Type
             </th>
-            <th className="border border-neutral-200 px-4 py-2 text-left text-sm font-medium dark:border-neutral-700">
+            <th className="text-muted-foreground w-[80px] px-4 py-2 text-left font-medium">
               Required
             </th>
-            <th className="border border-neutral-200 px-4 py-2 text-left text-sm font-medium dark:border-neutral-700">
+            <th className="text-muted-foreground w-[120px] px-4 py-2 text-left font-medium">
               Default
             </th>
-            <th className="border border-neutral-200 px-4 py-2 text-left text-sm font-medium dark:border-neutral-700">
+            <th className="text-muted-foreground min-w-[200px] px-4 py-2 text-left font-medium">
               Description
             </th>
           </tr>
         </thead>
         <tbody>
-          {props.map((prop) => (
+          {props.map((prop, i) => (
             <tr
               key={prop.name}
-              className="border-b border-neutral-200 dark:border-neutral-700"
+              className={cn(
+                "border-border border-t transition-colors",
+                i % 2 === 1 && "bg-muted/10",
+              )}
             >
-              <td className="border border-neutral-200 px-4 py-2 font-mono text-sm dark:border-neutral-700">
+              <td className="text-foreground px-4 py-2 font-mono text-[13px] whitespace-nowrap">
                 {prop.name}
               </td>
-              <td className="border border-neutral-200 px-4 py-2 font-mono text-sm dark:border-neutral-700">
+              <td className="px-4 py-2 font-mono text-[13px] whitespace-nowrap text-purple-500 dark:text-purple-400">
                 {prop.type}
               </td>
-              <td className="border border-neutral-200 px-4 py-2 text-sm dark:border-neutral-700">
-                {prop.required ? "Yes" : "No"}
+              <td className="px-4 py-2 text-sm">
+                {prop.required ? (
+                  <span className="text-green-600 dark:text-green-400">
+                    Yes
+                  </span>
+                ) : (
+                  <span className="text-muted-foreground">No</span>
+                )}
               </td>
-              <td className="border border-neutral-200 px-4 py-2 font-mono text-sm dark:border-neutral-700">
-                {prop.defaultValue || "-"}
+              <td className="px-4 py-2 font-mono text-[13px]">
+                {prop.defaultValue ?? (
+                  <span className="text-muted-foreground">–</span>
+                )}
               </td>
-              <td className="border border-neutral-200 px-4 py-2 text-sm dark:border-neutral-700">
-                {prop.description || "-"}
+              <td className="text-muted-foreground px-4 py-2 text-sm">
+                {prop.description ?? "–"}
               </td>
             </tr>
           ))}

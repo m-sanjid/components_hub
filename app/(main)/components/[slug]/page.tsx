@@ -5,7 +5,6 @@ import {
 } from "@/lib/mdx-server";
 import { componentsRegistry } from "@/lib/component-registry";
 import PostNavigation from "@/components/PostNavigation";
-import { Metadata } from "next";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import React from "react";
@@ -89,42 +88,44 @@ export default async function ComponentDetail({
       : null;
 
   return (
-    <div className="bg-background min-h-screen">
-      <article className="container mx-auto px-4 py-8 lg:py-16">
-        <div className="mb-12 text-start">
-          <h1 className="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">
+    <div className="bg-background min-h-screen w-full">
+      <article className="mx-auto w-full max-w-4xl px-2 py-6 sm:px-6 sm:py-10 md:px-8 md:py-16">
+        <div className="mb-8 text-start sm:mb-12">
+          <h1 className="text-foreground text-xl font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
             {meta.title}
           </h1>
-          <p className="text-muted-foreground mt-4 text-lg">
+          <p className="text-muted-foreground mt-2 text-sm sm:text-base md:text-lg">
             {meta.description}
           </p>
         </div>
         {/* Content Section */}
-        <div className="mx-auto max-w-4xl">
-          <div className="prose prose-lg dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:rounded-lg prose-pre:p-4 prose-img:rounded-lg prose-img:shadow-md">
+        <div className="w-full max-w-4xl md:mx-auto">
+          <div className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-img:rounded-lg prose-img:shadow-md overflow-x-auto">
             {MDXContent}
           </div>
         </div>
 
-        <PostNavigation
-          basePath="components"
-          prevPost={
-            prevComponent
-              ? {
-                  slug: prevComponent.slug,
-                  title: prevComponent.title,
-                }
-              : null
-          }
-          nextPost={
-            nextComponent
-              ? {
-                  slug: nextComponent.slug,
-                  title: nextComponent.title,
-                }
-              : null
-          }
-        />
+        <div className="mt-8 sm:mt-12">
+          <PostNavigation
+            basePath="components"
+            prevPost={
+              prevComponent
+                ? {
+                    slug: prevComponent.slug,
+                    title: prevComponent.title,
+                  }
+                : null
+            }
+            nextPost={
+              nextComponent
+                ? {
+                    slug: nextComponent.slug,
+                    title: nextComponent.title,
+                  }
+                : null
+            }
+          />
+        </div>
       </article>
     </div>
   );

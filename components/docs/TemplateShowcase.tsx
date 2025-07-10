@@ -12,14 +12,14 @@ interface TemplateShowcaseProps {
   featured?: boolean;
 }
 
-export function TemplateShowcase({ 
-  templates, 
-  title = "Templates", 
+export function TemplateShowcase({
+  templates,
+  title = "Templates",
   description = "Explore our collection of professional templates",
-  featured = false 
+  featured = false,
 }: TemplateShowcaseProps) {
-  const displayTemplates = featured 
-    ? templates.filter(t => t.featured)
+  const displayTemplates = featured
+    ? templates.filter((t) => t.featured)
     : templates;
 
   return (
@@ -28,7 +28,7 @@ export function TemplateShowcase({
         <h2 className="mb-4 text-3xl font-bold">{title}</h2>
         <p className="text-muted-foreground text-lg">{description}</p>
       </div>
-      
+
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {displayTemplates.map((template, index) => (
           <motion.div
@@ -41,7 +41,7 @@ export function TemplateShowcase({
           </motion.div>
         ))}
       </div>
-      
+
       {displayTemplates.length === 0 && (
         <div className="py-12 text-center">
           <p className="text-muted-foreground">No templates found.</p>
@@ -49,4 +49,4 @@ export function TemplateShowcase({
       )}
     </div>
   );
-} 
+}

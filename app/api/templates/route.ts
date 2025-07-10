@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getAllTemplates, getFeaturedTemplates } from "@/lib/get-templates";
+import { getAllTemplates } from "@/lib/get-templates";
 
 export async function GET() {
   try {
@@ -7,6 +7,9 @@ export async function GET() {
     return NextResponse.json(templates);
   } catch (error) {
     console.error("Error fetching templates:", error);
-    return NextResponse.json({ error: "Failed to fetch templates" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch templates" },
+      { status: 500 },
+    );
   }
-} 
+}

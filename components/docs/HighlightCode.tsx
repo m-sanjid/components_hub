@@ -54,7 +54,10 @@ export function HighlightCode({
   }
 
   return (
-    <div className="overflow-hidden p-4 text-sm" {...commandProps}>
+    <div
+      className="overflow-x-auto rounded-lg bg-neutral-900 p-2 text-xs sm:p-4 sm:text-sm"
+      {...commandProps}
+    >
       <Highlight
         code={code.trim()}
         language={language}
@@ -62,7 +65,7 @@ export function HighlightCode({
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre
-            className={`${className} overflow-x-auto rounded-lg p-4`}
+            className={`${className} overflow-x-auto rounded-lg p-2 sm:p-4`}
             style={style}
           >
             {tokens.map((line, i) => (

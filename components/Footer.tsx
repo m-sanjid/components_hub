@@ -13,7 +13,6 @@ const Footer: React.FC = () => {
     {
       title: "Product",
       links: [
-        { name: "Features", href: "#" },
         { name: "Components", href: "/components" },
         { name: "Templates", href: "/templates" },
       ],
@@ -31,7 +30,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="border-border bg-card border-t">
-      <div className="container mx-auto max-w-6xl py-12">
+      <div className="container mx-auto max-w-6xl px-4 py-12 md:px-0">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
           <div className="col-span-2">
             <div className="mb-4 flex items-center gap-2">

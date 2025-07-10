@@ -28,11 +28,12 @@ export default function ContactCTA() {
     <section className="mx-auto max-w-6xl rounded-2xl bg-gradient-to-br from-neutral-100 to-white px-8 py-12 shadow-xl dark:from-neutral-900 dark:to-black dark:text-white">
       <div className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold leading-tight">
+          <h2 className="text-3xl leading-tight font-bold">
             Let’s build something exceptional together.
           </h2>
           <p className="mt-3 text-neutral-700 dark:text-neutral-400">
-            Need a high-performance web app, landing page, or SaaS MVP? Schedule a quick call and let’s discuss how we can help.
+            Need a high-performance web app, landing page, or SaaS MVP? Schedule
+            a quick call and let’s discuss how we can help.
           </p>
         </div>
         <button
