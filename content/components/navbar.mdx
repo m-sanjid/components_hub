@@ -5,166 +5,61 @@ category: Navigation
 keywords: ["navigation", "menu", "links", "responsive", "mobile"]
 ---
 
-import { ComponentPreview } from "@/components/docs/ComponentPreview";
-import Navbar from "@/data/components/Navbar/Navbar";
-
-<ComponentPreview>
-  <Navbar />
-</ComponentPreview>
-
-import { CodePreview } from "@/components/docs/CodePreview";
-import { ThemeSwitcher } from "@/components/docs/ThemeSwitcher";
-
-<div className="mb-6 flex justify-end">
-  <ThemeSwitcher />
-</div>
+<CodePreview
+name="navbar"
+title="Navbar"
+description="A Resizing navbar on scroll"
+/>
 
 # Navbar Component
 
 Navbars are used to navigate between pages and sections of a website.
 
-## Basic Usage
+<CodeTabs>
 
-<CodePreview
-  componentName="Navbar"
-  code={`"use client";
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
 
-import { useState } from "react";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
-import { IconMenu, IconStar, IconX } from "@tabler/icons-react";
-import ThemeToggle from "@/components/ThemeToggle";
-import clsx from "clsx";
+```bash
+npx shadcn@latest add navbar --component
+```
 
-const navItems = [
-{ path: "/", label: "Home" },
-{ path: "/about", label: "About" },
-{ path: "/projects", label: "Projects" },
-{ path: "/blog", label: "Blog" },
-{ path: "/snippets", label: "Snippets" },
-{ path: "/contact", label: "Contact" },
-];
+</TabsContent>
 
-const Navbar = () => {
-const [isOpen, setIsOpen] = useState(false);
-const [isHovered, setIsHovered] = useState(false);
-const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
-const { scrollY } = useScroll();
-const [isScrolled, setIsScrolled] = useState(false);
+<TabsContent value="manual">
 
-useMotionValueEvent(scrollY, "change", (latest) => {
-setIsScrolled(latest > 0);
-});
+<Steps>
 
-const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
-const { offsetLeft, offsetWidth } = e.currentTarget;
-setHoverPosition({ left: offsetLeft, width: offsetWidth });
-setIsHovered(true);
-};
+<Step>Install the following dependencies:</Step>
 
-const handleMouseLeave = () => {
-setIsHovered(false);
-};
+```bash
+npm install motion lucide-react
+```
 
-return (
+<Step>Copy and paste the following code into your project.</Step>
 
-<div className="relative w-full">
-<nav
-className={clsx(
-"w-full z-50",
-isScrolled
-? "rounded-lg bg-neutral-200/80 dark:bg-black/80 backdrop-blur-xl mx-10 max-w-4xl duration-300 ease-in-out px-10"
-: "max-w-7xl"
-)}
-onMouseLeave={handleMouseLeave} >
-<div className="container mx-auto px-4 max-w-5xl">
-<div className="flex items-center justify-between h-16">
-<IconStar size={20} />
+<ComponentSource
+  name="navbar"
+  title="components/ui/navbar.tsx"
+/>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-4 relative">
-              {navItems.map((item) => (
-                <div
-                  key={item.path}
-                  onMouseEnter={handleHover}
-                  className="transition-colors z-20 hover:text-primary relative py-1 px-2 rounded-lg text-primary font-medium cursor-pointer"
-                >
-                  {item.label}
-                </div>
-              ))}
+<Step>Update the import paths to match your project setup.</Step>
 
-              <ThemeToggle />
+</Steps>
 
-              {/* Hover underline or background effect */}
-              {isHovered && (
-                <motion.div
-                  className="absolute bottom-0 h-8 bg-black/10 dark:bg-white/20 rounded-lg z-10"
-                  initial={false}
-                  animate={{
-                    left: hoverPosition.left,
-                    width: hoverPosition.width,
-                    opacity: 1,
-                  }}
-                  exit={{ opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                />
-              )}
-            </div>
+</TabsContent>
 
-            {/* Mobile Navigation */}
-            <div className="md:hidden flex items-center">
-              <ThemeToggle />
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-full hover:bg-accent transition-colors"
-                aria-label="Toggle menu"
-              >
-                {isOpen ? <IconX size={20} /> : <IconMenu size={20} />}
-              </button>
-            </div>
-          </div>
+</CodeTabs>
 
-          {/* Mobile Menu */}
-          {isOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full animate-fade-in bg-background z-40">
-              <div className="px-4 py-2 space-y-2">
-                {navItems.map((item) => (
-                  <div
-                    key={item.path}
-                    className="block py-2 text-primary font-medium"
-                  >
-                    {item.label}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-    </div>
+## Usage
 
-);
-};
+```tsx showLineNumbers
+import { Navbar } from "@/components/ui/navbar";
+```
 
-export default Navbar;
-`}
->
-  <ComponentPreview>
-    <Navbar />
-  </ComponentPreview>
-</CodePreview>
-
-## Responsive Preview
-
-<CodePreview
-  componentName="NavbarResponsive"
-  code={`
-<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-  <Navbar />
-</div>
-  `}
-  responsivePreview={true}
->
-  <div className="grid w-full grid-cols-1 gap-4">
-    <Navbar />
-  </div>
-</CodePreview>
+```tsx showLineNumbers
+<Navbar />
+```
