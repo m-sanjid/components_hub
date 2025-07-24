@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { useTheme } from "next-themes";
 import { Highlight, themes, Language } from "prism-react-renderer";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
 
+
 interface CodeBlockProps {
   className?: string;
-  children: string;
+  children: ReactNode;
 }
 
 export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
@@ -22,7 +23,13 @@ export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
   }, []);
 
   const language = (className.replace("language-", "") || "tsx") as Language;
-  const code = children.trim();
+  // Ensure children is treated as plain text string
+  const code =
+    typeof children === "string"
+      ? children.trim()
+      : Array.isArray(children)
+        ? children.join("").trim()
+        : String(children).trim();
 
   // Use a default theme during SSR, then switch to correct theme after hydration
   const selectedTheme = !mounted

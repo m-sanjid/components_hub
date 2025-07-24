@@ -11,20 +11,17 @@ import { CodeTabs } from "./CodeTabs";
 import { PropsTable } from "./PropsTable";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateShowcase } from "./TemplateShowcase";
+import React from "react";
 
 export const mdxComponents = {
-  pre: (props: any) => {
-    const codeProps = props.children.props;
-    return (
-      <CodeBlock className={codeProps.className}>
-        {codeProps.children}
-      </CodeBlock>
-    );
+  pre: (props: React.ComponentProps<typeof CodeBlock>) => {
+    const codeProps = props.children;
+    return <CodeBlock {...props}>{codeProps}</CodeBlock>;
   },
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
     <h1
       className={cn(
-        "font-heading mt-2 scroll-m-28 text-3xl font-bold tracking-tight",
+        "font-heading mt-2 scroll-m-28 text-xl font-bold tracking-tight sm:text-2xl md:text-3xl",
         className,
       )}
       {...props}
@@ -40,7 +37,7 @@ export const mdxComponents = {
           .replace(/\?/g, "")
           .toLowerCase()}
         className={cn(
-          "font-heading mt-12 scroll-m-28 text-2xl font-medium tracking-tight first:mt-0 lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
+          "font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight first:mt-0 sm:text-xl md:text-2xl lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
           className,
         )}
         {...props}
@@ -50,7 +47,7 @@ export const mdxComponents = {
   h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h3
       className={cn(
-        "font-heading mt-8 scroll-m-28 text-xl font-semibold tracking-tight *:[code]:text-xl",
+        "font-heading mt-8 scroll-m-28 text-base font-semibold tracking-tight sm:text-xl *:[code]:text-xl",
         className,
       )}
       {...props}
@@ -59,7 +56,7 @@ export const mdxComponents = {
   h4: ({ className, ...props }: React.ComponentProps<"h4">) => (
     <h4
       className={cn(
-        "font-heading mt-8 scroll-m-28 text-lg font-medium tracking-tight",
+        "font-heading mt-8 scroll-m-28 text-base font-medium tracking-tight sm:text-lg",
         className,
       )}
       {...props}
@@ -184,7 +181,6 @@ export const mdxComponents = {
   code: ({
     className,
     __raw__,
-    __src__,
     __npm__,
     __yarn__,
     __pnpm__,
@@ -192,7 +188,6 @@ export const mdxComponents = {
     ...props
   }: React.ComponentProps<"code"> & {
     __raw__?: string;
-    __src__?: string;
     __npm__?: string;
     __yarn__?: string;
     __pnpm__?: string;
