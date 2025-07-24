@@ -48,6 +48,7 @@ export async function getComponentBySlug(slug: string) {
       content,
     };
   } catch (err) {
+    console.error("Failed to load component:", err);
     return undefined;
   }
 }

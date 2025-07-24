@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "components_hub",
+  "homepage": "http://localhost:3000",
+  "items": [
+    {
+      "name": "tabs",
+      "type": "registry:component",
+      "title": "Tabs",
+      "description": "A simple tabs component",
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/default/ui/tabs/tabs.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}

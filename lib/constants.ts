@@ -11,7 +11,7 @@ export const categories = [
   "Portfolios",
 ];
 
-export const templates = [
+export const templates: Template[] = [
   {
     id: 1,
     title: "Modern Dashboard",
@@ -22,6 +22,43 @@ export const templates = [
     category: "Dashboards",
     tags: ["Admin", "Analytics", "Charts"],
     featured: true,
+    downloadUrl: "https://example.com/download",
+    price: 49.99,
+    features: [
+      {
+        title: "Responsive Design",
+        description: ["Responsive design for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Dark Mode Support",
+        description: ["Dark mode support for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Interactive Charts",
+        description: ["Interactive charts for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Data Tables",
+        description: ["Data tables for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "User Management",
+        description: ["User management for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Customizable Components",
+        description: ["Customizable components for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Documentation Included",
+        description: ["Documentation included for all devices.", "fjafkjfdk"],
+      },
+    ],
+    screenshots: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    ],
   },
   {
     id: 2,
@@ -33,6 +70,43 @@ export const templates = [
     category: "E-commerce",
     tags: ["Shopping", "Products", "Checkout"],
     featured: true,
+    downloadUrl: "https://example.com/download",
+    price: 49.99,
+    features: [
+      {
+        title: "Responsive Design",
+        description: ["Responsive design for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Dark Mode Support",
+        description: ["Dark mode support for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Interactive Charts",
+        description: ["Interactive charts for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Data Tables",
+        description: ["Data tables for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "User Management",
+        description: ["User management for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Customizable Components",
+        description: ["Customizable components for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Documentation Included",
+        description: ["Documentation included for all devices.", "fjafkjfdk"],
+      },
+    ],
+    screenshots: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    ],
   },
   {
     id: 3,
@@ -44,39 +118,19 @@ export const templates = [
     category: "Landing Pages",
     tags: ["Marketing", "Conversion", "Features"],
     featured: true,
-  },
-  {
-    id: 4,
-    title: "Sign Up Flow",
-    description:
-      "A multi-step sign up and onboarding flow with form validation and progress tracking.",
-    image:
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Authentication",
-    tags: ["Sign Up", "Onboarding", "Forms"],
-    featured: false,
-  },
-  {
-    id: 5,
-    title: "Blog Platform",
-    description:
-      "A complete blog platform with article listings, categories, and author profiles.",
-    image:
-      "https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Blogs",
-    tags: ["Content", "Articles", "Publishing"],
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Contact Form",
-    description:
-      "A responsive contact form with validation, submission handling, and success feedback.",
-    image:
-      "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Forms",
-    tags: ["Contact", "Validation", "Feedback"],
-    featured: false,
+    downloadUrl: "https://example.com/download",
+    price: 49.99,
+    features: [
+      {
+        title: "Responsive Design",
+        description: ["Responsive design for all devices.", "fjafkjfdk"],
+      },
+    ],
+    screenshots: [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    ],
   },
   {
     id: 7,
@@ -88,28 +142,19 @@ export const templates = [
     category: "Portfolios",
     tags: ["Projects", "Skills", "Resume"],
     featured: false,
-  },
-  {
-    id: 8,
-    title: "Product Landing Page",
-    description:
-      "A high-conversion landing page for physical or digital products with testimonials and features.",
-    image:
-      "https://images.unsplash.com/photo-1534670007418-bc7b2a6fe2a1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Landing Pages",
-    tags: ["Product", "Features", "Conversion"],
-    featured: false,
-  },
-  {
-    id: 9,
-    title: "Analytics Dashboard",
-    description:
-      "A data-focused dashboard with advanced charts, filters, and data visualization.",
-    image:
+    downloadUrl: "https://example.com/download",
+    price: 49.99,
+    features: [
+      {
+        title: "Responsive Design",
+        description: ["Responsive design for all devices.", "fjafkjfdk"],
+      },
+    ],
+    screenshots: [
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Dashboards",
-    tags: ["Data", "Charts", "Analytics"],
-    featured: false,
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+    ],
   },
 ];
 
@@ -137,24 +182,35 @@ export const template: Template = {
   previewUrl: "#",
   codeUrl: "#",
   price: 49.99,
-  rating: 4.8,
-  reviews: 128,
   features: [
-    "Responsive Design",
-    "Dark Mode Support",
-    "Interactive Charts",
-    "Data Tables",
-    "User Management",
-    "Analytics Dashboard",
-    "Customizable Components",
-    "Documentation Included",
-  ],
-  requirements: [
-    "Next.js 14+",
-    "React 18+",
-    "Tailwind CSS",
-    "TypeScript",
-    "Node.js 18+",
+    {
+      title: "Responsive Design",
+      description: ["Responsive design for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "Dark Mode Support",
+      description: ["Dark mode support for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "Interactive Charts",
+      description: ["Interactive charts for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "Data Tables",
+      description: ["Data tables for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "User Management",
+      description: ["User management for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "Customizable Components",
+      description: ["Customizable components for all devices.", "fjafkjfdk"],
+    },
+    {
+      title: "Documentation Included",
+      description: ["Documentation included for all devices.", "fjafkjfdk"],
+    },
   ],
   screenshots: [
     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",

@@ -52,6 +52,7 @@ export async function getRegistryItem(name: string) {
       filePath: mdxPath,
     };
   } catch (err) {
+    console.error("Failed to load component:", err);
     return undefined;
   }
 }
