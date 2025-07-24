@@ -29,8 +29,7 @@ const dummyCommands: Command[] = [
     description: "Read the official documentation",
     icon: Globe,
     shortcut: "D",
-    action: () =>
-      window.open("https://example.com/docs", "_blank"),
+    action: () => window.open("https://example.com/docs", "_blank"),
   },
   {
     id: "new-project",
@@ -55,21 +54,24 @@ const dummyCommands: Command[] = [
     icon: Settings,
     shortcut: "S",
     action: () => toast("Opened Settings"),
-  },{
+  },
+  {
     id: "open-settings2",
     title: "Open Settings",
     description: "Access all app preferences",
     icon: Settings,
     shortcut: "S",
     action: () => toast("Opened Settings"),
-  },{
+  },
+  {
     id: "open-settings3",
     title: "Open Settings",
     description: "Access all app preferences",
     icon: Settings,
     shortcut: "S",
     action: () => toast("Opened Settings"),
-  },{
+  },
+  {
     id: "open-settings4",
     title: "Open Settings",
     description: "Access all app preferences",
@@ -81,13 +83,14 @@ const dummyCommands: Command[] = [
 
 export default function CommandDemoPage() {
   return (
-    <div className="bg-white dark:bg-black flex items-center justify-center p-10">
-      <div className="max-w-md w-full text-center space-y-4">
+    <div className="flex items-center justify-center bg-white p-10 dark:bg-black">
+      <div className="w-full max-w-md space-y-4 text-center">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
           Command Palette Demo
         </h1>
         <p className="text-neutral-600 dark:text-neutral-400">
-          Press <kbd className="kbd">⌘</kbd> + <kbd className="kbd">J</kbd> or click the button to open.
+          Press <kbd className="kbd">⌘</kbd> + <kbd className="kbd">J</kbd> or
+          click the button to open.
         </p>
 
         <CommandPalette commands={dummyCommands} />

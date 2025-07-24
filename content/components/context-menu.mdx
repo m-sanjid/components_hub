@@ -13,7 +13,8 @@ keywords: ["context", "menu", "right-click", "actions", "navigation"]
     {
       name: "items",
       type: "array",
-      description: "context menu items = [ { id: string, label: string, icon?: React.ComponentType<{ className?: string }>, shortcut?: string, disabled?: boolean, onClick?: () => void, submenu?: ContextMenuItem[] } ]",
+      description:
+        "context menu items = [ { id: string, label: string, icon?: React.ComponentType<{ className?: string }>, shortcut?: string, disabled?: boolean, onClick?: () => void, submenu?: ContextMenuItem[] } ]",
       required: true,
     },
     {
@@ -54,10 +55,7 @@ npm install motion lucide-react
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource
-  name="context-menu"
-  title="components/ui/context-menu.tsx"
-/>
+<ComponentSource name="context-menu" title="components/ui/context-menu.tsx" />
 
 <Step>Update the import paths to match your project setup.</Step>
 
@@ -87,5 +85,5 @@ const items = [
   },
 ];
 
-<ContextMenu items={items} />
+<ContextMenu items={items} />;
 ```

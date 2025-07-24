@@ -97,7 +97,11 @@ export function SwipeToConfirm({
       },
       pink: { bg: "bg-pink-500/10 dark:bg-pink-500/20", text: "text-pink-500" },
     };
-    return colors[color as keyof typeof colors]?.[type as keyof typeof colors.green] || colors.green[type as keyof typeof colors.green];
+    return (
+      colors[color as keyof typeof colors]?.[
+        type as keyof typeof colors.green
+      ] || colors.green[type as keyof typeof colors.green]
+    );
   };
 
   return (

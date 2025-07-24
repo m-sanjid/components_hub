@@ -20,10 +20,10 @@ export interface Template {
 
 export async function getAllTemplates(): Promise<Template[]> {
   const templatesDirectory = path.join(process.cwd(), "data/templates");
-  
+
   try {
     const filenames = fs.readdirSync(templatesDirectory);
-    
+
     const templates = filenames
       .filter((filename) => filename.endsWith(".mdx"))
       .map((filename) => {
@@ -56,12 +56,16 @@ export async function getAllTemplates(): Promise<Template[]> {
   }
 }
 
-export async function getTemplateBySlug(slug: string): Promise<Template | null> {
+export async function getTemplateBySlug(
+  slug: string,
+): Promise<Template | null> {
   const templates = await getAllTemplates();
   return templates.find((template) => template.slug === slug) || null;
 }
 
-export async function getTemplatesByCategory(category: string): Promise<Template[]> {
+export async function getTemplatesByCategory(
+  category: string,
+): Promise<Template[]> {
   const templates = await getAllTemplates();
   return templates.filter((template) => template.category === category);
 }
@@ -69,4 +73,4 @@ export async function getTemplatesByCategory(category: string): Promise<Template
 export async function getFeaturedTemplates(): Promise<Template[]> {
   const templates = await getAllTemplates();
   return templates.filter((template) => template.featured);
-} 
+}

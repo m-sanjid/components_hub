@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { Search, X } from "lucide-react";
 
 export interface Command {
@@ -33,7 +33,7 @@ export function CommandPalette({
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const filteredCommands = commands.filter((cmd) =>
-    cmd.title.toLowerCase().includes(search.toLowerCase())
+    cmd.title.toLowerCase().includes(search.toLowerCase()),
   );
 
   const closePalette = () => {
@@ -58,14 +58,14 @@ export function CommandPalette({
       if (e.key === "ArrowDown") {
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev < filteredCommands.length - 1 ? prev + 1 : 0
+          prev < filteredCommands.length - 1 ? prev + 1 : 0,
         );
       }
 
       if (e.key === "ArrowUp") {
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev > 0 ? prev - 1 : filteredCommands.length - 1
+          prev > 0 ? prev - 1 : filteredCommands.length - 1,
         );
       }
 
@@ -75,7 +75,7 @@ export function CommandPalette({
         closePalette();
       }
     },
-    [isOpen, filteredCommands, selectedIndex]
+    [isOpen, filteredCommands, selectedIndex],
   );
 
   // Scroll selected item into view
@@ -99,11 +99,13 @@ export function CommandPalette({
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:text-neutral-300 dark:border-neutral-700 dark:hover:bg-neutral-800"
+        className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
       >
         <Search className="h-4 w-4" />
         <span>Search...</span>
-        <kbd className="ml-auto rounded bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700">⌘ J</kbd>
+        <kbd className="ml-auto rounded bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700">
+          ⌘ J
+        </kbd>
       </button>
 
       <AnimatePresence>
@@ -134,20 +136,25 @@ export function CommandPalette({
                     setSelectedIndex(0);
                   }}
                   placeholder={placeholder}
-                  className="flex-1 bg-transparent text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 outline-none"
+                  className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-400 dark:text-white"
                 />
-                <button onClick={closePalette} className="p-1 hover:bg-neutral-100 rounded dark:hover:bg-neutral-800">
+                <button
+                  onClick={closePalette}
+                  className="rounded p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                >
                   <X className="h-5 w-5 text-neutral-400" />
                 </button>
               </div>
 
               {/* Command List */}
               <div
-                className="max-h-80 overflow-y-auto p-1 scroll-smooth"
+                className="max-h-80 overflow-y-auto scroll-smooth p-1"
                 ref={containerRef}
               >
                 {filteredCommands.length === 0 ? (
-                  <div className="p-4 text-center text-sm text-neutral-500">No results found</div>
+                  <div className="p-4 text-center text-sm text-neutral-500">
+                    No results found
+                  </div>
                 ) : (
                   filteredCommands.map((command, index) => {
                     const isSelected = index === selectedIndex;
@@ -173,11 +180,13 @@ export function CommandPalette({
                           <command.icon className="h-5 w-5 text-neutral-400" />
                         )}
                         <div className="flex-1 text-left">
-                          <div className="text-neutral-900 dark:text-white font-medium">
+                          <div className="font-medium text-neutral-900 dark:text-white">
                             {command.title}
                           </div>
                           {command.description && (
-                            <div className="text-xs text-neutral-500">{command.description}</div>
+                            <div className="text-xs text-neutral-500">
+                              {command.description}
+                            </div>
                           )}
                         </div>
                         {command.shortcut && (

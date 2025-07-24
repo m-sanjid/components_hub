@@ -58,12 +58,12 @@ export interface Template {
   category: string;
   tags: string[];
   featured: boolean;
-  previewUrl: string;
-  codeUrl: string;
-  price: number;
-  rating: number;
-  reviews: number;
-  features: string[];
-  requirements: string[];
+  previewUrl?: string;
+  codeUrl?: string;
+  price?: number;
+  features?: {
+    title: string;
+    description: string[];
+  }[];
   screenshots: string[];
 }

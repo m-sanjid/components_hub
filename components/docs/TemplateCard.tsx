@@ -2,7 +2,12 @@
 
 import React from "react";
 import { motion } from "motion/react";
-import { IconArrowRight, IconEye, IconCode, IconDownload } from "@tabler/icons-react";
+import {
+  IconArrowRight,
+  IconEye,
+  IconCode,
+  IconDownload,
+} from "@tabler/icons-react";
 import Link from "next/link";
 
 interface TemplateCardProps {
@@ -15,8 +20,6 @@ interface TemplateCardProps {
   screenshots: string[];
   previewUrl: string;
   codeUrl: string;
-  features: string[];
-  requirements: string[];
 }
 
 export function TemplateCard({
@@ -29,8 +32,6 @@ export function TemplateCard({
   screenshots,
   previewUrl,
   codeUrl,
-  features,
-  requirements,
 }: TemplateCardProps) {
   return (
     <motion.div
@@ -64,14 +65,12 @@ export function TemplateCard({
             {category}
           </span>
         </div>
-        
+
         <h3 className="group-hover:text-primary mb-2 text-xl font-bold transition-colors">
           {title}
         </h3>
-        
-        <p className="text-muted-foreground mb-4 line-clamp-2">
-          {description}
-        </p>
+
+        <p className="text-muted-foreground mb-4 line-clamp-2">{description}</p>
 
         {/* Tags */}
         <div className="mb-4 flex flex-wrap gap-2">
@@ -96,17 +95,17 @@ export function TemplateCard({
             href={previewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
           >
             <IconEye className="h-4 w-4" />
             Preview
           </Link>
-          
+
           <Link
             href={codeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-lg bg-secondary px-3 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/80 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors"
           >
             <IconCode className="h-4 w-4" />
             Code
@@ -114,7 +113,7 @@ export function TemplateCard({
         </div>
 
         {/* Download Button */}
-        <button className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground">
+        <button className="border-border bg-background hover:bg-accent hover:text-accent-foreground mt-3 flex w-full items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-colors">
           <IconDownload className="h-4 w-4" />
           Download Template
           <IconArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -122,4 +121,4 @@ export function TemplateCard({
       </div>
     </motion.div>
   );
-} 
+}
