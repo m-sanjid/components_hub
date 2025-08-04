@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useEffect, ReactNode } from "react";
-import { useTheme } from "next-themes";
+import { useState, ReactNode } from "react";
 import { Highlight, themes, Language } from "prism-react-renderer";
 import { toast } from "sonner";
 import { motion } from "motion/react";
 import { IconCheck, IconCopy } from "@tabler/icons-react";
-
 
 interface CodeBlockProps {
   className?: string;
@@ -15,28 +13,8 @@ interface CodeBlockProps {
 
 export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
   const [copied, setCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const language = (className.replace("language-", "") || "tsx") as Language;
-  // Ensure children is treated as plain text string
-  const code =
-    typeof children === "string"
-      ? children.trim()
-      : Array.isArray(children)
-        ? children.join("").trim()
-        : String(children).trim();
-
-  // Use a default theme during SSR, then switch to correct theme after hydration
-  const selectedTheme = !mounted
-    ? themes.vsLight
-    : theme === "light"
-      ? themes.vsLight
-      : themes.vsDark;
+  const language = (className?.replace("language-", "") || "tsx") as Language;
+  const code = String(children).trim();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -46,11 +24,11 @@ export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
   };
 
   return (
-    <div className="group relative mt-4 mb-6 max-h-[500px] overflow-hidden rounded-2xl">
+    <div className="group bg-muted/30 dark:bg-muted/20 relative my-6 rounded-xl border py-4 pr-3 pl-1 backdrop-blur-sm">
       <motion.button
         onClick={handleCopy}
-        className="absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-md border border-white/5 bg-white/40 text-white backdrop-blur-md"
-        whileTap={{ scale: 0.95 }}
+        className="border-border bg-background text-foreground absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-md border shadow-sm hover:scale-95"
+        whileTap={{ scale: 0.9 }}
       >
         {copied ? (
           <IconCheck className="h-4 w-4 text-green-500" />
@@ -59,31 +37,23 @@ export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
         )}
       </motion.button>
 
-      <Highlight code={code} language={language} theme={selectedTheme}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre
-            className={`${className} overflow-auto border border-neutral-300 p-4 dark:border-neutral-800`}
-            style={style}
-          >
-            {tokens.map((line, i) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const { key: lineKey, ...lineProps } = getLineProps({
-                line,
-                key: i,
-              });
-              return (
-                <div key={i} {...lineProps}>
-                  {line.map((token, key) => {
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    const { key: tokenKey, ...tokenProps } = getTokenProps({
-                      token,
-                      key,
-                    });
-                    return <span key={key} {...tokenProps} />;
-                  })}
-                </div>
-              );
-            })}
+      <Highlight
+        theme={themes.oneDark}
+        code={code?.trim() || ""}
+        language={language}
+      >
+        {({ className, tokens, getLineProps, getTokenProps }) => (
+          <pre className={`${className} relative`}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                <span className="text-primary/40 mr-6 inline-block w-8 text-right text-xs select-none">
+                  {i + 1}
+                </span>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
           </pre>
         )}
       </Highlight>
