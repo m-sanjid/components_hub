@@ -3,11 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { Highlight, themes } from "prism-react-renderer";
 import { ResponsivePreview } from "./ResponsivePreview";
-import { IconCode, IconCopy, IconEye } from "@tabler/icons-react";
+import { IconCode, IconEye } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
-import AnimatedCheck from "../AnimatedCheck";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
+import { CopyButtonLabel } from "./CopyButtonLabel";
 
 interface CodePreviewProps {
   code?: string;
@@ -27,19 +26,11 @@ export function CodePreview({
   name,
 }: CodePreviewProps) {
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
-  const [copied, setCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
   const [demoComponent, setDemoComponent] = useState<React.ReactNode>(null);
   const [code, setCode] = useState<string | undefined>(codeProp);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
     if (name) {
-      // Fetch code from API route
       (async () => {
         const res = await fetch(`/api/component-code?name=${name}`);
         if (res.ok) {
@@ -49,7 +40,6 @@ export function CodePreview({
           setCode(undefined);
         }
         try {
-          // Import the demo from the demo directory using the name
           const mod = await import(`../../data/components/demo/${name}.tsx`);
           setDemoComponent(React.createElement(mod.default));
         } catch (e) {
@@ -64,24 +54,6 @@ export function CodePreview({
       setDemoComponent(childrenProp);
     }
   }, [name, codeProp, childrenProp]);
-
-  const selectedTheme = !mounted
-    ? themes.vsLight
-    : theme === "light"
-      ? themes.vsLight
-      : themes.vsDark;
-
-  const copyToClipboard = async () => {
-    try {
-      if (code) {
-        await navigator.clipboard.writeText(code.trim());
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      }
-    } catch (err) {
-      console.error("Failed to copy:", err);
-    }
-  };
 
   const tabs = [
     { id: "preview", label: "Preview", icon: <IconEye size={16} /> },
@@ -105,8 +77,8 @@ export function CodePreview({
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <span className="z-50">{tab.icon}</span>
-                <span className="z-50">{tab.label}</span>
+                <span className="z-10">{tab.icon}</span>
+                <span className="z-10">{tab.label}</span>
 
                 {activeTab === tab.id && (
                   <motion.div
@@ -120,13 +92,13 @@ export function CodePreview({
           </div>
 
           {/* Component Name */}
-          <div className="text-muted-foreground ml-auto font-mono text-xs">
+          <div className="text-muted-foreground ml-auto font-mono text-xs hidden sm:block">
             {componentName || name}
           </div>
         </div>
       </div>
 
-      {/* Content Section with Animated Presence */}
+      {/* Content Section */}
       <div className="relative h-full min-h-[300px]">
         <AnimatePresence mode="wait">
           {activeTab === "preview" && (
@@ -143,8 +115,10 @@ export function CodePreview({
                   <div className="min-h-[200px] p-6">{demoComponent}</div>
                 </ResponsivePreview>
               ) : (
-                <div className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-8">
-                  <div className="mx-auto">{demoComponent}</div>
+                <div className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-4 sm:p-6">
+                  <div className="overflow-x-auto">
+                    {demoComponent}
+                  </div>
                 </div>
               )}
             </motion.div>
@@ -160,14 +134,18 @@ export function CodePreview({
               className="absolute inset-0 w-full"
             >
               <div className="relative h-full">
-                <div className="scrollbar-thin h-[600px] overflow-auto bg-neutral-800 p-6 text-sm leading-relaxed">
+                <div
+                  className={cn(
+                    "scrollbar-thin max-h-[600px] overflow-y-auto bg-neutral-800 p-6 text-sm leading-relaxed transition-colors",
+                  )}
+                >
                   <Highlight
-                    theme={selectedTheme}
+                    theme={themes.oneDark}
                     code={code?.trim() || ""}
                     language={language}
                   >
                     {({ className, tokens, getLineProps, getTokenProps }) => (
-                      <pre className={`${className} relative`}>
+                      <pre className={`${className} relative mb-80`}>
                         {tokens.map((line, i) => (
                           <div key={i} {...getLineProps({ line })}>
                             <span className="mr-6 inline-block w-8 text-right text-xs text-white/40 select-none">
@@ -183,27 +161,7 @@ export function CodePreview({
                   </Highlight>
                 </div>
 
-                <motion.button
-                  onClick={copyToClipboard}
-                  className={cn(
-                    "border-border bg-background/80 absolute top-4 right-4 z-10 flex items-center space-x-2 rounded-lg border px-3 py-2 text-xs font-medium backdrop-blur transition-all hover:shadow-md",
-                    copied
-                      ? "text-green-600"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  {copied ? (
-                    <>
-                      <AnimatedCheck />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <IconCopy size={14} />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </motion.button>
+                <CopyButtonLabel code={code?.trim() || ""} />
               </div>
             </motion.div>
           )}
