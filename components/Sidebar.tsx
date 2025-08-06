@@ -2,8 +2,11 @@
 
 import {
   IconArrowRight,
-  IconHelp,
+  IconBrandX,
+  IconCircleDashed,
   IconMenu2,
+  IconPhone,
+  IconTemplate,
   IconX,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
@@ -46,14 +49,19 @@ const Sidebar = () => {
     title,
     index,
     isTemplate = false,
+    icon,
+    link,
   }: {
     slug: string;
     title: string;
     index: number;
     isTemplate?: boolean;
+    icon?: React.ReactNode;
+    link?: string;
   }) => {
     const isActive =
       currentPath === `/${isTemplate ? "templates" : "components"}/${slug}`;
+    const href = link || `/${isTemplate ? "templates" : "components"}/${slug}`;
     return (
       <motion.li
         initial={{ x: 0 }}
@@ -72,8 +80,8 @@ const Sidebar = () => {
         className="relative px-1"
       >
         <Link
-          href={`/${isTemplate ? "templates" : "components"}/${slug}`}
-          className={`relative flex items-center justify-between px-3 py-2 text-sm transition-all duration-200 ${
+          href={href}
+          className={`relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
             isActive
               ? "text-primary font-semibold"
               : "text-muted-foreground hover:text-primary"
@@ -94,6 +102,7 @@ const Sidebar = () => {
               </div>
             </motion.div>
           )}
+          {icon}
           <span className="truncate capitalize">{title}</span>
           <AnimatePresence>
             {isHovered && hoveredIndex === `${index}-${slug}` && (
@@ -114,21 +123,31 @@ const Sidebar = () => {
   };
 
   const renderSkeletons = () =>
-    Array.from({ length: 12 }).map((_, i) => (
-      <div
-        key={i}
-        className="bg-muted mx-3 my-3 h-6 animate-pulse rounded-md"
-      />
+    Array.from({ length: 8 }).map((_, i) => (
+      <div key={i} className="bg-muted mx-3 my-3 h-6 animate-pulse" />
     ));
 
   const renderSections = () => (
     <div className="scrollbar-hide h-[calc(100vh-12rem)] overflow-x-hidden overflow-y-auto pr-2">
+      <Section title="Installation">
+        {renderLink({
+          slug: "installation",
+          title: "Installation",
+          index: 0,
+          icon: (
+            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+          ),
+        })}
+      </Section>
       <Section title="Components">
         {components.map((component, index) =>
           renderLink({
             slug: component.slug || "",
             title: component.title,
             index,
+            icon: (
+              <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+            ),
           }),
         )}
       </Section>
@@ -139,6 +158,9 @@ const Sidebar = () => {
             title: template,
             index,
             isTemplate: true,
+            icon: (
+              <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+            ),
           }),
         )}
       </Section>
@@ -146,7 +168,7 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="relative">
+    <div className="scrollbar-hide relative">
       {/* Mobile Button */}
       <button
         onClick={() => setMobileOpen(true)}
@@ -163,14 +185,14 @@ const Sidebar = () => {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 flex"
+            className="scrollbar-hide fixed inset-0 z-40 flex"
           >
             <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-20 shadow-lg">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Browse</h2>
                 <button
                   onClick={() => setMobileOpen(false)}
-                  className="text-muted-foreground hover:bg-accent hover:text-primary absolute top-2 right-2 rounded p-1"
+                  className="text-muted-foreground hover:bg-accent hover:text-primary absolute top-20 right-2 rounded p-1"
                 >
                   <IconX size={20} />
                 </button>
@@ -196,7 +218,7 @@ const Sidebar = () => {
 
       {/* Desktop Sidebar */}
       <motion.aside
-        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 shadow-sm lg:block dark:border-neutral-800`}
+        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 lg:block dark:border-neutral-800`}
       >
         {isLoading ? (
           <ul className="h-[calc(100vh-12rem)] pt-10">{renderSkeletons()}</ul>
@@ -235,14 +257,18 @@ const ErrorNotice = () => (
 );
 
 const HelpSection = () => (
-  <div className="text-muted-foreground mt-4 border-t pt-4 text-sm">
-    <p className="mb-2">Need help with components?</p>
+  <div className="space-y-2 border-t pt-4 text-sm">
+    <p className="text-muted-foreground mb-2">Need help with components?</p>
+    <Link href="/contact" className="flex items-center gap-1 hover:underline">
+      <IconPhone className="bg-primary/20 text-primary h-6 w-6 rounded-md border p-1 backdrop-blur-md" />
+      Contact Us
+    </Link>
     <Link
-      href="#"
-      className="flex items-center gap-1 text-blue-600 hover:underline dark:text-blue-400"
+      href="https://x.com/dev_sanjid"
+      className="flex items-center gap-1 hover:underline"
     >
-      <IconHelp size={16} />
-      View documentation
+      <IconBrandX className="bg-primary/20 text-primary h-6 w-6 rounded-md border p-1 backdrop-blur-md" />
+      Follow for updates
     </Link>
   </div>
 );

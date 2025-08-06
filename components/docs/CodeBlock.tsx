@@ -14,7 +14,7 @@ export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
   const code = String(children).trim();
 
   return (
-    <div className="group relative my-6 overflow-hidden rounded-xl border bg-neutral-800 py-px pr-3 pl-1">
+    <div className="group relative my-6 overflow-hidden rounded-lg border bg-neutral-800 py-px pr-3 pl-1">
       <CopyButton code={code} />
       <div className="scrollbar-thin overflow-x-auto py-4">
         <Highlight

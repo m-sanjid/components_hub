@@ -7,12 +7,17 @@ export default function ComponentsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative min-h-screen">
-      <main className="mx-auto flex max-w-7xl gap-4 px-4 sm:px-6 lg:px-8">
-        <div className="md:w-64">
-          <Sidebar />
-        </div>
-        <div className="flex-1">{children}</div>
+    <div className="min-h-screen">
+      <main className="mx-auto lg:flex max-w-6xl gap-8 px-4 sm:px-6 lg:px-8">
+        {/* Sticky sidebar */}
+        <aside className="lg:w-64 shrink-0">
+          <div className="sticky top-16 z-20">
+            <Sidebar />
+          </div>
+        </aside>
+
+        {/* Main content */}
+        <section className="flex-1 min-w-0">{children}</section>
       </main>
     </div>
   );

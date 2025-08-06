@@ -56,8 +56,8 @@ export function CodePreview({
   }, [name, codeProp, childrenProp]);
 
   const tabs = [
-    { id: "preview", label: "Preview", icon: <IconEye size={16} /> },
-    { id: "code", label: "Code", icon: <IconCode size={16} /> },
+    { id: "preview", label: "Preview", icon: <IconEye className="size-4" /> },
+    { id: "code", label: "Code", icon: <IconCode className="size-4" /> },
   ];
 
   return (
@@ -65,25 +65,29 @@ export function CodePreview({
       {/* Tabs Header */}
       <div className="border-border bg-muted/30 border-b">
         <div className="flex items-center justify-between px-4 py-2">
-          <div className="flex items-center space-x-1">
+          <div className="bg-primary-foreground flex items-center space-x-1 rounded-[12px] border p-1">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as "preview" | "code")}
                 className={cn(
-                  "relative flex items-center space-x-2 rounded-md px-4 py-2 text-sm font-medium transition-colors",
+                  "relative flex items-center space-x-2 rounded-[4px] p-1 text-sm font-medium transition-colors",
                   activeTab === tab.id
-                    ? "text-primary"
+                    ? "text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
-                <span className="z-10">{tab.icon}</span>
+                <span
+                  className={`bg-primary/10 z-10 rounded-md border p-1 backdrop-blur-md ${activeTab === tab.id ? "border-neutral-600 bg-white/20 dark:border-neutral-400 dark:bg-black/20" : ""}`}
+                >
+                  {tab.icon}
+                </span>
                 <span className="z-10">{tab.label}</span>
 
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="bg-primary/5 absolute inset-0 z-0 rounded-md backdrop-blur-sm"
+                    className="bg-primary absolute inset-0 z-0 rounded-md backdrop-blur-sm"
                     transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
                   />
                 )}
@@ -92,7 +96,7 @@ export function CodePreview({
           </div>
 
           {/* Component Name */}
-          <div className="text-muted-foreground ml-auto font-mono text-xs hidden sm:block">
+          <div className="text-muted-foreground ml-auto hidden font-mono text-xs sm:block">
             {componentName || name}
           </div>
         </div>
@@ -116,9 +120,7 @@ export function CodePreview({
                 </ResponsivePreview>
               ) : (
                 <div className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-4 sm:p-6">
-                  <div className="overflow-x-auto">
-                    {demoComponent}
-                  </div>
+                  <div className="overflow-x-auto">{demoComponent}</div>
                 </div>
               )}
             </motion.div>

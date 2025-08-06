@@ -88,8 +88,8 @@ export default async function ComponentDetail({
       : null;
 
   return (
-    <div className="bg-background min-h-screen w-full">
-      <article className="mx-auto w-full max-w-4xl px-2 py-6 sm:px-6 sm:py-10 md:px-8 md:py-16">
+    <div className="">
+      <article className="px-2 py-16 sm:px-6 sm:py-10 md:px-8 md:py-16">
         <div className="mb-8 text-start sm:mb-12">
           <h1 className="text-foreground text-xl font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
             {meta.title}
@@ -99,7 +99,7 @@ export default async function ComponentDetail({
           </p>
         </div>
         {/* Content Section */}
-        <div className="w-full max-w-4xl md:mx-auto">
+        <div className="">
           <div className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:bg-muted prose-pre:text-muted-foreground prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-img:rounded-lg prose-img:shadow-md overflow-x-auto">
             {MDXContent}
           </div>
