@@ -16,19 +16,23 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
-import { IconMenu, IconComponents, IconTemplate } from "@tabler/icons-react";
+import { IconMenu, IconTemplate, IconCircleDashed } from "@tabler/icons-react";
 import { CommandPalette } from "./Cmdk";
 
 const mainNavItems = [
   {
     title: "Components",
     href: "/components",
-    icon: <IconComponents className="h-4 w-4" />,
+    icon: (
+      <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+    ),
   },
   {
     title: "Templates",
     href: "/templates",
-    icon: <IconTemplate className="h-4 w-4" />,
+    icon: (
+      <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+    ),
   },
 ];
 
@@ -82,16 +86,13 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`sticky z-50 w-full transition-all duration-300 ${
+      className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
-          ? "bg-background/95 supports-[backdrop-filter]:bg-background/60 top-4 mx-auto max-w-5xl rounded-full border shadow-lg backdrop-blur"
-          : "bg-background/95 top-0 border-b backdrop-blur"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-4 mx-auto max-w-5xl rounded-2xl border shadow-lg backdrop-blur"
+          : "bg-background/95 top-0 mx-auto max-w-6xl backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Logo */}
@@ -133,11 +134,6 @@ export default function Navbar() {
                 </button>
               </Link>
             ))}
-
-            {/* Resources Dropdown */}
-            <div className="ml-20">
-              <CommandPalette />
-            </div>
           </nav>
         </div>
 
@@ -166,19 +162,15 @@ export default function Navbar() {
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
-
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <CommandPalette />
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
         {/* Theme Toggle */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <div className="flex items-center gap-2">
+          <CommandPalette />
           <ThemeToggle />
-        </motion.div>
+        </div>
       </div>
     </motion.nav>
   );

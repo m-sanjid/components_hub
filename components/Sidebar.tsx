@@ -11,19 +11,17 @@ import { Components } from "@/types";
 import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { allTemplates } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 
-interface SidebarProps {
-  className?: string;
-  currentSlug?: string;
-}
-
-const Sidebar = ({ className = "", currentSlug }: SidebarProps) => {
+const Sidebar = () => {
   const [components, setComponents] = useState<Components[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const currentPath = usePathname();
 
   useEffect(() => {
     async function loadSnippets() {
@@ -46,64 +44,80 @@ const Sidebar = ({ className = "", currentSlug }: SidebarProps) => {
   const renderLink = ({
     slug,
     title,
-    isActive,
     index,
     isTemplate = false,
   }: {
     slug: string;
     title: string;
-    isActive: boolean;
     index: number;
     isTemplate?: boolean;
-  }) => (
-    <motion.li
-      initial={{ x: 0 }}
-      whileHover={{ x: 5 }}
-      exit={{ x: 0 }}
-      transition={{ duration: 0.2, delay: 0.05 }}
-      onMouseEnter={() => {
-        setIsHovered(true);
-        setHoveredIndex(`${index}-${slug}`);
-      }}
-      onMouseLeave={() => {
-        setIsHovered(false);
-        setHoveredIndex(null);
-      }}
-      key={slug}
-      className="relative"
-    >
-      <Link
-        href={`/${isTemplate ? "templates" : "components"}/${slug}`}
-        className={`flex items-center justify-between rounded-md px-3 py-2 text-sm transition-all duration-200 ${
-          isActive
-            ? "text-primary font-semibold"
-            : "text-muted-foreground hover:text-primary"
-        }`}
-        onClick={() => setMobileOpen(false)}
+  }) => {
+    const isActive =
+      currentPath === `/${isTemplate ? "templates" : "components"}/${slug}`;
+    return (
+      <motion.li
+        initial={{ x: 0 }}
+        whileHover={{ x: 5 }}
+        exit={{ x: 0 }}
+        transition={{ duration: 0.2, delay: 0.05 }}
+        onMouseEnter={() => {
+          setIsHovered(true);
+          setHoveredIndex(`${index}-${slug}`);
+        }}
+        onMouseLeave={() => {
+          setIsHovered(false);
+          setHoveredIndex(null);
+        }}
+        key={slug}
+        className="relative px-1"
       >
-        <span className="truncate">{title}</span>
-        <AnimatePresence>
-          {isHovered && hoveredIndex === `${index}-${slug}` && (
-            <motion.span
-              initial={{ opacity: 0, x: 5 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -5 }}
-              transition={{ duration: 0.2 }}
-              className="absolute right-3"
+        <Link
+          href={`/${isTemplate ? "templates" : "components"}/${slug}`}
+          className={`relative flex items-center justify-between px-3 py-2 text-sm transition-all duration-200 ${
+            isActive
+              ? "text-primary font-semibold"
+              : "text-muted-foreground hover:text-primary"
+          }`}
+          onClick={() => setMobileOpen(false)}
+        >
+          {/* Active Indicator */}
+          {isActive && (
+            <motion.div
+              layoutId="active-side-link"
+              className="bg-primary/5 absolute inset-0 h-full w-full border"
             >
-              <IconArrowRight size={16} />
-            </motion.span>
+              <div className="relative h-full w-full">
+                <div className="bg-primary absolute -top-0.5 -left-0.5 h-1 w-1" />
+                <div className="bg-primary absolute -top-0.5 -right-0.5 h-1 w-1" />
+                <div className="bg-primary absolute -bottom-0.5 -left-0.5 h-1 w-1" />
+                <div className="bg-primary absolute -right-0.5 -bottom-0.5 h-1 w-1" />
+              </div>
+            </motion.div>
           )}
-        </AnimatePresence>
-      </Link>
-    </motion.li>
-  );
+          <span className="truncate capitalize">{title}</span>
+          <AnimatePresence>
+            {isHovered && hoveredIndex === `${index}-${slug}` && (
+              <motion.span
+                initial={{ opacity: 0, x: 5 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -5 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-3"
+              >
+                <IconArrowRight size={16} />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </Link>
+      </motion.li>
+    );
+  };
 
   const renderSkeletons = () =>
-    Array.from({ length: 8 }).map((_, i) => (
+    Array.from({ length: 12 }).map((_, i) => (
       <div
         key={i}
-        className="bg-muted mx-3 my-2 h-6 animate-pulse rounded-md"
+        className="bg-muted mx-3 my-3 h-6 animate-pulse rounded-md"
       />
     ));
 
@@ -114,7 +128,6 @@ const Sidebar = ({ className = "", currentSlug }: SidebarProps) => {
           renderLink({
             slug: component.slug || "",
             title: component.title,
-            isActive: component.slug === currentSlug,
             index,
           }),
         )}
@@ -124,7 +137,6 @@ const Sidebar = ({ className = "", currentSlug }: SidebarProps) => {
           renderLink({
             slug: template,
             title: template,
-            isActive: template === currentSlug,
             index,
             isTemplate: true,
           }),
@@ -184,7 +196,7 @@ const Sidebar = ({ className = "", currentSlug }: SidebarProps) => {
 
       {/* Desktop Sidebar */}
       <motion.aside
-        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 shadow-sm lg:block dark:border-neutral-800 ${className}`}
+        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 shadow-sm lg:block dark:border-neutral-800`}
       >
         {isLoading ? (
           <ul className="h-[calc(100vh-12rem)] pt-10">{renderSkeletons()}</ul>

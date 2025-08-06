@@ -76,13 +76,17 @@ export function CommandPalette() {
   return (
     <>
       <div
-        className="text-muted-foreground border-muted flex cursor-pointer items-center gap-2 rounded-full border-2 px-4 py-2 text-sm"
+        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 sm:px-4 sm:py-2 text-xs"
         onClick={() => {
           setOpen(true);
         }}
       >
-        <IconSearch strokeWidth={2} size={16} />
-        <span>Search Components...</span>
+        <IconSearch
+          strokeWidth={2}
+          size={16}
+          className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md"
+        />
+        <span className="hidden sm:inline">Search Components...</span>
         <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
           <span className="text-xs">⌘</span>K
         </kbd>
@@ -97,7 +101,7 @@ export function CommandPalette() {
                 navigate("/components");
               }}
             >
-              <IconComponents />
+              <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Components</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
                 ⌘JK
@@ -108,7 +112,7 @@ export function CommandPalette() {
                 navigate("/templates");
               }}
             >
-              <IconTemplate />
+              <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Templates</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
                 ⌘JL
@@ -124,7 +128,7 @@ export function CommandPalette() {
               </CommandItem>
             ) : components.length === 0 ? (
               <CommandItem>
-                <IconComponents />
+                <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
                 <span>No components found</span>
               </CommandItem>
             ) : (
@@ -135,7 +139,7 @@ export function CommandPalette() {
                     navigate("/components/" + component.slug);
                   }}
                 >
-                  <IconComponents />
+                  <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
                   <span>{component.title}</span>
                 </CommandItem>
               ))
