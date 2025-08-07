@@ -1,87 +1,96 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Highlight, themes, Language, PrismTheme } from "prism-react-renderer";
+import { Highlight, themes, Language } from "prism-react-renderer";
 import { useTheme } from "next-themes";
+import { CodeBlockCommand } from "./CodeBlockCommand";
+import CopyButton from "./CopyButton";
 
-export function HighlightCode({
-  code,
-  language = "tsx",
-}: {
-  code: string;
-  language?: Language;
-}) {
-  const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+export interface HighlightCodeProps {
+  className?: string;
+  children: React.ReactNode;
+}
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export const HighlightCode = ({
+  className = "",
+  children,
+}: HighlightCodeProps) => {
 
-  const selectedTheme = !mounted
-    ? themes.vsLight
-    : theme === "light"
-      ? themes.vsLight
-      : themes.vsDark;
+  const language = (className?.replace("language-", "") || "tsx") as Language;
+  const code = typeof children === "string" ? children.trim() : "";
 
-  // Custom command transformation logic
-  const commandProps: Record<string, string> = {};
-  if (code.startsWith("npm install")) {
-    commandProps["__npm__"] = code;
-    commandProps["__yarn__"] = code.replace("npm install", "yarn add");
-    commandProps["__pnpm__"] = code.replace("npm install", "pnpm add");
-    commandProps["__bun__"] = code.replace("npm install", "bun add");
-  } else if (code.startsWith("npx create-")) {
-    commandProps["__npm__"] = code;
-    commandProps["__yarn__"] = code.replace("npx create-", "yarn create ");
-    commandProps["__pnpm__"] = code.replace("npx create-", "pnpm create ");
-    commandProps["__bun__"] = code.replace("npx", "bunx --bun");
-  } else if (code.startsWith("npm create")) {
-    commandProps["__npm__"] = code;
-    commandProps["__yarn__"] = code.replace("npm create", "yarn create");
-    commandProps["__pnpm__"] = code.replace("npm create", "pnpm create");
-    commandProps["__bun__"] = code.replace("npm create", "bun create");
-  } else if (code.startsWith("npx")) {
-    commandProps["__npm__"] = code;
-    commandProps["__yarn__"] = code.replace("npx", "yarn");
-    commandProps["__pnpm__"] = code.replace("npx", "pnpm dlx");
-    commandProps["__bun__"] = code.replace("npx", "bunx --bun");
-  } else if (code.startsWith("npm run")) {
-    commandProps["__npm__"] = code;
-    commandProps["__yarn__"] = code.replace("npm run", "yarn");
-    commandProps["__pnpm__"] = code.replace("npm run", "pnpm");
-    commandProps["__bun__"] = code.replace("npm run", "bun");
+  const isCommand = (cmd: string) =>
+    /^npm (install|run|create)|^npx(?! --)|^bun|^pnpm/.test(cmd.trim());
+
+  const generateCommandVariants = (cmd: string): Record<string, string> => {
+    if (cmd.startsWith("npm install")) {
+      return {
+        __npm__: cmd,
+        __yarn__: cmd.replace("npm install", "yarn add"),
+        __pnpm__: cmd.replace("npm install", "pnpm add"),
+        __bun__: cmd.replace("npm install", "bun add"),
+      };
+    } else if (cmd.startsWith("npm create")) {
+      return {
+        __npm__: cmd,
+        __yarn__: cmd.replace("npm create", "yarn create"),
+        __pnpm__: cmd.replace("npm create", "pnpm create"),
+        __bun__: cmd.replace("npm create", "bun create"),
+      };
+    } else if (cmd.startsWith("npx create-")) {
+      return {
+        __npm__: cmd,
+        __yarn__: cmd.replace("npx create-", "yarn create "),
+        __pnpm__: cmd.replace("npx create-", "pnpm create "),
+        __bun__: cmd.replace("npx", "bunx --bun"),
+      };
+    } else if (cmd.startsWith("npx")) {
+      return {
+        __npm__: cmd,
+        __yarn__: cmd.replace("npx", "yarn"),
+        __pnpm__: cmd.replace("npx", "pnpm dlx"),
+        __bun__: cmd.replace("npx", "bunx --bun"),
+      };
+    } else if (cmd.startsWith("npm run")) {
+      return {
+        __npm__: cmd,
+        __yarn__: cmd.replace("npm run", "yarn"),
+        __pnpm__: cmd.replace("npm run", "pnpm"),
+        __bun__: cmd.replace("npm run", "bun"),
+      };
+    }
+
+    return {};
+  };
+
+
+  // CLI command variant block
+  if (language === "bash" && isCommand(code)) {
+    const variants = generateCommandVariants(code);
+    return <CodeBlockCommand {...variants} />;
   }
 
   return (
-    <div
-      className="overflow-x-auto rounded-lg bg-neutral-900 p-2 text-xs sm:p-4 sm:text-sm"
-      {...commandProps}
-    >
-      <Highlight
-        code={code.trim()}
-        language={language}
-        theme={selectedTheme as PrismTheme}
-      >
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre
-            className={`${className} overflow-x-auto rounded-lg p-2 sm:p-4`}
-            style={style}
-          >
-            {tokens.map((line, i) => {
-               const { key: lineKey, ...lineProps } = getLineProps({ line, key: i });
-               return (
-                 <div key={i} {...lineProps}>
-                   {line.map((token, key) => {
-                     const { key: tokenKey, ...tokenProps } = getTokenProps({ token, key });
-                     return <span key={key} {...tokenProps} />;
-                   })}
-                 </div>
-               );
-             })}
-          </pre>
-        )}
-      </Highlight>
+    <div className="group relative my-6 overflow-hidden rounded-lg border bg-neutral-50 dark:bg-neutral-800 py-px pr-3 pl-1 transition-colors duration-300">
+      <CopyButton code={code} />
+      <div className="scrollbar-thin overflow-x-auto py-4">
+        <Highlight theme={themes.oneDark} code={code} language={language}>
+          {({ className, tokens, getLineProps, getTokenProps }) => (
+            <pre className={`${className} relative py-px`}>
+              {tokens.map((line, i) => (
+                <div key={i} {...getLineProps({ line })}>
+                  <span className="mr-6 inline-block w-8 text-right text-xs text-neutral-400 dark:text-neutral-500 select-none">
+                    {i + 1}
+                  </span>
+                  {line.map((token, key) => (
+                    <span key={key} {...getTokenProps({ token })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
+      </div>
     </div>
   );
-}
+};

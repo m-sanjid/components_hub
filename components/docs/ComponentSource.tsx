@@ -7,7 +7,7 @@ import { getRegistryItem } from "@/lib/component-registry";
 import { cn } from "@/lib/utils";
 import { CodeCollapsibleWrapper } from "@/components/docs/CollapsibleWrapper";
 import CopyButton from "@/components/docs/CopyButton";
-import { getIconForLanguageExtension } from "@/components/docs/Icons";
+import { getIconForLanguageExtension } from "@/components/docs/Iconsss";
 
 export async function ComponentSource({
   name,
@@ -23,9 +23,7 @@ export async function ComponentSource({
   language?: string;
   collapsible?: boolean;
 }) {
-  if (!name && !src) {
-    return null;
-  }
+  if (!name && !src) return null;
 
   let code: string | undefined;
 
@@ -39,11 +37,9 @@ export async function ComponentSource({
     code = file;
   }
 
-  if (!code) {
-    return null;
-  }
+  if (!code) return null;
 
-  const lang = language ?? title?.split(".").pop() ?? "tsx";
+  const lang = (language ?? title?.split(".").pop() ?? "tsx").toLowerCase();
 
   if (!collapsible) {
     return (
@@ -69,7 +65,7 @@ function ComponentCode({
 }: {
   code: string;
   language: string;
-  title: string | undefined;
+  title?: string;
 }) {
   return (
     <figure data-rehype-pretty-code-figure="" className="[&>pre]:max-h-96">
@@ -83,8 +79,13 @@ function ComponentCode({
           {title}
         </figcaption>
       )}
-      <CopyButton code={code} />
-      <HighlightCode code={code} language={language} />
+      <CopyButton
+        className="bg-primary/10 border-neutral-300 hover:text-primary dark:border-neutral-600"
+        code={code}
+      />
+      <HighlightCode className={`language-${language}`}>
+        {code}
+      </HighlightCode>
     </figure>
   );
 }

@@ -1,17 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { CheckIcon, ClipboardIcon, TerminalIcon } from "lucide-react";
+import { TerminalIcon } from "lucide-react";
 
 import { useConfig } from "@/hooks/use-config";
 import CopyButton from "@/components/docs/CopyButton";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { IconTerminal } from "@tabler/icons-react";
 
 export function CodeBlockCommand({
   __npm__,
@@ -25,14 +20,6 @@ export function CodeBlockCommand({
   __bun__?: string;
 }) {
   const [config, setConfig] = useConfig();
-  const [hasCopied, setHasCopied] = React.useState(false);
-
-  React.useEffect(() => {
-    if (hasCopied) {
-      const timer = setTimeout(() => setHasCopied(false), 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [hasCopied]);
 
   const packageManager = config.packageManager || "pnpm";
   const tabs = React.useMemo(() => {
@@ -43,17 +30,6 @@ export function CodeBlockCommand({
       bun: __bun__,
     };
   }, [__npm__, __pnpm__, __yarn__, __bun__]);
-
-  const copyCommand = React.useCallback(() => {
-    const command = tabs[packageManager];
-
-    if (!command) {
-      return;
-    }
-
-    CopyButton({ code: command });
-    setHasCopied(true);
-  }, [packageManager, tabs]);
 
   return (
     <div className="overflow-x-auto">
@@ -68,8 +44,8 @@ export function CodeBlockCommand({
         }}
       >
         <div className="border-border/50 flex items-center gap-2 border-b px-3 py-1">
-          <div className="bg-foreground flex size-4 items-center justify-center rounded-[1px] opacity-70">
-            <TerminalIcon className="text-code size-3" />
+          <div className="bg-primary/10 rounded-md border p-1 backdrop-blur-md">
+            <IconTerminal className="size-4" />
           </div>
           <TabsList className="rounded-none bg-transparent p-0">
             {Object.entries(tabs).map(([key]) => {
@@ -102,23 +78,7 @@ export function CodeBlockCommand({
           })}
         </div>
       </Tabs>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            data-slot="copy-button"
-            size="icon"
-            variant="ghost"
-            className="absolute top-2 right-2 z-10 size-7 opacity-70 hover:opacity-100 focus-visible:opacity-100"
-            onClick={copyCommand}
-          >
-            <span className="sr-only">Copy</span>
-            {hasCopied ? <CheckIcon /> : <ClipboardIcon />}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          {hasCopied ? "Copied" : "Copy to Clipboard"}
-        </TooltipContent>
-      </Tooltip>
+      <CopyButton code={tabs[packageManager] || ""} />
     </div>
   );
 }

@@ -1,23 +1,43 @@
+import React from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { CodeBlock } from "./CodeBlock";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
-import CopyButton from "./CopyButton";
 import { CodeBlockCommand } from "./CodeBlockCommand";
 import { CodePreview } from "./CodePreview";
 import { ComponentSource } from "./ComponentSource";
-import { getIconForLanguageExtension } from "./Icons";
+import { getIconForLanguageExtension } from "./Iconsss";
 import { CodeTabs } from "./CodeTabs";
 import { PropsTable } from "./PropsTable";
 import { TemplateCard } from "./TemplateCard";
 import { TemplateShowcase } from "./TemplateShowcase";
-import React from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HighlightCode } from "./HighlightCode";
+import { Shadcn } from "./Shadcn";
+
+const generateId = (text: React.ReactNode) =>
+  text
+    ?.toString()
+    .replace(/[\s'?]/g, "-")
+    .toLowerCase() || "";
 
 export const mdxComponents = {
-  pre: (props: React.ComponentProps<typeof CodeBlock>) => {
-    const codeProps = props.children;
-    return <CodeBlock {...props}>{codeProps}</CodeBlock>;
-  },
+  // ——— CODE BLOCKS ———
+  pre: ({ className, children, ...props }: React.ComponentProps<"pre">) => (
+    <pre
+      className={cn(
+        "no-scrollbar min-w-0 overflow-x-auto px-4 py-3.5 outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </pre>
+  ),
+
+  // code: CodeBlock,
+  code: HighlightCode,
+
+  // ——— HEADINGS ———
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
     <h1
       className={cn(
@@ -27,23 +47,18 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  h2: ({ className, ...props }: React.ComponentProps<"h2">) => {
-    return (
-      <h2
-        id={props.children
-          ?.toString()
-          .replace(/ /g, "-")
-          .replace(/'/g, "")
-          .replace(/\?/g, "")
-          .toLowerCase()}
-        className={cn(
-          "font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight first:mt-0 sm:text-xl md:text-2xl lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
-          className,
-        )}
-        {...props}
-      />
-    );
-  },
+  h2: ({ className, children, ...props }: React.ComponentProps<"h2">) => (
+    <h2
+      id={generateId(children)}
+      className={cn(
+        "font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight first:mt-0 sm:text-xl md:text-2xl lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h2>
+  ),
   h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h3
       className={cn(
@@ -80,21 +95,25 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  a: ({ className, ...props }: React.ComponentProps<"a">) => (
-    <a
-      className={cn("font-medium underline underline-offset-4", className)}
-      {...props}
-    />
-  ),
+
+  // ——— TEXT ———
   p: ({ className, ...props }: React.ComponentProps<"p">) => (
     <p
       className={cn("leading-relaxed [&:not(:first-child)]:mt-6", className)}
       {...props}
     />
   ),
+  a: ({ className, ...props }: React.ComponentProps<"a">) => (
+    <a
+      className={cn("font-medium underline underline-offset-4", className)}
+      {...props}
+    />
+  ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className={cn("font-medium", className)} {...props} />
   ),
+
+  // ——— LISTS ———
   ul: ({ className, ...props }: React.ComponentProps<"ul">) => (
     <ul className={cn("my-6 ml-6 list-disc", className)} {...props} />
   ),
@@ -104,19 +123,19 @@ export const mdxComponents = {
   li: ({ className, ...props }: React.ComponentProps<"li">) => (
     <li className={cn("mt-2", className)} {...props} />
   ),
+
+  // ——— BLOCK ELEMENTS ———
   blockquote: ({ className, ...props }: React.ComponentProps<"blockquote">) => (
     <blockquote
       className={cn("mt-6 border-l-2 pl-6 italic", className)}
       {...props}
     />
   ),
-  img: ({ className, alt, ...props }: React.ComponentProps<"img">) => (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img className={cn("rounded-md", className)} alt={alt} {...props} />
-  ),
-  hr: ({ ...props }: React.ComponentProps<"hr">) => (
+  hr: (props: React.ComponentProps<"hr">) => (
     <hr className="my-4 md:my-8" {...props} />
   ),
+
+  // ——— TABLES ———
   table: ({ className, ...props }: React.ComponentProps<"table">) => (
     <div className="my-6 w-full overflow-y-auto">
       <table
@@ -152,15 +171,17 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  figure: ({ className, ...props }: React.ComponentProps<"figure">) => {
-    return <figure className={cn(className)} {...props} />;
-  },
+
+  // ——— FIGURES ———
+  figure: ({ className, ...props }: React.ComponentProps<"figure">) => (
+    <figure className={cn(className)} {...props} />
+  ),
   figcaption: ({
     className,
     children,
     ...props
   }: React.ComponentProps<"figcaption">) => {
-    const iconExtension =
+    const icon =
       "data-language" in props && typeof props["data-language"] === "string"
         ? getIconForLanguageExtension(props["data-language"])
         : null;
@@ -173,74 +194,15 @@ export const mdxComponents = {
         )}
         {...props}
       >
-        {iconExtension}
+        {icon}
         {children}
       </figcaption>
     );
   },
-  code: ({
-    className,
-    __raw__,
-    __npm__,
-    __yarn__,
-    __pnpm__,
-    __bun__,
-    ...props
-  }: React.ComponentProps<"code"> & {
-    __raw__?: string;
-    __npm__?: string;
-    __yarn__?: string;
-    __pnpm__?: string;
-    __bun__?: string;
-  }) => {
-    // Inline Code.
-    if (typeof props.children === "string") {
-      return (
-        <code
-          className={cn(
-            "bg-muted relative rounded-md px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] outline-none",
-            className,
-          )}
-          {...props}
-        />
-      );
-    }
 
-    // npm command.
-    const isNpmCommand = __npm__ && __yarn__ && __pnpm__ && __bun__;
-    if (isNpmCommand) {
-      return (
-        <CodeBlockCommand
-          __npm__={__npm__}
-          __yarn__={__yarn__}
-          __pnpm__={__pnpm__}
-          __bun__={__bun__}
-        />
-      );
-    }
-
-    // Default codeblock.
-    return (
-      <>
-        {__raw__ && <CopyButton code={__raw__} />}
-        <code {...props} />
-      </>
-    );
-  },
-  Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
-    <h3
-      className={cn(
-        "font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight",
-        className,
-      )}
-      {...props}
-    />
-  ),
-  Steps: ({ ...props }) => (
-    <div
-      className="[&>h3]:step steps mb-12 [counter-reset:step] *:[h3]:first:!mt-0"
-      {...props}
-    />
+  // ——— IMAGES ———
+  img: ({ className, alt, ...props }: React.ComponentProps<"img">) => (
+    <img className={cn("rounded-md", className)} alt={alt} {...props} />
   ),
   Image: ({
     src,
@@ -259,11 +221,11 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  Tabs: ({ className, ...props }: React.ComponentProps<typeof Tabs>) => {
-    return (
-      <Tabs className={cn("relative mt-6 w-full", className)} {...props} />
-    );
-  },
+
+  // ——— CUSTOM COMPONENTS ———
+  Tabs: ({ className, ...props }: React.ComponentProps<typeof Tabs>) => (
+    <Tabs className={cn("relative mt-6 w-full", className)} {...props} />
+  ),
   TabsList: ({
     className,
     ...props
@@ -282,7 +244,7 @@ export const mdxComponents = {
   }: React.ComponentProps<typeof TabsTrigger>) => (
     <TabsTrigger
       className={cn(
-        "text-muted-foreground data-[state=active]:text-foreground px-0 text-base data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:bg-transparent",
+        "",
         className,
       )}
       {...props}
@@ -303,10 +265,31 @@ export const mdxComponents = {
   Tab: ({ className, ...props }: React.ComponentProps<"div">) => (
     <div className={cn(className)} {...props} />
   ),
-  ComponentSource,
-  CodeTabs,
+
+  // ——— STEP BLOCKS ———
+  Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
+    <h3
+      className={cn(
+        "font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight",
+        className,
+      )}
+      {...props}
+    />
+  ),
+  Steps: (props: React.ComponentProps<"div">) => (
+    <div
+      className="[&>h3]:step steps mb-12 [counter-reset:step] *:[h3]:first:!mt-0"
+      {...props}
+    />
+  ),
+
+  // ——— REUSABLE COMPONENTS ———
   CodePreview,
+  CodeTabs,
+  CodeBlockCommand,
+  ComponentSource,
   PropsTable,
   TemplateCard,
   TemplateShowcase,
+  Shadcn
 };
