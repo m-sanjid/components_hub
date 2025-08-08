@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { CodeBlock } from "./CodeBlock";
+
 import { CodeBlockCommand } from "./CodeBlockCommand";
 import { CodePreview } from "./CodePreview";
 import { ComponentSource } from "./ComponentSource";
@@ -25,7 +25,7 @@ export const mdxComponents = {
   pre: ({ className, children, ...props }: React.ComponentProps<"pre">) => (
     <pre
       className={cn(
-        "no-scrollbar min-w-0 overflow-x-auto px-4 py-3.5 outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
+        "no-scrollbar min-w-0 overflow-x-auto outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
         className,
       )}
       {...props}

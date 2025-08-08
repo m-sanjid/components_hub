@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Highlight, themes, Language } from "prism-react-renderer";
-import { useTheme } from "next-themes";
 import { CodeBlockCommand } from "./CodeBlockCommand";
 import CopyButton from "./CopyButton";
 
@@ -71,9 +70,9 @@ export const HighlightCode = ({
   }
 
   return (
-    <div className="group relative my-6 overflow-hidden rounded-lg border bg-neutral-50 dark:bg-neutral-800 py-px pr-3 pl-1 transition-colors duration-300">
-      <CopyButton code={code} />
-      <div className="scrollbar-thin overflow-x-auto py-4">
+    <div className="group relative overflow-hidden">
+      <CopyButton code={code} className="absolute top-3" />
+      <div className="scrollbar-thin overflow-x-auto">
         <Highlight theme={themes.oneDark} code={code} language={language}>
           {({ className, tokens, getLineProps, getTokenProps }) => (
             <pre className={`${className} relative py-px`}>

@@ -1,8 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { TerminalIcon } from "lucide-react";
-
 import { useConfig } from "@/hooks/use-config";
 import CopyButton from "@/components/docs/CopyButton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -32,7 +30,7 @@ export function CodeBlockCommand({
   }, [__npm__, __pnpm__, __yarn__, __bun__]);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto relative">
       <Tabs
         value={packageManager}
         className="gap-0"
@@ -64,7 +62,7 @@ export function CodeBlockCommand({
         <div className="no-scrollbar overflow-x-auto">
           {Object.entries(tabs).map(([key, value]) => {
             return (
-              <TabsContent key={key} value={key} className="mt-0 px-4 py-3.5">
+              <TabsContent key={key} value={key} className="mt-0 pt-0 border-none">
                 <pre>
                   <code
                     className="relative font-mono text-sm leading-none"

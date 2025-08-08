@@ -79,10 +79,6 @@ function ComponentCode({
           {title}
         </figcaption>
       )}
-      <CopyButton
-        className="bg-primary/10 border-neutral-300 hover:text-primary dark:border-neutral-600"
-        code={code}
-      />
       <HighlightCode className={`language-${language}`}>
         {code}
       </HighlightCode>
