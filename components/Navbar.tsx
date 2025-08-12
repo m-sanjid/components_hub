@@ -16,7 +16,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
-import { IconMenu, IconTemplate, IconCircleDashed } from "@tabler/icons-react";
+import { IconTemplate, IconCircleDashed, IconMenu2 } from "@tabler/icons-react";
 import { CommandPalette } from "./Cmdk";
 
 const mainNavItems = [
@@ -88,8 +88,8 @@ export default function Navbar() {
     <motion.nav
       className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
-          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-4 mx-auto max-w-5xl rounded-2xl border shadow-lg backdrop-blur"
-          : "bg-background/95 top-0 mx-auto max-w-6xl backdrop-blur"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 md:top-3 mx-auto max-w-6xl md:rounded-2xl border shadow-lg backdrop-blur"
+          : "bg-background/95 top-0 mx-auto max-w-7xl backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
@@ -142,10 +142,10 @@ export default function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
-                <IconMenu className="h-5 w-5" />
+                <IconMenu2 className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="w-56 md:hidden">
               <DropdownMenuLabel>Navigation</DropdownMenuLabel>
               <DropdownMenuSeparator />
 

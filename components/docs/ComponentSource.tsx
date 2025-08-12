@@ -6,7 +6,6 @@ import { HighlightCode } from "@/components/docs/HighlightCode";
 import { getRegistryItem } from "@/lib/component-registry";
 import { cn } from "@/lib/utils";
 import { CodeCollapsibleWrapper } from "@/components/docs/CollapsibleWrapper";
-import CopyButton from "@/components/docs/CopyButton";
 import { getIconForLanguageExtension } from "@/components/docs/Iconsss";
 
 export async function ComponentSource({

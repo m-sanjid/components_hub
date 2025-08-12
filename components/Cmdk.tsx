@@ -41,19 +41,42 @@ export function CommandPalette() {
         e.preventDefault();
         setOpen(true);
       }
-      if (e.key === "jk" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        window.location.href = "/components";
-      }
-      if (e.key === "jl" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        window.location.href = "/templates";
-      }
     };
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  const router = useRouter();
+  
+  // Handle additional keyboard shortcuts
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Only handle shortcuts when command palette is not open
+      if (open) return;
+      
+      if (e.metaKey || e.ctrlKey) {
+        if (e.key === "j") {
+          e.preventDefault();
+          // Check for the next key press
+          const handleNextKey = (nextEvent: KeyboardEvent) => {
+            if (nextEvent.key === "k") {
+              nextEvent.preventDefault();
+              router.push("/components");
+            } else if (nextEvent.key === "l") {
+              nextEvent.preventDefault();
+              router.push("/templates");
+            }
+            document.removeEventListener("keydown", handleNextKey);
+          };
+          document.addEventListener("keydown", handleNextKey, { once: true });
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [open, router]);
 
   const fetchComponents = async () => {
     setIsLoading(true);
@@ -66,8 +89,6 @@ export function CommandPalette() {
   React.useEffect(() => {
     fetchComponents();
   }, []);
-
-  const router = useRouter();
   const navigate = (path: string) => {
     router.push(path);
     setOpen(false);
@@ -104,7 +125,7 @@ export function CommandPalette() {
               <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Components</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
-                ⌘JK
+                ⌘J K
               </CommandShortcut>
             </CommandItem>
             <CommandItem
@@ -115,7 +136,7 @@ export function CommandPalette() {
               <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Templates</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
-                ⌘JL
+                ⌘J L
               </CommandShortcut>
             </CommandItem>
           </CommandGroup>

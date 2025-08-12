@@ -15,6 +15,7 @@ import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { allTemplates } from "@/lib/constants";
 import { usePathname } from "next/navigation";
+import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
 
 const Sidebar = () => {
   const [components, setComponents] = useState<Components[]>([]);
@@ -128,12 +129,28 @@ const Sidebar = () => {
     ));
 
   const renderSections = () => (
-    <div className="scrollbar-hide h-[calc(100vh-12rem)] overflow-x-hidden overflow-y-auto pr-2">
+    <div className="scrollbar-hide h-[calc(100vh-12rem)] overflow-x-hidden overflow-y-auto pr-2 py-4">
       <Section title="Installation">
         {renderLink({
           slug: "installation",
           title: "Installation",
           index: 0,
+          icon: (
+            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+          ),
+        })}
+        {renderLink({
+          slug: "cli",
+          title: "shadcn CLI",
+          index: 1,
+          icon: (
+            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+          ),
+        })}
+        {renderLink({
+          slug: "credits",
+          title: "Credits",
+          index: 2,
           icon: (
             <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
           ),
@@ -169,12 +186,17 @@ const Sidebar = () => {
 
   return (
     <div className="scrollbar-hide relative">
+      <ProgressiveBlur
+        direction="top"
+        blurIntensity={0.5}
+        className="absolute top-0 z-50 h-8 w-full"
+      />
       {/* Mobile Button */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="hover:bg-accent fixed top-20 z-20 rounded-md p-2 lg:hidden"
+        className="hover:bg-accent bg-primary/10 fixed top-22 z-20 rounded-md border p-2 backdrop-blur-md lg:hidden"
       >
-        <IconMenu2 size={20} />
+        <IconMenu2 size={16} />
       </button>
 
       {/* Mobile Drawer */}
@@ -187,7 +209,7 @@ const Sidebar = () => {
             transition={{ duration: 0.25 }}
             className="scrollbar-hide fixed inset-0 z-40 flex"
           >
-            <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-20 shadow-lg">
+            <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-24 shadow-lg">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Browse</h2>
                 <button
@@ -218,7 +240,7 @@ const Sidebar = () => {
 
       {/* Desktop Sidebar */}
       <motion.aside
-        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 lg:block dark:border-neutral-800`}
+        className={`bg-background pt-4 sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 lg:block dark:border-neutral-800`}
       >
         {isLoading ? (
           <ul className="h-[calc(100vh-12rem)] pt-10">{renderSkeletons()}</ul>
@@ -227,6 +249,11 @@ const Sidebar = () => {
         ) : (
           <ul className="h-[calc(100vh-12rem)]">{renderSections()}</ul>
         )}
+             <div className="relative">
+                <ProgressiveBlur
+                  className="pointer-events-none absolute bottom-0 z-50 h-4 w-full"
+                />
+              </div>
         <div className="z-50 mt-auto">
           <HelpSection />
         </div>
@@ -243,7 +270,7 @@ const Section = ({
   children: React.ReactNode;
 }) => (
   <div className="mb-4">
-    <h3 className="text-muted-foreground mb-1 px-3 text-xs font-medium tracking-wide uppercase">
+    <h3 className="text-muted-foreground mb-1 px-3 text-xs tracking-wide font-bold uppercase">
       {title}
     </h3>
     <ul className="space-y-1">{children}</ul>
