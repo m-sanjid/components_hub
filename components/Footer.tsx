@@ -5,6 +5,8 @@ import {
   IconBrandLinkedin,
 } from "@tabler/icons-react";
 import Logo from "./Logo";
+import { siteConfig } from "@/config/site";
+import { Link } from "next-view-transitions";
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -20,19 +22,19 @@ const Footer: React.FC = () => {
     {
       title: "Resources",
       links: [
-        { name: "Documentation", href: "/documents" },
-        { name: "Guides", href: "#" },
-        { name: "Support", href: "#" },
-        { name: "API Reference", href: "#" },
+        { name: "Documentation", href: "/components/installation" },
+        { name: "Guides", href: "/components/cli" },
+        { name: "Support", href: "/contact" },
+        { name: "API Reference", href: "/api" },
       ],
     },
   ];
 
   return (
-    <footer className="border-border bg-card border-t">
-      <div className="container mx-auto max-w-6xl px-4 py-12 md:px-0">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
-          <div className="col-span-2">
+    <footer className="border-border bg-card border-t mb-6 z-30" role="contentinfo">
+      <div className="container mx-auto max-w-6xl px-4 py-12">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-6">
+          <div className="sm:col-span-2">
             <div className="mb-4 flex items-center gap-2">
               <Logo />
             </div>
@@ -40,47 +42,64 @@ const Footer: React.FC = () => {
               Beautiful, responsive UI components and templates for modern web
               applications.
             </p>
-            <div className="flex gap-4">
-              <a
-                href="#"
-                className="text-muted-foreground bg-secondary hover:text-foreground flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-                aria-label="GitHub"
-              >
-                <IconBrandGithub className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground bg-secondary hover:text-foreground flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-                aria-label="Twitter"
-              >
-                <IconBrandX className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                className="text-muted-foreground bg-secondary hover:text-foreground flex h-8 w-8 items-center justify-center rounded-full transition-colors"
-                aria-label="LinkedIn"
-              >
-                <IconBrandLinkedin className="h-4 w-4" />
-              </a>
-            </div>
+            <ul className="flex gap-4" aria-label="Social links">
+              <li>
+                <Link
+                  href={siteConfig.links.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  aria-label="GitHub"
+                  title="GitHub"
+                >
+                  <IconBrandGithub className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={siteConfig.links.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  aria-label="X (Twitter)"
+                  title="X (Twitter)"
+                >
+                  <IconBrandX className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://linkedin.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  aria-label="LinkedIn"
+                  title="LinkedIn"
+                >
+                  <IconBrandLinkedin className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {footerLinks.map((section) => (
-            <div key={section.title}>
-              <h3 className="mb-3 font-medium">{section.title}</h3>
+            <nav key={section.title} aria-labelledby={`footer-${section.title}`}>
+              <h3 id={`footer-${section.title}`} className="mb-3 font-medium">
+                {section.title}
+              </h3>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.name}>
-                    <a
+                    <Link
                       href={link.href}
-                      className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+                      className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
                     >
                       {link.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
       </div>
@@ -90,24 +109,24 @@ const Footer: React.FC = () => {
             &copy; {year} Components Hub. All rights reserved.
           </p>
           <div className="mt-4 flex gap-4 md:mt-0">
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+            <Link 
+              href="/privacy-policy"
+              className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
             >
               Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+            </Link>
+            < Link
+              href="/terms-of-service"
+              className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
             >
               Terms of Service
-            </a>
-            <a
-              href="#"
-              className="text-muted-foreground hover:text-foreground text-sm transition-colors"
+            </Link>
+            <Link
+              href="/cookie-policy"
+              className="text-muted-foreground  px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
             >
               Cookie Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

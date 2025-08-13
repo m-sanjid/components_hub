@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { templates } from "@/lib/constants";
 import { Link } from "next-view-transitions";
 import { IconArrowRight, IconExternalLink } from "@tabler/icons-react";
+import { Input } from "@/components/ui/input";
 
 export default function TemplatesPage() {
   const [search, setSearch] = useState("");
@@ -45,9 +46,9 @@ export default function TemplatesPage() {
               key={cat}
               onClick={() => setCategory(cat)}
               className={cn(
-                "rounded-md border px-4 py-1 text-sm transition-colors",
+                "rounded-[6px] border px-2 py-px text-sm transition-colors",
                 category === cat
-                  ? "bg-primary text-primary-foreground font-semibold"
+                  ? "bg-[#FF6100] font-semibold text-white"
                   : "hover:bg-primary/10 bg-primary/5 text-primary",
               )}
             >
@@ -58,13 +59,13 @@ export default function TemplatesPage() {
 
         {/* Search */}
         <div className="relative mt-6 w-full sm:w-80">
-          <Search className="text-muted-foreground absolute top-2.5 left-3 h-4 w-4" />
-          <input
+        <Search className="text-muted-foreground bg-primary/10 absolute top-2 left-2 size-5 rounded-[6px] border p-1" />
+          <Input
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search templates..."
-            className="focus-visible:ring-primary w-full rounded-lg border py-2 pr-4 pl-10 focus-visible:ring-2"
+            className="pl-8"
           />
         </div>
 

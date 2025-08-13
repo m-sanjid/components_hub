@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "@/components/Sidebar";
+import ContactCTA from "@/components/docs/ContactCTA";
 
 export default function ComponentsLayout({
   children,
@@ -17,7 +18,9 @@ export default function ComponentsLayout({
         </aside>
 
         {/* Main content */}
-        <section className="flex-1 min-w-0">{children}</section>
+        <section className="min-w-0 flex-1">{children}
+        <ContactCTA/>
+        </section>
       </main>
     </div>
   );

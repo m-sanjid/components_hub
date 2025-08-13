@@ -1,3 +1,4 @@
+import ContactCTA from "@/components/docs/ContactCTA";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 
@@ -24,7 +25,9 @@ export default function TemplatesLayout({
         </aside>
 
         {/* Main content */}
-        <section className="min-w-0 flex-1">{children}</section>
+        <section className="min-w-0 flex-1">{children}
+        <ContactCTA/>
+        </section>
       </main>
     </div>
   );

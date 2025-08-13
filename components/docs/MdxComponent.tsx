@@ -59,8 +59,9 @@ export const mdxComponents = {
       {children}
     </h2>
   ),
-  h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
+  h3: ({ className, children, ...props }: React.ComponentProps<"h3">) => (
     <h3
+      id={generateId(children)}
       className={cn(
         "font-heading mt-8 scroll-m-28 text-base font-semibold tracking-tight sm:text-xl *:[code]:text-xl",
         className,
@@ -174,7 +175,7 @@ export const mdxComponents = {
 
   // ——— FIGURES ———
   figure: ({ className, ...props }: React.ComponentProps<"figure">) => (
-    <figure className={cn(className, "bg-red-500")} {...props} />
+    <figure className={cn(className)} {...props} />
   ),
   figcaption: ({
     className,
@@ -250,7 +251,7 @@ export const mdxComponents = {
   }: React.ComponentProps<typeof TabsContent>) => (
     <TabsContent
       className={cn(
-        "relative [&_h3.font-heading]:text-base [&_h3.font-heading]:font-medium *:[figure]:first:mt-0 [&>.steps]:mt-6",
+        "relative max-w-[720px] [&_h3.font-heading]:text-base [&_h3.font-heading]:font-medium *:[figure]:first:mt-0 [&>.steps]:mt-6",
         className,
       )}
       {...props}
@@ -262,7 +263,7 @@ export const mdxComponents = {
 
   // ——— STEP BLOCKS ———
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
-    <h3
+    <h4
       className={cn(
         "font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight",
         className,

@@ -46,7 +46,7 @@
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
+  --card: oklch(0 0 0 / 0.05);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -145,6 +145,19 @@
   background: rgba(100, 100, 100, 0.5);
 }
 
+/* globals.css */
+
+/* Light mode selection */
+::selection {
+  background-color: rgba(255, 97, 0, 1); /* soft pink-red highlight */
+  color: #fff; /* white text for contrast */
+  text-shadow: 0 0 4px rgba(242, 77, 0, 0.8); /* glowing text effect */
+  padding: 0.15em 0.25em; /* extra padding for better feel */
+  border-radius: 4px; /* rounded highlight edges */
+}
+
+/* Dark mode selection */
+
 /* Optional: Firefox */
 .scrollbar-thin {
   scrollbar-width: thin;
@@ -187,7 +200,7 @@
 }
 
 .prose h3 {
-  @apply mb-4 mt-8 text-base font-semibold tracking-tight text-foreground;
+  @apply mb-4 mt-8 text-lg md:text-xl font-semibold tracking-tight text-foreground;
 }
 
 .prose h4 {

@@ -49,18 +49,15 @@ export function CommandPalette() {
 
   const router = useRouter();
   
-  // Handle additional keyboard shortcuts
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Only handle shortcuts when command palette is not open
       if (open) return;
       
       if (e.metaKey || e.ctrlKey) {
         if (e.key === "j") {
           e.preventDefault();
-          // Check for the next key press
           const handleNextKey = (nextEvent: KeyboardEvent) => {
-            if (nextEvent.key === "k") {
+            if (nextEvent.key === "i") {
               nextEvent.preventDefault();
               router.push("/components");
             } else if (nextEvent.key === "l") {
@@ -125,7 +122,7 @@ export function CommandPalette() {
               <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Components</span>
               <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
-                ⌘J K
+                ⌘J I
               </CommandShortcut>
             </CommandItem>
             <CommandItem

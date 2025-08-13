@@ -1,7 +1,10 @@
 import { getComponentList } from "@/lib/mdx-server";
 import { getComponentDemoOnly } from "@/lib/mdx-demo";
-import { IconComponents, IconLayoutGrid } from "@tabler/icons-react";
+import { IconCircleDashed, IconLayoutGrid } from "@tabler/icons-react";
+import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
 
 export default async function ComponentsPage({
   searchParams,
@@ -31,43 +34,52 @@ export default async function ComponentsPage({
 
   return (
     <div className="from-background via-background to-muted/20 min-h-screen bg-gradient-to-br">
-      <div className="container mx-auto px-4 py-8 lg:py-16">
+      <div className="mx-auto max-w-6xl px-4 py-8 lg:py-16">
         {/* Header Section */}
-        <div className="mb-16 text-center">
-          <h1 className="from-foreground to-foreground/70 mb-4 bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
-            Components
-          </h1>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg sm:text-xl">
+        <div className="mx-auto max-w-6xl px-4 py-12">
+          <h1 className="mb-2 text-4xl font-bold">UI Components</h1>
+          <p className="text-muted-foreground max-w-2xl">
             A curated collection of beautifully crafted, reusable components for
             your next project
           </p>
-          {/* Controls */}
-          <form
-            className="mx-auto mt-8 flex max-w-3xl flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
-            method="get"
-          >
-            <input
-              type="text"
+          {/* Filters */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {categories.map((cat) => {
+              const sp = new URLSearchParams();
+              if (query) sp.set("q", query);
+              if (cat !== "All") sp.set("category", cat);
+              return (
+                <Link
+                  key={cat}
+                  href={`/components?${sp.toString()}`}
+                  className={cn(
+                    "rounded-[6px] border px-2 py-px text-sm transition-colors",
+                    selectedCategory === cat
+                      ? "bg-[#FF6100] font-semibold text-white"
+                      : "hover:bg-primary/10 bg-primary/5 text-primary",
+                  )}
+                >
+                  {cat}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Search */}
+          <form method="get" className="relative mt-6 w-full sm:w-80">
+            <Search className="text-muted-foreground bg-primary/10 absolute top-2 left-2 size-5 rounded-[6px] border p-1" />
+            <Input
+              type="search"
               name="q"
               defaultValue={params?.q || ""}
               placeholder="Search components..."
-              className="border-border focus:ring-primary/20 focus:border-primary bg-card w-full rounded-lg border px-4 py-3 text-sm transition-all outline-none focus:ring-2"
+              className="pl-8"
             />
-            <select
-              name="category"
-              defaultValue={selectedCategory}
-              className="bg-card border-border w-full rounded-lg border px-3 py-3 text-sm sm:w-[220px]"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-            <button className="bg-primary text-primary-foreground w-full rounded-lg px-5 py-3 text-sm font-medium hover:opacity-90 sm:w-auto">
-              Apply
-            </button>
           </form>
+
+          <p className="text-muted-foreground mt-3 text-sm">
+            {filtered.length} result{filtered.length === 1 ? "" : "s"}
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-4">
@@ -123,8 +135,8 @@ export default async function ComponentsPage({
 
         {/* Footer CTA */}
         <div className="mt-16 text-center">
-          <div className="bg-muted text-muted-foreground inline-flex items-center space-x-2 rounded-full px-6 py-3 text-sm">
-            <IconComponents className="h-4 w-4" />
+          <div className="bg-primary/5 text-muted-foreground inline-flex items-center space-x-2 rounded-lg border px-4 py-2 text-sm font-semibold tracking-tight">
+            <IconCircleDashed className="h-4 w-4" />
             <span>
               {filtered.length} result{filtered.length === 1 ? "" : "s"}
             </span>

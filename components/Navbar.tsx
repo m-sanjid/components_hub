@@ -18,21 +18,18 @@ import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { IconTemplate, IconCircleDashed, IconMenu2 } from "@tabler/icons-react";
 import { CommandPalette } from "./Cmdk";
+import { cn } from "@/lib/utils";
 
 const mainNavItems = [
   {
     title: "Components",
     href: "/components",
-    icon: (
-      <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-    ),
+    icon: IconCircleDashed,
   },
   {
     title: "Templates",
     href: "/templates",
-    icon: (
-      <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-    ),
+    icon: IconTemplate,
   },
 ];
 
@@ -40,7 +37,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState<string | null>(null);
   const [hoverPosition, setHoverPosition] = useState({ left: 0, width: 0 });
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -59,13 +56,13 @@ export default function Navbar() {
         left: rect.left - navRect.left,
         width: rect.width,
       });
-      setIsHovered(true);
+      setIsHovered(e.currentTarget.textContent || "");
       toggleDropdown(e.currentTarget.textContent || "");
     }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
+    setIsHovered(null);
   };
 
   const toggleDropdown = (name: string) => {
@@ -88,7 +85,7 @@ export default function Navbar() {
     <motion.nav
       className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
-          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 md:top-3 mx-auto max-w-6xl md:rounded-2xl border shadow-lg backdrop-blur"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 md:top-3 mx-auto max-w-6xl md:rounded-2xl border border-[#FF6100]/20 shadow-lg backdrop-blur"
           : "bg-background/95 top-0 mx-auto max-w-7xl backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
@@ -106,7 +103,7 @@ export default function Navbar() {
             {/* Hover Effect */}
             {isHovered && (
               <motion.div
-                className="bg-primary/10 dark:bg-primary/20 absolute top-0 bottom-0 z-0 rounded-lg"
+                className="bg-[#FF6100] absolute top-0 bottom-0 z-0 rounded-lg"
                 initial={false}
                 animate={{
                   left: hoverPosition.left,
@@ -121,15 +118,17 @@ export default function Navbar() {
             {mainNavItems.map((item, idx) => (
               <Link href={item.href} key={idx} passHref>
                 <button
-                  className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm ${
+                  className={cn("relative z-10 flex items-center gap-2 px-4 py-2 text-sm",  
                     pathname === item.href ||
                     pathname.startsWith(item.href + "/")
-                      ? "text-primary font-medium"
-                      : "text-foreground hover:text-primary"
-                  }`}
+                      ? "font-semibold"
+                      : "font-normal"
+                  ,
+                  isHovered === item.title ? "text-white" : ""    
+                  )}
                   onMouseEnter={handleHover}
                 >
-                  {item.icon}
+                  <item.icon className={cn("bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-sm",isHovered === item.title ? "border-primary/5" : "")} />
                   {item.title}
                 </button>
               </Link>
@@ -150,14 +149,14 @@ export default function Navbar() {
               <DropdownMenuSeparator />
 
               <DropdownMenuGroup>
-                {mainNavItems.map(({ title, href, icon }) => (
-                  <DropdownMenuItem key={href} asChild>
+                {mainNavItems.map((item) => (
+                  <DropdownMenuItem key={item.href} asChild>
                     <Link
-                      href={href}
+                      href={item.href}
                       className="flex w-full items-center gap-2"
                     >
-                      {icon}
-                      {title}
+                      <item.icon />
+                      {item.title}
                     </Link>
                   </DropdownMenuItem>
                 ))}

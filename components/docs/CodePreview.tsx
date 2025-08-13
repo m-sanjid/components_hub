@@ -74,14 +74,14 @@ export function CodePreview({
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as "preview" | "code")}
                 className={cn(
-                  "relative flex items-center space-x-2 rounded-[4px] p-1 text-sm font-medium transition-colors",
+                  "relative flex items-center space-x-2 rounded-[8px] p-1 text-sm font-medium transition-colors",
                   activeTab === tab.id
-                    ? "text-primary-foreground"
+                    ? "text-white"
                     : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 <span
-                  className={`bg-primary/10 z-10 rounded-md border p-1 backdrop-blur-md ${activeTab === tab.id ? "border-neutral-600 bg-white/20 dark:border-neutral-400 dark:bg-black/20" : ""}`}
+                  className={`bg-primary/10 z-10 rounded-[6px] border p-1 backdrop-blur-md ${activeTab === tab.id ? "border-neutral-100/20 bg-white/20" : ""}`}
                 >
                   {tab.icon}
                 </span>
@@ -90,7 +90,7 @@ export function CodePreview({
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="bg-primary absolute inset-0 z-0 rounded-md backdrop-blur-sm"
+                    className="bg-[#FF6100] absolute inset-0 z-0 rounded-md backdrop-blur-sm"
                     transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
                   />
                 )}

@@ -4,6 +4,7 @@ import {
   IconArrowRight,
   IconBrandX,
   IconCircleDashed,
+  IconFileDescription,
   IconMenu2,
   IconPhone,
   IconTemplate,
@@ -12,8 +13,8 @@ import {
 import { useState, useEffect } from "react";
 import { Components } from "@/types";
 import { motion, AnimatePresence } from "motion/react";
-import Link from "next/link";
-import { allTemplates } from "@/lib/constants";
+import {Link} from "next-view-transitions"
+import { templates } from "@/lib/constants";
 import { usePathname } from "next/navigation";
 import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
 
@@ -53,7 +54,7 @@ const Sidebar = () => {
     icon,
     link,
   }: {
-    slug: string;
+    slug?: string;
     title: string;
     index: number;
     isTemplate?: boolean;
@@ -61,7 +62,7 @@ const Sidebar = () => {
     link?: string;
   }) => {
     const isActive =
-      currentPath === `/${isTemplate ? "templates" : "components"}/${slug}`;
+      currentPath === `${link || `/${isTemplate ? "templates" : "components"}/${slug}`}`;
     const href = link || `/${isTemplate ? "templates" : "components"}/${slug}`;
     return (
       <motion.li
@@ -93,13 +94,13 @@ const Sidebar = () => {
           {isActive && (
             <motion.div
               layoutId="active-side-link"
-              className="bg-primary/5 absolute inset-0 h-full w-full border"
+              className="absolute inset-0 h-full w-full border bg-[#FF6100]/5"
             >
               <div className="relative h-full w-full">
-                <div className="bg-primary absolute -top-0.5 -left-0.5 h-1 w-1" />
-                <div className="bg-primary absolute -top-0.5 -right-0.5 h-1 w-1" />
-                <div className="bg-primary absolute -bottom-0.5 -left-0.5 h-1 w-1" />
-                <div className="bg-primary absolute -right-0.5 -bottom-0.5 h-1 w-1" />
+                <div className="absolute -top-0.5 -left-0.5 h-1 w-1 bg-[#FF6100]" />
+                <div className="absolute -top-0.5 -right-0.5 h-1 w-1 bg-[#FF6100]" />
+                <div className="absolute -bottom-0.5 -left-0.5 h-1 w-1 bg-[#FF6100]" />
+                <div className="absolute -right-0.5 -bottom-0.5 h-1 w-1 bg-[#FF6100]" />
               </div>
             </motion.div>
           )}
@@ -112,7 +113,7 @@ const Sidebar = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -5 }}
                 transition={{ duration: 0.2 }}
-                className="absolute right-3"
+                className="absolute right-3 text-[#FF6100]"
               >
                 <IconArrowRight size={16} />
               </motion.span>
@@ -129,14 +130,14 @@ const Sidebar = () => {
     ));
 
   const renderSections = () => (
-    <div className="scrollbar-hide h-[calc(100vh-12rem)] overflow-x-hidden overflow-y-auto pr-2 py-4">
+    <div className="scrollbar-hide h-[calc(100vh-12rem)] overflow-x-hidden overflow-y-auto py-4 pr-2">
       <Section title="Installation">
         {renderLink({
           slug: "installation",
           title: "Installation",
           index: 0,
           icon: (
-            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
           ),
         })}
         {renderLink({
@@ -144,7 +145,7 @@ const Sidebar = () => {
           title: "shadcn CLI",
           index: 1,
           icon: (
-            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
           ),
         })}
         {renderLink({
@@ -152,7 +153,25 @@ const Sidebar = () => {
           title: "Credits",
           index: 2,
           icon: (
+            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+          ),
+        })}
+      </Section>
+      <Section title="navigation">
+        {renderLink({
+          link: "/components",
+          title: "Components",
+          index: 0,
+          icon: (
             <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
+          ),
+        })}
+        {renderLink({
+          link: "/templates",
+          title: "Templates",
+          index: 1,
+          icon: (
+            <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
           ),
         })}
       </Section>
@@ -169,10 +188,10 @@ const Sidebar = () => {
         )}
       </Section>
       <Section title="Templates">
-        {allTemplates.map((template, index) =>
+        {templates.map((t, index) =>
           renderLink({
-            slug: template,
-            title: template,
+            slug: String(t.id),
+            title: t.title,
             index,
             isTemplate: true,
             icon: (
@@ -240,7 +259,7 @@ const Sidebar = () => {
 
       {/* Desktop Sidebar */}
       <motion.aside
-        className={`bg-background pt-4 sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pl-2 lg:block dark:border-neutral-800`}
+        className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pt-4 pl-2 lg:block dark:border-neutral-800`}
       >
         {isLoading ? (
           <ul className="h-[calc(100vh-12rem)] pt-10">{renderSkeletons()}</ul>
@@ -249,11 +268,9 @@ const Sidebar = () => {
         ) : (
           <ul className="h-[calc(100vh-12rem)]">{renderSections()}</ul>
         )}
-             <div className="relative">
-                <ProgressiveBlur
-                  className="pointer-events-none absolute bottom-0 z-50 h-4 w-full"
-                />
-              </div>
+        <div className="relative">
+          <ProgressiveBlur className="pointer-events-none absolute bottom-0 z-50 h-4 w-full" />
+        </div>
         <div className="z-50 mt-auto">
           <HelpSection />
         </div>
@@ -270,7 +287,7 @@ const Section = ({
   children: React.ReactNode;
 }) => (
   <div className="mb-4">
-    <h3 className="text-muted-foreground mb-1 px-3 text-xs tracking-wide font-bold uppercase">
+    <h3 className="text-muted-foreground mb-1 px-3 text-xs font-bold tracking-wide uppercase">
       {title}
     </h3>
     <ul className="space-y-1">{children}</ul>

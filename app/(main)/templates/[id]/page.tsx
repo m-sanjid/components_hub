@@ -1,10 +1,10 @@
 import { templates } from "@/lib/constants";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "next-view-transitions";
-import ContactCTA from "@/components/docs/ContactCTA";
 import MotionDiv from "@/components/MotionDiv";
 import Image from "next/image";
 import { DowloadCode } from "@/components/DowloadCode";
+import { OnThisPage } from "@/components/docs/OnThisPage";
 
 interface TemplateDetailsPageProps {
   params: { id: string };
@@ -42,7 +42,7 @@ export default function TemplateDetailsPage({
               Templates
             </Link>
           </li>
-          <li aria-hidden>›</li>
+          <li aria-hidden>/</li>
           <li className="text-foreground font-medium">{template.title}</li>
         </ol>
       </nav>
@@ -50,7 +50,7 @@ export default function TemplateDetailsPage({
       {/* Header Section */}
       <section className="mx-auto grid max-w-6xl gap-8 px-6 py-8 md:grid-cols-[2fr_1fr]">
         {/* Title and meta */}
-        <div>
+        <div id="template-content">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
             {template.title}
           </h1>
@@ -96,7 +96,7 @@ export default function TemplateDetailsPage({
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Get the template</span>
             {typeof template.price === "number" && (
-              <span className="rounded-md border px-2 py-0.5 font-medium">
+              <span className="bg-primary/10 rounded-md border px-2 py-0.5 font-medium backdrop-blur-lg">
                 ${template.price.toFixed(2)}
               </span>
             )}
@@ -106,7 +106,7 @@ export default function TemplateDetailsPage({
               href={template.previewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-primary/5 hover:bg-primary/10 flex items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold transition-colors"
+              className="bg-primary/5 hover:bg-primary/10 flex items-center justify-center gap-2 rounded-md border px-4 py-2 text-sm font-semibold backdrop-blur-lg transition-colors"
             >
               Live Preview <IconExternalLink size={16} />
             </Link>
@@ -116,6 +116,9 @@ export default function TemplateDetailsPage({
             Includes source files and assets. Licensed for personal and
             commercial use.
           </p>
+          <div className="pt-2">
+            <OnThisPage rootId="template-content" />
+          </div>
         </aside>
       </section>
 
@@ -170,7 +173,6 @@ export default function TemplateDetailsPage({
             </MotionDiv>
           ))}
         </div>
-        <ContactCTA />
       </section>
     </main>
   );
