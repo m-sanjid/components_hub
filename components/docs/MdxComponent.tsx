@@ -174,7 +174,7 @@ export const mdxComponents = {
 
   // ——— FIGURES ———
   figure: ({ className, ...props }: React.ComponentProps<"figure">) => (
-    <figure className={cn(className)} {...props} />
+    <figure className={cn(className, "bg-red-500")} {...props} />
   ),
   figcaption: ({
     className,
@@ -242,13 +242,7 @@ export const mdxComponents = {
     className,
     ...props
   }: React.ComponentProps<typeof TabsTrigger>) => (
-    <TabsTrigger
-      className={cn(
-        "",
-        className,
-      )}
-      {...props}
-    />
+    <TabsTrigger className={cn("", className)} {...props} />
   ),
   TabsContent: ({
     className,
@@ -291,5 +285,5 @@ export const mdxComponents = {
   PropsTable,
   TemplateCard,
   TemplateShowcase,
-  Shadcn
+  Shadcn,
 };

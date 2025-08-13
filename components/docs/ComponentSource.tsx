@@ -50,7 +50,7 @@ export async function ComponentSource({
 
   return (
     <CodeCollapsibleWrapper
-      className={cn("max-w-full overflow-x-auto p-2 sm:p-0", className)}
+      className={cn("max-w-full overflow-x-auto p-0", className)}
     >
       <ComponentCode code={code} language={lang} title={title} />
     </CodeCollapsibleWrapper>
@@ -78,9 +78,7 @@ function ComponentCode({
           {title}
         </figcaption>
       )}
-      <HighlightCode className={`language-${language}`}>
-        {code}
-      </HighlightCode>
+      <HighlightCode className={`language-${language}`}>{code}</HighlightCode>
     </figure>
   );
 }

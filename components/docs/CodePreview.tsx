@@ -7,6 +7,7 @@ import { IconCode, IconEye } from "@tabler/icons-react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { CopyButtonLabel } from "./CopyButtonLabel";
+import { useTheme } from "next-themes";
 
 interface CodePreviewProps {
   code?: string;
@@ -25,6 +26,8 @@ export function CodePreview({
   responsivePreview = false,
   name,
 }: CodePreviewProps) {
+  const { resolvedTheme } = useTheme();
+  const prismTheme = resolvedTheme === "dark" ? themes.oneDark : themes.github;
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [demoComponent, setDemoComponent] = useState<React.ReactNode>(null);
   const [code, setCode] = useState<string | undefined>(codeProp);
@@ -138,19 +141,28 @@ export function CodePreview({
               <div className="relative h-full">
                 <div
                   className={cn(
-                    "scrollbar-thin max-h-[600px] overflow-y-auto bg-neutral-50 dark:bg-neutral-800 p-6 text-sm leading-relaxed transition-colors",
+                    "scrollbar-thin max-h-[600px] overflow-y-auto p-6 text-sm leading-relaxed transition-colors",
                   )}
                 >
                   <Highlight
-                    theme={themes.oneDark}
+                    theme={prismTheme}
                     code={code?.trim() || ""}
                     language={language}
                   >
-                    {({ className, tokens, getLineProps, getTokenProps }) => (
-                      <pre className={`${className} relative mb-80`}>
+                    {({
+                      className,
+                      style,
+                      tokens,
+                      getLineProps,
+                      getTokenProps,
+                    }) => (
+                      <pre
+                        className={`${className} relative mb-80`}
+                        style={style}
+                      >
                         {tokens.map((line, i) => (
                           <div key={i} {...getLineProps({ line })}>
-                            <span className="mr-6 inline-block w-8 text-right text-xs text-white/40 select-none">
+                            <span className="mr-6 inline-block w-8 text-right text-xs text-neutral-400 select-none dark:text-neutral-500">
                               {i + 1}
                             </span>
                             {line.map((token, key) => (

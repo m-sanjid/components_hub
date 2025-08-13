@@ -1,40 +1,32 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Button } from "./ui/button";
 import { IconSun, IconMoon } from "@tabler/icons-react";
+import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
 
 const ThemeToggle = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
-  useEffect(() => {
-    const root = document.documentElement;
-    const currentTheme =
-      localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-
-    const isDark = currentTheme === "dark";
-    setIsDarkMode(isDark);
-    root.classList.toggle("dark", isDark);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = isDarkMode ? "light" : "dark";
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark", !isDarkMode);
-    localStorage.setItem("theme", newTheme);
-  };
+  const isDark = mounted ? resolvedTheme === "dark" : false;
 
   return (
-    <Button variant="ghost" size="sm" onClick={toggleTheme}>
-      {isDarkMode ? (
-        <IconSun className="h-4 w-4" />
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      className="bg-primary/10 text-muted-foreground hover:text-primary rounded-md border p-1.5 backdrop-blur-md"
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      aria-label="Toggle theme"
+    >
+      {isDark ? (
+        <IconSun className="size-4" />
       ) : (
-        <IconMoon className="h-4 w-4" />
+        <IconMoon className="size-4" />
       )}
-    </Button>
+    </motion.button>
   );
 };
 

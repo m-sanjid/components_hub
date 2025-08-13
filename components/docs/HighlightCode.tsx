@@ -4,6 +4,7 @@ import React from "react";
 import { Highlight, themes, Language } from "prism-react-renderer";
 import { CodeBlockCommand } from "./CodeBlockCommand";
 import CopyButton from "./CopyButton";
+import { useTheme } from "next-themes";
 
 export interface HighlightCodeProps {
   className?: string;
@@ -14,6 +15,9 @@ export const HighlightCode = ({
   className = "",
   children,
 }: HighlightCodeProps) => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
 
   const language = (className?.replace("language-", "") || "tsx") as Language;
   const code = typeof children === "string" ? children.trim() : "";
@@ -62,7 +66,6 @@ export const HighlightCode = ({
     return {};
   };
 
-
   // CLI command variant block
   if (language === "bash" && isCommand(code)) {
     const variants = generateCommandVariants(code);
@@ -71,14 +74,29 @@ export const HighlightCode = ({
 
   return (
     <div className="group relative overflow-hidden">
-      <CopyButton code={code} className="absolute top-3" />
+      <CopyButton code={code} className="absolute top-3 right-3" />
       <div className="scrollbar-thin overflow-x-auto">
-        <Highlight theme={themes.oneDark} code={code} language={language}>
-          {({ className, tokens, getLineProps, getTokenProps }) => (
-            <pre className={`${className} relative py-px`}>
+        <Highlight
+          theme={
+            !mounted
+              ? themes.oneLight
+              : resolvedTheme === "dark"
+                ? themes.oneDark
+                : themes.oneLight
+          }
+          code={code}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre
+              className={`${className} relative`}
+              style={style}
+              aria-label={`Code snippet in ${language}`}
+              tabIndex={0}
+            >
               {tokens.map((line, i) => (
                 <div key={i} {...getLineProps({ line })}>
-                  <span className="mr-6 inline-block w-8 text-right text-xs text-neutral-400 dark:text-neutral-500 select-none">
+                  <span className="mr-4 inline-block w-8 text-right text-xs text-neutral-400 select-none dark:text-neutral-500">
                     {i + 1}
                   </span>
                   {line.map((token, key) => (
