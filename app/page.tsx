@@ -1,20 +1,14 @@
 import Hero from "@/components/Hero";
+import ComponentShowcase from "@/components/ComponentShowcase";
 import FeaturesSection from "@/components/FeaturesSection";
-import Working from "@/components/Working";
-import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
-import ComponentsPreview from "@/components/ComponentsPreview";
 
 export default function LandingPage() {
   return (
-    <div
-      className={`bg-background text-foreground min-h-screen transition-colors duration-300`}
-    >
+    <div className="bg-background">
       <Hero />
+      <ComponentShowcase />
       <FeaturesSection />
-      <ComponentsPreview />
-      <Working />
-      <Testimonials />
       <CTA />
     </div>
   );

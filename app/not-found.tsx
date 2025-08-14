@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { IconArrowLeft, IconSearch, IconSearchOff } from "@tabler/icons-react";
+import { IconArrowLeft, IconSearchOff } from "@tabler/icons-react";
 
 export default function NotFound() {
   return (
