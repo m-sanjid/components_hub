@@ -13,7 +13,7 @@ import {
 import { useState, useEffect } from "react";
 import { Components } from "@/types";
 import { motion, AnimatePresence } from "motion/react";
-import {Link} from "next-view-transitions"
+import { Link } from "next-view-transitions";
 import { templates } from "@/lib/constants";
 import { usePathname } from "next/navigation";
 import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
@@ -62,7 +62,8 @@ const Sidebar = () => {
     link?: string;
   }) => {
     const isActive =
-      currentPath === `${link || `/${isTemplate ? "templates" : "components"}/${slug}`}`;
+      currentPath ===
+      `${link || `/${isTemplate ? "templates" : "components"}/${slug}`}`;
     const href = link || `/${isTemplate ? "templates" : "components"}/${slug}`;
     return (
       <motion.li
@@ -211,15 +212,21 @@ const Sidebar = () => {
         className="absolute top-0 z-50 h-8 w-full"
       />
       {/* Mobile Button */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="hover:bg-accent bg-primary/10 fixed top-22 z-20 rounded-md border p-2 backdrop-blur-md lg:hidden"
-      >
-        <IconMenu2 size={16} />
-      </button>
+      <AnimatePresence mode="popLayout">
+      {!mobileOpen && (
+        <motion.button
+        layoutId="mobile-button"
+          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04 }}
+          transition={{ delay: 0.2,duration: 0.2, ease: "easeInOut" }}
+          onClick={() => setMobileOpen(true)}
+          className="hover:bg-accent bg-primary/10 fixed top-18 z-50 rounded-md border p-2 backdrop-blur-md md:top-22 lg:hidden"
+        >
+          <IconMenu2 size={16} />
+        </motion.button>
+      )}
 
       {/* Mobile Drawer */}
-      <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ x: "-100%" }}
@@ -231,12 +238,16 @@ const Sidebar = () => {
             <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-24 shadow-lg">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-lg font-semibold">Browse</h2>
-                <button
+                <motion.button
+                  layoutId="mobile-button"
+                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.04 }}
+                  transition={{ delay: 0.2,duration: 0.2, ease: "easeInOut" }}
                   onClick={() => setMobileOpen(false)}
-                  className="text-muted-foreground hover:bg-accent hover:text-primary absolute top-20 right-2 rounded p-1"
+                  className="text-muted-foreground hover:bg-accent hover:text-primary absolute top-20 right-2 rounded p-2"
                 >
                   <IconX size={20} />
-                </button>
+                </motion.button>
               </div>
 
               {isLoading ? (
@@ -256,7 +267,6 @@ const Sidebar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
       {/* Desktop Sidebar */}
       <motion.aside
         className={`bg-background sticky top-20 z-20 hidden h-screen w-64 flex-shrink-0 overflow-hidden border-r py-4 pt-4 pl-2 lg:block dark:border-neutral-800`}

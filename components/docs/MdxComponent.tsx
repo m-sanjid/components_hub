@@ -233,7 +233,7 @@ export const mdxComponents = {
   }: React.ComponentProps<typeof TabsList>) => (
     <TabsList
       className={cn(
-        "justify-start gap-4 rounded-none bg-transparent px-2 md:px-0",
+        "justify-start gap-4 rounded-none bg-transparent sm:px-2 md:px-0",
         className,
       )}
       {...props}
@@ -265,7 +265,7 @@ export const mdxComponents = {
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h4
       className={cn(
-        "font-heading mt-8 scroll-m-32 text-xl font-medium tracking-tight",
+        "font-heading mt-4 md:mt-8 scroll-m-32 text-xl font-medium tracking-tight",
         className,
       )}
       {...props}
@@ -273,7 +273,7 @@ export const mdxComponents = {
   ),
   Steps: (props: React.ComponentProps<"div">) => (
     <div
-      className="[&>h3]:step steps mb-12 [counter-reset:step] *:[h3]:first:!mt-0"
+      className="[&>h3]:step steps mb-6 md:mb-12 [counter-reset:step] *:[h3]:first:!mt-0"
       {...props}
     />
   ),

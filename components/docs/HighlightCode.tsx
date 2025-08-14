@@ -73,7 +73,7 @@ export const HighlightCode = ({
   }
 
   return (
-    <div className="group relative overflow-hidden">
+    <div className="group relative overflow-hidden max-w-4xl mr-auto">
       <CopyButton code={code} className="absolute top-3 right-3" />
       <div className="scrollbar-thin overflow-x-auto">
         <Highlight
