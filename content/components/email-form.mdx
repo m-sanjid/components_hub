@@ -1,0 +1,123 @@
+---
+title: Email Form
+description: An interactive email capture form with animated micro-interactions and validation.
+category: Forms
+keywords: ["email", "form", "subscription", "animated", "motion"]
+---
+
+<CodePreview
+  name="email-form"
+  title="Email Form"
+  description="An interactive email capture form with animated micro-interactions and validation."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add email-form --component
+```
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install framer-motion @tabler/icons-react sonner
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="email-form" title="components/ui/email-form.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g. @/components).
+</Step>
+
+</Steps> 
+</TabsContent> 
+</CodeTabs>
+
+## Backend Setup
+
+Your form expects a backend endpoint at /api/newsletter that accepts a POST request with a JSON body.
+
+Example Next.js Route Handler (app/api/newsletter/route.ts):
+
+```ts
+import { NextResponse } from "next/server";
+
+export async function POST(request: Request) {
+  try {
+    const { email } = await request.json();
+
+    // Basic validation
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
+
+    // TODO: Store email in your database or send to newsletter provider
+    console.log("New subscriber:", email);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the root element",
+      required: false,
+      defaultValue: "",
+    },
+  ]}
+/>
+
+## Usage
+
+```tsx
+"use client";
+
+import EmailForm from "@/components/ui/email-form";
+
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+      <EmailForm />
+    </div>
+  );
+}
+```
+
+## Features
+
+✅ "use client" compatible for Next.js 13+
+
+✅ Framer Motion animations with spring transitions
+
+✅ Validation & error handling
+
+✅ Backend-ready API endpoint
+
+✅ Light/Dark mode support
+
+✅ Micro-interactions for sending/loading states
