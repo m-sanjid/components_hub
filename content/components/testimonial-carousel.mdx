@@ -1,0 +1,181 @@
+---
+title: Testimonial Carousel
+description: A smooth, animated carousel for displaying customer testimonials with drag support and autoplay.
+category: Feedback
+keywords: ["testimonials", "carousel", "slider", "animated", "motion", "feedback"]
+---
+
+<CodePreview
+  name="testimonial-carousel"
+  title="Testimonial Carousel"
+  description="A smooth, animated carousel for displaying customer testimonials with drag support and autoplay."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add testimonial-carousel --component
+```
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install framer-motion lucide-react
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="testimonial-carousel" title="components/ui/testimonial-carousel.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g. @/components).
+</Step>
+
+</Steps> 
+</TabsContent> 
+</CodeTabs>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "testimonials",
+      type: "Testimonial[]",
+      description: "Array of testimonial objects to display",
+      required: true,
+      defaultValue: "[]",
+    },
+    {
+      name: "autoPlayInterval",
+      type: "number",
+      description: "Interval in milliseconds for autoplay (default: 5000)",
+      required: false,
+      defaultValue: "5000",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the root element",
+      required: false,
+      defaultValue: "",
+    },
+  ]
+} />
+
+## Types
+
+```tsx
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  text: string;
+  avatar: string;
+}
+```
+
+## Usage
+
+```tsx
+"use client";
+
+import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
+
+const testimonials = [
+  {
+    id: 1,
+    name: "Alice Johnson",
+    role: "Product Designer",
+    text: "This library has completely transformed the way we build UI. The animations feel premium and smooth.",
+    avatar: "https://i.pravatar.cc/100?img=1",
+  },
+  {
+    id: 2,
+    name: "David Kim",
+    role: "Full Stack Developer",
+    text: "I love how reusable and consistent the components are. Saved us weeks of dev time.",
+    avatar: "https://i.pravatar.cc/100?img=2",
+  },
+  {
+    id: 3,
+    name: "Sophia Lee",
+    role: "UX Researcher",
+    text: "The attention to detail in animations and responsiveness is simply top-notch.",
+    avatar: "https://i.pravatar.cc/100?img=3",
+  },
+];
+
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+      <TestimonialCarousel testimonials={testimonials} />
+    </div>
+  );
+}
+```
+
+## Customization
+
+### Custom Testimonials Data
+
+You can easily customize the testimonials by modifying the data structure:
+
+```tsx
+const customTestimonials = [
+  {
+    id: 1,
+    name: "Your Customer",
+    role: "Their Role",
+    text: "Your testimonial text here...",
+    avatar: "/path/to/avatar.jpg",
+  },
+  // ... more testimonials
+];
+```
+
+### Styling
+
+The component uses Tailwind CSS classes and can be customized by overriding the default styles:
+
+```tsx
+<TestimonialCarousel 
+  className="max-w-2xl" 
+  testimonials={testimonials}
+/>
+```
+
+## Features
+
+✅ Smooth Framer Motion animations with spring transitions
+
+✅ Drag and drop support for mobile devices
+
+✅ Autoplay with pause on hover
+
+✅ Keyboard navigation support
+
+✅ Responsive design
+
+✅ Light/Dark mode support
+
+✅ Customizable testimonial data structure
+
+✅ Accessible navigation controls
+
+✅ Touch-friendly interactions
