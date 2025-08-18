@@ -113,7 +113,7 @@ export default async function ComponentDetail({
               {meta.description}
             </p>
           </div>
-          <div className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md overflow-x-auto">
+          <div className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md mr-auto max-w-6xl overflow-x-auto">
             {MDXContent}
           </div>
 
@@ -143,7 +143,7 @@ export default async function ComponentDetail({
         {/* On this page (TOC) */}
         <aside className="hidden lg:block">
           <nav className="bg-card sticky top-24 max-h-[70vh] overflow-y-auto rounded-lg border p-4 text-sm">
-            <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            <h2 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase">
               On this page
             </h2>
             <ul className="space-y-1">

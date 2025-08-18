@@ -5,7 +5,8 @@
   "title": "Tabs",
   "description": "A simple tabs component",
   "registryDependencies": [
-    "button"
+    "motion/react",
+    "clsx"
   ],
   "files": [
     {

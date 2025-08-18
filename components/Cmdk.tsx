@@ -94,7 +94,7 @@ export function CommandPalette() {
   return (
     <>
       <div
-        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 sm:px-4 sm:py-2 text-xs"
+        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border hover:border-[#FF6100] transition-all duration-200 ease-in-out px-2 py-1 sm:px-4 sm:py-2 text-xs"
         onClick={() => {
           setOpen(true);
         }}
@@ -121,7 +121,7 @@ export function CommandPalette() {
             >
               <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Components</span>
-              <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
+              <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
                 ⌘J I
               </CommandShortcut>
             </CommandItem>
@@ -132,7 +132,7 @@ export function CommandPalette() {
             >
               <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
               <span>Templates</span>
-              <CommandShortcut className="rounded border bg-black/10 px-1 text-xs backdrop-blur-md">
+              <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
                 ⌘J L
               </CommandShortcut>
             </CommandItem>

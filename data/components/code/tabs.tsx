@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 
 interface Tab {
@@ -15,6 +15,7 @@ interface TabsProps {
   defaultValue?: string;
   onValueChange?: (value: string) => void;
   className?: string;
+  height?: string; // optional fixed height
 }
 
 export function Tabs({
@@ -22,76 +23,108 @@ export function Tabs({
   defaultValue,
   onValueChange,
   className,
+  height = "h-[300px]", // default fixed height
 }: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultValue || tabs[0].value);
-  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [prevIndex, setPrevIndex] = useState<number>(0);
 
-  useEffect(() => {
-    onValueChange?.(activeTab);
-  }, [activeTab]);
+  const currentIndex = tabs.findIndex((t) => t.value === activeTab);
 
-  const activeRect = tabRefs.current[activeTab]?.getBoundingClientRect();
+  const handleTabChange = (newValue: string) => {
+    setPrevIndex(currentIndex);
+    setActiveTab(newValue);
+    onValueChange?.(newValue);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "ArrowRight") {
+      const next = (currentIndex + 1) % tabs.length;
+      handleTabChange(tabs[next].value);
+    } else if (e.key === "ArrowLeft") {
+      const prev = (currentIndex - 1 + tabs.length) % tabs.length;
+      handleTabChange(tabs[prev].value);
+    }
+  };
 
   return (
-    <div className={clsx("w-full", className)}>
-      {/* Tab List */}
-      <div className="relative flex gap-1 overflow-x-auto rounded-lg border bg-white p-1 dark:border-neutral-800 dark:bg-neutral-900">
+    <div className={clsx("w-full space-y-2", className)}>
+      {/* Tabs Header */}
+      <div
+        className="relative grid grid-cols-2 md:grid-cols-3 gap-1 rounded-[12px] border bg-white p-1 dark:border-neutral-800 dark:bg-neutral-900"
+        role="tablist"
+      >
         {tabs.map((tab) => (
           <button
             key={tab.value}
-            ref={(el) => {
-              if (el) {
-                tabRefs.current[tab.value] = el;
-              }
-            }}
-            onClick={() => setActiveTab(tab.value)}
+            onClick={() => handleTabChange(tab.value)}
+            onKeyDown={handleKeyDown}
+            role="tab"
+            aria-selected={activeTab === tab.value}
+            aria-controls={`tab-panel-${tab.value}`}
+            id={`tab-${tab.value}`}
+            tabIndex={activeTab === tab.value ? 0 : -1}
             className={clsx(
-              "relative z-10 px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
+              "relative z-10 px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors focus:outline-none",
               activeTab === tab.value
                 ? "text-black dark:text-white"
                 : "text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white",
             )}
           >
-            {tab.label}
+            {activeTab === tab.value && (
+              <motion.div
+                layoutId="tab-underline"
+                className="absolute inset-0 z-0 rounded-[8px] bg-neutral-100 dark:bg-neutral-800"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
+              />
+            )}
+            <span className="relative z-10">{tab.label}</span>
           </button>
         ))}
-
-        {/* Animated Indicator */}
-        <AnimatePresence>
-          {activeRect && (
-            <motion.div
-              layout
-              className="absolute bottom-0 z-0 h-[2px] rounded bg-black dark:bg-white"
-              style={{
-                left:
-                  activeRect.left -
-                  tabRefs.current[tabs[0].value]!.getBoundingClientRect().left,
-                width: activeRect.width,
-              }}
-              layoutId="tab-indicator"
-              transition={{ type: "spring", bounce: 0.2, duration: 0.3 }}
-            />
-          )}
-        </AnimatePresence>
       </div>
 
-      {/* Tab Content */}
-      <div className="mt-4">
-        <AnimatePresence mode="wait" initial={false}>
-          {tabs.map(
-            (tab) =>
-              tab.value === activeTab && (
-                <motion.div
-                  key={tab.value}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  {tab.content}
-                </motion.div>
-              ),
-          )}
+      {/* Fixed Height Tab Content Container */}
+      <div
+        className={clsx(
+          "relative w-full overflow-hidden rounded-[12px] border bg-white p-4 dark:border-neutral-800 dark:bg-black",
+          height,
+        )}
+      >
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.div
+            key={activeTab}
+            id={`tab-panel-${activeTab}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeTab}`}
+            initial={{
+              opacity: 0,
+              x: currentIndex > prevIndex ? 50 : -50,
+              scale: 0.98,
+            }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              scale: 1,
+              transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              },
+            }}
+            exit={{
+              opacity: 0,
+              x: currentIndex > prevIndex ? -30 : 30,
+              scale: 0.98,
+              transition: {
+                duration: 0.2,
+                ease: "easeInOut",
+              },
+            }}
+            className="absolute inset-0 w-full p-1"
+          >
+            <div className="h-full w-full bg-neutral-50 dark:bg-neutral-900 rounded-[8px] border p-2">
+              {tabs.find((t) => t.value === activeTab)?.content}
+            </div>
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>
