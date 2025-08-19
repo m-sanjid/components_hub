@@ -1,175 +1,167 @@
 "use client";
 
-import { motion, AnimatePresence, Variants } from "motion/react";
 import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "motion/react";
 import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-interface AccordionItem {
+export interface AccordionProps {
   id: string;
   title: string;
-  content: React.ReactNode;
-  icon?: React.ReactNode;
-  disabled?: boolean;
-}
-
-interface AnimatedAccordionProps {
-  items: AccordionItem[];
-  type?: "single" | "multiple";
-  defaultOpen?: string[];
+  children: React.ReactNode;
+  isOpen?: boolean;
+  onToggle?: () => void;
   className?: string;
 }
 
-export function AnimatedAccordion({
+export function Accordion({
+  id,
+  title,
+  children,
+  isOpen = false,
+  onToggle,
+  className = "",
+}: AccordionProps) {
+  return (
+    <motion.div
+      layout="position"
+      className={cn(
+        "rounded-xl border border-neutral-200 bg-white shadow-sm dark:border-neutral-800 dark:bg-neutral-900",
+        className,
+      )}
+      initial={false}
+      transition={{
+        duration: 0.3,
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      }}
+    >
+      {/* Header */}
+      <motion.button
+        onClick={onToggle}
+        className="flex w-full items-center justify-between p-4 text-left"
+        aria-expanded={isOpen}
+        aria-controls={`accordion-content-${id}`}
+      >
+        <span className="text-base font-medium text-neutral-900 dark:text-neutral-100">
+          {title}
+        </span>
+        <motion.div
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+          className="text-neutral-500 dark:text-neutral-400"
+        >
+          <ChevronDown className="h-5 w-5" />
+        </motion.div>
+      </motion.button>
+
+      {/* Content */}
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            id={`accordion-content-${id}`}
+            key="content"
+            initial="collapsed"
+            animate="open"
+            exit="collapsed"
+            variants={accordionVariants}
+            transition={{
+              duration: 0.4,
+              ease: [0.04, 0.62, 0.23, 0.98],
+              opacity: { duration: 0.25 },
+            }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              variants={staggerChildren}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="px-4 pb-4"
+            >
+              {Array.isArray(children) ? (
+                children.map((child, i) => (
+                  <motion.div key={i} variants={fadeInUp} className="mb-2">
+                    {child}
+                  </motion.div>
+                ))
+              ) : (
+                <motion.div variants={fadeInUp}>{children}</motion.div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+export interface AccordionGroupProps {
+  items: { id: string; title: string; content: React.ReactNode }[];
+  allowMultiple?: boolean;
+  defaultOpen?: string[]; // array of ids to be open initially
+  className?: string;
+}
+
+export function AccordionGroup({
   items,
-  type = "single",
+  allowMultiple = false,
   defaultOpen = [],
   className = "",
-}: AnimatedAccordionProps) {
+}: AccordionGroupProps) {
   const [openItems, setOpenItems] = useState<string[]>(defaultOpen);
 
   const toggleItem = (id: string) => {
-    if (type === "single") {
-      setOpenItems(openItems.includes(id) ? [] : [id]);
-    } else {
-      setOpenItems(
-        openItems.includes(id)
-          ? openItems.filter((item) => item !== id)
-          : [...openItems, id],
-      );
-    }
-  };
-
-  const contentVariants: Variants = {
-    open: {
-      height: "auto",
-      opacity: 1,
-      transition: {
-        height: {
-          type: "spring",
-          stiffness: 400,
-          damping: 40,
-          duration: 0.3,
-        },
-        opacity: {
-          duration: 0.25,
-          delay: 0.05,
-        },
-      },
-    },
-    closed: {
-      height: 0,
-      opacity: 0,
-      transition: {
-        height: {
-          type: "spring",
-          stiffness: 400,
-          damping: 40,
-          duration: 0.25,
-        },
-        opacity: {
-          duration: 0.2,
-        },
-      },
-    },
+    setOpenItems((prev) => {
+      if (allowMultiple) {
+        return prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id];
+      } else {
+        return prev.includes(id) ? [] : [id];
+      }
+    });
   };
 
   return (
-    <div className={`space-y-1 ${className}`}>
-      {items.map((item, index) => {
-        const isOpen = openItems.includes(item.id);
-
-        return (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: index * 0.05,
-              duration: 0.3,
-              ease: "easeOut",
-            }}
-            className="group"
-          >
-            <div
-              className={`overflow-hidden border border-neutral-200 transition-all duration-200 dark:border-neutral-700 ${
-                isOpen
-                  ? "rounded-t-lg border-b-0 bg-neutral-50 dark:bg-neutral-800"
-                  : "rounded-lg bg-white hover:bg-neutral-50 dark:bg-neutral-800 dark:hover:bg-neutral-700"
-              }`}
-            >
-              <motion.button
-                onClick={() => !item.disabled && toggleItem(item.id)}
-                disabled={item.disabled}
-                whileHover={!item.disabled ? { x: 2 } : undefined}
-                whileTap={!item.disabled ? { scale: 0.995 } : undefined}
-                className={`flex w-full items-center justify-between px-4 py-3 text-left transition-colors duration-200 ${
-                  item.disabled
-                    ? "cursor-not-allowed opacity-40"
-                    : "cursor-pointer"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  {item.icon && (
-                    <div
-                      className={`transition-colors duration-200 ${
-                        isOpen ? "text-primary" : "text-muted-foreground"
-                      }`}
-                    >
-                      {item.icon}
-                    </div>
-                  )}
-                  <span
-                    className={`font-medium transition-colors duration-200 ${
-                      isOpen ? "text-primary" : "text-muted-foreground"
-                    }`}
-                  >
-                    {item.title}
-                  </span>
-                </div>
-
-                <motion.div
-                  animate={{
-                    rotate: isOpen ? 180 : 0,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                    ease: "easeInOut",
-                  }}
-                  className={`transition-colors duration-200 ${
-                    isOpen ? "text-primary" : "text-muted-foreground"
-                  }`}
-                >
-                  <ChevronDown className="h-4 w-4" />
-                </motion.div>
-              </motion.button>
-            </div>
-
-            <AnimatePresence initial={false}>
-              {isOpen && (
-                <motion.div
-                  initial="closed"
-                  animate="open"
-                  exit="closed"
-                  variants={contentVariants}
-                  className="overflow-hidden"
-                >
-                  <div className="rounded-b-lg border-x border-b px-4 pt-3 pb-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: -4 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -4 }}
-                      transition={{ delay: 0.1, duration: 0.2 }}
-                      className="text-muted-foreground text-sm leading-relaxed"
-                    >
-                      {item.content}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        );
-      })}
+    <div className={`space-y-3 ${className}`}>
+      {items.map((item) => (
+        <Accordion
+          key={item.id}
+          id={item.id}
+          title={item.title}
+          isOpen={openItems.includes(item.id)}
+          onToggle={() => toggleItem(item.id)}
+        >
+          {item.content}
+        </Accordion>
+      ))}
     </div>
   );
 }
+
+const accordionVariants: Variants = {
+  open: { opacity: 1, height: "auto", marginTop: 0 },
+  collapsed: { opacity: 0, height: 0, marginTop: 0 },
+};
+
+const staggerChildren: Variants = {
+  visible: { transition: { staggerChildren: 0.07, delayChildren: 0.1 } },
+  hidden: {},
+  exit: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+};
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 15, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    filter: "blur(6px)",
+    transition: { duration: 0.2, ease: "easeIn" },
+  },
+};

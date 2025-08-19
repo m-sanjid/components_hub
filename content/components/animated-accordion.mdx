@@ -1,5 +1,5 @@
 ---
-title: Animated Accordion
+title: Accordion
 description: A beautiful and interactive accordion component with smooth animations and customizable content
 category: Display
 keywords: ["accordion", "expandable", "animated", "interactive", "collapsible"]
@@ -7,48 +7,21 @@ keywords: ["accordion", "expandable", "animated", "interactive", "collapsible"]
 
 <CodePreview
   name="animated-accordion"
-  title="Animated Accordion"
+  title="Accordion"
   description="A beautiful and interactive accordion component with smooth animations and customizable content"
 />
 
-<PropsTable
-  props={[
-    {
-      name: "items",
-      type: "array",
-      description: "The items to display in the accordion",
-      required: true,
-    },
-    {
-      name: "type",
-      type: "string",
-      description: "The type of accordion to display",
-      required: false,
-      defaultValue: "single",
-    },
-    {
-      name: "defaultOpen",
-      type: "array",
-      description: "The items to display in the accordion",
-      required: false,
-      defaultValue: "[]",
-    },
-    {
-      name: "className",
-      type: "string",
-      description: "The class name to apply to the accordion",
-      required: false,
-      defaultValue: "",
-    },
-  ]}
-/>
+## Installation
 
 <CodeTabs>
 
 <TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
+
 <TabsContent value="cli">
 
 ```bash
@@ -67,6 +40,19 @@ npx shadcn@latest add animated-accordion --component
 npm install motion lucide-react
 ```
 
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource
@@ -82,12 +68,59 @@ npm install motion lucide-react
 
 </CodeTabs>
 
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "items",
+      type: "array",
+      description: "The items to display in the accordion",
+      required: true,
+    },
+    {
+      name: "allowMultiple",
+      type: "boolean",
+      description: "Allow multiple items to be open at the same time",
+      required: false,
+      defaultValue: "false",
+    },
+    {
+      name: "defaultOpen",
+      type: "string[]",
+      description: "The default open items",
+      required: false,
+      defaultValue: "[]",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "The class name to apply to the accordion group",
+      required: false,
+      defaultValue: "",
+    },
+  ]}
+/>
+
 ## Usage
 
 ```tsx showLineNumbers
-import { AnimatedAccordion } from "@/components/ui/animated-accordion";
+import { Accordion, AccordionGroup } from "@/components/ui/animated-accordion";
 ```
 
 ```tsx showLineNumbers
-<AnimatedAccordion />
+<AccordionGroup
+  items={[
+    {
+      id: "accordion-1",
+      title: "Accordion 1",
+      content: "Content 1",
+    },
+    {
+      id: "accordion-2",
+      title: "Accordion 2",
+      content: "Content 2",
+    },
+  ]}
+/>
 ```
