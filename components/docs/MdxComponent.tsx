@@ -50,10 +50,7 @@ export const mdxComponents = {
   h2: ({ className, children, ...props }: React.ComponentProps<"h2">) => (
     <h2
       id={generateId(children)}
-      className={cn(
-        "font-heading mt-12 scroll-m-28 text-lg font-medium tracking-tight first:mt-0 sm:text-xl md:text-2xl lg:mt-20 [&+p]:!mt-4 *:[code]:text-2xl",
-        className,
-      )}
+      className={cn("", className)}
       {...props}
     >
       {children}
@@ -81,7 +78,7 @@ export const mdxComponents = {
   h5: ({ className, ...props }: React.ComponentProps<"h5">) => (
     <h5
       className={cn(
-        "mt-8 scroll-m-28 text-lg font-medium tracking-tight",
+        "bg-primary/10 mt-8 w-fit scroll-m-28 rounded-md px-2 py-1 text-sm font-semibold tracking-tight",
         className,
       )}
       {...props}
@@ -105,10 +102,7 @@ export const mdxComponents = {
     />
   ),
   a: ({ className, ...props }: React.ComponentProps<"a">) => (
-    <a
-      className={cn("font-medium underline underline-offset-4", className)}
-      {...props}
-    />
+    <a className={cn("font-medium", className)} {...props} />
   ),
   strong: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <strong className={cn("font-medium", className)} {...props} />
@@ -266,7 +260,7 @@ export const mdxComponents = {
   Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
     <h4
       className={cn(
-        "font-heading mt-4 md:mt-8 scroll-m-32 text-xl font-medium tracking-tight",
+        "font-heading mt-4 scroll-m-32 text-xl font-medium tracking-tight md:mt-8",
         className,
       )}
       {...props}
@@ -274,7 +268,7 @@ export const mdxComponents = {
   ),
   Steps: (props: React.ComponentProps<"div">) => (
     <div
-      className="[&>h3]:step steps mb-6 md:mb-12 [counter-reset:step] *:[h3]:first:!mt-0"
+      className="[&>h3]:step steps mb-6 [counter-reset:step] md:mb-12 *:[h3]:first:!mt-0"
       {...props}
     />
   ),

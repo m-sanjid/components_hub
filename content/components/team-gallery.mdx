@@ -1,0 +1,155 @@
+---
+title: Team Gallery
+description: A responsive team gallery component with hover effects and social media links
+category: ui
+keywords: ["team", "gallery", "hover", "effects", "social", "media", "links"]
+---
+
+<CodePreview
+name="team-gallery"
+title="Team Gallery"
+description="A responsive team gallery component with hover effects and social media links"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add team-gallery --component
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install motion lucide-react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource
+  name="team-gallery"
+  title="components/ui/team-gallery.tsx"
+/>
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Props
+
+<PropsTable
+props={[
+  {
+    name: "teamMembers",
+    type: "array",
+    description: "The team members to display",
+    required: true,
+  },
+  {
+    name: "className",
+    type: "string",
+    description: "The class name to apply to the team gallery",
+    required: false,
+    defaultValue: "",
+  },
+]}
+/>
+
+## Basic Usage
+
+```tsx showLineNumbers
+import { TeamGallery } from "@/components/ui/team-gallery";
+```
+
+```tsx showLineNumbers
+export interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  socials: {
+    linkedin: string;
+    github: string;
+    twitter: string;
+    mail: string;
+  };
+}
+export const TeamMembers: TeamMember[] = [
+  {
+    id: 1,
+    name: "Alice Johnson",
+    role: "Product Designer",
+    bio: "Alice is a passionate product designer with over 5 years of experience in creating innovative and user-centered products.",
+    image:
+      "https://img.freepik.com/premium-photo/tik-tok-icon_665280-69394.jpg?ga=GA1.1.2123848024.1747422116&semt=ais_hybrid&w=740",
+    socials: {
+      linkedin: "https://linkedin.com/in/alice-johnson",
+      github: "https://github.com/alice-johnson",
+      twitter: "https://twitter.com/alice_johnson",
+      mail: "alice.johnson@example.com",
+    },
+  },
+  {
+    id: 2,
+    name: "Bob Smith",
+    role: "Frontend Developer",
+    bio: "Bob is a skilled frontend developer with expertise in React and Next.js. He has a passion for creating responsive and user-friendly interfaces.",
+    image:
+      "https://img.freepik.com/premium-photo/men-design-logo-avatar_665280-69418.jpg?ga=GA1.1.2123848024.1747422116&semt=ais_hybrid&w=740",
+    socials: {
+      linkedin: "https://linkedin.com/in/bob-smith",
+      github: "https://github.com/bob-smith",
+      twitter: "https://twitter.com/bob_smith",
+      mail: "bob.smith@example.com",
+    },
+  },
+  {
+    id: 3,
+    name: "Max Payne",
+    role: "Project Manager",
+    bio: "Max Payne is a skilled project manager with expertise in leading cross-functional teams and ensuring project success.",
+    image:
+      "https://img.freepik.com/premium-photo/men-design-logo-avatar_665280-69424.jpg?ga=GA1.1.2123848024.1747422116&semt=ais_hybrid&w=740",
+    socials: {
+      linkedin: "https://linkedin.com/in/max-payne",
+      github: "https://github.com/max-payne",
+      twitter: "https://twitter.com/max_payne",
+      mail: "max.payne@example.com",
+    },
+  },
+  {
+    id: 4,
+    name: "Dave Wilson",
+    role: "Backend Developer",
+    bio: "Dave is a skilled backend developer with expertise in Node.js and Express.js. He has a passion for building scalable and secure server-side applications.",
+    image:
+      "https://img.freepik.com/premium-photo/men-design-logo-avatar_665280-69427.jpg?ga=GA1.1.2123848024.1747422116&semt=ais_hybrid&w=740",
+    socials: {
+      linkedin: "https://linkedin.com/in/dave-wilson",
+      github: "https://github.com/dave-wilson",
+      twitter: "https://twitter.com/dave_wilson",
+      mail: "dave.wilson@example.com",
+    },
+  },
+];
+
+<TeamGallery teamMembers={TeamMembers} />
+```
