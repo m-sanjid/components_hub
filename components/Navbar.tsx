@@ -86,7 +86,7 @@ export default function Navbar() {
       className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
           ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 md:top-3 mx-auto max-w-6xl md:rounded-2xl border border-[#FF6100]/20 shadow-lg backdrop-blur"
-          : "bg-background/95 top-0 mx-auto max-w-7xl backdrop-blur"
+          : "bg-background/95 top-0 mx-auto max-w-[100rem] w-screen backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
