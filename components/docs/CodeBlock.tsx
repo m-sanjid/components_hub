@@ -19,7 +19,7 @@ export const CodeBlock = ({ className = "", children }: CodeBlockProps) => {
   return (
     <div className="group relative my-6 overflow-hidden rounded-lg border py-px pr-3 pl-1">
       <CopyButton code={code} />
-      <div className="scrollbar-thin overflow-x-auto py-4">
+      <div className="overflow-x-auto py-4">
         <Highlight theme={theme} code={code?.trim() || ""} language={language}>
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre className={`${className} relative py-px`} style={style}>

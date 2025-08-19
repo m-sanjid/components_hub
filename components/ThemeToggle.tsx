@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { IconSun, IconMoon } from "@tabler/icons-react";
 import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const ThemeToggle = () => {
   const { resolvedTheme, setTheme } = useTheme();

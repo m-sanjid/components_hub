@@ -18,7 +18,7 @@ export function CodeTabs({ children }: React.ComponentProps<typeof Tabs>) {
       onValueChange={(value) =>
         setConfig({ ...config, installationType: value as "cli" | "manual" })
       }
-      className="scrollbar-thin relative mt-4 w-full max-w-full overflow-x-auto"
+      className="relative mt-4 w-full max-w-full overflow-x-auto"
     >
       {children}
     </Tabs>

@@ -141,7 +141,7 @@ export function CodePreview({
               <div className="relative h-full">
                 <div
                   className={cn(
-                    "scrollbar-thin max-h-[600px] overflow-y-auto p-1 sm:p-2 md:p-6 text-sm leading-relaxed transition-colors",
+                    "max-h-[600px] overflow-y-auto p-1 sm:p-2 md:p-6 text-sm leading-relaxed transition-colors",
                   )}
                 >
                   <Highlight

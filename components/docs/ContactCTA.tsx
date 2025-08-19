@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 declare global {
   interface Window {
@@ -28,20 +28,21 @@ export default function ContactCTA() {
   return (
     <div className="my-10 p-1 rounded-[28px] bg-primary/10 backdrop-blur-md border">
 
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      viewport={{ once: true }}
-      className="mx-auto max-w-6xl rounded-3xl border bg-neutral-50 dark:bg-neutral-950 px-6 py-12 shadow-lg backdrop-blur-xl md:px-12"
+    <section
+      className="mx-auto max-w-6xl rounded-3xl border bg-neutral-50 dark:bg-neutral-950 px-4 sm:px-6 py-6 shadow-lg backdrop-blur-xl"
     >
-      <div className="grid gap-8 md:grid-cols-[1fr_320px]">
+      <motion.div 
+        initial={{ opacity: 0, y: 20,filter: "blur(10px)",scale: 0.9 }}
+        whileInView={{ opacity: 1, y: 0,filter: "blur(0px)",scale: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        viewport={{ once: true }}
+      className="grid gap-8 md:grid-cols-[1fr_320px]">
         {/* Left: Text & CTA */}
         <div className="flex max-w-2xl flex-col justify-center">
-          <h2 className="text-3xl font-bold tracking-tight text-pretty md:text-4xl">
+          <h2 className="text-xl font-bold tracking-tight text-pretty md:text-2xl">
             Build your next big idea with us
           </h2>
-          <p className="text-muted-foreground mt-3 text-base md:text-lg">
+          <p className="text-muted-foreground mt-3 text-sm md:text-base">
             From lightning-fast landing pages to fully functional SaaS products,
             we turn your vision into reality. Book a call today and let’s make
             something extraordinary.
@@ -86,7 +87,7 @@ export default function ContactCTA() {
               key={i}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
-              className="rounded-xl border border-neutral-200 bg-white/70 p-4 shadow-sm backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/70"
+              className="rounded-2xl border border-neutral-200 bg-white/70 p-4 shadow-sm backdrop-blur-sm dark:border-neutral-800 dark:bg-neutral-900/70"
             >
               <p className="text-muted-foreground text-sm">
                 “{testimonial.text}”
@@ -103,8 +104,8 @@ export default function ContactCTA() {
             </motion.div>
           ))}
         </div>
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
     </div>
   );
 }

@@ -8,9 +8,11 @@ import { cn } from "@/lib/utils";
 export default function GithubStarButton({
   owner,
   repo,
+  className,
 }: {
   owner: string;
   repo: string;
+  className?: string;
 }) {
   const [stars, setStars] = useState<number | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -45,8 +47,17 @@ export default function GithubStarButton({
       rel="noopener noreferrer"
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="group inline-flex items-center gap-2 rounded-lg border bg-neutral-900 px-5 py-2.5 shadow-md transition-all duration-300 hover:shadow-lg"
+      className={cn(
+        "group relative inline-flex items-center gap-2 overflow-hidden rounded-lg border bg-neutral-900 px-5 py-2.5 text-neutral-300 shadow-md transition-all duration-300 hover:text-white hover:shadow-[-8px_-8px_40px_2px_rgba(0,0,0,0.25)] dark:hover:shadow-[-8px_-8px_40px_2px_rgba(255,255,255,0.15)]",
+        className
+      )}
     >
+      {/* shadow */}
+      <div className="absolute inset-x-0 bottom-0 h-1 w-full bg-gradient-to-t from-neutral-200 via-neutral-50/40 to-transparent blur-[4px] dark:from-neutral-800 dark:via-neutral-500/50" />
+      <div className="absolute inset-y-0 right-0 w-1 bg-gradient-to-l from-neutral-100 via-neutral-100/50 to-transparent blur-[4px] dark:from-neutral-700 dark:via-neutral-500/50" />
+      <div className="absolute inset-y-0 left-0 w-1 bg-gradient-to-r from-neutral-100 via-neutral-100/50 to-transparent blur-[4px] dark:from-neutral-700 dark:via-neutral-500/50" />
+      <div className="absolute inset-x-0 top-0 h-1 w-full bg-gradient-to-b from-neutral-200 via-neutral-50/40 to-transparent blur-[4px] dark:from-neutral-800 dark:via-neutral-500/50" />
+
       {/* Animated star */}
       <HoverStar isHovered={isHovered} />
 

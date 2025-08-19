@@ -39,11 +39,11 @@ export function CodeCollapsibleWrapper({
       </CollapsibleTrigger>
       <CollapsibleContent
         forceMount
-        className="relative mt-6 mb-0 max-w-4xl overflow-hidden rounded-2xl bg-none px-4 pt-4 pb-0 data-[state=closed]:max-h-64 dark:bg-neutral-800 [&>figure]:mt-0 [&>figure]:md:!mx-0"
+        className="relative mt-6 mb-0 max-w-4xl overflow-hidden data-[state=closed]:max-h-64 [&>figure]:mt-0 [&>figure]:md:!mx-0"
       >
         {children}
       </CollapsibleContent>
-      <CollapsibleTrigger className="from-background/70 to-muted/70 text-muted-foreground absolute inset-x-0 -bottom-2 flex h-20 items-center justify-center rounded-b-2xl bg-gradient-to-b text-sm group-data-[state=open]/collapsible:hidden">
+      <CollapsibleTrigger className="from-background/70 to-muted/70 text-muted-foreground absolute inset-x-0 bottom-0 flex h-52 items-center justify-center bg-gradient-to-b text-sm group-data-[state=open]/collapsible:h-16">
         {isOpened ? "Collapse" : "Expand"}
       </CollapsibleTrigger>
     </Collapsible>

@@ -25,7 +25,7 @@ export const mdxComponents = {
   pre: ({ className, children, ...props }: React.ComponentProps<"pre">) => (
     <pre
       className={cn(
-        "no-scrollbar min-w-0 overflow-x-auto outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
+        "scrollbar-hide min-w-0 overflow-x-auto outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
         className,
       )}
       {...props}

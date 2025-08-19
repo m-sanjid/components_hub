@@ -59,7 +59,7 @@ export function CodeBlockCommand({
             })}
           </TabsList>
         </div>
-        <div className="no-scrollbar overflow-x-auto">
+        <div className="scrollbar-hide overflow-x-auto">
           {Object.entries(tabs).map(([key, value]) => {
             return (
               <TabsContent

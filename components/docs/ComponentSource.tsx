@@ -67,11 +67,11 @@ function ComponentCode({
   title?: string;
 }) {
   return (
-    <figure data-rehype-pretty-code-figure="" className="[&>pre]:max-h-96">
+    <figure data-rehype-pretty-code-figure="" className="">
       {title && (
         <figcaption
           data-rehype-pretty-code-title=""
-          className="text-code-foreground [&_svg]:text-code-foreground flex max-w-[calc(100%-2rem)] items-center gap-2 overflow-auto [&_svg]:size-4 [&_svg]:opacity-70"
+          className="text-code-foreground my-2 px-2 bg-primary/5 w-fit rounded-md py-1 backdrop-blur-xl [&_svg]:text-code-foreground flex max-w-[calc(100%-2rem)] items-center gap-2 overflow-auto [&_svg]:size-4 [&_svg]:opacity-70"
           data-language={language}
         >
           {getIconForLanguageExtension(language)}

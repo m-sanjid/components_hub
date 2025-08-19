@@ -5,6 +5,7 @@ import {
 } from "@/lib/mdx-server";
 import { componentsRegistry } from "@/lib/component-registry";
 import PostNavigation from "@/components/PostNavigation";
+import { OnThisPage } from "@/components/docs/OnThisPage";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import React from "react";
@@ -77,20 +78,6 @@ export default async function ComponentDetail({
     redirect("/components");
   }
   const { content, meta } = result;
-  // Build a simple TOC from MDX headings (## and ###)
-  const headingRegex = /^#{2,3}\s+(.*)$/gm;
-  const headings: { level: number; text: string; id: string }[] = [];
-  const slugify = (text: string) =>
-    text
-      .toString()
-      .replace(/[\s'?]/g, "-")
-      .toLowerCase();
-  let match: RegExpExecArray | null;
-  while ((match = headingRegex.exec(content)) !== null) {
-    const raw = match[1].trim();
-    const level = match[0].startsWith("###") ? 3 : 2;
-    headings.push({ level, text: raw, id: slugify(raw) });
-  }
   const MDXContent = await processMdx(content, componentsRegistry);
   const allComponents = await getComponentList();
   const currentIndex = allComponents.findIndex((comp) => comp.slug === slug);
@@ -103,8 +90,8 @@ export default async function ComponentDetail({
 
   return (
     <div className="">
-      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 px-2 py-12 sm:px-6 md:grid-cols-[1fr_280px] md:px-8">
-        <article>
+      <div className="grid max-w-5xl grid-cols-1 gap-2 px-2 py-12 sm:px-6 md:grid-cols-[1fr_200px]">
+        <article className="max-w-3xl">
           <div className="mb-8 text-start sm:mb-12">
             <h1 className="text-foreground text-xl font-bold tracking-tight sm:text-2xl md:text-3xl lg:text-4xl">
               {meta.title}
@@ -113,7 +100,7 @@ export default async function ComponentDetail({
               {meta.description}
             </p>
           </div>
-          <div className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md mr-auto max-w-6xl overflow-x-auto">
+          <div id="docs-content" className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md mr-auto max-w-3xl overflow-x-auto">
             {MDXContent}
           </div>
 
@@ -142,23 +129,7 @@ export default async function ComponentDetail({
 
         {/* On this page (TOC) */}
         <aside className="hidden lg:block">
-          <nav className="bg-card sticky top-24 max-h-[70vh] overflow-y-auto rounded-lg border p-4 text-sm">
-            <h2 className="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase">
-              On this page
-            </h2>
-            <ul className="space-y-1">
-              {headings.map((h) => (
-                <li key={h.id} className={h.level === 3 ? "pl-3" : undefined}>
-                  <a
-                    href={`#${h.id}`}
-                    className="hover:text-primary text-foreground/80"
-                  >
-                    {h.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <OnThisPage rootId="docs-content" />
         </aside>
       </div>
     </div>

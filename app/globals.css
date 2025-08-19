@@ -131,25 +131,24 @@
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 4px;
+  height: 2px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(100, 100, 100, 0.3);
-  border-radius: 8px;
+  background: rgba(255, 97, 0, 1);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(100, 100, 100, 0.5);
+  background: rgba(255, 97, 0, 1);
 }
 
 /* globals.css */
 
 /* Light mode selection */
 ::selection {
-  background-color: rgba(255, 97, 0, 1); /* soft pink-red highlight */
+  background-color: rgba(255, 97, 0, 1); /* orange*/
   color: #fff; /* white text for contrast */
   text-shadow: 0 0 4px rgba(242, 77, 0, 0.8); /* glowing text effect */
   padding: 0.15em 0.25em; /* extra padding for better feel */
@@ -161,7 +160,7 @@
 /* Optional: Firefox */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgb(80, 80, 80) transparent;
+  scrollbar-color: rgba(255, 97, 0, 1) transparent;
 }
 
 .scrollbar-hide {
@@ -196,7 +195,7 @@
 }
 
 .prose h2 {
-  @apply mb-6 mt-12 text-2xl font-semibold tracking-tight text-foreground md:text-3xl;
+  @apply mb-6 mt-12 text-2xl font-medium tracking-tight text-foreground;
 }
 
 .prose h3 {
@@ -212,7 +211,7 @@
 }
 
 .prose a {
-  @apply text-primary no-underline transition-colors hover:text-primary/80 hover:underline;
+  @apply text-primary no-underline transition-colors hover:text-primary/80;
 }
 
 .prose ul {
@@ -239,16 +238,13 @@
   @apply mb-0;
 }
 
-.prose code {
-  @apply rounded-md bg-muted px-1 sm:px-2 py-1 text-sm font-mono text-foreground;
-}
 
 .prose pre {
-  @apply overflow-x-auto p-2 sm:p-4 rounded-lg;
+  @apply overflow-x-auto py-6 sm:p-4 rounded-lg;
 }
 
 .prose code {
-  @apply bg-muted px-1 sm:px-3 py-1 rounded-md text-foreground;
+  @apply bg-muted px-2 sm:px-3 py-2 rounded-md text-foreground text-sm font-mono;
 }
 
 .prose strong {
@@ -293,11 +289,11 @@
 }
 
 .dark .prose code {
-  @apply bg-muted px-2 sm:px-3 py-1 sm:py-2 rounded-md text-foreground;
+  @apply bg-muted px-2 sm:px-3 py-2 rounded-md text-foreground;
 }
 
 .dark .prose pre {
-  @apply bg-none;
+  @apply bg-transparent;
 }
 
 .dark .prose strong {
