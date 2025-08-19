@@ -1,0 +1,122 @@
+---
+title: GitHub Star Button
+description: An interactive button that shows GitHub repository stars with smooth animations on hover.
+category: Social
+keywords: ["github", "star", "button", "animated", "social"]
+---
+
+<CodePreview
+  name="github-star-button"
+  title="GitHub Star Button"
+  description="An interactive button that shows GitHub repository stars with smooth animations on hover."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add github-star-button --component
+```
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react @tabler/icons-react
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="github-star-button" title="components/ui/github-star-button.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g. @/components).
+</Step>
+
+</Steps> 
+</TabsContent> 
+</CodeTabs>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "owner",
+      type: "string",
+      description: "GitHub repository owner/organization name",
+      required: true,
+    },
+    {
+      name: "repo",
+      type: "string",
+      description: "GitHub repository name",
+      required: true,
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the button element",
+      required: false,
+      defaultValue: "",
+    },
+  ]}
+/>
+
+## Features
+
+- Displays live star count from GitHub API
+- Smooth hover and tap animations
+- Responsive design
+- Animated star icon on hover
+- Formatted star count (e.g., 1.5k for 1500 stars)
+
+## Usage
+
+```tsx
+"use client";
+
+import { GithubStarButton } from "@/components/ui/github-star-button";
+
+export function MyComponent() {
+  return (
+    <div className="flex items-center justify-center p-8">
+      <GithubStarButton 
+        owner="shadcn" 
+        repo="ui" 
+      />
+    </div>
+  );
+}
+```
+
+## Customization
+
+You can customize the button's appearance by passing a custom className:
+
+```tsx
+<GithubStarButton 
+  owner="shadcn" 
+  repo="ui"
+  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+/>
+```
+
+## Notes
+
+- The component makes an API call to GitHub to fetch the current star count
+- The star count is cached by GitHub's API, so it may not update in real-time
+- For frequent updates, consider implementing client-side caching or using GitHub's webhooks
