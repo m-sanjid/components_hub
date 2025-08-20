@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { Search, X } from "lucide-react";
 
 export interface Command {
@@ -38,6 +38,8 @@ export function CommandPalette({
 
   const closePalette = () => {
     setIsOpen(false);
+    setSearch("");
+    setSelectedIndex(0);
     onClose?.();
   };
 
@@ -48,12 +50,9 @@ export function CommandPalette({
         setIsOpen((prev) => !prev);
         return;
       }
-
       if (!isOpen) return;
 
-      if (e.key === "Escape") {
-        closePalette();
-      }
+      if (e.key === "Escape") closePalette();
 
       if (e.key === "ArrowDown") {
         e.preventDefault();
@@ -96,39 +95,60 @@ export function CommandPalette({
   }, [handleKeyDown, isOpen]);
 
   return (
-    <>
-      <button
+    <LayoutGroup>
+      {/* Floating trigger / compact pill */}
+      <motion.div
+        layoutId="command-palette"
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+        className="fixed top-4 left-1/2 z-50 flex h-10 w-48 -translate-x-1/2 cursor-pointer items-center gap-2 rounded-full border border-neutral-300 bg-white px-4 shadow-md dark:border-neutral-700 dark:bg-neutral-900"
       >
-        <Search className="h-4 w-4" />
-        <span>Search...</span>
-        <kbd className="ml-auto rounded bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700">
+        <motion.div layoutId="searchIcon">
+          <Search className="h-4 w-4 text-neutral-500" />
+        </motion.div>
+        <motion.span
+          layoutId="placeholder"
+          className="text-sm text-neutral-600 dark:text-neutral-300"
+        >
+          Search...
+        </motion.span>
+        <motion.kbd
+          layoutId="shortcut"
+          initial={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
+          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className="ml-auto rounded bg-neutral-200 px-2 py-0.5 text-xs dark:bg-neutral-700"
+        >
           ⌘ J
-        </kbd>
-      </button>
+        </motion.kbd>
+      </motion.div>
 
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {isOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+              layout
+              className="fixed inset-0 z-60 bg-black/40 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closePalette}
             />
+
+            {/* Expanded Palette */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className={`fixed top-[20%] left-1/2 z-50 w-full max-w-lg -translate-x-1/2 rounded-xl border bg-white shadow-xl dark:border-neutral-700 dark:bg-neutral-900 ${className}`}
+              layoutId="command-palette"
+              transition={{ type: "spring", damping: 24, stiffness: 260 }}
+              className={`fixed top-20 left-1/2 z-70 w-full max-w-xl -translate-x-1/2 rounded-2xl border bg-white shadow-2xl dark:border-neutral-700 dark:bg-neutral-900 ${className}`}
             >
               {/* Input Field */}
               <div className="flex items-center gap-2 border-b border-neutral-200 p-4 dark:border-neutral-700">
-                <Search className="h-5 w-5 text-neutral-400" />
-                <input
+                <motion.div layoutId="searchIcon">
+                  <Search className="h-5 w-5 text-neutral-400" />
+                </motion.div>
+                <motion.input
+                  layoutId="placeholder"
                   autoFocus
                   value={search}
                   onChange={(e) => {
@@ -138,12 +158,16 @@ export function CommandPalette({
                   placeholder={placeholder}
                   className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-400 dark:text-white"
                 />
-                <button
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
+                  transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
                   onClick={closePalette}
                   className="rounded p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
                   <X className="h-5 w-5 text-neutral-400" />
-                </button>
+                </motion.button>
               </div>
 
               {/* Command List */}
@@ -162,9 +186,7 @@ export function CommandPalette({
                       <button
                         key={command.id}
                         ref={(el) => {
-                          if (el) {
-                            itemRefs.current[index] = el;
-                          }
+                          if (el) itemRefs.current[index] = el;
                         }}
                         onClick={() => {
                           command.action();
@@ -203,6 +225,6 @@ export function CommandPalette({
           </>
         )}
       </AnimatePresence>
-    </>
+    </LayoutGroup>
   );
 }

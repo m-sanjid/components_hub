@@ -1,0 +1,127 @@
+---
+title: Command Pill
+description: A dynamic island inspired command palette
+category: Navigation
+keywords: ["command", "palette", "search", "navigation", "shortcuts"]
+---
+
+<CodePreview
+  name="command-pill"
+  title="Command Pill"
+  description="A dynamic island inspired command palette"
+/>
+
+## Installation
+
+<CodeTabs>
+<TabsList>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add command-pill --component
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install motion lucide-react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="command-pill" title="components/ui/command-pill.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "commands",
+      type: "Command[]",
+      required: true,
+      description: "Array of commands to display",
+    },
+    {
+      name: "placeholder",
+      type: "string",
+      required: false,
+      description: "Placeholder text for the search input",
+    },
+  ]}
+/>
+
+## Usage
+
+```tsx showLineNumbers
+<CommandPalette commands={commands} />
+```
+
+```tsx showLineNumbers
+type Command = {
+  id: string;
+  title: string;
+  description?: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  shortcut?: string;
+  action: () => void;
+};
+const commands: Command[] = [
+  {
+    id: "profile",
+    title: "Open Profile",
+    description: "View or edit your profile settings",
+    icon: User,
+    shortcut: "P",
+    action: () => toast("Opened Profile"),
+  },
+  {
+    id: "settings",
+    title: "Open Settings",
+    description: "Access all app preferences",
+    icon: Settings,
+    shortcut: "S",
+    action: () => toast("Opened Settings"),
+  },
+  {
+    id: "docs",
+    title: "Go to Docs",
+    description: "Read the official documentation",
+    icon: Globe,
+    shortcut: "D",
+    action: () => window.open("https://example.com/docs", "_blank"),
+  },
+  {
+    id: "new-project",
+    title: "Create New Project",
+    description: "Start a fresh new project",
+    icon: Code,
+    shortcut: "N",
+    action: () => toast("Creating new project..."),
+  },
+  {
+    id: "command-palette",
+    title: "Command Palette",
+    description: "Open the command palette",
+    icon: CommandIcon,
+    shortcut: "C",
+    action: () => toast("Opening command palette..."),
+  },
+];
+```

@@ -1,8 +1,7 @@
-// pages/command-demo.tsx or components/CommandDemo.tsx
 "use client";
 
 import React from "react";
-import { Command, CommandPalette } from "../code/command-palette"; // Replace with correct import path
+import { Command, CommandPalette } from "../code/command-pill"; // adjust path if needed
 import { Settings, Code, Globe, User, CommandIcon } from "lucide-react";
 import { toast } from "sonner";
 
@@ -47,53 +46,23 @@ const dummyCommands: Command[] = [
     shortcut: "C",
     action: () => toast("Opening command palette..."),
   },
-  {
-    id: "open-settings",
-    title: "Open Settings",
-    description: "Access all app preferences",
-    icon: Settings,
-    shortcut: "S",
-    action: () => toast("Opened Settings"),
-  },
-  {
-    id: "open-settings2",
-    title: "Open Settings",
-    description: "Access all app preferences",
-    icon: Settings,
-    shortcut: "S",
-    action: () => toast("Opened Settings"),
-  },
-  {
-    id: "open-settings3",
-    title: "Open Settings",
-    description: "Access all app preferences",
-    icon: Settings,
-    shortcut: "S",
-    action: () => toast("Opened Settings"),
-  },
-  {
-    id: "open-settings4",
-    title: "Open Settings",
-    description: "Access all app preferences",
-    icon: Settings,
-    shortcut: "S",
-    action: () => toast("Opened Settings"),
-  },
 ];
 
 export default function CommandDemoPage() {
   return (
-    <div className="flex items-center justify-center bg-white p-10 dark:bg-black">
-      <div className="w-full max-w-md space-y-4 text-center">
+    <div className="bg-white dark:bg-black">
+      {/* Floating Dynamic Island Command Palette */}
+      <CommandPalette commands={dummyCommands} />
+
+      <div className="mx-auto max-w-xl pt-40 text-center">
         <h1 className="text-3xl font-bold text-neutral-900 dark:text-white">
           Command Palette Demo
         </h1>
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Press <kbd className="kbd">⌘</kbd> + <kbd className="kbd">J</kbd> or
-          click the button to open.
+        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
+          Press <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">⌘</kbd> +{" "}
+          <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">J</kbd> or click the
+          floating pill above to open.
         </p>
-
-        <CommandPalette commands={dummyCommands} />
       </div>
     </div>
   );
