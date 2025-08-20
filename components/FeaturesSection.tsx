@@ -1,160 +1,136 @@
-"use client";
+import { Rocket, Sparkles, Layers, LayoutGrid, Activity } from "lucide-react";
+import { FeatureTabs } from "./FeatureTabs";
+import MotionDiv from "./MotionDiv";
 
-import {
-  IconAccessible,
-  IconBrandGithub,
-  IconCode,
-  IconZodiacPisces,
-} from "@tabler/icons-react";
-import { motion } from "motion/react";
-import { Package, Smartphone } from "lucide-react";
-import React from "react";
+const features = [
+  {
+    title: "Dynamic Layouts",
+    description:
+      "Fluid grid and stack components that adapt seamlessly to every screen size.",
+    icon: LayoutGrid,
+  },
+  {
+    title: "Motion Primitives",
+    description:
+      "Reusable animation hooks and patterns to speed up your design workflow.",
+    icon: Activity,
+  },
+];
 
-const FeaturesSection = () => {
-  return (
-    <section id="features" className="bg-accent/5 px-4 py-20">
-      <div className="container mx-auto">
-        <div className="mb-16 text-center">
-          <motion.h2
-            className="mb-4 text-3xl font-bold"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Why Choose Our Components?
-          </motion.h2>
-          <motion.p
-            className="text-muted-foreground mx-auto max-w-2xl text-xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Fully customizable, lightweight, and designed with accessibility in
-            mind. Our components help you build faster without sacrificing
-            quality.
-          </motion.p>
-        </div>
-
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {/* Feature 1 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <Package size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">Customizable</h3>
-            <p className="text-muted-foreground">
-              Easily theme and style each component to match your design system
-              and brand guidelines.
-            </p>
-          </motion.div>
-
-          {/* Feature 2 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <Smartphone size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">Responsive</h3>
-            <p className="text-muted-foreground">
-              Mobile-first, fully responsive components that look great on any
-              device or screen size.
-            </p>
-          </motion.div>
-
-          {/* Feature 3 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <IconAccessible size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">Accessible</h3>
-            <p className="text-muted-foreground">
-              Built with accessibility in mind with full ARIA support and
-              keyboard navigation.
-            </p>
-          </motion.div>
-
-          {/* Feature 4 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <IconZodiacPisces size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">Performance</h3>
-            <p className="text-muted-foreground">
-              Optimized for fast loading times and minimal JavaScript with
-              tree-shaking support.
-            </p>
-          </motion.div>
-
-          {/* Feature 5 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <IconCode size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">TypeScript-First</h3>
-            <p className="text-muted-foreground">
-              Fully typed components with excellent TypeScript support for
-              better developer experience.
-            </p>
-          </motion.div>
-
-          {/* Feature 6 */}
-          <motion.div
-            className="bg-card rounded-lg p-6 shadow-md transition-shadow hover:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            whileHover={{ y: -5 }}
-          >
-            <div className="text-primary mb-4">
-              <IconBrandGithub size={36} />
-            </div>
-            <h3 className="mb-2 text-xl font-bold">Open Source</h3>
-            <p className="text-muted-foreground">
-              Free to use, open-source, and regularly maintained by our
-              dedicated community.
-            </p>
-          </motion.div>
+const tabs = [
+  {
+    value: "Seamless Motion",
+    title: "Motion by Default",
+    description:
+      "Every component comes alive with subtle, production-ready animations baked in.",
+    content: (
+      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+        {features.map((feature, i) => {
+          const Icon = feature.icon;
+          return (
+            <MotionDiv
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+              className="border-border bg-card flex items-start rounded-2xl border p-4 shadow-sm transition-shadow hover:shadow-md"
+            >
+              <div className="bg-primary/10 text-primary mr-2 items-center justify-center rounded-md p-1">
+                <Icon className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">{feature.title}</h3>
+                <p className="text-muted-foreground mt-1 text-sm">
+                  {feature.description}
+                </p>
+              </div>
+            </MotionDiv>
+          );
+        })}
+      </div>
+    ),
+    icon: <Rocket className="h-6 w-6" />,
+  },
+  {
+    value: "Modern Aesthetics",
+    title: "Beautiful by Design",
+    description:
+      "Clean, minimal components built with Tailwind CSS and attention to detail.",
+    content: (
+      <div className="relative h-full w-full overflow-hidden rounded-xl">
+        <div className="bg-primary/5 absolute inset-0 backdrop-blur-md" />
+        <div className="relative p-8">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="h-24 rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+            <div className="h-24 rounded-lg bg-neutral-200 dark:bg-neutral-800" />
+          </div>
+          <div className="mt-6 space-y-3">
+            <div className="h-3 w-5/6 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+            <div className="h-3 w-2/3 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+            <div className="h-3 w-1/2 rounded-full bg-neutral-300 dark:bg-neutral-700" />
+          </div>
         </div>
       </div>
-    </section>
-  );
-};
+    ),
 
-export default FeaturesSection;
+    icon: <Sparkles className="h-6 w-6" />,
+  },
+  {
+    value: "Developer Experience",
+    title: "Built for Devs",
+    description:
+      "Fully typed, customizable, and designed to integrate into any modern stack.",
+    content: (
+      <div className="space-y-6">
+        <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="mb-3 flex items-center gap-3">
+            <div className="h-3 w-3 rounded-full bg-red-500" />
+            <div className="h-3 w-3 rounded-full bg-yellow-500" />
+            <div className="h-3 w-3 rounded-full bg-green-500" />
+          </div>
+          <pre className="font-mono text-sm text-neutral-800 dark:text-neutral-200">
+            <code>
+              {`// Drop-in animations
+<motion.button whileHover={{ scale: 1.05 }}>
+  Click Me
+</motion.button>
+
+// Fully typed with TypeScript
+interface MotionButtonProps {
+  whileHover?: MotionProps;
+  children: React.ReactNode;
+}`}
+            </code>
+          </pre>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {[
+            "TypeScript",
+            "React 18+",
+            "Tailwind CSS",
+            "Framer Motion",
+            "ESLint",
+            "Prettier",
+          ].map((tech) => (
+            <span
+              key={tech}
+              className="rounded-full bg-neutral-100 px-3 py-1 text-sm text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    ),
+    icon: <Layers className="h-6 w-6" />,
+  },
+];
+
+export default function FeaturesSection() {
+  return (
+    <div className="relative overflow-hidden mask-t-from-80% px-2 py-20">
+      <div className="absolute -top-40 -left-40 h-100 w-100 bg-radial from-[#FF6100]/30 via-[#FF6100]/20 mask-r-from-10 mask-b-from-10" />
+      <FeatureTabs tabs={tabs} />
+    </div>
+  );
+}
