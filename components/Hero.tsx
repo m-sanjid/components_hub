@@ -1,193 +1,179 @@
 "use client";
 
-import { motion } from "motion/react";
-import React from "react";
+import { motion, Variants } from "framer-motion";
 import { ArrowRight, Code, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import NewComponentBadge from "./NewComponentBadge";
+import { TestimonialCarousel } from "@/data/components/code/testimonial-carousel";
+import { Tabs } from "@/data/components/code/tabs";
+import EmailForm from "@/data/components/code/email-form";
+import LogoBlock from "./LogoBlock";
+import GithubStarButton from "@/data/components/code/github-star-button";
+
+// Variants
+const fadeInUp = (delay = 0): Variants => ({
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, delay, ease: "easeOut" },
+  },
+});
+
+const staggerContainer = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.15 },
+  },
+};
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden px-4 py-24">
-      <motion.div
-        className="from-accent/20 to-primary/20 dark:from-accent/10 dark:to-primary/10 absolute inset-0 z-0 bg-gradient-to-br"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      />
+    <section className="relative overflow-hidden mask-t-from-90% mask-b-from-90%">
+      {/* Background effects */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div
+          className={cn(
+            "absolute inset-0",
+            "bg-[linear-gradient(to_right,rgba(0,0,0,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.2)_1px,transparent_1px)]",
+            "dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_1px)]",
+            "[background-size:4px_48px]",
+            "mask-t-from-70% mask-r-from-50% mask-b-to-50% mask-l-from-50%",
+            "bg-[#FF6100]/40",
+          )}
+        />
+        <motion.div
+          className="bg-primary/10 absolute -top-24 -right-24 h-60 w-60 rounded-full blur-3xl"
+          animate={{ x: [0, 18, 0], y: [0, -22, 0] }}
+          transition={{ repeat: Infinity, duration: 14, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="bg-primary/10 absolute -bottom-28 -left-16 h-80 w-80 rounded-full blur-3xl"
+          animate={{ x: [0, -16, 0], y: [0, 20, 0] }}
+          transition={{ repeat: Infinity, duration: 16, ease: "easeInOut" }}
+        />
+      </div>
 
-      {/* Background animated shapes */}
+      {/* Grid layout: 2 cols */}
       <motion.div
-        className="bg-primary/20 absolute top-20 right-10 h-64 w-64 rounded-full opacity-20 mix-blend-multiply blur-xl filter dark:opacity-10"
-        animate={{
-          x: [0, 30, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 8,
-          ease: "easeInOut",
-        }}
-      />
-      <motion.div
-        className="bg-accent/20 absolute bottom-20 left-10 h-80 w-80 rounded-full opacity-20 mix-blend-multiply blur-xl filter dark:opacity-10"
-        animate={{
-          x: [0, -20, 0],
-          y: [0, 40, 0],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 10,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-      />
-
-      <div className="relative z-10 mx-auto max-w-5xl">
-        <div className="flex flex-col items-center gap-12 md:flex-row">
-          <motion.div
-            className="space-y-6 md:w-1/2"
-            initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.h1
-              className="text-4xl leading-tight font-bold md:text-6xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-            >
-              <span className="bg-gradient-to-r from-black via-black/90 to-black/70 bg-clip-text text-transparent dark:from-white/90 dark:via-white/90 dark:to-white/80">
-                Build Beautiful Interfaces
-              </span>{" "}
-              with <span className="text-primary inline-block">S ui</span>
-            </motion.h1>
-            <motion.p
-              className="text-muted-foreground text-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
-              Ready-to-use, customizable components for your next web project.
-              Engineered for performance, accessibility, and design flexibility.
-            </motion.p>
-            <motion.div
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-            >
-              <motion.a
-                href="/login"
-                className="group bg-primary text-primary-foreground relative flex items-center gap-2 overflow-hidden rounded-lg px-6 py-3 font-medium"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Get Started</span>
-                <motion.div
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                >
-                  <ArrowRight size={18} />
-                </motion.div>
-                <motion.div
-                  className="bg-primary/90 absolute inset-0"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                  style={{ zIndex: -1 }}
-                />
-              </motion.a>
-              <motion.a
-                href="/components"
-                className="group border-border hover:border-primary relative flex items-center gap-2 overflow-hidden rounded-lg border px-6 py-3 font-medium transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span>Browse Components</span>
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, delay: 1 }}
-                >
-                  <Package size={18} />
-                </motion.div>
-              </motion.a>
-            </motion.div>
-
-            <motion.div
-              className="flex items-center gap-6 pt-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
-            >
-              <div className="flex -space-x-2">
-                {[...Array(4)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="bg-accent border-background flex h-8 w-8 items-center justify-center rounded-full border-2 text-xs font-bold"
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {String.fromCharCode(65 + i)}
-                  </motion.div>
-                ))}
-              </div>
-              <div className="text-muted-foreground text-sm">
-                <span className="text-foreground font-bold">5,000+</span>{" "}
-                developers using our components
-              </div>
-            </motion.div>
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:px-12"
+      >
+        {/* LEFT: Text & CTAs */}
+        <div className="flex flex-col gap-6 text-left">
+          <motion.div variants={fadeInUp()}>
+            <NewComponentBadge href="/components/testimonial-carousel">
+              Testimonial Carousel
+            </NewComponentBadge>
           </motion.div>
 
-          <motion.div
-            className="mt-8 md:mt-0 md:w-1/2"
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+          <motion.h1
+            variants={fadeInUp(0.1)}
+            className="text-4xl leading-tight font-bold tracking-tight sm:text-5xl lg:text-6xl"
           >
-            <motion.div
-              className="bg-card relative rounded-lg p-6 shadow-xl"
-              whileHover={{ y: -5 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className="bg-primary text-primary-foreground absolute -top-2 -left-2 rounded-md px-3 py-1 text-sm font-medium">
-                Live preview
-              </div>
-              <div className="mb-3 flex gap-2">
-                <div className="bg-destructive h-3 w-3 rounded-full"></div>
-                <div className="bg-warning h-3 w-3 rounded-full"></div>
-                <div className="bg-success h-3 w-3 rounded-full"></div>
-              </div>
-              <motion.img
-                src="/api/placeholder/600/400"
-                alt="UI Components Preview"
-                className="h-auto w-full rounded"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
+            Design with intention.
+            <br />
+            <span className="from-primary via-primary/80 to-primary/60 bg-gradient-to-r bg-clip-text text-transparent">
+              Build with precision.
+            </span>
+          </motion.h1>
 
-              {/* Floating element animations */}
-              <motion.div
-                className="bg-primary text-primary-foreground absolute -right-6 -bottom-6 rounded-lg p-3 shadow-lg"
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                >
-                  <Code size={24} />
-                </motion.div>
-              </motion.div>
-            </motion.div>
+          <motion.p
+            variants={fadeInUp(0.2)}
+            className="text-muted-foreground max-w-lg text-lg sm:text-xl"
+          >
+            A motion-first component library for modern React apps. Crafted with
+            TypeScript, TailwindCSS, and Framer Motion.
+          </motion.p>
+
+          {/* CTA buttons */}
+          <motion.div
+            variants={fadeInUp(0.3)}
+            className="flex flex-col gap-3 sm:flex-row"
+          >
+            <Button
+              size="lg"
+              className="group relative bg-[#FF6100] text-white transition-transform hover:scale-[1.02] hover:bg-[#FF6100]/80 active:scale-[0.98]"
+              asChild
+            >
+              <Link href="/components">
+                <span className="from-primary/20 to-primary/0 absolute inset-0 -z-10 rounded-xl bg-gradient-to-r opacity-0 blur-xl transition-opacity group-hover:opacity-100" />
+                <Package size={20} className="mr-1" />
+                Browse Components
+                <ArrowRight
+                  size={20}
+                  className="ml-1 transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="group transition-transform hover:scale-[1.02] active:scale-[0.98]"
+              asChild
+            >
+              <Link href="/components/installation">
+                <Code size={20} className="mr-2" />
+                View Docs
+                <ArrowRight
+                  size={20}
+                  className="ml-2 transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </Button>
+          </motion.div>
+
+          {/* Logos */}
+          <motion.div variants={fadeInUp(0.5)}>
+            <LogoBlock />
           </motion.div>
         </div>
-      </div>
+
+        {/* RIGHT: Interactive Tabs */}
+        <motion.div variants={fadeInUp(0.6)} className="space-y-6">
+          {/* Stats */}
+          <motion.div
+            variants={fadeInUp(0.4)}
+            className="grid grid-cols-2 gap-4 pt-6"
+          >
+            <div className="bg-background/70 rounded-xl border px-4 py-3 backdrop-blur-sm transition hover:border-[#FF6100]/50 hover:shadow-md">
+              <div className="text-foreground text-2xl font-semibold">10+</div>
+              <div className="text-xs">Production-ready components</div>
+            </div>
+            <div className="bg-background/70 rounded-xl border px-4 py-3 backdrop-blur-sm transition hover:border-[#FF6100]/50 hover:shadow-md">
+              <div className="text-foreground text-2xl font-semibold">5+</div>
+              <div className="text-xs">Starter templates</div>
+            </div>
+          </motion.div>
+          <Tabs
+            tabs={[
+              {
+                value: "testimonial-carousel",
+                label: "Testimonials",
+                content: <TestimonialCarousel />,
+              },
+              {
+                value: "email-form",
+                label: "Email Form",
+                content: <EmailForm />,
+              },
+              {
+                value: "star",
+                label: "Star Button",
+                content: (
+                  <div className="flex h-full items-center justify-center p-4">
+                    <GithubStarButton owner="m-sanjid" repo="components_hub" />,
+                  </div>
+                ),
+              },
+            ]}
+          />
+        </motion.div>
+      </motion.div>
     </section>
   );
 };
