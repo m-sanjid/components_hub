@@ -68,7 +68,7 @@ export function CodePreview({
       {/* Tabs Header */}
       <div className="border-border bg-muted/30 border-b">
         <div className="flex items-center justify-between px-2 md:px-4 py-2">
-          <div className="bg-primary-foreground flex items-center space-x-1 rounded-[12px] border p-1">
+          <div className=" bg-white dark:bg-black shadow-inner flex items-center space-x-1 rounded-[12px] border p-1">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -123,7 +123,7 @@ export function CodePreview({
                 </ResponsivePreview>
               ) : (
                 <div className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-1 sm:p-2 md:p-6">
-                  <div className="overflow-x-auto">{demoComponent}</div>
+                  <div className="overflow-x-auto scrollbar-hide">{demoComponent}</div>
                 </div>
               )}
             </motion.div>
