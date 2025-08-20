@@ -59,7 +59,7 @@ export default function TemplatesPage() {
 
         {/* Search */}
         <div className="relative mt-6 w-full sm:w-80">
-        <Search className="text-muted-foreground bg-primary/10 absolute top-2 left-2 size-5 rounded-[6px] border p-1" />
+          <Search className="text-muted-foreground bg-primary/10 absolute top-2 left-2 size-5 rounded-[6px] border p-1" />
           <Input
             type="search"
             value={search}

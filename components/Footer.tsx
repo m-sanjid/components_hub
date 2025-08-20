@@ -31,7 +31,10 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="border-border bg-card border-t mb-6 z-30" role="contentinfo">
+    <footer
+      className="border-border bg-card z-30 mb-6 border-t"
+      role="contentinfo"
+    >
       <div className="container mx-auto max-w-6xl px-4 py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-6">
           <div className="sm:col-span-2">
@@ -48,7 +51,7 @@ const Footer: React.FC = () => {
                   href={siteConfig.links.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
                   aria-label="GitHub"
                   title="GitHub"
                 >
@@ -60,7 +63,7 @@ const Footer: React.FC = () => {
                   href={siteConfig.links.twitter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
                   aria-label="X (Twitter)"
                   title="X (Twitter)"
                 >
@@ -72,7 +75,7 @@ const Footer: React.FC = () => {
                   href="https://linkedin.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors"
+                  className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:ring-primary flex h-8 w-8 items-center justify-center rounded-full transition-colors focus-visible:ring-2 focus-visible:outline-none"
                   aria-label="LinkedIn"
                   title="LinkedIn"
                 >
@@ -83,7 +86,10 @@ const Footer: React.FC = () => {
           </div>
 
           {footerLinks.map((section) => (
-            <nav key={section.title} aria-labelledby={`footer-${section.title}`}>
+            <nav
+              key={section.title}
+              aria-labelledby={`footer-${section.title}`}
+            >
               <h3 id={`footer-${section.title}`} className="mb-3 font-medium">
                 {section.title}
               </h3>
@@ -92,7 +98,7 @@ const Footer: React.FC = () => {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+                      className="text-muted-foreground hover:text-foreground focus-visible:ring-primary px-4 py-2 text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
                     >
                       {link.name}
                     </Link>
@@ -109,21 +115,21 @@ const Footer: React.FC = () => {
             &copy; {year} Components Hub. All rights reserved.
           </p>
           <div className="mt-4 flex gap-4 md:mt-0">
-            <Link 
+            <Link
               href="/privacy-policy"
-              className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+              className="text-muted-foreground hover:text-foreground focus-visible:ring-primary px-4 py-2 text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
             >
               Privacy Policy
             </Link>
-            < Link
+            <Link
               href="/terms-of-service"
-              className="text-muted-foreground px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+              className="text-muted-foreground hover:text-foreground focus-visible:ring-primary px-4 py-2 text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
             >
               Terms of Service
             </Link>
             <Link
               href="/cookie-policy"
-              className="text-muted-foreground  px-4 py-2 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-sm transition-colors"
+              className="text-muted-foreground hover:text-foreground focus-visible:ring-primary px-4 py-2 text-sm transition-colors focus-visible:ring-2 focus-visible:outline-none"
             >
               Cookie Policy
             </Link>

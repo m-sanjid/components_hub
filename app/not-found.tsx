@@ -4,27 +4,23 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { IconArrowLeft, IconSearchOff } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 
 export default function NotFound() {
   return (
     <main className="relative isolate min-h-[70vh] overflow-hidden px-4 pt-28 pb-24 sm:pt-32">
       {/* Background style */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div
-          className="absolute inset-0 opacity-70"
-          style={{
-            background:
-              "radial-gradient(50% 40% at 50% 10%, hsl(var(--primary)/0.10) 0%, transparent 60%), radial-gradient(40% 30% at 80% 20%, hsl(var(--accent)/0.10) 0%, transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.22] mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgba(41, 40, 40, 0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(39, 36, 36, 0.12) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0",
+          "bg-[linear-gradient(to_right,rgba(255,255,255,0.4)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.4)_1px,transparent_1px)]",
+          "[background-size:48px_48px]",
+          "mask-t-from-50% mask-r-from-50% mask-b-to-50% mask-l-from-50%",
+          "bg-[#FF6100]/40",
+        )}
+        aria-hidden
+      >
+        <div className="absolute inset-0 mix-blend-overlay" />
       </div>
 
       <section className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">

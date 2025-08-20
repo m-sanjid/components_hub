@@ -7,7 +7,7 @@ import { Icons } from "./docs/icons";
 
 const icons = [
   <IconBrandNextjs strokeWidth={1.5} />,
-  <IconBrandTailwind strokeWidth={1.5} />,
+  <IconBrandTailwind strokeWidth={1} />,
   <Icons.shadcn className="size-6" />,
   <Icons.motion className="size-6" />,
 ];

@@ -27,7 +27,8 @@ export function CodePreview({
   name,
 }: CodePreviewProps) {
   const { resolvedTheme } = useTheme();
-  const prismTheme = resolvedTheme === "dark" ? themes.oneDark : themes.oneLight;
+  const prismTheme =
+    resolvedTheme === "dark" ? themes.oneDark : themes.oneLight;
   const [activeTab, setActiveTab] = useState<"preview" | "code">("preview");
   const [demoComponent, setDemoComponent] = useState<React.ReactNode>(null);
   const [code, setCode] = useState<string | undefined>(codeProp);
@@ -67,8 +68,8 @@ export function CodePreview({
     <div className="group border-border bg-background relative my-8 w-full max-w-4xl overflow-hidden rounded-xl border shadow-sm transition-shadow duration-300 hover:shadow-md">
       {/* Tabs Header */}
       <div className="border-border bg-muted/30 border-b">
-        <div className="flex items-center justify-between px-2 md:px-4 py-2">
-          <div className=" bg-white dark:bg-black shadow-inner flex items-center space-x-1 rounded-[12px] border p-1">
+        <div className="flex items-center justify-between px-2 py-2 md:px-4">
+          <div className="flex items-center space-x-1 rounded-[12px] border bg-white p-1 shadow-inner dark:bg-black">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -90,7 +91,7 @@ export function CodePreview({
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="activeTab"
-                    className="bg-[#FF6100] absolute inset-0 z-0 rounded-md backdrop-blur-sm"
+                    className="absolute inset-0 z-0 rounded-md bg-[#FF6100] backdrop-blur-sm"
                     transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
                   />
                 )}
@@ -119,11 +120,15 @@ export function CodePreview({
             >
               {responsivePreview ? (
                 <ResponsivePreview>
-                  <div className="min-h-[200px] p-1 md:p-6">{demoComponent}</div>
+                  <div className="min-h-[200px] p-1 md:p-6">
+                    {demoComponent}
+                  </div>
                 </ResponsivePreview>
               ) : (
                 <div className="from-background to-muted/20 min-h-[200px] bg-gradient-to-br p-1 sm:p-2 md:p-6">
-                  <div className="overflow-x-auto scrollbar-hide">{demoComponent}</div>
+                  <div className="scrollbar-hide overflow-x-auto">
+                    {demoComponent}
+                  </div>
                 </div>
               )}
             </motion.div>
@@ -141,7 +146,7 @@ export function CodePreview({
               <div className="relative h-full">
                 <div
                   className={cn(
-                    "max-h-[600px] overflow-y-auto p-1 sm:p-2 md:p-6 text-sm leading-relaxed transition-colors",
+                    "max-h-[600px] overflow-y-auto p-1 text-sm leading-relaxed transition-colors sm:p-2 md:p-6",
                   )}
                 >
                   <Highlight
@@ -162,7 +167,7 @@ export function CodePreview({
                       >
                         {tokens.map((line, i) => (
                           <div key={i} {...getLineProps({ line })}>
-                            <span className="mr-4 md:mr-6 inline-block w-8 text-right text-xs text-neutral-400 select-none dark:text-neutral-500">
+                            <span className="mr-4 inline-block w-8 text-right text-xs text-neutral-400 select-none md:mr-6 dark:text-neutral-500">
                               {i + 1}
                             </span>
                             {line.map((token, key) => (

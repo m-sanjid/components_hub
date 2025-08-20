@@ -41,8 +41,8 @@ export function CodeBlockCommand({
           });
         }}
       >
-        <div className="border-border/50 flex items-center gap-2 border-b px-2 md:px-3 py-1">
-          <div className="bg-primary/10 rounded-md border p-1 backdrop-blur-md hidden sm:block">
+        <div className="border-border/50 flex items-center gap-2 border-b px-2 py-1 md:px-3">
+          <div className="bg-primary/10 hidden rounded-md border p-1 backdrop-blur-md sm:block">
             <IconTerminal className="size-4" />
           </div>
           <TabsList className="rounded-none bg-transparent p-0">

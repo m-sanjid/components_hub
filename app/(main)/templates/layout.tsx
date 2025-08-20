@@ -25,8 +25,9 @@ export default function TemplatesLayout({
         </aside>
 
         {/* Main content */}
-        <section className="min-w-0 flex-1">{children}
-        <ContactCTA/>
+        <section className="min-w-0 flex-1">
+          {children}
+          <ContactCTA />
         </section>
       </main>
     </div>

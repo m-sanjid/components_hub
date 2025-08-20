@@ -48,11 +48,7 @@ export const mdxComponents = {
     />
   ),
   h2: ({ className, children, ...props }: React.ComponentProps<"h2">) => (
-    <h2
-      id={generateId(children)}
-      className={cn("", className)}
-      {...props}
-    >
+    <h2 id={generateId(children)} className={cn("", className)} {...props}>
       {children}
     </h2>
   ),

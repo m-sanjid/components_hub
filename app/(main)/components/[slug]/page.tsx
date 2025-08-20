@@ -100,7 +100,10 @@ export default async function ComponentDetail({
               {meta.description}
             </p>
           </div>
-          <div id="docs-content" className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md mr-auto max-w-3xl overflow-x-auto">
+          <div
+            id="docs-content"
+            className="prose prose-sm sm:prose md:prose-md dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-pre:rounded-lg prose-pre:p-2 sm:prose-pre:p-4 prose-pre:border prose-pre:shadow-sm prose-img:rounded-lg prose-img:shadow-md mr-auto max-w-3xl overflow-x-auto"
+          >
             {MDXContent}
           </div>
 

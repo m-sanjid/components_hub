@@ -71,7 +71,7 @@ function ComponentCode({
       {title && (
         <figcaption
           data-rehype-pretty-code-title=""
-          className="text-code-foreground my-2 px-2 bg-primary/5 w-fit rounded-md py-1 backdrop-blur-xl [&_svg]:text-code-foreground flex max-w-[calc(100%-2rem)] items-center gap-2 overflow-auto [&_svg]:size-4 [&_svg]:opacity-70"
+          className="text-code-foreground bg-primary/5 [&_svg]:text-code-foreground my-2 flex w-fit max-w-[calc(100%-2rem)] items-center gap-2 overflow-auto rounded-md px-2 py-1 backdrop-blur-xl [&_svg]:size-4 [&_svg]:opacity-70"
           data-language={language}
         >
           {getIconForLanguageExtension(language)}

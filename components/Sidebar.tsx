@@ -213,20 +213,20 @@ const Sidebar = () => {
       />
       {/* Mobile Button */}
       <AnimatePresence mode="popLayout">
-      {!mobileOpen && (
-        <motion.button
-        layoutId="mobile-button"
-          whileTap={{ scale: 0.95 }}
-          whileHover={{ scale: 1.04 }}
-          transition={{ delay: 0.2,duration: 0.2, ease: "easeInOut" }}
-          onClick={() => setMobileOpen(true)}
-          className="hover:bg-accent bg-primary/10 fixed top-18 z-50 rounded-md border p-2 backdrop-blur-md md:top-22 lg:hidden"
-        >
-          <IconMenu2 size={16} />
-        </motion.button>
-      )}
+        {!mobileOpen && (
+          <motion.button
+            layoutId="mobile-button"
+            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.04 }}
+            transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
+            onClick={() => setMobileOpen(true)}
+            className="hover:bg-accent bg-primary/10 fixed top-18 z-50 rounded-md border p-2 backdrop-blur-md md:top-22 lg:hidden"
+          >
+            <IconMenu2 size={16} />
+          </motion.button>
+        )}
 
-      {/* Mobile Drawer */}
+        {/* Mobile Drawer */}
         {mobileOpen && (
           <motion.div
             initial={{ x: "-100%" }}
@@ -242,7 +242,7 @@ const Sidebar = () => {
                   layoutId="mobile-button"
                   whileTap={{ scale: 0.95 }}
                   whileHover={{ scale: 1.04 }}
-                  transition={{ delay: 0.2,duration: 0.2, ease: "easeInOut" }}
+                  transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
                   onClick={() => setMobileOpen(false)}
                   className="text-muted-foreground hover:bg-accent hover:text-primary absolute top-20 right-2 rounded p-2"
                 >

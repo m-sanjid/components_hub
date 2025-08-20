@@ -31,7 +31,7 @@ const staggerContainer = {
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden mask-t-from-90% mask-b-from-90%">
+    <section className="relative m-0 overflow-hidden mask-t-from-90% mask-b-from-90%">
       {/* Background effects */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div
@@ -40,8 +40,8 @@ const Hero = () => {
             "bg-[linear-gradient(to_right,rgba(0,0,0,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.2)_1px,transparent_1px)]",
             "dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.2)_1px,transparent_1px)]",
             "[background-size:4px_48px]",
-            "mask-t-from-70% mask-r-from-50% mask-b-to-50% mask-l-from-50%",
-            "bg-[#FF6100]/40",
+            "mask-t-from-40% mask-r-from-40% mask-b-to-50% mask-l-from-30%",
+            "bg-[#FF6100]",
           )}
         />
         <motion.div
@@ -73,12 +73,12 @@ const Hero = () => {
 
           <motion.h1
             variants={fadeInUp(0.1)}
-            className="text-4xl leading-tight font-bold tracking-tight sm:text-5xl lg:text-6xl"
+            className="text-4xl leading-tight font-bold tracking-tight text-pretty sm:text-5xl lg:text-6xl"
           >
-            Design with intention.
+            Components
             <br />
-            <span className="from-primary via-primary/80 to-primary/60 bg-gradient-to-r bg-clip-text text-transparent">
-              Build with precision.
+            <span className="from-primary via-primary/80 font-semi-bold rounded-lg bg-[#FF6100] px-2 text-white lg:text-6xl">
+              That Flow.
             </span>
           </motion.h1>
 
@@ -86,8 +86,7 @@ const Hero = () => {
             variants={fadeInUp(0.2)}
             className="text-muted-foreground max-w-lg text-lg sm:text-xl"
           >
-            A motion-first component library for modern React apps. Crafted with
-            TypeScript, TailwindCSS, and Framer Motion.
+            Bring your UI to life with motion-first React components.
           </motion.p>
 
           {/* CTA buttons */}

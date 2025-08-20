@@ -16,7 +16,7 @@ export const CopyButtonLabel = ({ code }: { code: string }) => {
     <motion.button
       onClick={copyToClipboard}
       className={cn(
-        "absolute top-4 right-4 z-10 flex items-center space-x-2 rounded-lg border bg-primary/10 px-3 py-2 text-xs font-medium backdrop-blur transition-all duration-200 ease-in-out hover:shadow-md",
+        "bg-primary/10 absolute top-4 right-4 z-10 flex items-center space-x-2 rounded-lg border px-3 py-2 text-xs font-medium backdrop-blur transition-all duration-200 ease-in-out hover:shadow-md",
         copied ? "text-green-600" : "text-muted-foreground hover:text-primary",
       )}
     >

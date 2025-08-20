@@ -5,6 +5,7 @@ import MotionDiv from "@/components/MotionDiv";
 import Image from "next/image";
 import { DowloadCode } from "@/components/DowloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
+import TechStack from "@/components/TechStack";
 
 interface TemplateDetailsPageProps {
   params: { id: string };
@@ -63,7 +64,7 @@ export default function TemplateDetailsPage({
             {template.tags.map((tag) => (
               <span
                 key={tag}
-                className="border-primary/20 text-primary bg-primary/5 hover:bg-primary/10 rounded-full border px-3 py-1 text-xs transition-colors"
+                className="bg-primary/5 text-primary rounded-[6px] border px-2 py-0.5 text-[10px] font-medium"
               >
                 {tag}
               </span>
@@ -82,12 +83,6 @@ export default function TemplateDetailsPage({
                 <dd className="font-medium">${template.price.toFixed(2)}</dd>
               </div>
             )}
-            <div>
-              <dt className="text-muted-foreground">Screenshots</dt>
-              <dd className="font-medium">
-                {template.screenshots?.length || 0}
-              </dd>
-            </div>
           </dl>
         </div>
 
@@ -174,6 +169,9 @@ export default function TemplateDetailsPage({
           ))}
         </div>
       </section>
+      {template?.techStack?.length && (
+        <TechStack techStack={template.techStack} />
+      )}
     </main>
   );
 }

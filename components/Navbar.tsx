@@ -85,8 +85,8 @@ export default function Navbar() {
     <motion.nav
       className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
-          ? "bg-background/95 md:max-w-[98%] border-b supports-[backdrop-filter]:bg-background/80 top-0 md:top-3 mx-auto max-w-6xl md:rounded-2xl md:border border-[#FF6100]/20 shadow-lg backdrop-blur"
-          : "bg-background/95 top-0 mx-auto max-w-[100rem] w-screen backdrop-blur"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 mx-auto max-w-6xl border-b border-[#FF6100]/20 shadow-lg backdrop-blur md:top-3 md:max-w-[98%] md:rounded-2xl md:border"
+          : "bg-background/95 top-0 mx-auto w-full max-w-[100rem] backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
@@ -103,7 +103,7 @@ export default function Navbar() {
             {/* Hover Effect */}
             {isHovered && (
               <motion.div
-                className="bg-[#FF6100] absolute top-0 bottom-0 z-0 rounded-lg"
+                className="absolute top-0 bottom-0 z-0 rounded-lg bg-[#FF6100]"
                 initial={false}
                 animate={{
                   left: hoverPosition.left,
@@ -118,17 +118,22 @@ export default function Navbar() {
             {mainNavItems.map((item, idx) => (
               <Link href={item.href} key={idx} passHref>
                 <button
-                  className={cn("relative z-10 flex items-center gap-2 px-4 py-2 text-sm",  
+                  className={cn(
+                    "relative z-10 flex items-center gap-2 px-4 py-2 text-sm",
                     pathname === item.href ||
-                    pathname.startsWith(item.href + "/")
+                      pathname.startsWith(item.href + "/")
                       ? "font-semibold"
-                      : "font-normal"
-                  ,
-                  isHovered === item.title ? "text-white" : ""    
+                      : "font-normal",
+                    isHovered === item.title ? "text-white" : "",
                   )}
                   onMouseEnter={handleHover}
                 >
-                  <item.icon className={cn("bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-sm",isHovered === item.title ? "border-primary/5" : "")} />
+                  <item.icon
+                    className={cn(
+                      "bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-sm",
+                      isHovered === item.title ? "border-primary/5" : "",
+                    )}
+                  />
                   {item.title}
                 </button>
               </Link>
