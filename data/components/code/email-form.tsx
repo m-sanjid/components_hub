@@ -62,7 +62,7 @@ export default function EmailForm() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 340, damping: 28 }}
-            className="flex w-full max-w-md flex-col gap-4 rounded-xl border overflow-auto border-neutral-200 bg-white/80 p-4 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/80"
+            className="flex w-full max-w-md flex-col gap-4 overflow-auto rounded-xl border border-neutral-200 bg-white/80 p-4 backdrop-blur-md dark:border-neutral-800 dark:bg-neutral-900/80"
           >
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -133,7 +133,9 @@ export default function EmailForm() {
                       >
                         <IconLoader size={14} />
                       </motion.span>
-                      Sending...
+                      <span className="hidden text-xs sm:block">
+                        Sending...
+                      </span>
                     </motion.span>
                   ) : (
                     <motion.span
@@ -145,7 +147,7 @@ export default function EmailForm() {
                       transition={{ delay: 0.2, duration: 0.15 }}
                     >
                       <IconSend className="h-4 w-4" />
-                      Send
+                      <span className="hidden text-xs sm:block">Send</span>
                     </motion.span>
                   )}
                 </AnimatePresence>
