@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { templates } from "@/lib/constants";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "next-view-transitions";
@@ -7,12 +8,36 @@ import { DowloadCode } from "@/components/DowloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
 
-export default function TemplateDetailsPage({
+export async function generateStaticParams() {
+  return templates.map((t) => ({ id: t.id.toString() }));
+}
+
+export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const template = templates.find((t) => t.id === parseInt(id));
+  if (!template) {
+    return {
+      title: "Template not found",
+      description: "The requested template does not exist.",
+    };
+  }
+  return {
+    title: template.title,
+    description: template.description,
+  };
+}
+
+export default async function TemplateDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
 }) {
-  const template = templates.find((t) => t.id === parseInt(params.id));
+  const { id } = await params;
+  const template = templates.find((t) => t.id === parseInt(id));
 
   if (!template) {
     return (
@@ -167,6 +192,7 @@ export default function TemplateDetailsPage({
           ))}
         </div>
       </section>
+
       {template?.techStack?.length && (
         <TechStack techStack={template.techStack} />
       )}

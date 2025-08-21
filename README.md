@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Components Hub
 
-## Getting Started
+Components Hub is a Next.js 15 + React 19 component library and showcase. It provides:
 
-First, run the development server:
+- Reusable UI components built with Tailwind CSS and Radix
+- Live demos, props tables, and copyable code snippets
+- A public registry for installing components into your app
+
+### Tech Stack
+
+- Next.js 15 App Router
+- React 19
+- Tailwind CSS v4
+- shadcn/ui primitives
+- Framer Motion
+
+### Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/`: App Router routes, API endpoints, static pages
+- `components/`: UI components and docs widgets
+- `content/`: MDX sources for component pages
+- `data/`: Source code and demo code for components
+- `lib/`: utilities, mdx server, search, email, registry helpers
+- `registry/`: installable component registry entries
 
-## Learn More
+### Adding a New Component
 
-To learn more about Next.js, take a look at the following resources:
+1. Create MDX under `content/components/<slug>.mdx`
+2. Add demo and code under `data/components/{demo,code}/<slug>.tsx`
+3. Register in `lib/component-registry.ts` and `lib/constants.ts` if needed
+4. Preview at `/components/<slug>`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Using the Registry
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Install a component into another project:
 
-## Deploy on Vercel
+```bash
+npx shadcn@latest add https://your-domain.com/r/<component>.json
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+See JSON manifests in `public/r/*.json`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Deploy
+
+This app is optimized for Vercel. Build with:
+
+```bash
+npm run build
+```
+
+### License
+
+MIT — see `LICENSE` file. Component source usage is not permitted for personal and commercial projects.
