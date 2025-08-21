@@ -7,13 +7,11 @@ import { DowloadCode } from "@/components/DowloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
 
-interface TemplateDetailsPageProps {
-  params: { id: string };
-}
-
 export default function TemplateDetailsPage({
   params,
-}: TemplateDetailsPageProps) {
+}: {
+  params: { id: string };
+}) {
   const template = templates.find((t) => t.id === parseInt(params.id));
 
   if (!template) {
