@@ -133,7 +133,9 @@ export default function EmailForm() {
                       >
                         <IconLoader size={14} />
                       </motion.span>
-                      <span className="text-xs hidden md:block">Sending...</span>
+                      <span className="hidden text-xs md:block">
+                        Sending...
+                      </span>
                     </motion.span>
                   ) : (
                     <motion.span
@@ -145,7 +147,7 @@ export default function EmailForm() {
                       transition={{ delay: 0.2, duration: 0.15 }}
                     >
                       <IconSend className="h-4 w-4" />
-                      <span className="text-xs hidden md:block">Send</span>
+                      <span className="hidden text-xs md:block">Send</span>
                     </motion.span>
                   )}
                 </AnimatePresence>

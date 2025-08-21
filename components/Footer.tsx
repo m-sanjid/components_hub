@@ -3,7 +3,6 @@ import {
   IconBrandX,
   IconBrandGithub,
   IconBrandLinkedin,
-  IconMail,
 } from "@tabler/icons-react";
 import Logo from "./Logo";
 import { siteConfig } from "@/config/site";

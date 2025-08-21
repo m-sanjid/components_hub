@@ -48,11 +48,11 @@ export function CommandPalette() {
   }, []);
 
   const router = useRouter();
-  
+
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (open) return;
-      
+
       if (e.metaKey || e.ctrlKey) {
         if (e.key === "j") {
           e.preventDefault();
@@ -94,7 +94,7 @@ export function CommandPalette() {
   return (
     <>
       <div
-        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border hover:border-[#FF6100] transition-all duration-200 ease-in-out px-2 py-1 sm:px-4 sm:py-2 text-xs"
+        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 text-xs transition-all duration-200 ease-in-out hover:border-[#FF6100] sm:px-4 sm:py-2"
         onClick={() => {
           setOpen(true);
         }}

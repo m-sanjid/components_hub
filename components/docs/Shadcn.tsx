@@ -1,11 +1,11 @@
-import React from 'react'
-import {Icons} from './icons'
+import React from "react";
+import { Icons } from "./icons";
 
 export const Shadcn = () => {
   return (
     <div className="flex items-center gap-2">
-      <Icons.shadcn className="size-6 bg-primary/10 p-1 rounded-md border backdrop-blur-md" />
+      <Icons.shadcn className="bg-primary/10 size-6 rounded-md border border-white/10 p-1 backdrop-blur-md" />
       <span>CLI</span>
     </div>
-  )
-}
+  );
+};

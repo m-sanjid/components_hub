@@ -1,14 +1,12 @@
-'use client';
+"use client";
 
-import * as React from 'react';
-import * as TabsPrimitive from '@radix-ui/react-tabs';
+import * as React from "react";
+import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { cn } from '@/lib/utils';
-import { motion } from 'motion/react';
+import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
 
-const Tabs = TabsPrimitive.Root;
-
-const TabsContext = React.createContext<string>('');
+const TabsContext = React.createContext<string>("");
 
 const TabsRoot = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Root>,
@@ -17,10 +15,11 @@ const TabsRoot = React.forwardRef<
   const uniqueId = React.useId();
   return (
     <TabsContext.Provider value={uniqueId}>
-      <Tabs ref={ref} {...props} />
+      <TabsPrimitive.Root ref={ref} {...props} />
     </TabsContext.Provider>
   );
 });
+TabsRoot.displayName = "Tabs";
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
@@ -29,13 +28,13 @@ const TabsList = React.forwardRef<
   <TabsPrimitive.List
     ref={ref}
     className={cn(
-      'inline-flex p-1 items-center justify-start text-zinc-900 dark:text-zinc-50',
-      className
+      "inline-flex items-center justify-start p-1 text-zinc-900 dark:text-zinc-50",
+      className,
     )}
     {...props}
   />
 ));
-TabsList.displayName = TabsPrimitive.List.displayName;
+TabsList.displayName = "TabsList";
 
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
@@ -50,10 +49,10 @@ const TabsTrigger = React.forwardRef<
   React.useEffect(() => {
     const element = triggerRef.current;
     if (element) {
-      setIsActive(element.dataset.state === 'active');
+      setIsActive(element.dataset.state === "active");
 
       const observer = new MutationObserver(() => {
-        setIsActive(element.dataset.state === 'active');
+        setIsActive(element.dataset.state === "active");
       });
 
       observer.observe(element, { attributes: true });
@@ -64,19 +63,26 @@ const TabsTrigger = React.forwardRef<
 
   return (
     <TabsPrimitive.Trigger
-      ref={triggerRef}
+      ref={(node) => {
+        // forward ref properly
+        if (typeof ref === "function") ref(node);
+        else if (ref)
+          (ref as React.MutableRefObject<HTMLButtonElement | null>).current =
+            node;
+        triggerRef.current = node;
+      }}
       className={cn(
-        'ring-offset-background m-1 focus-visible:ring-[#FF6100] group relative inline-flex h-8 items-center justify-center rounded-[8px] bg-transparent px-4 py-1 text-sm font-medium whitespace-nowrap text-zinc-500 transition-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-white dark:text-zinc-500 dark:data-[state=active]:text-white',
-        className
+        "ring-offset-background group relative m-1 inline-flex h-8 items-center justify-center rounded-[8px] bg-transparent px-4 py-1 text-sm font-medium whitespace-nowrap text-zinc-500 transition-none focus-visible:ring-2 focus-visible:ring-[#FF6100] focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-white dark:text-zinc-500 dark:data-[state=active]:text-white",
+        className,
       )}
       {...props}
     >
       {isActive && (
         <motion.div
           layout
-          className='absolute inset-0 flex w-full justify-center'
+          className="absolute inset-0 flex w-full justify-center"
           transition={{
-            type: 'spring',
+            type: "spring",
             stiffness: 26.7,
             damping: 4.1,
             mass: 0.2,
@@ -85,19 +91,17 @@ const TabsTrigger = React.forwardRef<
         >
           <div
             className={cn(
-              'absolute inset-0 h-full w-full bg-[#FF6100] rounded-[10px]',
-              classNameIndicator
+              "absolute inset-0 h-full w-full rounded-[10px] bg-[#FF6100]",
+              classNameIndicator,
             )}
           />
         </motion.div>
       )}
-      <div className='z-40'>
-      {children}
-      </div>
+      <div className="z-40">{children}</div>
     </TabsPrimitive.Trigger>
   );
 });
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
+TabsTrigger.displayName = "TabsTrigger";
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
@@ -106,12 +110,12 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'focus-visible:ring-ring relative mt-2 rounded-md ring-offset-blue-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
-      className
+      "focus-visible:ring-ring relative mt-2 rounded-md ring-offset-blue-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden",
+      className,
     )}
     {...props}
   />
 ));
-TabsContent.displayName = TabsPrimitive.Content.displayName;
+TabsContent.displayName = "TabsContent";
 
 export { TabsRoot as Tabs, TabsList, TabsTrigger, TabsContent };

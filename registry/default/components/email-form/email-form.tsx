@@ -83,7 +83,7 @@ const EmailForm = () => {
               <button
                 aria-label="Close email form"
                 onClick={() => setOpen(false)}
-                className="rounded p-1 text-neutral-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-neutral-400 dark:hover:text-white"
+                className="rounded p-1 text-neutral-500 hover:text-black focus:ring-2 focus:ring-neutral-400 focus:outline-none dark:hover:text-white"
               >
                 <IconX className="h-4 w-4" />
               </button>
@@ -100,7 +100,7 @@ const EmailForm = () => {
               onKeyDown={handleKeyPress}
               placeholder="you@example.com"
               aria-label="Your email address"
-              className="flex-1 rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-black focus:outline-none focus:ring-2 focus:ring-black dark:border-neutral-700 dark:bg-neutral-800 dark:focus:border-white dark:focus:ring-white"
+              className="flex-1 rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-black focus:ring-2 focus:ring-black focus:outline-none dark:border-neutral-700 dark:bg-neutral-800 dark:focus:border-white dark:focus:ring-white"
             />
             <motion.button
               layout
@@ -159,7 +159,7 @@ const EmailForm = () => {
             setOpen(true);
             setTimeout(() => inputRef.current?.focus(), 100);
           }}
-          className="flex items-center justify-center gap-2 rounded-lg border border-black/5 bg-white px-3 py-2 shadow hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-black dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:ring-white"
+          className="flex items-center justify-center gap-2 rounded-lg border border-black/5 bg-white px-3 py-2 shadow hover:bg-neutral-100 focus:ring-2 focus:ring-black focus:outline-none dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:focus:ring-white"
         >
           <motion.span layoutId="drop" className="text-sm">
             Drop your Email

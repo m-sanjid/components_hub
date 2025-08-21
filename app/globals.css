@@ -165,7 +165,7 @@
 
 .scrollbar-hide {
   scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* IE 10+ */
+  -ms-overflow-style: none; /* IE 10+ */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -173,7 +173,8 @@
 }
 
 .shadow-derek {
-  box-shadow: 0px 0px 0px 1px rgb(0 0 0 / 0.06),
+  box-shadow:
+    0px 0px 0px 1px rgb(0 0 0 / 0.06),
     0px 1px 1px -0.5px rgb(0 0 0 / 0.06),
     0px 3px 3px -1.5px rgb(0 0 0 / 0.06),
     0px 6px 6px -3px rgb(0 0 0 / 0.06),
@@ -191,39 +192,39 @@
 }
 
 .prose h1 {
-  @apply mb-8 text-3xl font-bold tracking-tight text-foreground md:text-4xl;
+  @apply text-foreground mb-8 text-3xl font-bold tracking-tight md:text-4xl;
 }
 
 .prose h2 {
-  @apply mb-6 mt-12 text-2xl font-medium tracking-tight text-foreground;
+  @apply text-foreground mt-12 mb-6 text-2xl font-medium tracking-tight;
 }
 
 .prose h3 {
-  @apply mb-4 mt-8 text-lg md:text-xl font-semibold tracking-tight text-foreground;
+  @apply text-foreground mt-8 mb-4 text-lg font-semibold tracking-tight md:text-xl;
 }
 
 .prose h4 {
-  @apply mb-3 mt-6 text-base font-medium tracking-tight text-foreground;
+  @apply text-foreground mt-6 mb-3 text-base font-medium tracking-tight;
 }
 
 .prose p {
-  @apply mb-6 text-base leading-7 text-muted-foreground;
+  @apply text-muted-foreground mb-6 text-base leading-7;
 }
 
 .prose a {
-  @apply text-primary no-underline transition-colors hover:text-primary/80;
+  @apply text-primary hover:text-primary/80 no-underline transition-colors;
 }
 
 .prose ul {
-  @apply mb-6 pl-6 space-y-2;
+  @apply mb-6 space-y-2 pl-6;
 }
 
 .prose ol {
-  @apply mb-6 pl-6 space-y-2;
+  @apply mb-6 space-y-2 pl-6;
 }
 
 .prose li {
-  @apply text-base text-muted-foreground leading-7;
+  @apply text-muted-foreground text-base leading-7;
 }
 
 .prose li::marker {
@@ -231,44 +232,43 @@
 }
 
 .prose blockquote {
-  @apply my-8 border-l-4 border-primary/20 bg-muted/50 pl-6 py-4 italic text-muted-foreground rounded-r-lg;
+  @apply border-primary/20 bg-muted/50 text-muted-foreground my-8 rounded-r-lg border-l-4 py-4 pl-6 italic;
 }
 
 .prose blockquote p {
   @apply mb-0;
 }
 
-
 .prose pre {
-  @apply overflow-x-auto py-6 sm:p-4 rounded-lg;
+  @apply overflow-x-auto rounded-lg py-6 sm:p-4;
 }
 
 .prose code {
-  @apply bg-muted px-2 sm:px-3 py-2 rounded-md text-foreground text-sm font-mono;
+  @apply bg-muted text-foreground rounded-md px-2 py-2 font-mono text-sm sm:px-3;
 }
 
 .prose strong {
-  @apply font-semibold text-foreground;
+  @apply text-foreground font-semibold;
 }
 
 .prose em {
-  @apply italic text-foreground;
+  @apply text-foreground italic;
 }
 
 .prose hr {
-  @apply my-8 border-border;
+  @apply border-border my-8;
 }
 
 .prose table {
-  @apply w-full border-collapse border border-border rounded-lg overflow-hidden;
+  @apply border-border w-full border-collapse overflow-hidden rounded-lg border;
 }
 
 .prose th {
-  @apply bg-muted px-4 py-3 text-left font-semibold text-foreground border-b border-border;
+  @apply bg-muted text-foreground border-border border-b px-4 py-3 text-left font-semibold;
 }
 
 .prose td {
-  @apply px-4 py-3 text-muted-foreground border-b border-border;
+  @apply text-muted-foreground border-border border-b px-4 py-3;
 }
 
 .prose tr:last-child td {
@@ -285,11 +285,11 @@
 }
 
 .dark .prose blockquote {
-  @apply border-l-4 border-primary/20 bg-muted/30 text-muted-foreground;
+  @apply border-primary/20 bg-muted/30 text-muted-foreground border-l-4;
 }
 
 .dark .prose code {
-  @apply bg-muted px-2 sm:px-3 py-2 rounded-md text-foreground;
+  @apply bg-muted text-foreground rounded-md px-2 py-2 sm:px-3;
 }
 
 .dark .prose pre {
@@ -309,5 +309,5 @@
 }
 
 .form-input {
-  @apply w-full rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm outline-none backdrop-blur-sm placeholder:text-neutral-400 focus:border-black/30 dark:border-white/10 dark:bg-neutral-900/60 dark:placeholder:text-neutral-500 dark:focus:border-white/30;
+  @apply w-full rounded-lg border border-black/10 bg-white/70 px-3 py-2 text-sm backdrop-blur-sm outline-none placeholder:text-neutral-400 focus:border-black/30 dark:border-white/10 dark:bg-neutral-900/60 dark:placeholder:text-neutral-500 dark:focus:border-white/30;
 }

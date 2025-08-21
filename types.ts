@@ -66,6 +66,7 @@ export interface Template {
     description: string[];
   }[];
   screenshots: string[];
+  techStack?: string[];
 }
 
 export interface NpmCommands {
@@ -74,8 +75,6 @@ export interface NpmCommands {
   __npm__?: string;
   __bun__?: string;
 }
-
-
 
 export interface UnistNode extends Node {
   type: string;

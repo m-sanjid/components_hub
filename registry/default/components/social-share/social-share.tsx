@@ -18,11 +18,14 @@ interface SocialLinksProps {
   size?: number;
 }
 
-const PLATFORM_META: Record<Platform, {
-  name: string;
-  icon: (size: number) => JSX.Element;
-  color: string;
-}> = {
+const PLATFORM_META: Record<
+  Platform,
+  {
+    name: string;
+    icon: (size: number) => JSX.Element;
+    color: string;
+  }
+> = {
   github: {
     name: "GitHub",
     icon: (size) => <IconBrandGithub size={size} />,

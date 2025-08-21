@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { sendEmail } from "@/lib/email";
 import { newsletterSchema, isDisposableEmail } from "@/lib/validation";
+import z from "zod";
 
 export async function POST(request: NextRequest) {
   try {
@@ -158,7 +159,7 @@ export async function POST(request: NextRequest) {
         {
           message: "Please enter a valid email address",
           success: false,
-          errors: (error as any).errors,
+          errors: (error as z.ZodError).issues,
         },
         { status: 400 },
       );

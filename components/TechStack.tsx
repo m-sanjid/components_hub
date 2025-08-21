@@ -35,7 +35,7 @@ const TechStack = ({ techStack }: { techStack: string[] }) => {
           const Icon = iconMap[tech.toLowerCase()] || IconTerminal2; // fallback icon
 
           return (
-            <div className="inline-flex gap-2 pr-3">
+            <div key={tech} className="inline-flex gap-2 pr-3">
               <Icon className="bg-primary/5 size-6 rounded-md border p-1 backdrop-blur-md" />
 
               {/* Title + description */}

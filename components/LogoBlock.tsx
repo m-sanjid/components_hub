@@ -1,15 +1,15 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { IconBrandNextjs, IconBrandTailwind } from "@tabler/icons-react";
 import { Icons } from "./docs/icons";
 
 const icons = [
-  <IconBrandNextjs strokeWidth={1.5} />,
-  <IconBrandTailwind strokeWidth={1} />,
-  <Icons.shadcn className="size-6" />,
-  <Icons.motion className="size-6" />,
+  { icon: <IconBrandNextjs strokeWidth={1.5} /> },
+  { icon: <IconBrandTailwind strokeWidth={1} /> },
+  { icon: <Icons.shadcn className="size-6" /> },
+  { icon: <Icons.motion className="size-6" /> },
 ];
 
 const LogoBlock = () => {
@@ -25,7 +25,7 @@ const LogoBlock = () => {
           whileTap={{ scale: 0.96 }}
           className="bg-primary/5 rounded-xl border p-3 shadow-sm backdrop-blur-md transition-all duration-300 hover:border-[#FF6100]/40 hover:shadow-md"
         >
-          {Icon}
+          {Icon.icon}
         </motion.div>
       ))}
     </div>
