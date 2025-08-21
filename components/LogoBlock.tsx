@@ -3,13 +3,13 @@
 import React from "react";
 import { motion } from "motion/react";
 import { IconBrandNextjs, IconBrandTailwind } from "@tabler/icons-react";
-import { Icons } from "./docs/icons";
+import { MotionLogo, ShadcnIcon } from "./docs/Shadcn";
 
 const icons = [
   { icon: <IconBrandNextjs strokeWidth={1.5} /> },
   { icon: <IconBrandTailwind strokeWidth={1} /> },
-  { icon: <Icons.shadcn className="size-6" /> },
-  { icon: <Icons.motion className="size-6" /> },
+  { icon: <ShadcnIcon className="size-6" /> },
+  { icon: <MotionLogo className="size-6" /> },
 ];
 
 const LogoBlock = () => {
