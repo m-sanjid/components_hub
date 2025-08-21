@@ -1,5 +1,5 @@
 import React from "react";
-import { Icons } from "./icons";
+import { Icons } from "@/components/docs/icons";
 
 export const Shadcn = () => {
   return (
