@@ -9,22 +9,14 @@ keywords: ["click", "action", "control", "submit", "interactive"]
   name="social-share"
   title="Social Share"
   description="An animated social share component"
-  props={[
-    {
-      name: "socialLinks",
-      type: "array",
-      description: "The social links to display",
-      required: true,
-      defaultValue:
-        "[{name: 'Github', icon: <IconBrandGithub />, link: 'https://github.com', color: 'bg-black'}, {name: 'LinkedIn', icon: <IconBrandLinkedin />, link: 'https://linkedin.com', color: 'bg-blue-500'}, {name: 'WhatsApp', icon: <IconBrandWhatsapp />, link: 'https://wa.me', color: 'bg-green-500'}, {name: 'X', icon: <IconBrandX />, link: 'https://x.com', color: 'bg-black'}]",
-    },
-  ]}
 />
+
+## Installation
 
 <CodeTabs>
 
 <TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
 <TabsContent value="cli">
@@ -59,47 +51,44 @@ npm install motion @tabler/icons-react
 
 ## Usage
 
-Add Your Social Links to the `socialLinks` array in the `SocialShare` component.
-
 ```tsx showLineNumbers
 import { SocialShare } from "@/components/ui/social-share";
 ```
 
 ```tsx showLineNumbers
-import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandWhatsapp,
-  IconBrandX,
-} from "@tabler/icons-react";
-
-const phoneNumber = process.env.NEXT_PUBLIC_PHONE_NUMBER;
-const socialLinks = [
-  {
-    name: "Github",
-    icon: <IconBrandGithub />,
-    link: "https://github.com/yourusername",
-    color: "bg-black",
-  },
-  {
-    name: "LinkedIn",
-    icon: <IconBrandLinkedin />,
-    link: "https://linkedin.com/in/yourusername",
-    color: "bg-blue-500",
-  },
-  {
-    name: "WhatsApp",
-    icon: <IconBrandWhatsapp />,
-    link: `https://wa.me/${phoneNumber}`,
-    color: "bg-green-500",
-  },
-  {
-    name: "X",
-    icon: <IconBrandX />,
-    link: "https://x.com/yourusername",
-    color: "bg-black",
-  },
-];
-
-<SocialShare socialLinks={socialLinks} />;
+<SocialShare
+  profiles={{
+    github: "https://github.com/m-sanjid",
+    twitter: "https://x.com/dev_sanjid",
+    linkedin: "https://linkedin.com/in/muhammedsanjid1",
+    email: "mailto:muhammeddsanjid@gmail.com",
+  }}
+/>
 ```
+
+<PropsTable
+  props={[
+    {
+      name: "profiles",
+      type: "object",
+      description: "The profiles to display",
+      required: true,
+      defaultValue:
+        "{github:'https://github.com/yourusername',\nlinkedin:'https://linkedin.com/in/yourusername',\ntwitter:'https://twitter.com/yourusername',\nemail:'mailto:your.email@example.com'}",
+    },
+    {
+      name: "showTooltip",
+      type: "boolean",
+      description: "Whether to show the tooltip",
+      required: false,
+      defaultValue: "true",
+    },
+    {
+      name: "size",
+      type: "number",
+      description: "The size of the icons",
+      required: false,
+      defaultValue: "20",
+    },
+  ]}
+/>

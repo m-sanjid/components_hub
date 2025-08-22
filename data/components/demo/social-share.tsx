@@ -7,9 +7,9 @@ const SocialShareDemo = () => {
       <SocialLinks
         profiles={{
           github: "https://github.com/m-sanjid",
-          twitter: "https://x.com/sanjid357",
+          twitter: "https://x.com/dev_sanjid",
           linkedin: "https://linkedin.com/in/muhammedsanjid1",
-          email: "mailto:sanjid.dev@gmail.com",
+          email: "mailto:muhammeddsanjid@gmail.com",
         }}
         showTooltip
         size={22}
