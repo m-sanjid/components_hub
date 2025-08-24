@@ -95,14 +95,14 @@ export const HighlightCode = ({
               tabIndex={0}
             >
               {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line })}>
+                <span key={i} {...getLineProps({ line })} className="block">
                   <span className="mr-4 inline-block w-8 text-right text-xs text-neutral-400 select-none dark:text-neutral-500">
                     {i + 1}
                   </span>
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({ token })} />
                   ))}
-                </div>
+                </span>
               ))}
             </pre>
           )}
