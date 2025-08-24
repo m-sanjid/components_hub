@@ -1,0 +1,230 @@
+---
+title: Features Tabs
+description: An animated, accessible feature tabs section with autoplay, keyboard navigation, and responsive layout.
+category: Content
+keywords: ["tabs", "features", "motion", "autoplay", "accessible"]
+---
+
+<CodePreview
+  name="features-tabs"
+  title="Features Tabs"
+  description="An animated, accessible feature tabs section with autoplay and keyboard navigation."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+  ```bash npx shadcn@latest add features-tabs --component ```
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react clsx
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="features-tabs" title="components/ui/features-tabs.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g. @/components).
+</Step>
+
+</Steps>
+</TabsContent>
+</CodeTabs>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "tabs",
+      type: "Tab[]",
+      description: "Array of tab objects to render",
+      required: true,
+      defaultValue: "[]",
+    },
+    {
+      name: "sectionTitle",
+      type: "string",
+      description: "Optional heading displayed above the tabs",
+      required: false,
+      defaultValue: '"Powerful Features"',
+    },
+    {
+      name: "sectionSubtitle",
+      type: "string",
+      description: "Optional subheading text",
+      required: false,
+      defaultValue: '"Explore the key capabilities..."',
+    },
+    {
+      name: "defaultValue",
+      type: "string",
+      description: "Initial active tab value",
+      required: false,
+      defaultValue: "tabs[0].value",
+    },
+    {
+      name: "onValueChange",
+      type: "(value: string) => void",
+      description: "Callback when the active tab changes",
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Additional class names for the root section",
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "height",
+      type: "string",
+      description: "Height utility for the preview panel",
+      required: false,
+      defaultValue: '"min-h-[500px]"',
+    },
+    {
+      name: "autoplay",
+      type: "boolean",
+      description: "Automatically cycle through tabs",
+      required: false,
+      defaultValue: "true",
+    },
+    {
+      name: "interval",
+      type: "number",
+      description: "Autoplay interval in milliseconds",
+      required: false,
+      defaultValue: "5000",
+    },
+  ]}
+/>
+
+## Types
+
+```tsx
+interface Tab {
+  value: string;
+  title: string;
+  description: string;
+  content: React.ReactNode;
+}
+
+interface FeatureTabsProps {
+  tabs: Tab[];
+  sectionTitle?: string;
+  sectionSubtitle?: string;
+  defaultValue?: string;
+  onValueChange?: (value: string) => void;
+  className?: string;
+  height?: string;
+  autoplay?: boolean;
+  interval?: number;
+}
+```
+
+## Usage
+
+```tsx
+"use client";
+
+import { FeatureTabs } from "@/components/ui/features-tabs";
+
+const tabs = [
+  {
+    value: "design",
+    title: "Polished UI",
+    description: "Beautiful defaults with subtle motion",
+    content: (
+      <div className="space-y-2">
+        <h4 className="text-lg font-semibold">Design System Ready</h4>
+        <p className="text-muted-foreground text-sm">
+          Tailwind-first, accessible, theme-aware.
+        </p>
+      </div>
+    ),
+  },
+  {
+    value: "performance",
+    title: "Fast",
+    description: "Optimized motion with spring transitions",
+    content: (
+      <div className="space-y-2">
+        <h4 className="text-lg font-semibold">Smooth Animations</h4>
+        <p className="text-muted-foreground text-sm">
+          Zero jank with Motion One spring physics.
+        </p>
+      </div>
+    ),
+  },
+  {
+    value: "integration",
+    title: "Easy Integrations",
+    description: "Drop-in API with sensible props",
+    content: (
+      <div className="space-y-2">
+        <h4 className="text-lg font-semibold">Headless API</h4>
+        <p className="text-muted-foreground text-sm">
+          Render anything inside each tab panel.
+        </p>
+      </div>
+    ),
+  },
+];
+
+export default function Page() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 p-6 dark:bg-neutral-900">
+      <FeatureTabs tabs={tabs} />
+    </div>
+  );
+}
+```
+
+## Customization
+
+### Autoplay
+
+Enable or disable autoplay and adjust the interval:
+
+```tsx
+<FeatureTabs tabs={tabs} autoplay interval={4000} />
+```
+
+### Layout height
+
+Control the preview area height with the `height` prop:
+
+```tsx
+<FeatureTabs tabs={tabs} height="min-h-[420px]" />
+```
+
+## Features
+
+✅ Animated tab highlight with spring transitions
+
+✅ Keyboard and screen-reader friendly
+
+✅ Responsive grid layout with sidebar navigation
+
+✅ Optional autoplay with pause-on-hover
+
+✅ Headless content: render any JSX inside panels
