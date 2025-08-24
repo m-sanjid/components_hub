@@ -72,7 +72,7 @@ const TabsTrigger = React.forwardRef<
         triggerRef.current = node;
       }}
       className={cn(
-        "ring-offset-background group relative m-1 inline-flex h-8 items-center justify-center rounded-[8px] bg-transparent px-4 py-1 text-sm font-medium whitespace-nowrap text-zinc-500 transition-none focus-visible:ring-2 focus-visible:ring-[#FF6100] focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:text-white dark:text-zinc-500 dark:data-[state=active]:text-white",
+        "ring-offset-background group relative m-1 inline-flex h-8 items-center justify-center rounded-[8px] bg-transparent px-4 py-1 text-sm font-medium whitespace-nowrap text-zinc-500 transition-none focus-visible:ring-2 focus-visible:ring-[#FF6100] focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:font-semibold data-[state=active]:text-white dark:text-zinc-500 dark:data-[state=active]:font-semibold dark:data-[state=active]:text-white",
         className,
       )}
       {...props}

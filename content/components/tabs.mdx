@@ -9,36 +9,27 @@ keywords: ["tabs", "navigation", "switching", "animated", "interactive"]
   name="tabs"
   title="Tabs"
   description="A customizable tabs component with micro-interactions and various states"
-  props={[
-    {
-      name: "value",
-      type: "string",
-      description: "The value of the tab to display",
-    },
-    {
-      name: "label",
-      type: "string",
-      description: "The label of the tab to display",
-    },
-    {
-      name: "content",
-      type: "React.ReactNode",
-      description: "The content of the tab to display",
-    },
-  ]}
 />
+
+## Installation
 
 <CodeTabs>
 
 <TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
 <TabsContent value="cli">
 
+<Steps>
+
+<Step>Use the following command to install the component:</Step>
+
 ```bash
 npx shadcn@latest add tabs --component
 ```
+
+</Steps>
 
 </TabsContent>
 
@@ -64,30 +55,28 @@ npm install motion
 
 </CodeTabs>
 
-## Usage
+## Props
 
-```tsx showLineNumbers
-import { Tabs } from "@/components/ui/tabs";
-```
+<PropsTable
+  props={[
+    {
+      name: "value",
+      type: "string",
+      description: "The value of the tab to display",
+    },
+    {
+      name: "label",
+      type: "string",
+      description: "The label of the tab to display",
+    },
+    {
+      name: "content",
+      type: "React.ReactNode",
+      description: "The content of the tab to display",
+    },
+  ]}
+/>
 
-```tsx showLineNumbers
-const tabs = [
-  {
-    value: "tab1",
-    label: "Tab 1",
-    content: <p>This is content for Tab 1.</p>,
-  },
-  {
-    value: "tab2",
-    label: "Tab 2",
-    content: <p>This is content for Tab 2.</p>,
-  },
-  {
-    value: "tab3",
-    label: "Tab 3",
-    content: <p>This is content for Tab 3.</p>,
-  },
-];
-
-<Tabs tabs={tabs} />;
-```
+<ExampleShowcase name="tabs-vertical" />
+<ExampleShowcase name="tabs-with-icon" />
+<ExampleShowcase name="controlled-tabs" />
