@@ -3,8 +3,9 @@
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "motion/react";
 import { IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ className }: { className?: string }) => {
   const { theme, setTheme } = useTheme();
   const isDark = theme === "dark";
 
@@ -12,7 +13,10 @@ const ThemeToggle = () => {
     <button
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label="Toggle theme"
-      className="hover:bg-muted bg-primary/5 relative flex size-9 items-center justify-center rounded-md border transition-colors"
+      className={cn(
+        "hover:bg-muted relative flex size-9 items-center justify-center rounded-md border border-neutral-300 bg-black/5 transition-colors dark:border-neutral-800 dark:bg-white/5",
+        className,
+      )}
     >
       <AnimatePresence mode="wait" initial={false}>
         {isDark ? (
