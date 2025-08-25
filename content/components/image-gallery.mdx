@@ -1,0 +1,123 @@
+---
+title: Image Gallery
+description: An Apple Photos–like, motion-first gallery with fullscreen viewer, scrollable thumbnail strip, and keyboard navigation.
+category: Media
+keywords: ["gallery", "image", "lightbox", "thumbnails", "framer-motion"]
+---
+
+<CodePreview
+  name="image-gallery"
+  title="Image Gallery"
+  description="Fullscreen viewer with scrollable thumbnail strip, smooth transitions, and keyboard navigation."
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add image-gallery --component
+```
+</TabsContent> <TabsContent value="manual"> <Steps>
+<Step>Install required dependencies.</Step>
+
+```bash
+npm install framer-motion lucide-react
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="image-gallery" title="components/ui/image-gallery.tsx" />
+<Step>
+  Adjust import paths to match your project's alias setup (e.g. @/components).
+</Step>
+
+</Steps> </TabsContent> </CodeTabs>
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "Gallery.Root",
+      type: ["images: string[]", "title?: string", "children: React.ReactNode"],
+      description: "Provider that manages state and renders the modal viewer.",
+      required: true,
+    },
+    {
+      name: "Gallery.Grid",
+      type: ["—"],
+      description: "Responsive grid of image tiles. Click to open the viewer.",
+      required: false,
+    },
+    {
+      name: "Gallery.Viewer",
+      type: ["stripRef: React.RefObject<HTMLDivElement | null>"],
+      description: "Fullscreen viewer (normally mounted by Root).",
+      required: false,
+    },
+    {
+      name: "Gallery.ThumbnailStrip",
+      type: ["stripRef: React.RefObject<HTMLDivElement | null>"],
+      description: "Scrollable thumbnail bar used inside the viewer.",
+      required: false,
+    },
+    {
+      name: "Gallery.NavButton",
+      type: ["dir: 'left' | 'right'; onClick: () => void"],
+      description: "Navigation button component for custom layouts.",
+      required: false,
+    },
+  ]}
+/>
+
+## Usage
+
+```tsx
+"use client";
+
+import { Gallery } from "@/components/ui/image-gallery";
+
+const IMAGES = [
+  "/images/shot-1.jpg",
+  "/images/shot-2.jpg",
+  "/images/shot-3.jpg",
+  "/images/shot-4.jpg",
+  "/images/shot-5.jpg",
+];
+
+export default function Page() {
+  return (
+    <section className="container py-12">
+      <h1 className="mb-6 text-2xl font-semibold">Image Gallery</h1>
+      <Gallery.Root images={IMAGES} title="Gallery Demo">
+        <Gallery.Grid />
+        {/* The Viewer is automatically rendered by Root when an image is selected */}
+      </Gallery.Root>
+    </section>
+  );
+}
+```
+
+## Features
+
+- Smooth, spring-based transitions with Framer Motion
+- Fullscreen lightbox with keyboard navigation (ArrowLeft / ArrowRight to navigate, Esc to close)
+- Scrollable thumbnail strip with snap behavior
+- Next.js Image optimization
+- Dark/Light friendly UI
+
+## Accessibility
+
+- The viewer is rendered as a role="dialog" with aria-modal="true".
+- Keyboard controls:
+- Esc — close
+- ArrowLeft / ArrowRight — previous / next image

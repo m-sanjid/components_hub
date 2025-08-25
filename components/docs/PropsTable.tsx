@@ -2,15 +2,30 @@ import { cn } from "@/lib/utils";
 
 export interface PropDefinition {
   name: string;
-  type: string;
+  type: string | string[];
   required: boolean;
   defaultValue?: string;
   description?: string;
 }
 
 export function PropsTable({ props }: { props: PropDefinition[] }) {
+  const renderType = (type: string | string[]) => {
+    if (Array.isArray(type)) {
+      return (
+        <div className="flex flex-col gap-1">
+          {type.map((t, i) => (
+            <span key={i} className="font-mono text-[13px] font-semibold">
+              {t}
+            </span>
+          ))}
+        </div>
+      );
+    }
+    return <span className="font-mono text-[13px] font-semibold">{type}</span>;
+  };
+
   return (
-    <div className="border-muted bg-background relative my-6 w-full overflow-x-auto rounded-lg border shadow-sm">
+    <div className="border-muted bg-background scrollbar-hide relative my-6 w-full overflow-x-auto rounded-lg border shadow-sm">
       <table className="min-w-full text-sm">
         <thead className="bg-primary/30 sticky top-0 z-10 rounded-t-lg backdrop-blur">
           <tr>
@@ -44,9 +59,7 @@ export function PropsTable({ props }: { props: PropDefinition[] }) {
               <td className="text-foreground px-4 py-2 font-mono text-[13px] font-medium whitespace-nowrap">
                 {prop.name}
               </td>
-              <td className="px-4 py-2 font-mono text-[13px] whitespace-nowrap text-purple-600 dark:text-purple-400">
-                {prop.type}
-              </td>
+              <td className="px-4 py-2">{renderType(prop.type)}</td>
               <td className="px-4 py-2 text-sm">
                 {prop.required ? (
                   <span className="rounded bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
