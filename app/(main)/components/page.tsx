@@ -1,6 +1,6 @@
 import { getComponentList } from "@/lib/mdx-server";
 import { getComponentDemoOnly } from "@/lib/mdx-demo";
-import { IconCircleDashed, IconLayoutGrid } from "@tabler/icons-react";
+import { IconCircleDashed } from "@tabler/icons-react";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -95,20 +95,20 @@ export default async function ComponentsPage({
                   {/* Component Preview */}
                   <div className="from-muted/30 to-muted/10 relative min-h-[180px] bg-gradient-to-br p-4 sm:min-h-[200px] sm:p-6">
                     <div className="flex h-full items-center justify-center overflow-x-auto overflow-y-hidden">
-                      <div className="min-h-[150px] w-full transform pt-8 transition-transform duration-300 sm:min-h-[180px] sm:pt-10">
+                      <div className="min-h-[150px] w-full transform pt-8 pb-24 transition-transform duration-300 sm:min-h-[180px] sm:pt-10">
                         {Demo}
                       </div>
                     </div>
                   </div>
                   {/* Component Info */}
-                  <div className="from-card via-card/95 absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-4 pt-10 sm:p-6 sm:pt-12">
+                  <div className="from-primary-foreground/30 via-card/95 absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent p-4 pt-10 sm:p-6 sm:pt-12">
                     <div className="space-y-2">
                       <h3 className="text-base font-semibold tracking-tight sm:text-lg">
                         {component.title}
                       </h3>
                       {component.category && (
                         <div className="flex items-center space-x-2">
-                          <IconLayoutGrid className="text-muted-foreground h-3 w-3" />
+                          <IconCircleDashed className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
                           <span className="text-muted-foreground text-xs font-medium tracking-wider uppercase">
                             {component.category}
                           </span>

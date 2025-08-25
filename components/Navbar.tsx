@@ -1,16 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
   DropdownMenuGroup,
-  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { useState, useRef, useEffect } from "react";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
@@ -119,7 +116,7 @@ export default function Navbar() {
               <Link href={item.href} key={idx} passHref>
                 <button
                   className={cn(
-                    "relative z-10 flex items-center gap-2 px-4 py-2 text-sm",
+                    "relative z-10 flex items-center gap-2 px-4 py-2 text-sm transition-all duration-200 ease-in-out",
                     pathname === item.href ||
                       pathname.startsWith(item.href + "/")
                       ? "font-semibold"
@@ -142,17 +139,17 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation Dropdown */}
-        <div className="md:hidden">
+        <div className="mr-4 flex w-full justify-end md:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
-                <IconMenu2 className="h-5 w-5" />
-              </Button>
+              <button
+                className="bg-primary/5 relative flex size-8 shrink-0 items-center justify-center rounded-md border p-1 backdrop-blur-sm"
+                aria-label="Open navigation menu"
+              >
+                <IconMenu2 className="size-5" />
+              </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 md:hidden">
-              <DropdownMenuLabel>Navigation</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-
               <DropdownMenuGroup>
                 {mainNavItems.map((item) => (
                   <DropdownMenuItem key={item.href} asChild>

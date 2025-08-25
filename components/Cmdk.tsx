@@ -94,7 +94,7 @@ export function CommandPalette() {
   return (
     <>
       <div
-        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 text-xs transition-all duration-200 ease-in-out hover:border-[#FF6100] sm:px-4 sm:py-2"
+        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 text-xs transition-all duration-200 ease-in-out hover:border-[#FF6100] md:px-3 md:py-2"
         onClick={() => {
           setOpen(true);
         }}
@@ -104,7 +104,7 @@ export function CommandPalette() {
           size={16}
           className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md"
         />
-        <span className="hidden sm:inline">Search Components...</span>
+        <span className="hidden md:inline">Search </span>
         <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
           <span className="text-xs">⌘</span>K
         </kbd>

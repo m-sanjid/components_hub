@@ -89,7 +89,7 @@ export default async function ComponentDetail({
       : null;
 
   return (
-    <div className="">
+    <div className="relative">
       <div className="grid max-w-5xl grid-cols-1 gap-2 px-2 py-12 sm:px-6 md:grid-cols-[1fr_200px]">
         <article className="max-w-3xl">
           <div className="mb-8 text-start sm:mb-12">

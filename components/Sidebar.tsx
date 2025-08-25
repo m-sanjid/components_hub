@@ -220,9 +220,9 @@ const Sidebar = () => {
             whileHover={{ scale: 1.04 }}
             transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
             onClick={() => setMobileOpen(true)}
-            className="hover:bg-accent bg-primary/10 fixed top-18 z-50 rounded-md border p-2 backdrop-blur-md md:top-22 lg:hidden"
+            className="hover:bg-accent bg-primary/10 fixed top-18 z-50 flex size-8 shrink-0 items-center justify-center rounded-md border backdrop-blur-md md:top-22 lg:hidden"
           >
-            <IconMenu2 size={16} />
+            <IconMenu2 className="size-5" />
           </motion.button>
         )}
 

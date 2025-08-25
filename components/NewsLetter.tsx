@@ -5,7 +5,7 @@ import { IconLoader, IconMail, IconSend, IconX } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import { toast } from "sonner";
 
-export default function EmailForm() {
+export default function EmailForm({ id = "email-form" }: { id?: string }) {
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,7 +57,7 @@ export default function EmailForm() {
       <AnimatePresence mode="popLayout">
         {open ? (
           <motion.div
-            layoutId="emailForm"
+            layoutId={id}
             initial={{ opacity: 0, y: -8, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.97 }}
@@ -106,7 +106,7 @@ export default function EmailForm() {
               />
               <motion.button
                 layout
-                layoutId="icon"
+                layoutId={"icon" + id}
                 onClick={handleSubmit}
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.03 }}
@@ -156,7 +156,7 @@ export default function EmailForm() {
           </motion.div>
         ) : (
           <motion.button
-            layoutId="emailForm"
+            layoutId={id}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             initial={{ opacity: 0, y: 8, scale: 0.96 }}
@@ -170,12 +170,12 @@ export default function EmailForm() {
             className={`${sharedButtonClasses} flex items-center justify-center gap-2 border border-black/5 bg-white hover:bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-700`}
           >
             <motion.span
-              layoutId="drop"
+              layoutId={"drop" + id}
               className="text-sm font-semibold tracking-tight"
             >
               Drop your Email
             </motion.span>
-            <motion.div layoutId="icon" className="text-sm">
+            <motion.div layoutId={"icon" + id} className="text-sm">
               <IconMail className="h-4 w-4" />
             </motion.div>
           </motion.button>
