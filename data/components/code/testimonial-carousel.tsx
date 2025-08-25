@@ -1,33 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "@/lib/utils"; // optional helper
+import { cn } from "@/lib/utils";
 
-const testimonials = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    role: "Product Designer",
-    text: "This library has completely transformed the way we build UI. The animations feel premium and smooth.",
-    avatar: "https://i.pravatar.cc/100?img=1",
-  },
-  {
-    id: 2,
-    name: "David Kim",
-    role: "Full Stack Developer",
-    text: "I love how reusable and consistent the components are. Saved us weeks of dev time.",
-    avatar: "https://i.pravatar.cc/100?img=2",
-  },
-  {
-    id: 3,
-    name: "Sophia Lee",
-    role: "UX Researcher",
-    text: "The attention to detail in animations and responsiveness is simply top-notch.",
-    avatar: "https://i.pravatar.cc/100?img=3",
-  },
-];
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  text: string;
+  avatar?: string;
+}
 
 const variants = {
   enter: (direction: number) => ({
@@ -50,18 +34,169 @@ const variants = {
   }),
 };
 
-export function TestimonialCarousel() {
+/* -------------------- Subcomponents -------------------- */
+
+export function TestimonialCard({
+  testimonial,
+  direction,
+  className,
+}: {
+  testimonial: Testimonial;
+  direction: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      key={testimonial.id}
+      custom={direction}
+      variants={variants}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className={cn("p-4", className)}
+    >
+      <TestimonialText testimonial={testimonial} />
+      <div className="mt-4 flex items-center gap-4">
+        {testimonial.avatar ? (
+          <TestimonialAvatar testimonial={testimonial} />
+        ) : (
+          <div className="size-10 rounded-full bg-neutral-800 dark:bg-neutral-200" />
+        )}
+        <div className="flex flex-col">
+          <span className="font-semibold text-neutral-900 dark:text-neutral-100">
+            {testimonial.name}
+          </span>
+          <span className="text-sm text-neutral-500 dark:text-neutral-400">
+            {testimonial.role}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export function TestimonialText({
+  testimonial,
+  className,
+}: {
+  testimonial: Testimonial;
+  className?: string;
+}) {
+  return (
+    <p
+      className={cn(
+        "leading-relaxed text-neutral-700 dark:text-neutral-300",
+        className,
+      )}
+    >
+      &quot; {testimonial.text} &quot;
+    </p>
+  );
+}
+
+export function TestimonialAvatar({
+  testimonial,
+  className,
+}: {
+  testimonial: Testimonial;
+  className?: string;
+}) {
+  return (
+    <motion.img
+      src={testimonial.avatar}
+      alt={testimonial.name}
+      className={cn("size-10 rounded-full object-cover", className)}
+    />
+  );
+}
+
+export function TestimonialName({
+  testimonial,
+  className,
+}: {
+  testimonial: Testimonial;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "font-semibold text-neutral-900 dark:text-neutral-100",
+        className,
+      )}
+    >
+      {testimonial.name}
+    </span>
+  );
+}
+
+export function TestimonialRole({
+  testimonial,
+  className,
+}: {
+  testimonial: Testimonial;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "text-sm text-neutral-500 dark:text-neutral-400",
+        className,
+      )}
+    >
+      {testimonial.role}
+    </span>
+  );
+}
+
+export function TestimonialNav({
+  onPrev,
+  onNext,
+}: {
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  return (
+    <div className="mt-4 flex items-center justify-end gap-4">
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={onPrev}
+        className="rounded-md border border-neutral-200 bg-white p-2 shadow-md dark:border-neutral-800 dark:bg-neutral-800"
+      >
+        <ChevronLeft className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
+      </motion.button>
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={onNext}
+        className="rounded-md border border-neutral-200 bg-white p-2 shadow-md dark:border-neutral-800 dark:bg-neutral-800"
+      >
+        <ChevronRight className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
+      </motion.button>
+    </div>
+  );
+}
+
+/* -------------------- Main Carousel -------------------- */
+
+export function TestimonialCarousel({
+  testimonials,
+  className,
+}: {
+  testimonials: Testimonial[];
+  className?: string;
+}) {
   const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Autoplay every 5s
   useEffect(() => {
     if (isHovered) return;
     const timer = setInterval(() => {
       setIndex(([prev]) => [(prev + 1) % testimonials.length, 1]);
     }, 5000);
     return () => clearInterval(timer);
-  }, [isHovered]);
+  }, [isHovered, testimonials.length]);
 
   const next = () =>
     setIndex(([prev]) => [(prev + 1) % testimonials.length, 1]);
@@ -74,100 +209,20 @@ export function TestimonialCarousel() {
   return (
     <motion.div
       layout
-      className="relative mx-auto max-w-xl p-6"
+      className={cn("relative mx-auto max-w-xl p-6", className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <motion.div
-        layout
-        className="overflow-hidden rounded-md border bg-neutral-50 p-4 text-black dark:bg-neutral-900 dark:text-white"
-      >
+      <motion.div className="overflow-hidden rounded-md border bg-neutral-50 p-4 text-black dark:bg-neutral-900 dark:text-white">
         <AnimatePresence mode="wait" custom={direction}>
-          <motion.div
-            key={testimonials[index].id}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.3}
-            onDragEnd={(_, info) => {
-              if (info.offset.x > 80) prev();
-              else if (info.offset.x < -80) next();
-            }}
-            className={cn("p-2 md:p-4")}
-          >
-            <motion.p
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="leading-relaxed text-neutral-700 dark:text-neutral-300"
-            >
-              &quot; {testimonials[index].text} &quot;
-            </motion.p>
-            <div className="mt-4 flex items-center gap-4">
-              <motion.img
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.2, delay: 0.1, ease: "easeInOut" }}
-                src={testimonials[index].avatar}
-                alt={testimonials[index].name}
-                className="size-10 rounded-full object-cover"
-              />
-              <motion.div
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.2, delay: 0.1, ease: "easeInOut" }}
-              >
-                <motion.h3
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.2, delay: 0.1, ease: "easeInOut" }}
-                  className="font-semibold text-neutral-900 dark:text-neutral-100"
-                >
-                  {testimonials[index].name}
-                </motion.h3>
-                <motion.p
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                  className="text-sm text-neutral-500 dark:text-neutral-400"
-                >
-                  {testimonials[index].role}
-                </motion.p>
-              </motion.div>
-            </div>
-          </motion.div>
+          <TestimonialCard
+            testimonial={testimonials[index]}
+            direction={direction}
+          />
         </AnimatePresence>
       </motion.div>
 
-      {/* Navigation buttons at bottom center */}
-      <div className="mt-4 flex items-center justify-end gap-4">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={prev}
-          className="rounded-md border border-neutral-200 bg-white p-2 shadow-md transition hover:scale-105 dark:border-neutral-800 dark:bg-neutral-800"
-        >
-          <ChevronLeft className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={next}
-          className="rounded-md border border-neutral-200 bg-white p-2 shadow-md transition hover:scale-105 dark:border-neutral-800 dark:bg-neutral-800"
-        >
-          <ChevronRight className="h-5 w-5 text-neutral-700 dark:text-neutral-300" />
-        </motion.button>
-      </div>
+      <TestimonialNav onPrev={prev} onNext={next} />
     </motion.div>
   );
 }

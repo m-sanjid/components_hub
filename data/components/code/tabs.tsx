@@ -29,7 +29,7 @@ function useTabsContext() {
 // ---------------- Tabs Root ----------------
 interface TabsProps {
   children: React.ReactNode;
-  defaultValue?: string;
+  defaultValue: string;
   value?: string;
   onValueChange?: (value: string) => void;
   className?: string;
@@ -180,7 +180,7 @@ export function TabsTrigger({
       tabIndex={isActive ? 0 : -1}
       disabled={disabled}
       className={cn(
-        "relative z-10 rounded-md px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200 focus:outline-none disabled:opacity-50",
+        "relative z-10 rounded-[12px] px-2 py-1 text-sm font-medium whitespace-nowrap transition-colors duration-200 focus:outline-none disabled:opacity-50 md:px-4 md:py-2",
         isActive
           ? "text-black dark:text-white"
           : "text-neutral-500 hover:text-black dark:hover:text-white",
@@ -217,6 +217,7 @@ interface TabsContentProps {
   children: React.ReactNode;
   value: string;
   className?: string;
+  borderClassName?: string;
   height?: string;
 }
 
@@ -224,6 +225,7 @@ export function TabsContent({
   children,
   value,
   className,
+  borderClassName,
   height = "h-[350px]",
 }: TabsContentProps) {
   const { activeTab, prevIndex, tabs } = useTabsContext();
@@ -238,7 +240,7 @@ export function TabsContent({
       className={cn(
         "relative w-full overflow-auto rounded-[12px] border bg-white p-4 dark:border-neutral-800 dark:bg-black",
         height,
-        className,
+        borderClassName,
       )}
     >
       <AnimatePresence mode="popLayout" initial={false}>
@@ -266,7 +268,12 @@ export function TabsContent({
           }}
           className="absolute inset-0 w-full p-1"
         >
-          <div className="h-full w-full rounded-[8px] border bg-neutral-50 p-2 dark:bg-neutral-900">
+          <div
+            className={cn(
+              "h-full w-full rounded-[8px] border bg-neutral-50 p-2 dark:bg-neutral-900",
+              className,
+            )}
+          >
             {children}
           </div>
         </motion.div>

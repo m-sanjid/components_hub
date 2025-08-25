@@ -96,7 +96,7 @@ export function CommandPalette({
 
   return (
     <LayoutGroup>
-      {/* Floating trigger / compact pill */}
+      {/* Compact trigger pill */}
       <motion.div
         layoutId="command-palette"
         onClick={() => setIsOpen(true)}
@@ -123,16 +123,19 @@ export function CommandPalette({
         </motion.kbd>
       </motion.div>
 
-      <AnimatePresence mode="popLayout">
+      {/* Palette overlay */}
+      <AnimatePresence>
         {isOpen && (
-          <>
+          <motion.div
+            key="command-palette-wrapper"
+            className="fixed inset-0 z-[60] flex items-start justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
             {/* Backdrop */}
             <motion.div
-              layout
-              className="fixed inset-0 z-60 bg-black/40 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/40 backdrop-blur-sm"
               onClick={closePalette}
             />
 
@@ -140,9 +143,9 @@ export function CommandPalette({
             <motion.div
               layoutId="command-palette"
               transition={{ type: "spring", damping: 24, stiffness: 260 }}
-              className={`fixed top-20 left-1/2 z-70 w-full max-w-xl -translate-x-1/2 rounded-2xl border bg-white shadow-2xl dark:border-neutral-700 dark:bg-neutral-900 ${className}`}
+              className={`relative top-20 w-full max-w-xl rounded-2xl border bg-white shadow-2xl dark:border-neutral-700 dark:bg-neutral-900 ${className}`}
             >
-              {/* Input Field */}
+              {/* Input */}
               <div className="flex items-center gap-2 border-b border-neutral-200 p-4 dark:border-neutral-700">
                 <motion.div layoutId="searchIcon">
                   <Search className="h-5 w-5 text-neutral-400" />
@@ -159,10 +162,6 @@ export function CommandPalette({
                   className="flex-1 bg-transparent text-sm text-neutral-900 outline-none placeholder:text-neutral-400 dark:text-white"
                 />
                 <motion.button
-                  initial={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
-                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, scale: 0.97, filter: "blur(5px)" }}
-                  transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
                   onClick={closePalette}
                   className="rounded p-1 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                 >
@@ -170,10 +169,10 @@ export function CommandPalette({
                 </motion.button>
               </div>
 
-              {/* Command List */}
+              {/* Commands */}
               <div
-                className="max-h-80 overflow-y-auto scroll-smooth p-1"
                 ref={containerRef}
+                className="max-h-80 overflow-y-auto scroll-smooth p-1"
               >
                 {filteredCommands.length === 0 ? (
                   <div className="p-4 text-center text-sm text-neutral-500">
@@ -222,7 +221,7 @@ export function CommandPalette({
                 )}
               </div>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </LayoutGroup>

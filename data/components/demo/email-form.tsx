@@ -1,3 +1,3 @@
 import EmailForm from "../code/email-form";
 
-export default EmailForm
+export default EmailForm;

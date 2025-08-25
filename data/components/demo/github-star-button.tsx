@@ -5,11 +5,11 @@ const GithubButtonDemo = () => {
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <div>
-        <h3>Shadcn GitHub Star Button</h3>
+        <h4>Shadcn GitHub Star Button</h4>
         <GithubStarButton owner="shadcn-ui" repo="ui" />
       </div>
       <div>
-        <h3>Components GitHub Star Button</h3>
+        <h4>Components GitHub Star Button</h4>
         <GithubStarButton owner="m-sanjid" repo="components_hub" />
       </div>
     </div>

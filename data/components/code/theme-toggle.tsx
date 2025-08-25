@@ -28,7 +28,7 @@ const ThemeToggle = ({ className }: { className?: string }) => {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="absolute inset-0 m-auto flex items-center justify-center"
           >
-            <IconMoonFilled className="size-5" />
+            <IconMoonFilled className="size-4" />
           </motion.div>
         ) : (
           <motion.div
@@ -39,7 +39,7 @@ const ThemeToggle = ({ className }: { className?: string }) => {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="absolute inset-0 m-auto flex items-center justify-center"
           >
-            <IconSunFilled className="size-5" />
+            <IconSunFilled className="size-4" />
           </motion.div>
         )}
       </AnimatePresence>

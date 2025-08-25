@@ -196,9 +196,9 @@ const ThemeToggle = ({ mounted }: { mounted: boolean }) => {
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <IconSun className="size-4" />
-      ) : (
         <IconMoon className="size-4" />
+      ) : (
+        <IconSun className="size-4" />
       )}
     </motion.button>
   );
