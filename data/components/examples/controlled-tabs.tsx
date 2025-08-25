@@ -34,6 +34,7 @@ export default function TabsExample() {
         </div>
 
         <Tabs
+          defaultValue="profile"
           value={controlledValue}
           onValueChange={setControlledValue}
           className="w-full"
