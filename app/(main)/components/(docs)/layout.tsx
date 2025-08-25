@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { Link } from "next-view-transitions";
+import { IconBrandX } from "@tabler/icons-react";
 
 export const metadata: Metadata = {
   title: {
@@ -54,6 +55,13 @@ const DocsLayout = ({ children }: { children: React.ReactNode }) => {
                 className="hover:bg-primary/10 inline-flex w-full items-center justify-center rounded-md border px-3 py-2 text-xs font-medium"
               >
                 Need help? Contact us
+              </a>
+              <a
+                href="https://x.com/dev_sanjid"
+                className="hover:bg-primary/10 inline-flex w-full items-center justify-center gap-2 rounded-md border px-3 py-2 text-xs font-medium"
+              >
+                <IconBrandX className="bg-primary/20 text-primary h-6 w-6 rounded-md border p-1 backdrop-blur-md" />
+                Follow for updates
               </a>
             </div>
           </nav>

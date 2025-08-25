@@ -3,10 +3,12 @@ import { templates } from "@/lib/constants";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "next-view-transitions";
 import MotionDiv from "@/components/MotionDiv";
-import Image from "next/image";
 import { DowloadCode } from "@/components/DowloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
+import Gallery from "@/components/docs/Gallery";
+import { absoluteUrl } from "@/lib/utils";
+import { siteConfig } from "@/config/site";
 
 export async function generateStaticParams() {
   return templates.map((t) => ({ id: t.id.toString() }));
@@ -25,9 +27,32 @@ export async function generateMetadata({
       description: "The requested template does not exist.",
     };
   }
+  const title = template.title;
+  const description = template.description;
   return {
-    title: template.title,
-    description: template.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      url: absoluteUrl(`/templates/${template.id}`),
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.ogImage],
+      creator: "@dev_sanjid",
+    },
   };
 }
 
@@ -41,7 +66,7 @@ export default async function TemplateDetailsPage({
 
   if (!template) {
     return (
-      <main className="grid min-h-screen place-items-center px-6 py-24 text-center">
+      <main className="grid min-h-screen place-items-center py-24 text-center md:px-6">
         <h1 className="mb-2 text-2xl font-semibold">Template not found</h1>
         <p className="text-muted-foreground mb-6">
           The template you are looking for does not exist.
@@ -57,7 +82,7 @@ export default async function TemplateDetailsPage({
     <main className="min-h-screen">
       {/* Breadcrumb */}
       <nav
-        className="mx-auto max-w-6xl px-6 pt-20 text-sm"
+        className="mx-auto max-w-6xl pt-20 text-sm md:px-6"
         aria-label="Breadcrumb"
       >
         <ol className="text-muted-foreground flex items-center gap-2">
@@ -72,7 +97,7 @@ export default async function TemplateDetailsPage({
       </nav>
 
       {/* Header Section */}
-      <section className="mx-auto grid max-w-6xl gap-8 px-6 py-8 md:grid-cols-[2fr_1fr]">
+      <section className="mx-auto grid max-w-6xl gap-8 py-8 md:grid-cols-[2fr_1fr] md:px-6">
         {/* Title and meta */}
         <div id="template-content">
           <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
@@ -142,36 +167,14 @@ export default async function TemplateDetailsPage({
 
       {/* Screenshots */}
       {template.screenshots && template.screenshots.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 py-12">
+        <section className="mx-auto max-w-6xl py-12 md:px-6">
           <h2 className="mb-6 text-xl font-semibold">Screenshots</h2>
-          <div className="grid gap-6 md:grid-cols-2">
-            {template.screenshots.map((src, index) => (
-              <MotionDiv
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ scale: 1.02 }}
-                className="bg-card overflow-hidden rounded-xl border"
-              >
-                <div className="relative aspect-video">
-                  <Image
-                    src={src}
-                    alt={`${template.title} screenshot ${index + 1}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                </div>
-              </MotionDiv>
-            ))}
-          </div>
+          <Gallery screenshots={template.screenshots} title={template.title} />
         </section>
       )}
 
       {/* Features */}
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="mx-auto max-w-6xl py-12 md:px-6">
         <h2 className="mb-6 text-xl font-semibold">Features</h2>
         <div className="grid gap-6 md:grid-cols-2">
           {template?.features?.map((feature, i) => (

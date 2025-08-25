@@ -42,18 +42,20 @@ export default function TemplatesPage() {
         {/* Filters */}
         <div className="mt-8 flex flex-wrap gap-3">
           {categories.map((cat) => (
-            <button
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.05 }}
               key={cat}
               onClick={() => setCategory(cat)}
               className={cn(
-                "rounded-[6px] border px-2 py-px text-sm transition-colors",
+                "cursor-pointer rounded-[6px] border px-2 py-px text-sm transition-colors",
                 category === cat
                   ? "bg-[#FF6100] font-semibold text-white"
                   : "hover:bg-primary/10 bg-primary/5 text-primary",
               )}
             >
               {cat}
-            </button>
+            </motion.button>
           ))}
         </div>
 

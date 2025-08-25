@@ -20,6 +20,9 @@ export async function GET(req: Request) {
 
     return NextResponse.json({ code });
   } catch (err) {
-    return NextResponse.json({ error: "Component not found, " + err }, { status: 404 });
+    return NextResponse.json(
+      { error: "Component not found, " + err },
+      { status: 404 },
+    );
   }
 }

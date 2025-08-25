@@ -94,7 +94,7 @@ export default async function ComponentsPage({
                 >
                   {/* Component Preview */}
                   <div className="from-muted/30 to-muted/10 relative min-h-[180px] bg-gradient-to-br p-4 sm:min-h-[200px] sm:p-6">
-                    <div className="flex h-full items-center justify-center overflow-x-auto overflow-y-hidden">
+                    <div className="scrollbar-hide flex h-full items-center justify-center overflow-x-auto overflow-y-hidden">
                       <div className="min-h-[150px] w-full transform pt-8 pb-24 transition-transform duration-300 sm:min-h-[180px] sm:pt-10">
                         {Demo}
                       </div>
