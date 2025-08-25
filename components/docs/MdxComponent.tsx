@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HighlightCode } from "./HighlightCode";
 import { Shadcn } from "./Shadcn";
 import { ExampleShowcase } from "./ExampleShowcase";
+import InlinePre from "./InlinePre";
 
 const generateId = (text: React.ReactNode) =>
   text
@@ -271,6 +272,7 @@ export const mdxComponents = {
   ),
 
   // ——— REUSABLE COMPONENTS ———
+  InlinePre,
   CodePreview,
   CodeTabs,
   CodeBlockCommand,

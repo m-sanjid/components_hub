@@ -1,0 +1,209 @@
+---
+title: Contact Form
+description: A fully customizable contact/email form with animated micro-interactions, validation, and backend integration with Nodemailer.
+category: Forms
+keywords:
+  ["contact", "form", "email", "animated", "motion", "react", "validation"]
+---
+
+<CodePreview name="contact-form" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add contact-form --component
+```
+</TabsContent> <TabsContent value="manual"> <Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react sonner
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="contact-form" title="components/ui/contact-form.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g., @/components).
+</Step>
+
+</Steps> </TabsContent> </CodeTabs>
+
+## Backend Setup
+
+The form expects a backend endpoint at /api/contact that accepts a POST request with JSON:
+
+Example Next.js Route Handler
+
+updated your <InlinePre>/api/contact/route.ts</InlinePre> to actually send emails using Nodemailer.
+
+1. Install Nodemailer
+
+```bash
+npm install nodemailer
+```
+
+2. Create environment variables
+
+Add these to <InlinePre>.env</InlinePre>(or <InlinePre>.env.local</InlinePre>):
+
+```bash
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password
+EMAIL_TO=recipient@example.com
+```
+
+EMAIL_TO is where contact form messages will be sent.
+
+For Gmail, you can use smtp.gmail.com with an app password.
+
+3. Backend API: <InlinePre>/app/api/contact/route.ts</InlinePre>
+
+```ts
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+
+export async function POST(request: Request) {
+  try {
+    const { name, email, subject, message } = await request.json();
+
+    if (!name || !email || !subject || !message) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 },
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 },
+      );
+    }
+
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Number(process.env.EMAIL_PORT) === 465, // true for 465, false for other ports
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    // Send email
+    await transporter.sendMail({
+      from: `"${name}" <${email}>`,
+      to: process.env.EMAIL_TO,
+      subject: `[Contact Form] ${subject}`,
+      text: message,
+      html: `<p>${message}</p><p>From: ${name} (${email})</p>`,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Message sent successfully!",
+    });
+  } catch (error) {
+    console.error("Contact form error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+```
+
+4. Frontend: <InlinePre>Page.tsx</InlinePre>
+
+No changes are needed beyond what you already have. Just make sure the handleSubmit calls your API:
+
+```ts
+const handleSubmit = async (data: Record<string, string>) => {
+  const response = await fetch("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+};
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the root element",
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "onSubmit",
+      type: "(data: Record<string,string>) => Promise<{ success: boolean; message?: string }>",
+      description: "Custom submit handler for backend integration",
+      required: false,
+      defaultValue: "default mock submit function",
+    },
+  ]}
+/>
+
+## Usage
+
+```tsx
+"use client";
+
+import {
+  ContactForm,
+  ContactField,
+  ContactTextArea,
+  ContactSubmit,
+} from "@/components/ui/contact-form";
+
+export default function Page() {
+  const handleSubmit = async (data: Record<string, string>) => {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 p-4 dark:bg-neutral-900">
+      <ContactForm onSubmit={handleSubmit} className="w-full max-w-md">
+        <ContactField name="name" label="Name" />
+        <ContactField name="email" label="Email" type="email" />
+        <ContactField name="subject" label="Subject" />
+        <ContactTextArea name="message" label="Message" />
+        <ContactSubmit>Send Message</ContactSubmit>
+      </ContactForm>
+    </div>
+  );
+}
+```
+
+## Features
+
+- Fully client-compatible for Next.js 13+
+- Framer Motion spring animations with float labels
+- Micro-interactions for input focus, hover, tap, and submit
+- Validation & error handling
+- Backend-ready API endpoint
+- Light/Dark mode support
+- Fully customizable via props, className, and onSubmit handler
