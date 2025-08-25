@@ -2,14 +2,11 @@
 title: Testimonial Carousel
 description: A smooth, animated carousel for displaying customer testimonials with drag support and autoplay.
 category: Feedback
-keywords: ["testimonials", "carousel", "slider", "animated", "motion", "feedback"]
+keywords:
+  ["testimonials", "carousel", "slider", "animated", "motion", "feedback"]
 ---
 
-<CodePreview
-  name="testimonial-carousel"
-  title="Testimonial Carousel"
-  description="A smooth, animated carousel for displaying customer testimonials with drag support and autoplay."
-/>
+<CodePreview name="testimonial-carousel" />
 
 ## Installation
 
@@ -23,9 +20,9 @@ keywords: ["testimonials", "carousel", "slider", "animated", "motion", "feedback
 </TabsList>
 
 <TabsContent value="cli">
-```bash
-npx shadcn@latest add testimonial-carousel --component
-```
+  ```bash
+  npx shadcn@latest add testimonial-carousel --component
+  ```
 </TabsContent>
 
 <TabsContent value="manual">
@@ -35,12 +32,28 @@ npx shadcn@latest add testimonial-carousel --component
 <Step>Install required dependencies:</Step>
 
 ```bash
-npm install framer-motion lucide-react
+npm install motion/react lucide-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Add the component source to your project.</Step>
 
-<ComponentSource name="testimonial-carousel" title="components/ui/testimonial-carousel.tsx" />
+<ComponentSource
+  name="testimonial-carousel"
+  title="components/ui/testimonial-carousel.tsx"
+/>
 
 <Step>
   Adjust import paths to match your project's alias setup (e.g. @/components).
@@ -75,8 +88,8 @@ npm install framer-motion lucide-react
       required: false,
       defaultValue: "",
     },
-  ]
-} />
+  ]}
+/>
 
 ## Types
 
@@ -154,28 +167,17 @@ const customTestimonials = [
 The component uses Tailwind CSS classes and can be customized by overriding the default styles:
 
 ```tsx
-<TestimonialCarousel 
-  className="max-w-2xl" 
-  testimonials={testimonials}
-/>
+<TestimonialCarousel className="max-w-2xl" testimonials={testimonials} />
 ```
 
 ## Features
 
-✅ Smooth Framer Motion animations with spring transitions
-
-✅ Drag and drop support for mobile devices
-
-✅ Autoplay with pause on hover
-
-✅ Keyboard navigation support
-
-✅ Responsive design
-
-✅ Light/Dark mode support
-
-✅ Customizable testimonial data structure
-
-✅ Accessible navigation controls
-
-✅ Touch-friendly interactions
+- Smooth Framer Motion animations with spring transitions
+- Drag and drop support for mobile devices
+- Autoplay with pause on hover
+- Keyboard navigation support
+- Responsive design
+- Light/Dark mode support
+- Customizable testimonial data structure
+- Accessible navigation controls
+- Touch-friendly interactions

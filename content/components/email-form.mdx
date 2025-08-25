@@ -5,11 +5,7 @@ category: Forms
 keywords: ["email", "form", "subscription", "animated", "motion"]
 ---
 
-<CodePreview
-  name="email-form"
-  title="Email Form"
-  description="An interactive email capture form with animated micro-interactions and validation."
-/>
+<CodePreview name="email-form" />
 
 ## Installation
 
@@ -23,9 +19,9 @@ keywords: ["email", "form", "subscription", "animated", "motion"]
 </TabsList>
 
 <TabsContent value="cli">
-```bash
-npx shadcn@latest add email-form --component
-```
+  ```bash
+  npx shadcn@latest add email-form --component
+  ```
 </TabsContent>
 
 <TabsContent value="manual">
@@ -35,7 +31,20 @@ npx shadcn@latest add email-form --component
 <Step>Install required dependencies:</Step>
 
 ```bash
-npm install framer-motion @tabler/icons-react sonner
+npm install motion/react @tabler/icons-react sonner
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Add the component source to your project.</Step>

@@ -31,6 +31,19 @@ npx shadcn@latest add contact-form --component
 npm install motion/react sonner
 ```
 
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 <Step>Add the component source to your project.</Step>
 
 <ComponentSource name="contact-form" title="components/ui/contact-form.tsx" />

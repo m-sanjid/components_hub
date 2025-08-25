@@ -1,24 +1,22 @@
 ---
 title: Navbar
-description: A customizable navbar component with multiple variants and sizes
+description: A Scrollbased Responsive Navbar
 category: Navigation
 keywords: ["navigation", "menu", "links", "responsive", "mobile"]
 ---
 
-<CodePreview
-name="navbar"
-title="Navbar"
-description="A Resizing navbar on scroll"
-/>
+<CodePreview name="navbar" />
 
 # Navbar Component
 
 Navbars are used to navigate between pages and sections of a website.
 
+## Installation
+
 <CodeTabs>
 
 <TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
 <TabsContent value="cli">
@@ -36,17 +34,29 @@ npx shadcn@latest add navbar --component
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install motion lucide-react
+npm install motion @tabler/icons-react next-themes
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource
-  name="navbar"
-  title="components/ui/navbar.tsx"
-/>
+<ComponentSource name="navbar" title="components/ui/navbar.tsx" />
 
 <Step>Update the import paths to match your project setup.</Step>
+
+<Step>Update the navItems array in the Navbar component.</Step>
 
 </Steps>
 
@@ -54,12 +64,37 @@ npm install motion lucide-react
 
 </CodeTabs>
 
+## NavItems Array Props
+
+<PropsTable
+  props={[
+    {
+      name: "href",
+      type: "string",
+      description: "The href of the link",
+    },
+    {
+      name: "label",
+      type: "string",
+      description: "The label of the link",
+    },
+  ]}
+/>
+
 ## Usage
 
-```tsx showLineNumbers
+```tsx
 import { Navbar } from "@/components/ui/navbar";
 ```
 
-```tsx showLineNumbers
-<Navbar />
+```tsx
+const navItems = [
+  { href: "/projects", label: "Projects" },
+  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+
+<Navbar navItems={navItems} />;
 ```

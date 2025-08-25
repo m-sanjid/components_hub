@@ -5,34 +5,13 @@ category: Navigation
 keywords: ["context", "menu", "right-click", "actions", "navigation"]
 ---
 
-<CodePreview
-  name="context-menu"
-  title="Context Menu"
-  description="A context menu component for right-click actions"
-  props={[
-    {
-      name: "items",
-      type: "array",
-      description:
-        "context menu items = [ { id: string, label: string, icon?: React.ComponentType<{ className?: string }>, shortcut?: string, disabled?: boolean, onClick?: () => void, submenu?: ContextMenuItem[] } ]",
-      required: true,
-    },
-    {
-      name: "onClose",
-      type: "function",
-      description: "The function to call when the context menu is closed",
-    },
-    {
-      name: "className",
-      type: "string",
-      description: "The class name to apply to the context menu for styling",
-    },
-  ]}
-/>
+<CodePreview name="context-menu" />
+
+## Installation
 
 <CodeTabs>
 <TabsList>
-  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
 <TabsContent value="cli">
@@ -53,6 +32,19 @@ npx shadcn@latest add context-menu --component
 npm install motion lucide-react
 ```
 
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 <Step>Copy and paste the following code into your project.</Step>
 
 <ComponentSource name="context-menu" title="components/ui/context-menu.tsx" />
@@ -64,6 +56,28 @@ npm install motion lucide-react
 </TabsContent>
 
 </CodeTabs>
+
+<PropsTable
+  props={[
+    {
+      name: "items",
+      type: "array",
+      description:
+        "context menu items = [ { id: string, label: string, icon?: React.ComponentType<{ className?: string }>, shortcut?: string, disabled?: boolean, onClick?: () => void, submenu?: ContextMenuItem[] } ]",
+      required: true,
+    },
+    {
+      name: "onClose",
+      type: "function",
+      description: "The function to call when the context menu is closed",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "The class name to apply to the context menu for styling",
+    },
+  ]}
+/>
 
 ## Usage
 

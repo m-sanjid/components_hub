@@ -5,11 +5,7 @@ category: Content
 keywords: ["tabs", "features", "motion", "autoplay", "accessible"]
 ---
 
-<CodePreview
-  name="features-tabs"
-  title="Features Tabs"
-  description="An animated, accessible feature tabs section with autoplay and keyboard navigation."
-/>
+<CodePreview name="features-tabs" />
 
 ## Installation
 
@@ -23,7 +19,9 @@ keywords: ["tabs", "features", "motion", "autoplay", "accessible"]
 </TabsList>
 
 <TabsContent value="cli">
-  ```bash npx shadcn@latest add features-tabs --component ```
+  ```bash 
+  npx shadcn@latest add features-tabs --component 
+  ```
 </TabsContent>
 
 <TabsContent value="manual">
@@ -34,6 +32,19 @@ keywords: ["tabs", "features", "motion", "autoplay", "accessible"]
 
 ```bash
 npm install motion/react clsx
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Add the component source to your project.</Step>

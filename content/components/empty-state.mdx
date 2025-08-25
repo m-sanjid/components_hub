@@ -1,0 +1,39 @@
+---
+title: Empty State
+description: A friendly empty state with icon, title and actions
+category: Feedback
+keywords: ["empty", "placeholder", "state"]
+---
+
+<CodePreview name="empty-state" />
+
+## Usage
+
+```tsx showLineNumbers
+import { EmptyState } from "@/components/ui/empty-state";
+
+export default function Example() {
+  return (
+    <EmptyState
+      title="No Results"
+      description="Try adjusting your filters or search query."
+      actions={
+        <button className="rounded-md bg-black px-3 py-2 text-white dark:bg-white dark:text-black">
+          Reset
+        </button>
+      }
+    />
+  );
+}
+```
+
+## Installation
+
+<CodeTabs>
+  <TabsList>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="manual">
+    <ComponentSource name="empty-state" title="components/ui/empty-state.tsx" />
+  </TabsContent>
+</CodeTabs>

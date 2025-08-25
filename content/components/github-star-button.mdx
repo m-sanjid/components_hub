@@ -5,11 +5,7 @@ category: Social
 keywords: ["github", "star", "button", "animated", "social"]
 ---
 
-<CodePreview
-  name="github-star-button"
-  title="GitHub Star Button"
-  description="An interactive button that shows GitHub repository stars with smooth animations on hover."
-/>
+<CodePreview name="github-star-button" />
 
 ## Installation
 
@@ -23,9 +19,9 @@ keywords: ["github", "star", "button", "animated", "social"]
 </TabsList>
 
 <TabsContent value="cli">
-```bash
-npx shadcn@latest add github-star-button --component
-```
+  ```bash
+  npx shadcn@latest add github-star-button --component
+  ```
 </TabsContent>
 
 <TabsContent value="manual">
@@ -38,9 +34,25 @@ npx shadcn@latest add github-star-button --component
 npm install motion/react @tabler/icons-react
 ```
 
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
 <Step>Add the component source to your project.</Step>
 
-<ComponentSource name="github-star-button" title="components/ui/github-star-button.tsx" />
+<ComponentSource
+  name="github-star-button"
+  title="components/ui/github-star-button.tsx"
+/>
 
 <Step>
   Adjust import paths to match your project's alias setup (e.g. @/components).
@@ -94,10 +106,7 @@ import { GithubStarButton } from "@/components/ui/github-star-button";
 export function MyComponent() {
   return (
     <div className="flex items-center justify-center p-8">
-      <GithubStarButton 
-        owner="shadcn" 
-        repo="ui" 
-      />
+      <GithubStarButton owner="shadcn" repo="ui" />
     </div>
   );
 }
@@ -108,8 +117,8 @@ export function MyComponent() {
 You can customize the button's appearance by passing a custom className:
 
 ```tsx
-<GithubStarButton 
-  owner="shadcn" 
+<GithubStarButton
+  owner="shadcn"
   repo="ui"
   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
 />

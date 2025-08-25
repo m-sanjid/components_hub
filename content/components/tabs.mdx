@@ -5,11 +5,7 @@ category: Navigation
 keywords: ["tabs", "navigation", "switching", "animated", "interactive"]
 ---
 
-<CodePreview
-  name="tabs"
-  title="Tabs"
-  description="A customizable tabs component with micro-interactions and various states"
-/>
+<CodePreview name="tabs" />
 
 ## Installation
 
@@ -41,6 +37,19 @@ npx shadcn@latest add tabs --component
 
 ```bash
 npm install motion
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Copy and paste the following code into your project.</Step>

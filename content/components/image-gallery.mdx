@@ -2,14 +2,10 @@
 title: Image Gallery
 description: An Apple Photos–like, motion-first gallery with fullscreen viewer, scrollable thumbnail strip, and keyboard navigation.
 category: Media
-keywords: ["gallery", "image", "lightbox", "thumbnails", "framer-motion"]
+keywords: ["gallery", "image", "lightbox", "thumbnails", "motion/react"]
 ---
 
-<CodePreview
-  name="image-gallery"
-  title="Image Gallery"
-  description="Fullscreen viewer with scrollable thumbnail strip, smooth transitions, and keyboard navigation."
-/>
+<CodePreview name="image-gallery" />
 
 ## Installation
 
@@ -30,7 +26,20 @@ npx shadcn@latest add image-gallery --component
 <Step>Install required dependencies.</Step>
 
 ```bash
-npm install framer-motion lucide-react
+npm install motion/react lucide-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Add the component source to your project.</Step>

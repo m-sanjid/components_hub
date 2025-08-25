@@ -5,11 +5,7 @@ category: UI
 keywords: ["theme", "dark mode", "light mode", "toggle", "motion", "animation"]
 ---
 
-<CodePreview
-  name="theme-toggle"
-  title="Theme Toggle"
-  description="A smooth animated theme switcher using next-themes and Framer Motion."
-/>
+<CodePreview name="theme-toggle" />
 
 ## Installation
 
@@ -33,6 +29,19 @@ npx shadcn@latest add theme-toggle --component
 
 ```bash
 npm install next-themes motion/react @tabler/icons-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Add the component source to your project.</Step>

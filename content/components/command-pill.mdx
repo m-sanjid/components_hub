@@ -5,11 +5,7 @@ category: Navigation
 keywords: ["command", "palette", "search", "navigation", "shortcuts"]
 ---
 
-<CodePreview
-  name="command-pill"
-  title="Command Pill"
-  description="A dynamic island inspired command palette"
-/>
+<CodePreview name="command-pill" />
 
 ## Installation
 
@@ -34,6 +30,19 @@ npx shadcn@latest add command-pill --component
 
 ```bash
 npm install motion lucide-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Copy and paste the following code into your project.</Step>

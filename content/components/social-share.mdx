@@ -5,11 +5,7 @@ category: Components
 keywords: ["click", "action", "control", "submit", "interactive"]
 ---
 
-<CodePreview
-  name="social-share"
-  title="Social Share"
-  description="An animated social share component"
-/>
+<CodePreview name="social-share" />
 
 ## Installation
 
@@ -35,6 +31,19 @@ npx shadcn@latest add social-share --component
 
 ```bash
 npm install motion @tabler/icons-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
