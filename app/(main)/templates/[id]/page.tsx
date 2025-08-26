@@ -6,7 +6,7 @@ import MotionDiv from "@/components/MotionDiv";
 import { DowloadCode } from "@/components/DowloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
-import Gallery from "@/components/docs/Gallery";
+import { GalleryRoot, GalleryGrid } from "@/components/docs/Gallery";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -169,7 +169,9 @@ export default async function TemplateDetailsPage({
       {template.screenshots && template.screenshots.length > 0 && (
         <section className="mx-auto max-w-6xl py-12 md:px-6">
           <h2 className="mb-6 text-xl font-semibold">Screenshots</h2>
-          <Gallery screenshots={template.screenshots} title={template.title} />
+          <GalleryRoot images={template.screenshots} title={template.title}>
+            <GalleryGrid />
+          </GalleryRoot>
         </section>
       )}
 

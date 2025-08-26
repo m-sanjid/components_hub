@@ -65,3 +65,25 @@ export async function processMdx(source: string, components: any) {
 
   return content;
 }
+
+// Compile an MDX file from the templates directory with provided components
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function getTemplateMdx(
+  filename: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  components: any,
+) {
+  const templatesDirectory = path.join(process.cwd(), "data/templates");
+  const fullPath = path.join(templatesDirectory, filename);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  const { content } = await compileMDX({
+    source: fileContents,
+    components,
+    options: {
+      parseFrontmatter: true,
+    },
+  });
+
+  return content;
+}

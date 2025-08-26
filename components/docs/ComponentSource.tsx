@@ -3,7 +3,7 @@ import path from "node:path";
 import * as React from "react";
 
 import { HighlightCode } from "@/components/docs/HighlightCode";
-import { getRegistryItem } from "@/lib/component-registry";
+import { getRegistryItemSource } from "@/lib/component-registry";
 import { cn } from "@/lib/utils";
 import { CodeCollapsibleWrapper } from "@/components/docs/CollapsibleWrapper";
 import { getIconForLanguageExtension } from "@/components/docs/Iconsss";
@@ -27,7 +27,7 @@ export async function ComponentSource({
   let code: string | undefined;
 
   if (name) {
-    const item = await getRegistryItem(name);
+    const item = await getRegistryItemSource(name);
     code = item?.code;
   }
 

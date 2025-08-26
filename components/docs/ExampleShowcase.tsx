@@ -9,11 +9,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 interface ExampleShowcaseProps {
   name: string;
   language?: string;
+  title?: string;
 }
 
 export function ExampleShowcase({
   name,
   language = "tsx",
+  title,
 }: ExampleShowcaseProps) {
   const { resolvedTheme } = useTheme();
   const prismTheme =
@@ -45,9 +47,10 @@ export function ExampleShowcase({
   }, [name]);
 
   return (
-    <div className="group relative my-8 w-full max-w-2xl overflow-hidden">
+    <div className="group relative my-4 w-full max-w-2xl overflow-hidden">
+      {title && <h3>{title}</h3>}
       <Tabs defaultValue="preview">
-        <TabsList className="absolute top-0 right-0">
+        <TabsList className="absolute top-14 right-2">
           <TabsTrigger value="preview">Preview</TabsTrigger>
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>

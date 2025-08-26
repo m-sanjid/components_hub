@@ -25,7 +25,7 @@ export async function getRegistryItem(name: string) {
     process.cwd(),
     "data",
     "components",
-    "code",
+    "demo",
     `${name}.tsx`,
   );
   const mdxPath = path.join(
@@ -50,6 +50,27 @@ export async function getRegistryItem(name: string) {
       name,
       code,
       filePath: mdxPath,
+    };
+  } catch (err) {
+    console.error("Failed to load component:", err);
+    return undefined;
+  }
+}
+
+export async function getRegistryItemSource(name: string) {
+  const tsxPath = path.join(
+    process.cwd(),
+    "data",
+    "components",
+    "code",
+    `${name}.tsx`,
+  );
+  try {
+    const code = await fs.readFile(tsxPath, "utf8");
+    return {
+      name,
+      code,
+      filePath: tsxPath,
     };
   } catch (err) {
     console.error("Failed to load component:", err);
