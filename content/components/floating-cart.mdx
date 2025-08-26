@@ -1,0 +1,353 @@
+---
+title: Floating Cart
+description: A sleek, animated shopping cart widget with expandable drawer, item management, and smooth micro-interactions for e-commerce applications.
+category: E-commerce
+keywords:
+  [
+    "cart",
+    "shopping",
+    "e-commerce",
+    "floating",
+    "widget",
+    "animated",
+    "drawer",
+    "react",
+    "motion",
+    "checkout",
+  ]
+---
+
+<CodePreview name="floating-cart" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+  ```bash npx shadcn@latest add floating-cart-widget --component ```
+</TabsContent>
+
+<TabsContent value="manual">
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react tabler-icons-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="floating-cart" title="components/ui/floating-cart.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g., @/components).
+</Step>
+
+</Steps>
+</TabsContent>
+
+</CodeTabs>
+
+## Backend Integration
+
+The cart widget works with your existing e-commerce backend. Here's how to integrate it with common patterns:
+
+### Example Cart API Integration
+
+1. **Cart State Management**: <InlinePre>/hooks/useCart.ts</InlinePre>
+
+```ts
+import { useState, useEffect } from "react";
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+}
+
+export function useCart() {
+  const [items, setItems] = useState<CartItem[]>([]);
+
+  // Load cart from localStorage on mount
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setItems(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Save cart to localStorage when items change
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(items));
+  }, [items]);
+
+  const addItem = (product: Omit<CartItem, "quantity">) => {
+    setItems((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (existing) {
+        return prev.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  const removeItem = (id: number) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const updateQuantity = (id: number, quantity: number) => {
+    if (quantity <= 0) {
+      removeItem(id);
+      return;
+    }
+    setItems((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, quantity } : item)),
+    );
+  };
+
+  const clearCart = () => setItems([]);
+
+  return {
+    items,
+    addItem,
+    removeItem,
+    updateQuantity,
+    clearCart,
+    itemCount: items.reduce((sum, item) => sum + item.quantity, 0),
+    subtotal: items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+  };
+}
+```
+
+2. **Checkout Integration**: <InlinePre>/app/api/checkout/route.ts</InlinePre>
+
+```ts
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: "2023-10-16",
+});
+
+export async function POST(request: Request) {
+  try {
+    const { items, customerEmail } = await request.json();
+
+    // Create Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: items.map((item: any) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.name,
+            images: [item.image],
+          },
+          unit_amount: Math.round(item.price * 100),
+        },
+        quantity: item.quantity,
+      })),
+      mode: "payment",
+      success_url: `${process.env.NEXT_PUBLIC_URL}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/cart`,
+      customer_email: customerEmail,
+    });
+
+    return NextResponse.json({ sessionId: session.id });
+  } catch (error) {
+    console.error("Checkout error:", error);
+    return NextResponse.json(
+      { error: "Failed to create checkout session" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+3. **Environment Variables**
+
+Add these to <InlinePre>.env.local</InlinePre>:
+
+```bash
+STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_public_key
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+NEXT_PUBLIC_URL=http://localhost:3000
+```
+
+## Props
+
+### FloatingCartWidget
+
+<PropsTable
+  props={[
+    {
+      name: "items",
+      type: "CartItem[]",
+      description: "Array of cart items to display",
+      required: false,
+      defaultValue: "[]",
+    },
+    {
+      name: "onViewCart",
+      type: "() => void",
+      description: "Callback when 'View Cart' button is clicked",
+      required: false,
+      defaultValue: "undefined",
+    },
+    {
+      name: "onCheckout",
+      type: "() => void",
+      description: "Callback when 'Checkout' button is clicked",
+      required: false,
+      defaultValue: "undefined",
+    },
+  ]}
+/>
+
+### CartItem Type
+
+```tsx
+type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+};
+```
+
+## Features
+
+- **Floating Design**: Fixed position widget that doesn't interfere with page content
+- **Expandable Drawer**: Smooth slide-out drawer with backdrop overlay
+- **Item Management**: Add, remove, and update quantities with animated feedback
+- **Real-time Updates**: Live subtotal calculation and item count badge
+- **Smooth Animations**: Framer Motion powered micro-interactions throughout
+- **Click Outside**: Automatically closes when clicking outside the drawer
+- **Keyboard Support**: ESC key to close, full accessibility support
+- **Responsive Design**: Adapts perfectly to mobile and desktop screens
+- **Dark Mode**: Full dark mode support with proper contrast ratios
+- **Touch Friendly**: Large touch targets optimized for mobile interaction
+- **Loading States**: Built-in loading indicators for async operations
+- **TypeScript**: Complete TypeScript support with proper type definitions
+
+## Animation Details
+
+The component uses Framer Motion for fluid animations:
+
+- **Drawer Entrance**: Spring-based scale and fade animation with backdrop
+- **Item Stagger**: Sequential item animations with custom delay timing
+- **Quantity Controls**: Smooth scale animations on button interactions
+- **Hover Effects**: Subtle translate and background color transitions
+- **Remove Actions**: Rotate and scale animations for delete interactions
+- **Badge Animations**: Scale-in animation for cart count indicator
+- **Button States**: Loading spinners and state transitions
+
+## Customization
+
+### Custom Styling
+
+```tsx
+<FloatingCartWidget
+  items={cartItems}
+  onViewCart={() => router.push('/cart')}
+  onCheckout={handleCheckout}
+/>
+
+// Custom CSS for positioning
+.floating-cart-custom {
+  @apply fixed right-4 bottom-4 md:right-8 md:bottom-8;
+}
+```
+
+### Custom Item Rendering
+
+```tsx
+// Extend the component for custom item display
+const CustomFloatingCart = ({ items, ...props }) => {
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
+  };
+
+  return (
+    <FloatingCartWidget
+      items={items.map((item) => ({
+        ...item,
+        displayPrice: formatPrice(item.price),
+      }))}
+      {...props}
+    />
+  );
+};
+```
+
+### Integration with State Management
+
+```tsx
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, updateQuantity } from "./cartSlice";
+
+export function ConnectedFloatingCart() {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+
+  return (
+    <FloatingCartWidget
+      items={cartItems}
+      onViewCart={() => router.push("/cart")}
+      onCheckout={() => router.push("/checkout")}
+    />
+  );
+}
+```
+
+## Best Practices
+
+### Performance Optimization
+
+- Use `React.memo` for cart items to prevent unnecessary re-renders
+- Implement debounced quantity updates for better UX
+- Consider virtualization for large cart item lists
+
+### Accessibility
+
+- Ensure proper ARIA labels for all interactive elements
+- Support keyboard navigation throughout the component
+- Provide screen reader announcements for cart updates
+
+### UX Guidelines
+
+- Show loading states during async operations
+- Provide clear feedback for all user actions
+- Consider auto-save functionality for cart persistence
+- Implement undo functionality for item removals
