@@ -1,0 +1,348 @@
+---
+title: Authentication Form
+description: A fully customizable authentication form with animated micro-interactions, validation, social auth, and seamless login/signup switching.
+category: Forms
+keywords:
+  [
+    "auth",
+    "authentication",
+    "login",
+    "signup",
+    "form",
+    "animated",
+    "motion",
+    "react",
+    "validation",
+    "social",
+  ]
+---
+
+<CodePreview name="auth-form" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+  ```bash npx shadcn@latest add auth-form --component ```
+</TabsContent>
+
+<TabsContent value="manual">
+<Steps>
+
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react @tabler/icons-react
+```
+
+<Step>Add util file</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="auth-form" title="components/ui/auth-form.tsx" />
+
+<Step>
+  Adjust import paths to match your project's alias setup (e.g., @/components).
+</Step>
+
+</Steps>
+</TabsContent>
+
+</CodeTabs>
+
+## Backend Integration
+
+The form expects backend endpoints for authentication. Here's how to set up a complete auth system:
+
+### Example Next.js Route Handlers
+
+1. **Login Route**: <InlinePre>/app/api/auth/login/route.ts</InlinePre>
+
+```ts
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+export async function POST(request: Request) {
+  try {
+    const { email, password } = await request.json();
+
+    if (!email || !password) {
+      return NextResponse.json(
+        { error: "Email and password are required" },
+        { status: 400 },
+      );
+    }
+
+    // Validate user credentials (replace with your database logic)
+    const user = await getUserByEmail(email);
+
+    if (!user || !bcrypt.compareSync(password, user.hashedPassword)) {
+      return NextResponse.json(
+        { error: "Invalid credentials" },
+        { status: 401 },
+      );
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: "7d" },
+    );
+
+    return NextResponse.json({
+      success: true,
+      message: "Login successful",
+      user: { id: user.id, email: user.email, name: user.name },
+      token,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    return NextResponse.json(
+      { error: "Authentication failed" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+2. **Signup Route**: <InlinePre>/app/api/auth/signup/route.ts</InlinePre>
+
+```ts
+import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+
+export async function POST(request: Request) {
+  try {
+    const { name, email, password } = await request.json();
+
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 },
+      );
+    }
+
+    // Check if user already exists
+    const existingUser = await getUserByEmail(email);
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User already exists" },
+        { status: 409 },
+      );
+    }
+
+    // Hash password and create user
+    const hashedPassword = bcrypt.hashSync(password, 12);
+    const user = await createUser({
+      name,
+      email,
+      hashedPassword,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Account created successfully",
+      user: { id: user.id, email: user.email, name: user.name },
+    });
+  } catch (error) {
+    console.error("Signup error:", error);
+    return NextResponse.json(
+      { error: "Account creation failed" },
+      { status: 500 },
+    );
+  }
+}
+```
+
+3. **Environment Variables**
+
+Add these to <InlinePre>.env.local</InlinePre>:
+
+```bash
+JWT_SECRET=your_super_secret_jwt_key_here
+DATABASE_URL=your_database_connection_string
+GOOGLE_CLIENT_ID=your_google_oauth_client_id
+GITHUB_CLIENT_ID=your_github_oauth_client_id
+```
+
+## Props
+
+### AuthForm
+
+<PropsTable
+  props={[
+    {
+      name: "children",
+      type: "React.ReactNode",
+      description: "Form fields and components to render inside the form",
+      required: true,
+    },
+    {
+      name: "onSubmit",
+      type: "(data: Record<string,string>, mode: 'login' | 'signup') => Promise<void> | void",
+      description: "Custom submit handler for authentication",
+      required: false,
+      defaultValue: "undefined",
+    },
+    {
+      name: "mode",
+      type: "'login' | 'signup'",
+      description: "Initial form mode",
+      required: false,
+      defaultValue: "'login'",
+    },
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the form container",
+      required: false,
+      defaultValue: "''",
+    },
+    {
+      name: "loading",
+      type: "boolean",
+      description: "External loading state to show on submit button",
+      required: false,
+      defaultValue: "false",
+    },
+  ]}
+/>
+
+### AuthField
+
+<PropsTable
+  props={[
+    {
+      name: "name",
+      type: "string",
+      description: "Field name for form data",
+      required: true,
+    },
+    {
+      name: "label",
+      type: "string",
+      description: "Field label text",
+      required: true,
+    },
+    {
+      name: "type",
+      type: "string",
+      description: "Input type (text, email, password, etc.)",
+      required: false,
+      defaultValue: "'text'",
+    },
+    {
+      name: "showOnlyFor",
+      type: "'login' | 'signup'",
+      description: "Show field only for specific mode",
+      required: false,
+    },
+    {
+      name: "icon",
+      type: "React.ReactNode",
+      description: "Icon to display in the input field",
+      required: false,
+    },
+    {
+      name: "showPasswordToggle",
+      type: "boolean",
+      description: "Show password visibility toggle for password fields",
+      required: false,
+      defaultValue: "false",
+    },
+    {
+      name: "validate",
+      type: "(value: string) => string | null",
+      description: "Custom validation function",
+      required: false,
+    },
+  ]}
+/>
+
+## Usage Examples
+
+<ExampleShowcase name="auth-form-minimal" title="Minimal Login Only" />
+
+<ExampleShowcase name="auth-form-validation" title="Custom Validation" />
+
+<ExampleShowcase name="auth-social" title="With Social Authentication" />
+
+## Features
+
+- **Seamless Mode Switching**: Switch between login and signup with smooth animations
+- **Real-time Validation**: Live validation with visual feedback and error messages
+- **Password Strength**: Built-in password validation with visibility toggle
+- **Social Authentication**: Pre-built social auth buttons with icons
+- **Micro-interactions**: Smooth animations and hover effects throughout
+- **Accessibility**: Full keyboard navigation and screen reader support
+- **Responsive Design**: Works perfectly on mobile and desktop
+- **Dark Mode**: Full dark mode support with proper contrast
+- **Form State Management**: Automatic form state handling and validation
+- **Customizable**: Highly customizable with props and className overrides
+- **TypeScript**: Full TypeScript support with proper type definitions
+
+## Animation Details
+
+The component uses Framer Motion for smooth animations:
+
+- **Form Entry**: Scale and fade-in animation with staggered children
+- **Field Transitions**: Blur-to-focus transitions when fields appear
+- **Mode Switching**: Smooth transitions between login and signup modes
+- **Validation Feedback**: Animated success/error indicators
+- **Button States**: Loading states with spinner animations
+- **Hover Effects**: Subtle scale and color transitions
+
+## Customization
+
+### Custom Styling
+
+```tsx
+<AuthForm className="mx-auto max-w-lg bg-white/80 backdrop-blur-md">
+  <AuthHeader className="space-y-4 text-center" />
+  <AuthField name="email" label="Email Address" className="mb-6" />
+  <AuthSubmit className="bg-gradient-to-r from-blue-500 to-purple-600" />
+</AuthForm>
+```
+
+### Custom Headers
+
+```tsx
+<AuthHeader
+  title={{
+    login: "Welcome Back!",
+    signup: "Join Our Community",
+  }}
+  subtitle={{
+    login: "We missed you",
+    signup: "Start your journey today",
+  }}
+/>
+```
+
+### Conditional Fields
+
+```tsx
+<AuthField name="company" label="Company" showOnlyFor="signup" />
+<AuthField name="remember" label="Remember me" type="checkbox" showOnlyFor="login" />
+```
