@@ -9,6 +9,7 @@ import TechStack from "@/components/TechStack";
 import { GalleryRoot, GalleryGrid } from "@/components/docs/Gallery";
 import { absoluteUrl } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import BuyNowButton from "@/components/docs/BuyNowButton";
 
 export async function generateStaticParams() {
   return templates.map((t) => ({ id: t.id.toString() }));
@@ -21,6 +22,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const template = templates.find((t) => t.id === parseInt(id));
+
   if (!template) {
     return {
       title: "Template not found",
@@ -29,6 +31,7 @@ export async function generateMetadata({
   }
   const title = template.title;
   const description = template.description;
+
   return {
     title,
     description,
@@ -63,6 +66,7 @@ export default async function TemplateDetailsPage({
 }) {
   const { id } = await params;
   const template = templates.find((t) => t.id === parseInt(id));
+  const IsFree = template?.price === 0;
 
   if (!template) {
     return (
@@ -128,7 +132,9 @@ export default async function TemplateDetailsPage({
             {typeof template.price === "number" && (
               <div>
                 <dt className="text-muted-foreground">Price</dt>
-                <dd className="font-medium">${template.price.toFixed(2)}</dd>
+                <dd className="font-medium">
+                  {IsFree ? "Free" : `${template.price.toFixed(2)}`}
+                </dd>
               </div>
             )}
           </dl>
@@ -140,7 +146,7 @@ export default async function TemplateDetailsPage({
             <span className="text-muted-foreground">Get the template</span>
             {typeof template.price === "number" && (
               <span className="bg-primary/10 rounded-md border px-2 py-0.5 font-medium backdrop-blur-lg">
-                ${template.price.toFixed(2)}
+                {IsFree ? "Free" : `${template.price.toFixed(2)}`}
               </span>
             )}
           </div>
@@ -154,7 +160,11 @@ export default async function TemplateDetailsPage({
               Live Preview <IconExternalLink size={16} />
             </Link>
           )}
-          <DowloadCode template={template} />
+          {IsFree ? (
+            <DowloadCode template={template} />
+          ) : (
+            <BuyNowButton template={template} />
+          )}
           <p className="text-muted-foreground text-xs">
             Includes source files and assets. Licensed for personal and
             commercial use.

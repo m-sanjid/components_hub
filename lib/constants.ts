@@ -14,98 +14,171 @@ export const categories = [
 export const templates: Template[] = [
   {
     id: 1,
-    title: "Modern Dashboard",
+    title: "Notion-like Portfolio",
     description:
-      "A clean and modern dashboard template with charts, tables, and analytics widgets.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "Dashboards",
-    tags: ["Admin", "Analytics", "Charts"],
+      "A clean and modern portfolio template built with Next.js, featuring MDX-powered blogs, projects showcase, skills section, and an interactive contact form. Includes subtle Framer Motion animations and dark mode support.",
+    image: "/templates/p_template.png",
+    category: "Portfolios",
+    tags: [
+      "Portfolio",
+      "MDX Blog",
+      "Projects",
+      "Skills",
+      "Contact",
+      "Animations",
+    ],
     featured: true,
-    downloadUrl: "https://example.com/download",
-    price: 49.99,
+    previewUrl: "https://portfoliotemplate-zeta.vercel.app",
+    codeUrl: "https://github.com/m-sanjid/notion_like_portfolio",
+    downloadUrl:
+      "https://github.com/velnor-ui/notion_like_portfolio/archive/refs/heads/main.zip",
+    price: 0,
     features: [
       {
-        title: "Responsive Design",
-        description: ["Responsive design for all devices.", "fjafkjfdk"],
+        title: "MDX Blog Support",
+        description: [
+          "Write blogs using MDX with frontmatter metadata.",
+          "Code syntax highlighting and markdown styling.",
+          "SEO optimized blog pages.",
+        ],
       },
       {
-        title: "Dark Mode Support",
-        description: ["Dark mode support for all devices.", "fjafkjfdk"],
+        title: "Projects Showcase",
+        description: [
+          "Showcase your projects with images, live demo links, and GitHub code.",
+          "Supports project details in MDX format.",
+          "Filter and categorize projects easily.",
+        ],
       },
       {
-        title: "Interactive Charts",
-        description: ["Interactive charts for all devices.", "fjafkjfdk"],
+        title: "Skills & Tech Stack",
+        description: [
+          "Highlight your skills with animated badges.",
+          "Icons mapped to technologies automatically.",
+          "Easily editable via JSON/MDX.",
+        ],
       },
       {
-        title: "Data Tables",
-        description: ["Data tables for all devices.", "fjafkjfdk"],
+        title: "Responsive & Accessible",
+        description: [
+          "Mobile-first responsive design with Tailwind CSS.",
+          "Dark mode with next-themes integration.",
+          "ARIA-compliant for accessibility.",
+        ],
       },
       {
-        title: "User Management",
-        description: ["User management for all devices.", "fjafkjfdk"],
+        title: "Interactive Contact Form",
+        description: [
+          "Animated form with validation and error handling.",
+          "Easily connect with Formspree, Resend, or custom API.",
+          "Framer Motion micro-interactions.",
+        ],
       },
       {
-        title: "Customizable Components",
-        description: ["Customizable components for all devices.", "fjafkjfdk"],
-      },
-      {
-        title: "Documentation Included",
-        description: ["Documentation included for all devices.", "fjafkjfdk"],
+        title: "Well-Documented",
+        description: [
+          "Step-by-step setup guide included.",
+          "Clean and modular file structure.",
+          "Ready for deployment on Vercel.",
+        ],
       },
     ],
     screenshots: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "/templates/p_template.webp",
+      "/templates/p_template1.webp",
+      "/templates/p_template2.webp",
+      "/templates/p_template3.webp",
+      "/templates/p_template4.webp",
+      "/templates/p_template5.webp",
+    ],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "MDX",
     ],
   },
   {
     id: 2,
-    title: "E-commerce Store",
+    title: "Premium Portfolio Template",
     description:
-      "A complete e-commerce template with product listings, cart, and checkout flow.",
+      "A modern and minimalist portfolio template built for professionals. Features subtle Framer Motion animations, an MDX-powered blog, and beautifully crafted project showcases.",
     image:
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-    category: "E-commerce",
-    tags: ["Shopping", "Products", "Checkout"],
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
+    category: "Portfolios",
+    tags: ["Portfolio", "Blog", "Animations", "Minimal"],
     featured: true,
-    downloadUrl: "https://example.com/download",
-    price: 49.99,
+    previewUrl: "https://portfolio-template-delta-wine.vercel.app/",
+    codeUrl: "https://github.com/your-org/ecommerce-store",
+    downloadUrl: "https://sanjid4.gumroad.com/l/portfolio",
+    price: 29.99,
     features: [
       {
-        title: "Responsive Design",
-        description: ["Responsive design for all devices.", "fjafkjfdk"],
+        title: "Minimalist Design",
+        description: [
+          "Clean, distraction-free UI with focus on content and projects.",
+          "Perfect balance of whitespace and typography.",
+        ],
       },
       {
-        title: "Dark Mode Support",
-        description: ["Dark mode support for all devices.", "fjafkjfdk"],
+        title: "Subtle Micro-interactions",
+        description: [
+          "Crafted with Framer Motion for smooth, modern animations.",
+          "Hover, scroll, and navigation transitions included.",
+        ],
       },
       {
-        title: "Interactive Charts",
-        description: ["Interactive charts for all devices.", "fjafkjfdk"],
+        title: "MDX Blog Integration",
+        description: [
+          "Write blogs with markdown + components.",
+          "Built-in syntax highlighting for code snippets.",
+        ],
       },
       {
-        title: "Data Tables",
-        description: ["Data tables for all devices.", "fjafkjfdk"],
+        title: "Responsive Layout",
+        description: [
+          "Looks stunning across mobile, tablet, and desktop.",
+          "Optimized for performance and accessibility.",
+        ],
       },
       {
-        title: "User Management",
-        description: ["User management for all devices.", "fjafkjfdk"],
+        title: "Dark Mode Ready",
+        description: [
+          "Seamless theme switching with persistence.",
+          "Elegant dark/light palettes included.",
+        ],
       },
       {
-        title: "Customizable Components",
-        description: ["Customizable components for all devices.", "fjafkjfdk"],
+        title: "Projects Showcase",
+        description: [
+          "Dedicated sections for case studies and projects.",
+          "Supports images, videos, and interactive demos.",
+        ],
       },
       {
-        title: "Documentation Included",
-        description: ["Documentation included for all devices.", "fjafkjfdk"],
+        title: "Fully Customizable",
+        description: [
+          "Easily adapt colors, fonts, and layout.",
+          "Well-structured, developer-friendly codebase.",
+        ],
       },
     ],
     screenshots: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "/templates/p2_template.webp",
+      "/templates/p2_template1.webp",
+      "/templates/p2_template2.webp",
+      "/templates/p2_template3.webp",
+      "/templates/p2_template4.webp",
+    ],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "MDX",
     ],
   },
   {
@@ -114,11 +187,13 @@ export const templates: Template[] = [
     description:
       "A conversion-focused landing page for SaaS products with pricing tables and feature highlights.",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
     category: "Landing Pages",
     tags: ["Marketing", "Conversion", "Features"],
     featured: true,
-    downloadUrl: "https://example.com/download",
+    previewUrl: "https://example.com/preview/saas-landing",
+    codeUrl: "https://github.com/your-org/saas-landing",
+    downloadUrl: "https://example.com/download/saas-landing.zip",
     price: 49.99,
     features: [
       {
@@ -127,9 +202,17 @@ export const templates: Template[] = [
       },
     ],
     screenshots: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+    ],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "motion",
+      "next-view-transitions",
     ],
   },
   {
@@ -138,11 +221,13 @@ export const templates: Template[] = [
     description:
       "A modern portfolio template for developers to showcase their projects and skills.",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     category: "Portfolios",
     tags: ["Projects", "Skills", "Resume"],
     featured: false,
-    downloadUrl: "https://example.com/download",
+    previewUrl: "https://example.com/preview/dev-portfolio",
+    codeUrl: "https://github.com/your-org/dev-portfolio",
+    downloadUrl: "https://example.com/download/dev-portfolio.zip",
     price: 49.99,
     features: [
       {
@@ -151,10 +236,11 @@ export const templates: Template[] = [
       },
     ],
     screenshots: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     ],
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "motion"],
   },
 ];
 

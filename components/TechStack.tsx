@@ -9,6 +9,7 @@ import {
   TailwindLogo,
   TypeScriptLogo,
 } from "./docs/LogoImages";
+import Image from "next/image";
 
 const TechStack = ({ techStack }: { techStack: string[] }) => {
   // icon map
@@ -19,6 +20,8 @@ const TechStack = ({ techStack }: { techStack: string[] }) => {
     "tailwind css": TailwindLogo,
     motion: MotionLogo,
     shadcn: ShadcnLogo,
+    "framer motion": MotionLogo,
+    mdx: IconMdx,
   };
 
   return (
@@ -29,7 +32,7 @@ const TechStack = ({ techStack }: { techStack: string[] }) => {
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true }}
         transition={{ duration: 0.3, delay: 0.2 }}
-        className="flex items-start gap-4 divide-x-2 p-2"
+        className="flex flex-wrap items-start gap-4 divide-x-2 p-2"
       >
         {techStack?.map((tech) => {
           const Icon = iconMap[tech.toLowerCase()] || IconTerminal2; // fallback icon
@@ -49,3 +52,15 @@ const TechStack = ({ techStack }: { techStack: string[] }) => {
 };
 
 export default TechStack;
+
+const IconMdx = () => {
+  return (
+    <Image
+      width={24}
+      height={24}
+      src="/mdx.png"
+      alt="MDX Logo"
+      className="size-6 overflow-hidden rounded-md object-cover"
+    />
+  );
+};

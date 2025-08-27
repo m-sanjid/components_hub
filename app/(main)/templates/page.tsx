@@ -118,7 +118,7 @@ export default function TemplatesPage() {
                           <h2 className="truncate text-lg font-semibold">
                             {template.title}
                           </h2>
-                          <p className="text-muted-foreground mt-1 line-clamp-2 text-sm sm:line-clamp-3">
+                          <p className="text-muted-foreground mt-1 line-clamp-2 text-sm">
                             {template.description}
                           </p>
                         </header>
