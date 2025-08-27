@@ -12,7 +12,7 @@ export default function TabsExample() {
       <h2 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
         Controlled Tabs
       </h2>
-      <div className="rounded-xl border bg-white p-6 shadow-lg dark:bg-neutral-900">
+      <div className="rounded-xl border bg-white p-6 dark:bg-neutral-900">
         <div className="mb-4 rounded-lg bg-blue-50 p-4 dark:bg-blue-900/20">
           <p className="text-sm text-blue-700 dark:text-blue-300">
             Current active tab: <strong>{controlledValue}</strong>

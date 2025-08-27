@@ -8,7 +8,7 @@ const TabsWithIcon = () => {
       <h2 className="text-2xl font-semibold text-neutral-800 dark:text-neutral-200">
         Tabs with Icons
       </h2>
-      <div className="rounded-xl border bg-white p-6 shadow-lg dark:bg-neutral-900">
+      <div className="rounded-xl border bg-white p-6 dark:bg-neutral-900">
         <Tabs defaultValue="profile" className="w-full">
           <TabsList>
             <TabsTrigger value="profile">

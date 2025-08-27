@@ -7,7 +7,7 @@ const TabsDemo = () => {
       <h2 className="text-muted-foreground text-2xl font-semibold">
         Basic Tabs
       </h2>
-      <div className="rounded-xl border bg-white p-6 shadow-lg dark:bg-neutral-900">
+      <div className="rounded-xl border bg-white p-6 dark:bg-neutral-900">
         <Tabs defaultValue="account" className="w-full">
           <TabsList>
             <TabsTrigger value="account">Account</TabsTrigger>

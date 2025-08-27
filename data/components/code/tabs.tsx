@@ -193,7 +193,7 @@ export function TabsTrigger({
         <motion.div
           layoutId={tabsId + "-underline"}
           className={cn(
-            "absolute inset-0 z-0 rounded-[8px] bg-white shadow-sm dark:bg-black",
+            "absolute inset-0 z-0 rounded-[8px] bg-white dark:bg-black",
             indicatorClassName,
           )}
           transition={{
@@ -226,7 +226,7 @@ export function TabsContent({
   value,
   className,
   borderClassName,
-  height = "h-[350px]",
+  height = "350px",
 }: TabsContentProps) {
   const { activeTab, prevIndex, tabs } = useTabsContext();
   const isActive = activeTab === value;
@@ -238,8 +238,7 @@ export function TabsContent({
   return (
     <div
       className={cn(
-        "relative w-full overflow-auto rounded-[12px] border bg-white p-4 dark:border-neutral-800 dark:bg-black",
-        height,
+        "relative w-full overflow-auto rounded-[12px] border bg-white dark:border-neutral-800 dark:bg-black",
         borderClassName,
       )}
     >
@@ -266,13 +265,14 @@ export function TabsContent({
             scale: 0.98,
             transition: { duration: 0.2, ease: "easeInOut" },
           }}
-          className="absolute inset-0 w-full p-1"
+          className="w-full h-full p-1"
         >
           <div
             className={cn(
               "h-full w-full rounded-[8px] border bg-neutral-50 p-2 dark:bg-neutral-900",
               className,
             )}
+            style={{ minHeight: height }}
           >
             {children}
           </div>
