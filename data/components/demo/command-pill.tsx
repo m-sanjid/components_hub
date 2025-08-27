@@ -59,9 +59,15 @@ export default function CommandDemoPage() {
           Command Palette Demo
         </h1>
         <p className="mt-2 text-neutral-600 dark:text-neutral-400">
-          Press <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">⌘</kbd> +{" "}
-          <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">J</kbd> or click the
-          floating pill above to open.
+          Press{" "}
+          <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">
+            ⌘
+          </kbd>{" "}
+          +{" "}
+          <kbd className="rounded bg-neutral-200 px-1 dark:bg-neutral-700">
+            J
+          </kbd>{" "}
+          or click the floating pill above to open.
         </p>
       </div>
     </div>

@@ -8,7 +8,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -24,16 +24,17 @@ interface GalleryContextProps {
   prev: () => void;
 }
 const GalleryContext = createContext<GalleryContextProps | null>(null);
-function useGallery() {
+
+export function useGallery() {
   const ctx = useContext(GalleryContext);
-  if (!ctx) throw new Error("Gallery.* must be used inside <Gallery.Root>");
+  if (!ctx) throw new Error("Gallery.* must be used inside <GalleryRoot>");
   return ctx;
 }
 
 // ----------------------
 // Root Provider
 // ----------------------
-function Root({
+export function GalleryRoot({
   images,
   title,
   children,
@@ -75,7 +76,7 @@ function Root({
     >
       {children}
       <AnimatePresence>
-        {index !== null && <Viewer stripRef={stripRef} />}
+        {index !== null && <GalleryViewer stripRef={stripRef} />}
       </AnimatePresence>
     </GalleryContext.Provider>
   );
@@ -84,7 +85,7 @@ function Root({
 // ----------------------
 // Grid
 // ----------------------
-function Grid() {
+export function GalleryGrid() {
   const { images, title, setIndex } = useGallery();
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -115,13 +116,13 @@ function Grid() {
 // ----------------------
 // Viewer
 // ----------------------
-function Viewer({
+export function GalleryViewer({
   stripRef,
 }: {
   stripRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const { index, setIndex, images, next, prev } = useGallery();
-  const [firstOpen, setFirstOpen] = useState(true); // track if initial maximize
+  const [firstOpen, setFirstOpen] = useState(true);
 
   if (index === null) return null;
 
@@ -187,12 +188,12 @@ function Viewer({
             />
           </motion.div>
         )}
-        <NavButton dir="left" onClick={prev} />
-        <NavButton dir="right" onClick={next} />
+        <GalleryNavButton dir="left" onClick={prev} />
+        <GalleryNavButton dir="right" onClick={next} />
       </div>
 
       {/* Thumbnails */}
-      <ThumbnailStrip stripRef={stripRef} />
+      <GalleryThumbnailStrip stripRef={stripRef} />
     </motion.div>
   );
 }
@@ -200,7 +201,7 @@ function Viewer({
 // ----------------------
 // NavButton
 // ----------------------
-function NavButton({
+export function GalleryNavButton({
   dir,
   onClick,
 }: {
@@ -221,16 +222,15 @@ function NavButton({
 }
 
 // ----------------------
-// Thumbnail Strip (Improved)
+// Thumbnail Strip
 // ----------------------
-function ThumbnailStrip({
+export function GalleryThumbnailStrip({
   stripRef,
 }: {
   stripRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const { images, index, setIndex } = useGallery();
 
-  // Auto-center active thumbnail
   useEffect(() => {
     if (index === null || !stripRef.current) return;
     const el = stripRef.current.children[index] as HTMLElement | undefined;
@@ -279,14 +279,3 @@ function ThumbnailStrip({
     </div>
   );
 }
-
-// ----------------------
-// Attach subcomponents
-// ----------------------
-export const Gallery = {
-  Root,
-  Grid,
-  Viewer,
-  ThumbnailStrip,
-  NavButton,
-};

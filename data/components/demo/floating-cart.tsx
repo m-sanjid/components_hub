@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FloatingCartWidget } from "../code/floating-cart";
 import { toast } from "sonner";

@@ -1,32 +1,81 @@
 import React from "react";
+import Link from "next/link";
 
 export default function CreditsPage() {
   return (
-    <div className="prose prose-neutral dark:prose-invert max-w-none">
-      <h1>Credits</h1>
+    <section className="prose prose-neutral dark:prose-invert max-w-none">
+      <h1 className="text-3xl font-bold">Credits</h1>
       <p>
-        This project draws inspiration from incredible creators and the
-        open-source community. Thank you for your work and generosity.
+        This project is made possible thanks to the creativity and generosity of
+        the open-source community and inspiring creators. Your work shapes and
+        uplifts this project.
       </p>
-      <ul>
+
+      <h2>Special Thanks</h2>
+      <ul className="space-y-2">
         <li>
-          <strong>shadcn/ui</strong> — for the component architecture, CLI, and
-          overall philosophy of copy-paste composability.
+          <strong>
+            shadcn/ui |{" "}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://x.com/shadcn"
+            >
+              Shadcn
+            </a>
+          </strong>
+          <span className="block">
+            Component architecture, CLI, and the{" "}
+            <em>copy-paste composability</em> philosophy.
+          </span>
+          <Link
+            href="https://ui.shadcn.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary"
+          >
+            Visit site
+          </Link>
         </li>
         <li>
-          <strong>Aceternity UI (Manupaaji)</strong> — for thoughtful motion,
-          aesthetics, and interaction patterns that influenced several
-          components.
+          <strong>
+            Aceternity UI |{" "}
+            <a
+              href="https://x.com/mannupaaji"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Manu Arora
+            </a>
+          </strong>
+          <span className="block">
+            Motion principles, aesthetics, and interaction patterns that
+            inspired several components.
+          </span>
+          <Link
+            href="https://ui.aceternity.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary"
+          >
+            Visit site
+          </Link>
         </li>
         <li>
-          <strong>Open‑source community</strong> — countless ideas, utilities,
-          and best practices we build upon every day.
+          <strong>Open-source community</strong> — Countless utilities, ideas,
+          and best practices that form the foundation of modern development.
         </li>
       </ul>
+
+      <h2>Contributions & Updates</h2>
       <p>
-        If you see your work reflected here and would like a specific mention or
-        link update, please reach out on the contact page.
+        If you notice your work reflected here and would like a dedicated
+        mention, updated link, or credit adjustment, please{" "}
+        <Link href="/contact" className="text-primary underline">
+          reach out via the contact page
+        </Link>
+        .
       </p>
-    </div>
+    </section>
   );
 }

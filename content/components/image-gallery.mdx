@@ -107,10 +107,10 @@ export default function Page() {
   return (
     <section className="container py-12">
       <h1 className="mb-6 text-2xl font-semibold">Image Gallery</h1>
-      <Gallery.Root images={IMAGES} title="Gallery Demo">
-        <Gallery.Grid />
+      <GalleryRoot images={IMAGES} title="Gallery Demo">
+        <GalleryGrid />
         {/* The Viewer is automatically rendered by Root when an image is selected */}
-      </Gallery.Root>
+      </GalleryRoot>
     </section>
   );
 }

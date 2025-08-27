@@ -1,6 +1,6 @@
 "use client";
 
-import { Gallery } from "../code/image-gallery";
+import { GalleryRoot, GalleryGrid } from "../code/image-gallery";
 
 const IMAGES = [
   "/images/911carrera.avif",
@@ -21,9 +21,9 @@ export default function GalleryExamplePage() {
         to close.
       </p>
 
-      <Gallery.Root images={IMAGES} title="Demo Gallery">
-        <Gallery.Grid />
-      </Gallery.Root>
+      <GalleryRoot images={IMAGES} title="Demo Gallery">
+        <GalleryGrid />
+      </GalleryRoot>
     </main>
   );
 }
