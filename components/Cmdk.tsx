@@ -19,6 +19,7 @@ import {
   IconTemplate,
 } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { allTemplates } from "@/lib/constants";
 
 interface ComponentData {
   id: string;
@@ -33,6 +34,7 @@ interface ComponentData {
 export function CommandPalette() {
   const [open, setOpen] = React.useState(false);
   const [components, setComponents] = React.useState<ComponentData[]>([]);
+  // const [templates, setTemplates] = React.useState<TemplateData[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -83,6 +85,14 @@ export function CommandPalette() {
     setIsLoading(false);
   };
 
+  // const fetchTemplates = async () => {
+  //   setIsLoading(true);
+  //   const res = await fetch("/api/templates");
+  //   const data = await res.json();
+  //   setTemplates(data);
+  //   setIsLoading(false);
+  // };
+
   React.useEffect(() => {
     fetchComponents();
   }, []);
@@ -90,6 +100,8 @@ export function CommandPalette() {
     router.push(path);
     setOpen(false);
   };
+
+const templates = allTemplates;
 
   return (
     <>
@@ -159,6 +171,32 @@ export function CommandPalette() {
                 >
                   <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
                   <span>{component.title}</span>
+                </CommandItem>
+              ))
+            )}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Templates">
+            {isLoading ? (
+              <CommandItem>
+                <IconLoader2 className="animate-spin" />
+                <span>Loading...</span>
+              </CommandItem>
+            ) : templates.length === 0 ? (
+              <CommandItem>
+                <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                <span>No templates found</span>
+              </CommandItem>
+            ) : (
+              templates.map((template, index) => (
+                <CommandItem
+                  key={index}
+                  onSelect={() => {
+                    navigate("/templates/" + template.id);
+                  }}
+                >
+                  <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                  <span>{template.title}</span>
                 </CommandItem>
               ))
             )}

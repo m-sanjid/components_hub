@@ -216,43 +216,79 @@ export const templates: Template[] = [
     ],
   },
   {
-    id: 7,
-    title: "Developer Portfolio",
+    id: 4,
+    title: "Bento Grid Portfolio",
     description:
-      "A modern portfolio template for developers to showcase their projects and skills.",
+      "A sleek and minimalist bento-style portfolio template designed for creators, developers, and designers to showcase their work in a modern grid layout.",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1671726203455-abc123example?q=80&w=1200&auto=format&fit=crop",
     category: "Portfolios",
-    tags: ["Projects", "Skills", "Resume"],
-    featured: false,
-    previewUrl: "https://example.com/preview/dev-portfolio",
-    codeUrl: "https://github.com/your-org/dev-portfolio",
-    downloadUrl: "https://example.com/download/dev-portfolio.zip",
-    price: 49.99,
+    tags: ["Bento Grid", "Projects", "Showcase", "Minimal"],
+    featured: true,
+    previewUrl: "https://grid-folio-six.vercel.app/",
+    codeUrl: "https://github.com/m-sanjid/grid-folio",
+    downloadUrl:
+      "https://github.com/m-sanjid/grid-folio/archive/refs/heads/main.zip",
+    price: 0,
     features: [
       {
-        title: "Responsive Design",
-        description: ["Responsive design for all devices.", "fjafkjfdk"],
+        title: "Bento-Style Grid",
+        description: [
+          "Unique grid layout inspired by Notion and Apple design trends.",
+          "Highlight your projects, skills, and achievements in stylish blocks.",
+        ],
+      },
+      {
+        title: "Fully Responsive",
+        description: [
+          "Optimized for mobile, tablet, and desktop devices.",
+          "Seamless browsing experience across all screen sizes.",
+        ],
+      },
+      {
+        title: "Customizable Sections",
+        description: [
+          "Easily reorder or edit blocks to fit your personal brand.",
+          "Supports projects, skills, resume, contact, and more.",
+        ],
       },
     ],
     screenshots: [
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "/templates/g_template.webp",
+      "/templates/g_template1.webp",
+      "/templates/g_template2.webp",
     ],
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "motion"],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
   },
 ];
 
 export const allTemplates = [
-  "minimal dashboard",
-  "modern dashboard",
-  "ecommerce store",
-  "saas landing page",
-  "contact form",
-  "developer portfolio",
-  "product landing page",
-  "analytics dashboard",
+  {
+    name: "notion-like-portfolio",
+    id: 1,
+    title: "Notion-like Portfolio",
+  },
+  {
+    name: "premium-portfolio-template",
+    id: 2,
+    title: "Premium Portfolio Template",
+  },
+  {
+    name: "saas-landing-page",
+    id: 3,
+    title: "SaaS Landing Page",
+  },
+  {
+    name: "developer-portfolio",
+    id: 4,
+    title: "Developer Portfolio",
+  },
 ];
 
 export const template: Template = {
@@ -260,8 +296,7 @@ export const template: Template = {
   title: "Modern Dashboard",
   description:
     "A clean and modern dashboard template with charts, tables, and analytics widgets. Perfect for SaaS applications and business intelligence tools.",
-  image:
-    "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80",
+  image: "/templates/g_template.webp",
   category: "Dashboards",
   tags: ["Admin", "Analytics", "Charts", "Responsive", "Dark Mode"],
   featured: true,
