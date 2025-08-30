@@ -8,6 +8,7 @@ import Logo from "./Logo";
 import { siteConfig } from "@/config/site";
 import { Link } from "next-view-transitions";
 import EmailForm from "./NewsLetter";
+import IconHover from "./IconHover";
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
@@ -57,14 +58,11 @@ const Footer: React.FC = () => {
                     href={siteConfig.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground bg-secondary hover:text-foreground hover:bg-secondary/80 focus-visible:ring-primary group flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none"
+                    className="p-2 group/icon"
                     aria-label="GitHub"
                     title="GitHub"
                   >
-                    <IconBrandGithub
-                      className="h-4 w-4 transition-transform group-hover:scale-110"
-                      aria-hidden="true"
-                    />
+                    <IconHover icon={IconBrandGithub} size={24} iconClassName="stroke-1.5" />
                   </Link>
                 </li>
                 <li>
@@ -72,14 +70,11 @@ const Footer: React.FC = () => {
                     href={siteConfig.links.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground bg-secondary hover:text-foreground focus-visible:ring-primary group flex h-9 w-9 items-center justify-center rounded-lg border border-transparent transition-all duration-200 hover:border-blue-500/20 hover:bg-blue-500/10 focus-visible:ring-2 focus-visible:outline-none"
+                    className="p-2 group/icon"
                     aria-label="Follow us on X for the latest updates"
                     title="Follow on X for updates"
                   >
-                    <IconBrandX
-                      className="h-4 w-4 transition-transform group-hover:scale-110"
-                      aria-hidden="true"
-                    />
+                    <IconHover icon={IconBrandX} size={24} iconClassName="stroke-1.5" />
                   </Link>
                 </li>
                 <li>
@@ -87,14 +82,11 @@ const Footer: React.FC = () => {
                     href="https://linkedin.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-muted-foreground bg-secondary hover:text-foreground hover:bg-secondary/80 focus-visible:ring-primary group flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 focus-visible:ring-2 focus-visible:outline-none"
+                    className="p-2 group/icon"
                     aria-label="LinkedIn"
                     title="LinkedIn"
                   >
-                    <IconBrandLinkedin
-                      className="h-4 w-4 transition-transform group-hover:scale-110"
-                      aria-hidden="true"
-                    />
+                    <IconHover icon={IconBrandLinkedin} size={24} iconClassName="stroke-1.5" />
                   </Link>
                 </li>
               </ul>

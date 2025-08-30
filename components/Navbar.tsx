@@ -16,6 +16,7 @@ import ThemeToggle from "./ThemeToggle";
 import { IconTemplate, IconCircleDashed, IconMenu2 } from "@tabler/icons-react";
 import { CommandPalette } from "./Cmdk";
 import { cn } from "@/lib/utils";
+import IconHover from "./IconHover";
 
 const mainNavItems = [
   {
@@ -116,7 +117,7 @@ export default function Navbar() {
               <Link href={item.href} key={idx} passHref>
                 <button
                   className={cn(
-                    "relative z-10 flex items-center gap-2 px-4 py-2 text-sm transition-all duration-200 ease-in-out",
+                    "relative z-10 flex items-center group/icon gap-2 px-4 py-2 text-sm transition-all duration-200 ease-in-out",
                     pathname === item.href ||
                       pathname.startsWith(item.href + "/")
                       ? "font-semibold"
@@ -125,10 +126,10 @@ export default function Navbar() {
                   )}
                   onMouseEnter={handleHover}
                 >
-                  <item.icon
+                  <IconHover icon={item.icon}
                     className={cn(
                       "bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-sm",
-                      isHovered === item.title ? "border-primary/5" : "",
+                      isHovered === item.title ? "border-white/5 text-white" : "",
                     )}
                   />
                   {item.title}

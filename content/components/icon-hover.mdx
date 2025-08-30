@@ -1,0 +1,81 @@
+---
+title: Icon Hover
+description: A 3D hoverable icon container with micro-interactions and depth effects
+category: Feedback
+keywords: ["icon", "hover", "3D", "micro-interaction", "animated"]
+---
+
+<CodePreview name="icon-hover" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli"><Shadcn /></TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+<Steps>
+
+<Step>Use the following command to install the component:</Step>
+
+```bash
+npx shadcn@latest add https://ui.sanjid.shop/r/icon-hover.json
+```
+
+</Steps> </TabsContent> <TabsContent value="manual"> <Steps>
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install @tabler/icons-react
+```
+
+<Step>Add util file if not already present</Step>
+
+##### lib/utils.ts
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="icon-hover" title="components/ui/icon-hover.tsx" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps> </TabsContent> </CodeTabs>
+
+## Props
+<PropsTable
+props={[
+{
+name: "icon",
+type: "TablerIcon",
+description: "The Tabler icon component to render inside the hover box",
+},
+{
+name: "className",
+type: "string",
+description: "Optional classes to style or override the root container",
+},
+]}
+/>
+
+## Examples
+
+### Default
+<ExampleShowcase name="icon-hover-social" />
+
+### With Multiple Icons
+<ExampleShowcase name="icon-hover-size" />
+
+### Interactive Example
+<ExampleShowcase name="icon-hover-interactive" />

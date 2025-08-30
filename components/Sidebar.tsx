@@ -9,6 +9,7 @@ import {
   IconPhone,
   IconTemplate,
   IconX,
+  TablerIcon,
 } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import { Components } from "@/types";
@@ -17,6 +18,7 @@ import { Link } from "next-view-transitions";
 import { templates } from "@/lib/constants";
 import { usePathname } from "next/navigation";
 import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
+import IconHover from "./IconHover";
 
 const Sidebar = () => {
   const [components, setComponents] = useState<Components[]>([]);
@@ -58,7 +60,7 @@ const Sidebar = () => {
     title: string;
     index: number;
     isTemplate?: boolean;
-    icon?: React.ReactNode;
+    icon?: TablerIcon;
     link?: string;
   }) => {
     const isActive =
@@ -84,7 +86,7 @@ const Sidebar = () => {
       >
         <Link
           href={href}
-          className={`relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
+          className={`relative flex group/icon items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
             isActive
               ? "text-primary font-semibold"
               : "text-muted-foreground hover:text-primary"
@@ -105,7 +107,7 @@ const Sidebar = () => {
               </div>
             </motion.div>
           )}
-          {icon}
+          <IconHover icon={icon || IconCircleDashed} />
           <span className="truncate capitalize">{title}</span>
           <AnimatePresence>
             {isHovered && hoveredIndex === `${index}-${slug}` && (
@@ -134,25 +136,19 @@ const Sidebar = () => {
           slug: "installation",
           title: "Installation",
           index: 0,
-          icon: (
-            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-          ),
+          icon: IconFileDescription,
         })}
         {renderLink({
           slug: "cli",
           title: "shadcn CLI",
           index: 1,
-          icon: (
-            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-          ),
+          icon: IconFileDescription,
         })}
         {renderLink({
           slug: "credits",
           title: "Credits",
           index: 2,
-          icon: (
-            <IconFileDescription className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-          ),
+          icon: IconFileDescription,
         })}
       </Section>
       <Section title="navigation">
@@ -160,17 +156,13 @@ const Sidebar = () => {
           link: "/components",
           title: "Components",
           index: 0,
-          icon: (
-            <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-          ),
+          icon: IconCircleDashed,
         })}
         {renderLink({
           link: "/templates",
           title: "Templates",
           index: 1,
-          icon: (
-            <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-          ),
+          icon: IconTemplate,
         })}
       </Section>
       <Section title="Components">
@@ -179,9 +171,7 @@ const Sidebar = () => {
             slug: component.slug || "",
             title: component.title,
             index,
-            icon: (
-              <IconCircleDashed className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-            ),
+            icon: IconCircleDashed,
           }),
         )}
       </Section>
@@ -192,9 +182,7 @@ const Sidebar = () => {
             title: t.title,
             index,
             isTemplate: true,
-            icon: (
-              <IconTemplate className="bg-primary/5 text-muted-foreground hover:text-primary size-6 rounded-md border p-1 backdrop-blur-sm" />
-            ),
+            icon: IconTemplate,
           }),
         )}
       </Section>
@@ -231,7 +219,7 @@ const Sidebar = () => {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.25 }}
-            className="scrollbar-hide fixed inset-0 z-40 flex"
+            className="scrollbar-hide fixed inset-0 z-40 flex lg:hidden"
           >
             <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-24 shadow-lg">
               <div className="mb-4 flex items-center justify-between">
