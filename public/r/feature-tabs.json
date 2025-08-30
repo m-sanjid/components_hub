@@ -5,7 +5,7 @@
   "title": "Feature Tabs",
   "description": "A simple feature tabs component",
   "registryDependencies": [
-    "motion/react",
+    "motion",
     "clsx",
     "tabler-icons-react"
   ],

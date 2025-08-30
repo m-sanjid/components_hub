@@ -5,7 +5,7 @@
   "title": "Social Share",
   "description": "A simple social share component",
   "registryDependencies": [
-    "motion/react",
+    "motion",
     "clsx",
     "tabler-icons-react"
   ],

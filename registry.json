@@ -8,7 +8,7 @@
       "type": "registry:component",
       "title": "Tabs",
       "description": "A simple tabs component",
-      "registryDependencies": ["motion/react", "clsx"],
+      "registryDependencies": ["motion", "clsx"],
       "files": [
         {
           "path": "registry/default/ui/tabs/tabs.tsx",
@@ -20,7 +20,7 @@
       "type": "registry:component",
       "title": "Email Form",
       "description": "A simple email form component",
-      "registryDependencies": ["motion/react", "clsx","sonner","tabler-icons-react"],
+      "registryDependencies": ["motion", "clsx","sonner","tabler-icons-react"],
       "files": [
         {
           "path": "registry/default/components/email-form/email-form.tsx",
@@ -32,7 +32,7 @@
       "type": "registry:component",
       "title": "Social Share",
       "description": "A simple social share component",
-      "registryDependencies": ["motion/react", "clsx","tabler-icons-react"],
+      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
       "files": [
         {
           "path": "registry/default/components/social-share/social-share.tsx",
@@ -44,7 +44,7 @@
       "type": "registry:component",
       "title": "Accordion",
       "description": "A simple accordion component",
-      "registryDependencies": ["motion/react", "clsx","lucide-react"],
+      "registryDependencies": ["motion", "clsx","lucide-react"],
       "files": [
         {
           "path": "registry/default/components/accordion/accordion.tsx",
@@ -56,7 +56,7 @@
       "type": "registry:component",
       "title": "Command Pill",
       "description": "A simple command palette component",
-      "registryDependencies": ["motion/react", "clsx","tabler-icons-react"],
+      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
       "files": [
         {
           "path": "registry/default/components/command-pill/command-pill.tsx",
@@ -68,7 +68,7 @@
       "type": "registry:component",
       "title": "Image Gallery",
       "description": "A simple image gallery component",
-      "registryDependencies": ["motion/react", "clsx","tabler-icons-react"],
+      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
       "files": [
         {
           "path": "registry/default/components/image-gallery/image-gallery.tsx",
@@ -80,7 +80,7 @@
       "type": "registry:component",
       "title": "Feature Tabs",
       "description": "A simple feature tabs component",
-      "registryDependencies": ["motion/react", "clsx","tabler-icons-react"],
+      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
       "files": [
         {
           "path": "registry/default/components/feature-tabs/feature-tabs.tsx",

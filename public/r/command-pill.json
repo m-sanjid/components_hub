@@ -5,7 +5,7 @@
   "title": "Command Pill",
   "description": "A simple command palette component",
   "registryDependencies": [
-    "motion/react",
+    "motion",
     "clsx",
     "tabler-icons-react"
   ],

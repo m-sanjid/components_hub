@@ -5,7 +5,7 @@
   "title": "Email Form",
   "description": "A simple email form component",
   "registryDependencies": [
-    "motion/react",
+    "motion",
     "clsx",
     "sonner",
     "tabler-icons-react"
