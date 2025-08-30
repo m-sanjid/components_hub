@@ -3,7 +3,7 @@ import { templates } from "@/lib/constants";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "next-view-transitions";
 import MotionDiv from "@/components/MotionDiv";
-import { DowloadCode } from "@/components/DowloadCode";
+import { DowloadCode } from "@/components/DownloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
 import { GalleryRoot, GalleryGrid } from "@/components/docs/Gallery";
@@ -83,7 +83,7 @@ export default async function TemplateDetailsPage({
   }
 
   return (
-    <main className="min-h-screen">
+    <main className="relative min-h-screen">
       {/* Breadcrumb */}
       <nav
         className="mx-auto max-w-6xl pt-20 text-sm md:px-6"
@@ -141,7 +141,7 @@ export default async function TemplateDetailsPage({
         </div>
 
         {/* Actions Card */}
-        <aside className="bg-card sticky top-24 h-fit space-y-4 rounded-xl border p-5 shadow-sm">
+        <aside className="sticky top-24 h-fit space-y-4 rounded-xl border bg-neutral-50 p-5 shadow-xl dark:bg-neutral-900">
           <div className="flex justify-between text-sm">
             <span className="text-muted-foreground">Get the template</span>
             {typeof template.price === "number" && (
@@ -195,7 +195,7 @@ export default async function TemplateDetailsPage({
               initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ delay: i * 0.04 }}
-              className="bg-card rounded-lg border p-5"
+              className="rounded-lg border bg-neutral-50 p-5 dark:bg-neutral-900"
             >
               <h3 className="font-semibold">{feature.title}</h3>
               <ul className="text-muted-foreground mt-2 list-disc space-y-1 pl-5 text-sm">

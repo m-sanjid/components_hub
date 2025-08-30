@@ -110,10 +110,7 @@ const Sidebar = () => {
           <AnimatePresence>
             {isHovered && hoveredIndex === `${index}-${slug}` && (
               <motion.span
-                initial={{ opacity: 0, x: 5 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -5 }}
-                transition={{ duration: 0.2 }}
+                layoutId="hover-side-indicator"
                 className="absolute right-3 text-[#FF6100]"
               >
                 <IconArrowRight size={16} />
@@ -216,6 +213,7 @@ const Sidebar = () => {
         {!mobileOpen && (
           <motion.button
             layoutId="mobile-button"
+            aria-label="Open mobile menu"
             whileTap={{ scale: 0.95 }}
             whileHover={{ scale: 1.04 }}
             transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
@@ -240,6 +238,7 @@ const Sidebar = () => {
                 <h2 className="text-lg font-semibold">Browse</h2>
                 <motion.button
                   layoutId="mobile-button"
+                  aria-label="Close mobile menu"
                   whileTap={{ scale: 0.95 }}
                   whileHover={{ scale: 1.04 }}
                   transition={{ delay: 0.2, duration: 0.2, ease: "easeInOut" }}
@@ -313,11 +312,16 @@ const ErrorNotice = () => (
 const HelpSection = () => (
   <div className="space-y-2 border-t pt-4 text-sm">
     <p className="text-muted-foreground mb-2">Need help with components?</p>
-    <Link href="/contact" className="flex items-center gap-1 hover:underline">
+    <Link
+      aria-label="Contact Us"
+      href="/contact"
+      className="flex items-center gap-1 hover:underline"
+    >
       <IconPhone className="bg-primary/20 text-primary h-6 w-6 rounded-md border p-1 backdrop-blur-md" />
       Contact Us
     </Link>
     <Link
+      aria-label="Follow for updates"
       href="https://x.com/dev_sanjid"
       className="flex items-center gap-1 hover:underline"
     >

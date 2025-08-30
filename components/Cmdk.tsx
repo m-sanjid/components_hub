@@ -101,7 +101,7 @@ export function CommandPalette() {
     setOpen(false);
   };
 
-const templates = allTemplates;
+  const templates = allTemplates;
 
   return (
     <>

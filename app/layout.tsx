@@ -5,7 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
 import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
-import { siteConfig, META_THEME_COLORS } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -39,10 +39,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: META_THEME_COLORS.light },
-    { media: "(prefers-color-scheme: dark)", color: META_THEME_COLORS.dark },
-  ],
 };
 
 export default function RootLayout({
@@ -76,7 +72,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          enableSystem
+          enableSystem={true}
           disableTransitionOnChange
         >
           <a

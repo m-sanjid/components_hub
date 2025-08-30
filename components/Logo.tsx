@@ -14,8 +14,8 @@ const Logo = () => {
       Velnor
       <span
         className={cn(
-          "ml-2 rounded-[4px] bg-[#FF6100] px-1 py-px text-xs font-medium text-white",
-          "absolute -top-2 -right-9",
+          "ml-2 rounded-[4px] bg-[#FF6100] px-1 py-[0.2px] text-sm font-medium text-white",
+          "absolute -top-2 -right-10",
         )}
       >
         beta
