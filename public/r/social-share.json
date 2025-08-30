@@ -4,11 +4,6 @@
   "type": "registry:component",
   "title": "Social Share",
   "description": "A simple social share component",
-  "registryDependencies": [
-    "motion",
-    "clsx",
-    "tabler-icons-react"
-  ],
   "files": [
     {
       "path": "registry/default/components/social-share/social-share.tsx",

@@ -4,12 +4,6 @@
   "type": "registry:component",
   "title": "Email Form",
   "description": "A simple email form component",
-  "registryDependencies": [
-    "motion",
-    "clsx",
-    "sonner",
-    "tabler-icons-react"
-  ],
   "files": [
     {
       "path": "registry/default/components/email-form/email-form.tsx",

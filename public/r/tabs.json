@@ -4,10 +4,6 @@
   "type": "registry:component",
   "title": "Tabs",
   "description": "A simple tabs component",
-  "registryDependencies": [
-    "motion",
-    "clsx"
-  ],
   "files": [
     {
       "path": "registry/default/ui/tabs/tabs.tsx",

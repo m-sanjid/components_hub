@@ -8,7 +8,10 @@
       "type": "registry:component",
       "title": "Tabs",
       "description": "A simple tabs component",
-      "registryDependencies": ["motion", "clsx"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1"
+      },
       "files": [
         {
           "path": "registry/default/ui/tabs/tabs.tsx",
@@ -20,7 +23,12 @@
       "type": "registry:component",
       "title": "Email Form",
       "description": "A simple email form component",
-      "registryDependencies": ["motion", "clsx","sonner","tabler-icons-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "sonner": "^2.0.6",
+        "tabler-icons-react": "^3.34.1"
+      },
       "files": [
         {
           "path": "registry/default/components/email-form/email-form.tsx",
@@ -32,7 +40,11 @@
       "type": "registry:component",
       "title": "Social Share",
       "description": "A simple social share component",
-      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
       "files": [
         {
           "path": "registry/default/components/social-share/social-share.tsx",
@@ -44,7 +56,11 @@
       "type": "registry:component",
       "title": "Accordion",
       "description": "A simple accordion component",
-      "registryDependencies": ["motion", "clsx","lucide-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "lucide-react": "^0.487.0"
+      },
       "files": [
         {
           "path": "registry/default/components/accordion/accordion.tsx",
@@ -56,7 +72,11 @@
       "type": "registry:component",
       "title": "Command Pill",
       "description": "A simple command palette component",
-      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
       "files": [
         {
           "path": "registry/default/components/command-pill/command-pill.tsx",
@@ -68,7 +88,11 @@
       "type": "registry:component",
       "title": "Image Gallery",
       "description": "A simple image gallery component",
-      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
       "files": [
         {
           "path": "registry/default/components/image-gallery/image-gallery.tsx",
@@ -80,7 +104,11 @@
       "type": "registry:component",
       "title": "Feature Tabs",
       "description": "A simple feature tabs component",
-      "registryDependencies": ["motion", "clsx","tabler-icons-react"],
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
       "files": [
         {
           "path": "registry/default/components/feature-tabs/feature-tabs.tsx",
