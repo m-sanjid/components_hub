@@ -1,0 +1,183 @@
+---
+title: Flow Form
+description: A theme-aware animated contact form with progress tracking, validation, and micro-interactions.
+category: Forms
+keywords:
+  [
+    "contact",
+    "form",
+    "flowform",
+    "email",
+    "motion",
+    "react",
+    "validation",
+    "dark mode",
+  ]
+---
+
+<CodePreview name="flow-form" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">
+    <Shadcn />
+  </TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+```bash
+npx shadcn@latest add flow-form --component
+```
+</TabsContent> <TabsContent value="manual"> <Steps>
+<Step>Install required dependencies:</Step>
+
+```bash
+npm install motion/react sonner zod react-hook-form @hookform/resolvers nodemailer @tabler/icons-react
+```
+
+<Step>Add util file (if not already added)</Step>
+
+##### lib/utils.ts
+
+```tsx
+import { ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+<Step>Add the component source to your project.</Step>
+
+<ComponentSource name="flow-form" title="components/ui/flow-form.tsx" /> 
+<Step> Adjust import paths to match your project's alias setup (e.g., @/components). </Step> 
+</Steps> 
+</TabsContent> 
+</CodeTabs>
+
+## Backend Setup
+
+The form expects an API endpoint at /api/send that accepts a POST request with JSON.
+
+Example: Next.js Route Handler for Nodemailer:
+
+### Install Nodemailer
+
+```bash
+npm install nodemailer
+```
+
+### Create environment variables in .env.local:
+
+```bash
+EMAIL_HOST=smtp.example.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password
+EMAIL_TO=recipient@example.com
+```
+
+### API route: /app/api/send/route.ts
+
+```ts
+import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
+
+export async function POST(request: Request) {
+  try {
+    const { name, email, subject, message } = await request.json();
+
+    if (!name || !email || !subject || !message) {
+      return NextResponse.json(
+        { error: "All fields are required" },
+        { status: 400 },
+      );
+    }
+
+    // Simple email validation
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { error: "Invalid email address" },
+        { status: 400 },
+      );
+    }
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: Number(process.env.EMAIL_PORT),
+      secure: Number(process.env.EMAIL_PORT) === 465,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"${name}" <${email}>`,
+      to: process.env.EMAIL_TO,
+      subject: `[FlowForm] ${subject}`,
+      text: message,
+      html: `<p>${message}</p><p>From: ${name} (${email})</p>`,
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: "Message sent successfully!",
+    });
+  } catch (error) {
+    console.error("FlowForm error:", error);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
+}
+```
+
+## Props
+
+<PropsTable
+  props={[
+    {
+      name: "className",
+      type: "string",
+      description: "Optional class name to append to the root form element",
+      required: false,
+      defaultValue: "",
+    },
+    {
+      name: "onSubmit",
+      type: "(data: Record<string,string>) => Promise<{ success: boolean; message?: string }>",
+      description: "Custom submit handler for backend integration",
+      required: false,
+      defaultValue: "default mock submit function",
+    },
+  ]}
+/>
+
+## Usage
+
+```tsx
+"use client";
+
+import FlowForm from "@/components/ui/flow-form";
+
+export default function Page() {
+  const handleSubmit = async (data: Record<string, string>) => {
+    const response = await fetch("/api/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return response.json();
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-neutral-100 p-4 dark:bg-neutral-900">
+      <FlowForm onSubmit={handleSubmit} className="w-full max-w-xl" />
+    </div>
+  );
+}
+```
