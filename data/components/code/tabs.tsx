@@ -265,7 +265,7 @@ export function TabsContent({
             scale: 0.98,
             transition: { duration: 0.2, ease: "easeInOut" },
           }}
-          className="w-full h-full p-1"
+          className="h-full w-full p-1"
         >
           <div
             className={cn(

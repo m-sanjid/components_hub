@@ -83,7 +83,7 @@ const TeamGallery = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
   };
 
   return (
-    <div className="mx-auto max-w-5xl min-h-[calc(100vh-12rem)] px-4 py-8">
+    <div className="mx-auto min-h-[calc(100vh-12rem)] max-w-5xl px-4 py-8">
       <h2 className="mb-12 text-center text-3xl font-bold">Our Team</h2>
 
       <AnimatePresence mode="popLayout">
@@ -104,7 +104,7 @@ const TeamGallery = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="bg-secondary mx-auto max-w-4xl overflow-hidden rounded-2xl border shadow-xl p-2"
+              className="bg-secondary mx-auto max-w-4xl overflow-hidden rounded-2xl border p-2 shadow-xl"
             >
               <div className="flex flex-col items-center md:flex-row">
                 <motion.div
@@ -118,18 +118,33 @@ const TeamGallery = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
                   />
                 </motion.div>
 
-                <div className="w-full mt-1 md:w-3/5 md:pl-6 p-2">
+                <div className="mt-1 w-full p-2 md:w-3/5 md:pl-6">
                   <motion.button
                     onClick={handleBack}
-                    initial={{ opacity: 0, x: -40 ,filter: "blur(4px)",scale: 0.9}}
-                    animate={{ opacity: 1, x: 0 ,filter: "blur(0px)",scale: 1}}
-                    exit={{ opacity: 0, x: -40 ,filter: "blur(4px)",scale: 0.9}}
+                    initial={{
+                      opacity: 0,
+                      x: -40,
+                      filter: "blur(4px)",
+                      scale: 0.9,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      filter: "blur(0px)",
+                      scale: 1,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      x: -40,
+                      filter: "blur(4px)",
+                      scale: 0.9,
+                    }}
                     transition={{
                       duration: 0.2,
                       ease: "easeInOut",
                       delay: 0.2,
                     }}
-                    className="text-muted-foreground text-xs hover:text-primary mb-4 flex items-center transition-colors"
+                    className="text-muted-foreground hover:text-primary mb-4 flex items-center text-xs transition-colors"
                   >
                     <IconArrowLeft size={16} className="mr-2" />
                     <span>Back to team</span>
@@ -152,18 +167,36 @@ const TeamGallery = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
                   </motion.div>
 
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.9,filter: "blur(4px)",y: 20 }}
-                    animate={{ opacity: 1, scale: 1,filter: "blur(0px)",y: 0 }}
-                    exit={{ opacity: 0, scale: 0.9,filter: "blur(4px)",y: 20 }}
+                    initial={{
+                      opacity: 0,
+                      scale: 0.9,
+                      filter: "blur(4px)",
+                      y: 20,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      filter: "blur(0px)",
+                      y: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.9,
+                      filter: "blur(4px)",
+                      y: 20,
+                    }}
                     transition={{ delay: 0.2 }}
                   >
                     <div className="text-muted-foreground mb-6 text-start text-sm">
                       {selectedMember.bio}
                     </div>
 
-                    <div className="border-t pt-6 flex justify-between items-center">
-                      <div className="font-medium text-sm text-muted-foreground">
-                        Connect with <span className="text-primary font-semibold tracking-tight text-base">{selectedMember.name.split(" ")[0]}</span>
+                    <div className="flex items-center justify-between border-t pt-6">
+                      <div className="text-muted-foreground text-sm font-medium">
+                        Connect with{" "}
+                        <span className="text-primary text-base font-semibold tracking-tight">
+                          {selectedMember.name.split(" ")[0]}
+                        </span>
                       </div>
                       <div
                         onMouseLeave={() => setIsHovered(null)}
@@ -191,9 +224,24 @@ const TeamGallery = ({ teamMembers }: { teamMembers: TeamMember[] }) => {
                                   className="bg-primary/20 absolute -right-4 bottom-10 rounded-[6px] px-2 py-px text-xs backdrop-blur-sm"
                                 >
                                   <motion.div
-                                    initial={{ opacity: 0, x: -20,filter: "blur(4px)",scale: 0.9 }}
-                                    animate={{ opacity: 1, x: 0,filter: "blur(0px)",scale: 1 }}
-                                    exit={{ opacity: 0, x: -20,filter: "blur(4px)",scale: 0.9 }}
+                                    initial={{
+                                      opacity: 0,
+                                      x: -20,
+                                      filter: "blur(4px)",
+                                      scale: 0.9,
+                                    }}
+                                    animate={{
+                                      opacity: 1,
+                                      x: 0,
+                                      filter: "blur(0px)",
+                                      scale: 1,
+                                    }}
+                                    exit={{
+                                      opacity: 0,
+                                      x: -20,
+                                      filter: "blur(4px)",
+                                      scale: 0.9,
+                                    }}
                                     transition={{ duration: 0.1 }}
                                   >
                                     {platform}

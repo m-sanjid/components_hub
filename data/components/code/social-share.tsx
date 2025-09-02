@@ -91,7 +91,7 @@ export default function SocialLinks({
               }}
               whileTap={{ scale: 0.95 }}
               onMouseEnter={() => setHoverIndex(index)}
-              className="rounded-lg bg-neutral-200 dark:bg-neutral-800 p-3 backdrop-blur-sm transition-all hover:shadow-lg"
+              className="rounded-lg bg-neutral-200 p-3 backdrop-blur-sm transition-all hover:shadow-lg dark:bg-neutral-800"
             >
               {item.icon(size)}
             </motion.div>
@@ -107,7 +107,7 @@ export default function SocialLinks({
                   initial={{ y: -10, filter: "blur(2px)" }}
                   animate={{ y: 0, filter: "blur(0px)" }}
                   exit={{ y: -10, filter: "blur(2px)" }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.05 }}
                 >
                   {item.name}
                 </motion.span>
