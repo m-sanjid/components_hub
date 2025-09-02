@@ -115,6 +115,173 @@
           "type": "registry:component"
         }
       ]
+    },{
+      "name": "auth-form",
+      "type": "registry:component",
+      "title": "Auth Form",
+      "description": "A simple auth form component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "sonner": "^2.0.6",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/auth-form/auth-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "contact-form",
+      "type": "registry:component",
+      "title": "Contact Form",
+      "description": "A simple contact form component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "sonner": "^2.0.6",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/contact-form/contact-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "context-menu",
+      "type": "registry:component",
+      "title": "Context Menu",
+      "description": "A simple context menu component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/context-menu/context-menu.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "floating-cart",
+      "type": "registry:component",
+      "title": "Floating Cart",
+      "description": "A simple floating cart component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/floating-cart/floating-cart.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "flow-form",
+      "type": "registry:component",
+      "title": "Flow Form",
+      "description": "A simple flow form component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "zod": "^3.22.4",
+        "react-hook-form": "^7.49.2",
+        "@hookform/resolvers": "^3.10.0",
+        "clsx": "^2.1.1",
+        "sonner": "^2.0.6",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/flow-form/flow-form.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "star-button",
+      "type": "registry:component",
+      "title": "Github Star Button",
+      "description": "A simple github star button component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/star-button/star-button.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "icon-hover",
+      "type": "registry:component",
+      "title": "Icon Hover",
+      "description": "A simple icon hover component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/icon-hover/icon-hover.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "navbar",
+      "type": "registry:component",
+      "title": "Navbar",
+      "description": "A simple navbar component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1",
+        "next-themes": "^0.2.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/navbar/navbar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "testimonial-carousel",
+      "type": "registry:component",
+      "title": "Testimonial Carousel",
+      "description": "A simple testimonial carousel component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/testimonial-carousel/testimonial-carousel.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },{
+      "name": "theme-toggle",
+      "type": "registry:component",
+      "title": "Theme Toggle",
+      "description": "A simple theme toggle component",
+      "packageDependencies": {
+        "motion": "^12.23.11",
+        "clsx": "^2.1.1",
+        "tabler-icons-react": "^3.34.1"
+      },
+      "files": [
+        {
+          "path": "registry/default/components/theme-toggle/theme-toggle.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

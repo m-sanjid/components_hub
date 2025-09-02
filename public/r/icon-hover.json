@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-hover",
+  "type": "registry:component",
+  "title": "Icon Hover",
+  "description": "A simple icon hover component",
+  "files": [
+    {
+      "path": "registry/default/components/icon-hover/icon-hover.tsx",
+      "content": "import React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { TablerIcon } from \"@tabler/icons-react\";\n\ninterface IconHoverProps {\n  icon: TablerIcon;\n  className?: string;\n  size?: number;\n  iconClassName?: string;\n}\n\nconst IconHover: React.FC<IconHoverProps> = ({\n  icon: Icon,\n  className,\n  size = 5,\n  iconClassName,\n}) => {\n  return (\n    <div\n      className={cn(\n        \"bg-primary/10 rotate perspective-1000 relative flex items-center justify-center rounded-[8px] border p-2 shadow-md transition-transform duration-300 transform-3d group-hover/icon:scale-105 group-hover/icon:rotate-x-6 group-hover/icon:rotate-y-6\",\n        `size-${size + 2}`,\n        className,\n      )}\n    >\n      <div className=\"absolute inset-0.5 z-20 scale-50 rounded-[6px] border opacity-0 duration-300 ease-in-out group-hover/icon:scale-100 group-hover/icon:opacity-100\" />\n\n      <Icon\n        stroke=\"1\"\n        className={cn(\n          `size-${size} transition-transform duration-300 ease-out`,\n          \"rotate-x-45 -rotate-z-45 group-hover/icon:scale-110 group-hover/icon:rotate-x-0 group-hover/icon:rotate-y-0 group-hover/icon:rotate-z-0\",\n          iconClassName,\n        )}\n      />\n    </div>\n  );\n};\n\nexport default IconHover;\n",
+      "type": "registry:component"
+    }
+  ]
+}

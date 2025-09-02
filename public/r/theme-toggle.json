@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-toggle",
+  "type": "registry:component",
+  "title": "Theme Toggle",
+  "description": "A simple theme toggle component",
+  "files": [
+    {
+      "path": "registry/default/components/theme-toggle/theme-toggle.tsx",
+      "content": "\"use client\";\n\nimport { useTheme } from \"next-themes\";\nimport { motion, AnimatePresence } from \"motion/react\";\nimport { IconMoonFilled, IconSunFilled } from \"@tabler/icons-react\";\nimport { cn } from \"@/lib/utils\";\n\nconst ThemeToggle = ({ className }: { className?: string }) => {\n  const { theme, setTheme } = useTheme();\n  const isDark = theme === \"dark\";\n\n  return (\n    <button\n      onClick={() => setTheme(isDark ? \"light\" : \"dark\")}\n      aria-label=\"Toggle theme\"\n      className={cn(\n        \"hover:bg-muted relative flex size-9 items-center justify-center rounded-md border border-neutral-300 bg-black/5 transition-colors dark:border-neutral-800 dark:bg-white/5\",\n        className,\n      )}\n    >\n      <AnimatePresence mode=\"wait\" initial={false}>\n        {isDark ? (\n          <motion.div\n            key=\"moon\"\n            initial={{ scale: 0, rotate: -45, opacity: 0 }}\n            animate={{ scale: 1, rotate: 0, opacity: 1 }}\n            exit={{ scale: 0, rotate: 45, opacity: 0 }}\n            transition={{ duration: 0.2, ease: \"easeInOut\" }}\n            className=\"absolute inset-0 m-auto flex items-center justify-center\"\n          >\n            <IconMoonFilled className=\"size-4\" />\n          </motion.div>\n        ) : (\n          <motion.div\n            key=\"sun\"\n            initial={{ scale: 0, rotate: 45, opacity: 0 }}\n            animate={{ scale: 1, rotate: 0, opacity: 1 }}\n            exit={{ scale: 0, rotate: -45, opacity: 0 }}\n            transition={{ duration: 0.2, ease: \"easeInOut\" }}\n            className=\"absolute inset-0 m-auto flex items-center justify-center\"\n          >\n            <IconSunFilled className=\"size-4\" />\n          </motion.div>\n        )}\n      </AnimatePresence>\n    </button>\n  );\n};\n\nexport default ThemeToggle;\n",
+      "type": "registry:component"
+    }
+  ]
+}
