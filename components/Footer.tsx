@@ -58,11 +58,15 @@ const Footer: React.FC = () => {
                     href={siteConfig.links.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 group/icon"
+                    className="group/icon p-2"
                     aria-label="GitHub"
                     title="GitHub"
                   >
-                    <IconHover icon={IconBrandGithub} size={24} iconClassName="stroke-1.5" />
+                    <IconHover
+                      icon={IconBrandGithub}
+                      size={24}
+                      iconClassName="stroke-1.5"
+                    />
                   </Link>
                 </li>
                 <li>
@@ -70,11 +74,15 @@ const Footer: React.FC = () => {
                     href={siteConfig.links.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 group/icon"
+                    className="group/icon p-2"
                     aria-label="Follow us on X for the latest updates"
                     title="Follow on X for updates"
                   >
-                    <IconHover icon={IconBrandX} size={24} iconClassName="stroke-1.5" />
+                    <IconHover
+                      icon={IconBrandX}
+                      size={24}
+                      iconClassName="stroke-1.5"
+                    />
                   </Link>
                 </li>
                 <li>
@@ -82,11 +90,15 @@ const Footer: React.FC = () => {
                     href="https://linkedin.com/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 group/icon"
+                    className="group/icon p-2"
                     aria-label="LinkedIn"
                     title="LinkedIn"
                   >
-                    <IconHover icon={IconBrandLinkedin} size={24} iconClassName="stroke-1.5" />
+                    <IconHover
+                      icon={IconBrandLinkedin}
+                      size={24}
+                      iconClassName="stroke-1.5"
+                    />
                   </Link>
                 </li>
               </ul>

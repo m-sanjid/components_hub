@@ -83,7 +83,7 @@ export default function Navbar() {
     <motion.nav
       className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
         isScrolled
-          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 mx-auto max-w-6xl border-b border-[#FF6100]/20 shadow-lg backdrop-blur md:top-3 md:max-w-[98%] md:rounded-2xl md:border"
+          ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 mx-auto max-w-6xl border-b border-[#FF6100]/20 shadow-lg backdrop-blur md:top-3 md:rounded-2xl md:border"
           : "bg-background/95 top-0 mx-auto w-full max-w-[100rem] backdrop-blur"
       }`}
       onMouseLeave={handleMouseLeave}
@@ -117,7 +117,7 @@ export default function Navbar() {
               <Link href={item.href} key={idx} passHref>
                 <button
                   className={cn(
-                    "relative z-10 flex items-center group/icon gap-2 px-4 py-2 text-sm transition-all duration-200 ease-in-out",
+                    "group/icon relative z-10 flex items-center gap-2 px-4 py-2 text-sm transition-all duration-200 ease-in-out",
                     pathname === item.href ||
                       pathname.startsWith(item.href + "/")
                       ? "font-semibold"
@@ -126,10 +126,13 @@ export default function Navbar() {
                   )}
                   onMouseEnter={handleHover}
                 >
-                  <IconHover icon={item.icon}
+                  <IconHover
+                    icon={item.icon}
                     className={cn(
                       "bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-sm",
-                      isHovered === item.title ? "border-white/5 text-white" : "",
+                      isHovered === item.title
+                        ? "border-white/5 text-white"
+                        : "",
                     )}
                   />
                   {item.title}

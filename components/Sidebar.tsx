@@ -86,7 +86,7 @@ const Sidebar = () => {
       >
         <Link
           href={href}
-          className={`relative flex group/icon items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
+          className={`group/icon relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
             isActive
               ? "text-primary font-semibold"
               : "text-muted-foreground hover:text-primary"

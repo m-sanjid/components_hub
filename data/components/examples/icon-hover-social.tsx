@@ -1,9 +1,13 @@
-import { IconBrandGithub, IconBrandX, IconBrandLinkedin } from "@tabler/icons-react";
+import {
+  IconBrandGithub,
+  IconBrandX,
+  IconBrandLinkedin,
+} from "@tabler/icons-react";
 import IconHover from "../code/icon-hover";
 
 export default function Example5() {
   return (
-    <div className="flex gap-6 p-8 justify-center">
+    <div className="flex justify-center gap-6 p-8">
       <a href="https://github.com" target="_blank" className="group/icon">
         <IconHover icon={IconBrandGithub} />
       </a>

@@ -4,10 +4,10 @@ type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Shadcn = () => {
   return (
-    <div className="flex items-center gap-2">
+    <span className="flex items-center gap-2">
       <ShadcnIcon className="bg-primary/10 size-6 rounded-md border border-white/10 p-1 backdrop-blur-md" />
       <span>CLI</span>
-    </div>
+    </span>
   );
 };
 
@@ -35,7 +35,8 @@ export const ShadcnIcon = (props: IconProps) => {
 };
 
 export const MotionLogo = (props: IconProps) => {
-  return <svg
+  return (
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -73,4 +74,5 @@ export const MotionLogo = (props: IconProps) => {
         d=" M991.968201,498.905609   C973.607666,527.977234 947.627075,541.954163 913.502441,540.060425   C876.515991,538.007935 843.895569,508.459900 837.960388,471.880951   C830.899231,428.362213 855.606934,389.299133 898.100769,376.798431   C938.661316,364.866516 984.633850,388.847168 998.210632,428.892487   C1006.403198,453.057251 1004.715576,476.266693 991.968201,498.905609  z"
       />
     </svg>
-}
+  );
+};
