@@ -102,7 +102,7 @@ export const templates: Template[] = [
   },
   {
     id: 2,
-    title: "Premium Portfolio Template",
+    title: "Pfolio - A Portfolio Template",
     description:
       "A modern and minimalist portfolio template built for professionals. Features subtle Framer Motion animations, an MDX-powered blog, and beautifully crafted project showcases.",
     image:
