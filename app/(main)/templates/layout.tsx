@@ -1,12 +1,40 @@
 import ContactCTA from "@/components/docs/ContactCTA";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
+import { generateDefaultOGImage } from "@/lib/og-image";
 
 export const metadata: Metadata = {
-  title: "Templates",
+  title: "UI Library Templates | Velnor UI",
   description:
-    "Browse high-quality, responsive, accessible templates with live previews and instant copy.",
-  alternates: { canonical: "/templates" },
+    "Browse high-quality templates with live previews & instant copy",
+  openGraph: {
+    title: "UI Library Templates | Velnor UI",
+    description:
+      "Browse high-quality templates with live previews & instant copy",
+    images: [
+      {
+        url: generateDefaultOGImage(
+          "UI Library Templates | Velnor UI",
+          "Browse high-quality templates with live previews & instant copy",
+        ),
+        width: 1200,
+        height: 630,
+        alt: "UI Library Templates",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UI Library Templates",
+    description:
+      "Browse high-quality templates with live previews & instant copy",
+    images: [
+      generateDefaultOGImage(
+        "UI Library Templates",
+        "Browse high-quality templates with live previews & instant copy",
+      ),
+    ],
+  },
 };
 
 export default function TemplatesLayout({

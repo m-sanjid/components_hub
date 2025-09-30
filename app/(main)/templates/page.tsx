@@ -9,42 +9,6 @@ import { templates } from "@/lib/constants";
 import { Link } from "next-view-transitions";
 import { IconArrowRight, IconExternalLink } from "@tabler/icons-react";
 import { Input } from "@/components/ui/input";
-import { generateDefaultOGImage } from "@/lib/og-image";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "UI Library Templates",
-  description:
-    "Browse high-quality templates with live previews & instant copy",
-  openGraph: {
-    title: "UI Library Templates",
-    description:
-      "Browse high-quality templates with live previews & instant copy",
-    images: [
-      {
-        url: generateDefaultOGImage(
-          "UI Library Templates",
-          "Browse high-quality templates with live previews & instant copy",
-        ),
-        width: 1200,
-        height: 630,
-        alt: "UI Library Templates",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "UI Library Templates",
-    description:
-      "Browse high-quality templates with live previews & instant copy",
-    images: [
-      generateDefaultOGImage(
-        "UI Library Templates",
-        "Browse high-quality templates with live previews & instant copy",
-      ),
-    ],
-  },
-};
 
 export default function TemplatesPage() {
   const [search, setSearch] = useState("");
