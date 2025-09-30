@@ -10,7 +10,7 @@ export default function LandingPage() {
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Components Hub",
+          name: "Velnor UI",
           url: "https://ui.sanjid.shop",
           potentialAction: {
             "@type": "SearchAction",
@@ -21,7 +21,7 @@ export default function LandingPage() {
       </Script>
       <section aria-labelledby="hero-heading">
         <h1 id="hero-heading" className="sr-only">
-          Components Hub
+          Velnor UI
         </h1>
         <Hero />
       </section>

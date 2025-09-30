@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Components Docs",
   },
   description:
-    "Documentation for installation, CLI usage, and credits for the Components Hub.",
+    "Documentation for installation, CLI usage, and credits for the Velnor UI.",
 };
 
 const DocsLayout = ({ children }: { children: React.ReactNode }) => {

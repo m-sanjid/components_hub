@@ -95,7 +95,7 @@ export async function GET(request: NextRequest) {
                   color: textColor,
                 }}
               >
-                Components Hub
+                Velnor UI
               </div>
             </div>
 

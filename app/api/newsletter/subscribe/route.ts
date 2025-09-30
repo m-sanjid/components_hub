@@ -30,19 +30,19 @@ export async function POST(request: NextRequest) {
     try {
       welcomeResult = await sendEmail({
         to: email,
-        subject: "Welcome to Components Hub Newsletter!",
+        subject: "Welcome to Velnor UI Newsletter!",
         html: `
         <!DOCTYPE html>
         <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Welcome to Components Hub</title>
+          <title>Welcome to Velnor UI</title>
         </head>
         <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #1f2937; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
           
           <div style="padding: 24px; border-radius: 12px; border: 1px solid #e5e7eb; background-color: #f9fafb;">
-            <h1 style="margin-top: 0; color: #111827;">Welcome to Components Hub!</h1>
+            <h1 style="margin-top: 0; color: #111827;">Welcome to Velnor UI!</h1>
             <p style="margin-bottom: 16px;">Thank you for subscribing to our newsletter. 🎉</p>
 
             <h3 style="margin-bottom: 8px; color: #374151;">What to expect:</h3>
@@ -59,14 +59,14 @@ export async function POST(request: NextRequest) {
           </div>
 
           <p style="margin-top: 24px; font-size: 12px; color: #9ca3af; text-align: center;">
-            This email was sent automatically by Components Hub
+            This email was sent automatically by Velnor UI
           </p>
 
         </body>
         </html>
         `,
         text: `
-        Welcome to Components Hub! 🎉
+        Welcome to Velnor UI! 🎉
 
         Thanks for subscribing to our newsletter.
 
@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
     // ---------------- Admin Notification Email ----------------
     sendEmail({
       to: process.env.ADMIN_EMAIL!,
-      subject: "New Newsletter Subscription - Components Hub",
+      subject: "New Newsletter Subscription - Velnor UI",
       html: `
       <!DOCTYPE html>
       <html>
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
         </div>
 
         <p style="margin-top: 24px; font-size: 12px; color: #9ca3af; text-align: center;">
-          This notification was sent automatically by Components Hub
+          This notification was sent automatically by Velnor UI
         </p>
 
       </body>

@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Components Hub",
+  name: "Velnor UI",
   url: "https://ui.sanjid.shop",
   ogImage: "https://ui.sanjid.shop/api/og",
   description:

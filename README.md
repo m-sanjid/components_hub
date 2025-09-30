@@ -1,6 +1,6 @@
-## Components Hub
+## Velnor UI
 
-Components Hub is a Next.js 15 + React 19 component library and showcase. It provides:
+Velnor UI is a Next.js 15 + React 19 component library and showcase. It provides:
 
 - Reusable UI components built with Tailwind CSS and Radix
 - Live demos, props tables, and copyable code snippets

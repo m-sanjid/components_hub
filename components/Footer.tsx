@@ -155,7 +155,7 @@ const Footer: React.FC = () => {
       <div className="border-border mt-12 border-t">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between px-4 py-6 md:flex-row">
           <p className="text-muted-foreground text-sm">
-            &copy; {year} Components Hub. All rights reserved.
+            &copy; {year} Velnor UI. All rights reserved.
           </p>
           <div className="mt-4 flex flex-wrap gap-1 md:mt-0">
             <Link

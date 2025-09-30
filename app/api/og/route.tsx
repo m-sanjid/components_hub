@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
 
     // Get parameters from URL
-    const title = searchParams.get("title") || "Components Hub";
+    const title = searchParams.get("title") || "Velnor UI";
     const description =
       searchParams.get("description") ||
       "A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code.";
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
                   color: textColor,
                 }}
               >
-                Components Hub
+                Velnor UI
               </div>
             </div>
 

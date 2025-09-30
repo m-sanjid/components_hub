@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
                 color: textColor,
               }}
             >
-              Components Hub
+              Velnor UI
             </div>
           </div>
 
@@ -165,7 +165,7 @@ export async function GET(request: NextRequest) {
                   color: "white",
                 }}
               >
-                C
+                V
               </div>
               <div>
                 <div
@@ -175,7 +175,7 @@ export async function GET(request: NextRequest) {
                     color: textColor,
                   }}
                 >
-                  Components Hub
+                  Velnor UI
                 </div>
                 <div
                   style={{

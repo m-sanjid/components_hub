@@ -1,12 +1,12 @@
 export const getWelcomeEmailTemplate = (email: string) => ({
-  subject: "Welcome to Components Hub Newsletter!",
+  subject: "Welcome to Velnor UI Newsletter!",
   html: `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to Components Hub</title>
+        <title>Welcome to Velnor UI</title>
       </head>
       <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
         <!-- Your beautiful email template here -->
@@ -14,7 +14,7 @@ export const getWelcomeEmailTemplate = (email: string) => ({
       </html>
     `,
   text: `
-      Welcome to Components Hub! 🎉
+      Welcome to Velnor UI! 🎉
       
       Thanks for subscribing to our newsletter.
       
@@ -29,7 +29,7 @@ export const getWelcomeEmailTemplate = (email: string) => ({
 });
 
 export const getUnsubscribeConfirmationTemplate = (email: string) => ({
-  subject: "You've been unsubscribed - Components Hub",
+  subject: "You've been unsubscribed - Velnor UI",
   html: `
       <!DOCTYPE html>
       <html>
@@ -48,7 +48,7 @@ export const getAdminNotificationTemplate = (
   userAgent?: string | null,
 ) => {
   return {
-    subject: "📧 New Newsletter Subscription - Components Hub",
+    subject: "📧 New Newsletter Subscription - Velnor UI",
     html: `
       <!DOCTYPE html>
       <html>
@@ -102,7 +102,7 @@ export const getAdminNotificationTemplate = (
 
         <div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb;">
           <p style="color: #6b7280; font-size: 12px; margin: 0;">
-            This notification was sent automatically by Components Hub
+            This notification was sent automatically by Velnor UI
           </p>
         </div>
       </body>
