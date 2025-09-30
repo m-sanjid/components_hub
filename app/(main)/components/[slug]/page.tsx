@@ -7,9 +7,9 @@ import { componentsRegistry } from "@/lib/component-registry";
 import PostNavigation from "@/components/PostNavigation";
 import { OnThisPage } from "@/components/docs/OnThisPage";
 import { absoluteUrl } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
 import React from "react";
 import { redirect } from "next/navigation";
+import { generateDefaultOGImage } from "@/lib/og-image";
 
 const getCachedRegistryItem = React.cache(async (slug: string) => {
   return await getComponentBySlug(slug);
@@ -32,6 +32,11 @@ export async function generateMetadata({
 
   const title = item.meta.title;
   const description = item.meta.description;
+  const ogImageUrl = generateDefaultOGImage(
+    `${title} - React Component`,
+    description,
+    "light",
+  );
 
   return {
     title: item.meta.title,
@@ -43,10 +48,10 @@ export async function generateMetadata({
       url: absoluteUrl(`/components/${item.meta.slug}`),
       images: [
         {
-          url: siteConfig.ogImage,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: siteConfig.name,
+          alt: title,
         },
       ],
     },
@@ -54,7 +59,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [siteConfig.ogImage],
+      images: [ogImageUrl],
       creator: "@dev_sanjid",
     },
   };

@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "sonner";
 import { ProgressiveBlur } from "@/components/motion-primitives/progressive-blur";
 import { siteConfig } from "@/config/site";
+import { generateDefaultOGImage } from "@/lib/og-image";
 import { ThemeProvider } from "next-themes";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +23,13 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: siteConfig.url,
     siteName: siteConfig.name,
-    images: [{ url: siteConfig.ogImage, width: 1200, height: 630 }],
+    images: [
+      {
+        url: generateDefaultOGImage(siteConfig.name, siteConfig.description),
+        width: 1200,
+        height: 630,
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
@@ -30,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [siteConfig.ogImage],
+    images: [generateDefaultOGImage(siteConfig.name, siteConfig.description)],
   },
   robots: {
     index: true,

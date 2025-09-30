@@ -8,7 +8,7 @@ import { OnThisPage } from "@/components/docs/OnThisPage";
 import TechStack from "@/components/TechStack";
 import { GalleryRoot, GalleryGrid } from "@/components/docs/Gallery";
 import { absoluteUrl } from "@/lib/utils";
-import { siteConfig } from "@/config/site";
+import { generateDefaultOGImage } from "@/lib/og-image";
 import BuyNowButton from "@/components/docs/BuyNowButton";
 
 export async function generateStaticParams() {
@@ -31,6 +31,11 @@ export async function generateMetadata({
   }
   const title = template.title;
   const description = template.description;
+  const ogImageUrl = generateDefaultOGImage(
+    `${title} - Starter Template`,
+    description,
+    "light",
+  );
 
   return {
     title,
@@ -42,10 +47,10 @@ export async function generateMetadata({
       url: absoluteUrl(`/templates/${template.id}`),
       images: [
         {
-          url: siteConfig.ogImage,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: siteConfig.name,
+          alt: title,
         },
       ],
     },
@@ -53,7 +58,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [siteConfig.ogImage],
+      images: [ogImageUrl],
       creator: "@dev_sanjid",
     },
   };

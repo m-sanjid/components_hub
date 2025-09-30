@@ -5,6 +5,42 @@ import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
+import { generateDefaultOGImage } from "@/lib/og-image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "UI Components",
+  description:
+    "A curated collection of beautifully crafted, reusable components for your next project",
+  openGraph: {
+    title: "UI Components",
+    description:
+      "A curated collection of beautifully crafted, reusable components for your next project",
+    images: [
+      {
+        url: generateDefaultOGImage(
+          "UI Components",
+          "A curated collection of beautifully crafted, reusable components for your next project",
+        ),
+        width: 1200,
+        height: 630,
+        alt: "UI Components",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UI Components",
+    description:
+      "A curated collection of beautifully crafted, reusable components for your next project",
+    images: [
+      generateDefaultOGImage(
+        "UI Components",
+        "A curated collection of beautifully crafted, reusable components for your next project",
+      ),
+    ],
+  },
+};
 
 export default async function ComponentsPage({
   searchParams,

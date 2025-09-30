@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "Components Hub",
   url: "https://ui.sanjid.shop",
-  ogImage: "https://ui.sanjid.shop/og.jpg",
+  ogImage: "https://ui.sanjid.shop/api/og",
   description:
     "A set of beautifully-designed, accessible components and a code distribution platform. Works with your favorite frameworks. Open Source. Open Code.",
   links: {
