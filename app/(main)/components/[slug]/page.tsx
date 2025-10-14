@@ -33,13 +33,7 @@ export async function generateMetadata({
 
   const title = item.meta.title;
   const description = item.meta.description;
-  const ogImageUrl = generateComponentOGImage(
-    `${title} - React Component`,
-    description,
-    item.meta.category,
-    "light",
-  );
-  const ogImageUrlVersioned = `${ogImageUrl}${ogImageUrl.includes("?") ? "&" : "?"}v=${encodeURIComponent(item.meta.slug)}`;
+  // Use the default OG generator URL for maximum compatibility with Twitter/X
   const twitterImageUrl = generateOGImageUrl({
     title: `${title} - React Component`,
     description,
@@ -58,7 +52,7 @@ export async function generateMetadata({
       url: absoluteUrl(`/components/${item.meta.slug}`),
       images: [
         {
-          url: ogImageUrlVersioned,
+          url: twitterImageUrl,
           width: 1200,
           height: 630,
           alt: title,
