@@ -9,7 +9,7 @@ import { OnThisPage } from "@/components/docs/OnThisPage";
 import { absoluteUrl } from "@/lib/utils";
 import React from "react";
 import { redirect } from "next/navigation";
-import { generateComponentOGImage } from "@/lib/og-image";
+import { generateComponentOGImage, generateOGImageUrl } from "@/lib/og-image";
 import { siteConfig } from "@/config/site";
 
 const getCachedRegistryItem = React.cache(async (slug: string) => {
@@ -40,6 +40,12 @@ export async function generateMetadata({
     "light",
   );
   const ogImageUrlVersioned = `${ogImageUrl}${ogImageUrl.includes("?") ? "&" : "?"}v=${encodeURIComponent(item.meta.slug)}`;
+  const twitterImageUrl = generateOGImageUrl({
+    title: `${title} - React Component`,
+    description,
+    type: "default",
+    theme: "light",
+  });
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -63,7 +69,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrlVersioned],
+      images: [twitterImageUrl],
       creator: "@dev_sanjid",
     },
   };

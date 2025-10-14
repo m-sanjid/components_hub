@@ -136,6 +136,8 @@ export async function GET(request: NextRequest) {
           {/* Component Preview Card */}
           <div
             style={{
+              display: "flex",
+              flexDirection: "column",
               backgroundColor: cardBg,
               border: `1px solid ${borderColor}`,
               borderRadius: "12px",
@@ -167,7 +169,12 @@ export async function GET(request: NextRequest) {
               >
                 V
               </div>
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 <div
                   style={{
                     fontSize: "16px",
