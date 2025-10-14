@@ -27,8 +27,7 @@ export function generateOGImageUrl(options: OGImageOptions = {}): string {
   if (theme) searchParams.set("theme", theme);
 
   const queryString = searchParams.toString();
-  // Prefer .png explicit path to improve scraper compatibility (e.g., X/Twitter)
-  const path = type === "default" ? "/api/og.png" : `/api/og/${type}.png`;
+  const path = type === "default" ? "/api/og" : `/api/og/${type}`;
   return `${baseUrl}${path}${queryString ? `?${queryString}` : ""}`;
 }
 
