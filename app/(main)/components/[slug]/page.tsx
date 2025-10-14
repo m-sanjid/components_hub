@@ -9,7 +9,7 @@ import { OnThisPage } from "@/components/docs/OnThisPage";
 import { absoluteUrl } from "@/lib/utils";
 import React from "react";
 import { redirect } from "next/navigation";
-import { generateDefaultOGImage } from "@/lib/og-image";
+import { generateComponentOGImage } from "@/lib/og-image";
 
 const getCachedRegistryItem = React.cache(async (slug: string) => {
   return await getComponentBySlug(slug);
@@ -32,9 +32,10 @@ export async function generateMetadata({
 
   const title = item.meta.title;
   const description = item.meta.description;
-  const ogImageUrl = generateDefaultOGImage(
+  const ogImageUrl = generateComponentOGImage(
     `${title} - React Component`,
     description,
+    item.meta.category,
     "light",
   );
 
