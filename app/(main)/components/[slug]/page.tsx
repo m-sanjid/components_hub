@@ -10,6 +10,7 @@ import { absoluteUrl } from "@/lib/utils";
 import React from "react";
 import { redirect } from "next/navigation";
 import { generateComponentOGImage } from "@/lib/og-image";
+import { siteConfig } from "@/config/site";
 
 const getCachedRegistryItem = React.cache(async (slug: string) => {
   return await getComponentBySlug(slug);
@@ -40,6 +41,7 @@ export async function generateMetadata({
   );
 
   return {
+    metadataBase: new URL(siteConfig.url),
     title: item.meta.title,
     description,
     openGraph: {
