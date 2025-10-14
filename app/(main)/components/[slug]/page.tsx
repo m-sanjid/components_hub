@@ -39,6 +39,7 @@ export async function generateMetadata({
     item.meta.category,
     "light",
   );
+  const ogImageUrlVersioned = `${ogImageUrl}${ogImageUrl.includes("?") ? "&" : "?"}v=${encodeURIComponent(item.meta.slug)}`;
 
   return {
     metadataBase: new URL(siteConfig.url),
@@ -51,7 +52,7 @@ export async function generateMetadata({
       url: absoluteUrl(`/components/${item.meta.slug}`),
       images: [
         {
-          url: ogImageUrl,
+          url: ogImageUrlVersioned,
           width: 1200,
           height: 630,
           alt: title,
@@ -62,7 +63,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: [ogImageUrl],
+      images: [ogImageUrlVersioned],
       creator: "@dev_sanjid",
     },
   };
