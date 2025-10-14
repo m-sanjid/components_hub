@@ -6,5 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function absoluteUrl(path: string) {
-  return `${process.env.NEXT_PUBLIC_APP_URL}${path}`;
+  // Ensure absolute URLs for crawlers; fallback to configured site URL
+  const base = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://ui.sanjid.shop";
+  return `${base}${path}`;
 }
