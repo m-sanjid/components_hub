@@ -9,7 +9,7 @@ import { OnThisPage } from "@/components/docs/OnThisPage";
 import { absoluteUrl } from "@/lib/utils";
 import React from "react";
 import { redirect } from "next/navigation";
-import { generateComponentOGImage, generateOGImageUrl } from "@/lib/og-image";
+import { generateOGImageUrl } from "@/lib/og-image";
 import { siteConfig } from "@/config/site";
 
 const getCachedRegistryItem = React.cache(async (slug: string) => {
