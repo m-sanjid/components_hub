@@ -241,6 +241,10 @@ export async function GET(request: NextRequest) {
       {
         width: 1200,
         height: 630,
+        headers: {
+          "content-type": "image/png",
+          "cache-control": "public, max-age=0, s-maxage=31536000, immutable",
+        },
       },
     );
   } catch (e: Error | unknown) {
