@@ -11,7 +11,7 @@ const BuyNowButton = ({ template }: { template: Template }) => {
         target="_blank"
         href={template.downloadUrl || template.codeUrl || ""}
       >
-        Buy Now {template.price ? template.price.toFixed(2) : "Free"}
+        Buy Now {template.price ? `$${template.price.toFixed(2)}` : "Free"}
       </Link>
     </button>
   );

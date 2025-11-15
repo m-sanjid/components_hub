@@ -52,6 +52,7 @@ export type Components = {
 export interface Template {
   id: number;
   title: string;
+  isLive?: boolean;
   description: string;
   downloadUrl?: string;
   image: string;

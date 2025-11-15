@@ -86,11 +86,10 @@ const Sidebar = () => {
       >
         <Link
           href={href}
-          className={`group/icon relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${
-            isActive
+          className={`group/icon relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${isActive
               ? "text-primary font-semibold"
               : "text-muted-foreground hover:text-primary"
-          }`}
+            }`}
           onClick={() => setMobileOpen(false)}
         >
           {/* Active Indicator */}

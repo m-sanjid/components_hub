@@ -181,40 +181,41 @@ export const templates: Template[] = [
       "MDX",
     ],
   },
-  {
-    id: 3,
-    title: "SaaS Landing Page",
-    description:
-      "A conversion-focused landing page for SaaS products with pricing tables and feature highlights.",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    category: "Landing Pages",
-    tags: ["Marketing", "Conversion", "Features"],
-    featured: true,
-    previewUrl: "https://example.com/preview/saas-landing",
-    codeUrl: "https://github.com/your-org/saas-landing",
-    downloadUrl: "https://example.com/download/saas-landing.zip",
-    price: 49.99,
-    features: [
-      {
-        title: "Responsive Design",
-        description: ["Responsive design for all devices.", "fjafkjfdk"],
-      },
-    ],
-    screenshots: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-    ],
-    techStack: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "motion",
-      "next-view-transitions",
-    ],
-  },
+  // {
+  //   id: 3,
+  //   title: "SaaS Landing Page",
+  //   isLive: false,
+  //   description:
+  //     "A conversion-focused landing page for SaaS products with pricing tables and feature highlights.",
+  //   image:
+  //     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+  //   category: "Landing Pages",
+  //   tags: ["Marketing", "Conversion", "Features"],
+  //   featured: true,
+  //   previewUrl: "https://example.com/preview/saas-landing",
+  //   codeUrl: "https://github.com/your-org/saas-landing",
+  //   downloadUrl: "https://example.com/download/saas-landing.zip",
+  //   price: 49.99,
+  //   features: [
+  //     {
+  //       title: "Responsive Design",
+  //       description: ["Responsive design for all devices.", "fjafkjfdk"],
+  //     },
+  //   ],
+  //   screenshots: [
+  //     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+  //     "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+  //     "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+  //   ],
+  //   techStack: [
+  //     "Next.js",
+  //     "React",
+  //     "TypeScript",
+  //     "Tailwind CSS",
+  //     "motion",
+  //     "next-view-transitions",
+  //   ],
+  // },
   {
     id: 4,
     title: "Bento Grid Portfolio",
@@ -265,7 +266,30 @@ export const templates: Template[] = [
       "Tailwind CSS",
       "Framer Motion",
     ],
-  },
+  }, {
+    id: 5,
+    title: "FitForge | Gym Website Template",
+    description: "A modern and minimalist gym website template designed for gyms, fitness studios, and fitness centers to showcase their services and products in a modern grid layout.",
+    image: "/templates/gym/g.png",
+    category: "Gym Website Templates",
+    tags: ["Gym", "Fitness", "Website", "Template", "Minimalist", "Modern"],
+    featured: true,
+    previewUrl: "https://gym-website-indol-kappa.vercel.app/",
+    downloadUrl: "https://sanjid4.gumroad.com/l/glndf",
+    price: 30,
+    features: [
+      {
+        title: "Fully Responsive",
+        description: ["Fully responsive design for all devices.", "fjafkjfdk"],
+      },
+      {
+        title: "Customizable Sections",
+        description: ["Easily reorder or edit blocks to fit your personal brand.", "Supports projects, skills, resume, contact, and more."],
+      },
+    ],
+    screenshots: ["/templates/gym/g_1.png", "/templates/gym/g_2.png", "/templates/gym/g_3.png"],
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+  }
 ];
 
 export const allTemplates = [
@@ -288,6 +312,11 @@ export const allTemplates = [
     name: "developer-portfolio",
     id: 4,
     title: "Developer Portfolio",
+  },
+  {
+    name: "fitforge",
+    id: 5,
+    title: "FitForge | Gym Website Template",
   },
 ];
 
