@@ -87,8 +87,8 @@ const Sidebar = () => {
         <Link
           href={href}
           className={`group/icon relative flex items-center justify-start gap-2 px-3 py-2 text-sm transition-all duration-200 ${isActive
-              ? "text-primary font-semibold"
-              : "text-muted-foreground hover:text-primary"
+            ? "text-primary font-semibold"
+            : "text-muted-foreground hover:text-primary"
             }`}
           onClick={() => setMobileOpen(false)}
         >
@@ -218,7 +218,7 @@ const Sidebar = () => {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.25 }}
-            className="scrollbar-hide fixed inset-0 z-40 flex lg:hidden"
+            className="scrollbar-hide fixed inset-0 z-50 flex lg:hidden"
           >
             <div className="bg-background relative z-50 w-64 overflow-y-auto p-4 pt-24 shadow-lg">
               <div className="mb-4 flex items-center justify-between">

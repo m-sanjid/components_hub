@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer
-      className="border-border bg-card z-30 mb-6 border-t"
+      className="border-border bg-card z-30 pb-6 border-t"
       role="contentinfo"
     >
       <div className="container mx-auto max-w-6xl px-4 py-12">

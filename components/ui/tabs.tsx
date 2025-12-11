@@ -97,7 +97,7 @@ const TabsTrigger = React.forwardRef<
           />
         </motion.div>
       )}
-      <div className="z-40">{children}</div>
+      <div className="z-30">{children}</div>
     </TabsPrimitive.Trigger>
   );
 });

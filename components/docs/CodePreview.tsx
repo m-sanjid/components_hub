@@ -143,7 +143,7 @@ export function CodePreview({
               transition={{ duration: 0.3 }}
               className="absolute inset-0 w-full"
             >
-              <div className="relative h-full">
+              <div className="relative h-full scrollbar-hide  overflow-y-auto">
                 <div
                   className={cn(
                     "max-h-[600px] overflow-y-auto p-1 text-sm leading-relaxed transition-colors sm:p-2 md:p-6",

@@ -64,12 +64,6 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link
           rel="preconnect"
-          href="https://fonts.googleapis.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
           href="https://cdn.jsdelivr.net"
           crossOrigin="anonymous"
         />
@@ -90,19 +84,18 @@ export default function RootLayout({
           </a>
           <Toaster />
           <Navbar />
-          <div className="m-0 p-0">
+          <div className="m-0 p-0 relative">
             <ProgressiveBlur
               direction="top"
               blurIntensity={3}
-              className="fixed top-0 right-0 left-0 z-10 h-28 w-screen md:h-32"
+              className="top-0 right-0 fixed left-0 z-10 h-28 w-screen md:h-32"
             />
             <main id="content">{children}</main>
             <ProgressiveBlur
-              direction="bottom"
               blurIntensity={1}
+              direction="bottom"
               className="fixed right-0 bottom-0 left-0 z-10 h-10 w-screen md:h-12"
             />
-            {/* <FloatingCTA /> */}
           </div>
           <Footer />
         </ThemeProvider>

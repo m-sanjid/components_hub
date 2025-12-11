@@ -1,10 +1,8 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import { IconArrowLeft, IconSearchOff } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
+import MotionDiv from "@/components/MotionDiv";
 
 export default function NotFound() {
   return (
@@ -24,7 +22,7 @@ export default function NotFound() {
       </div>
 
       <section className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
@@ -34,17 +32,17 @@ export default function NotFound() {
           <span className="text-muted-foreground">
             The page you&apos;re looking for can&apos;t be found
           </span>
-        </motion.div>
+        </MotionDiv>
 
-        <motion.h1
+        <MotionDiv
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: 0.05 }}
           className="text-5xl font-semibold tracking-tight text-balance sm:text-6xl"
         >
           404
-        </motion.h1>
-        <motion.p
+        </MotionDiv>
+        <MotionDiv
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: 0.1 }}
@@ -52,9 +50,9 @@ export default function NotFound() {
         >
           It seems you&apos;ve ventured off the grid. Head back to the homepage
           or explore our components.
-        </motion.p>
+        </MotionDiv>
 
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: 0.15 }}
@@ -72,7 +70,7 @@ export default function NotFound() {
           <Button asChild size="lg" variant="outline" className="group">
             <Link href="/components">Explore Components</Link>
           </Button>
-        </motion.div>
+        </MotionDiv>
       </section>
     </main>
   );

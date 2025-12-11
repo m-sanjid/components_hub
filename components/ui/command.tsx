@@ -21,7 +21,7 @@ function Command({
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
+        "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-[12px]",
         className,
       )}
       {...props}
@@ -44,9 +44,10 @@ function CommandDialog({
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
-      <DialogContent className="overflow-hidden border border-[#FF6100]/40 bg-neutral-300 p-1 backdrop-blur-3xl dark:bg-neutral-800">
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground bg-background border border-neutral-200/50 **:data-[slot=command-input-wrapper]:h-12 dark:border-neutral-800/50 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+      <DialogContent className="overflow-hidden border border-[#FF6100] bg-neutral-300 p-1 backdrop-blur-3xl dark:bg-neutral-800">
+        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground bg-background border-neutral-200/50 **:data-[slot=command-input-wrapper]:h-12 dark:border-neutral-800/50 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
           {children}
+          <div className="absolute bottom-1 rounded-b-[20px] inset-x-1 h-10 bg-neutral-200"></div>
         </Command>
       </DialogContent>
     </Dialog>
@@ -62,7 +63,7 @@ function CommandInput({
       data-slot="command-input-wrapper"
       className="flex h-9 items-center gap-2 border-b px-3"
     >
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
+      <SearchIcon className="shrink-0 bg-primary/10 size-5 rounded-md border p-1 backdrop-blur-md" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
