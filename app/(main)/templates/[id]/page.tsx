@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { templates } from "@/lib/constants";
 import { IconExternalLink } from "@tabler/icons-react";
-import { Link } from "next-view-transitions";
 import MotionDiv from "@/components/MotionDiv";
 import { DowloadCode } from "@/components/DownloadCode";
 import { OnThisPage } from "@/components/docs/OnThisPage";
@@ -10,6 +9,9 @@ import { GalleryRoot, GalleryGrid } from "@/components/docs/Gallery";
 import { absoluteUrl } from "@/lib/utils";
 import { generateDefaultOGImage } from "@/lib/og-image";
 import BuyNowButton from "@/components/docs/BuyNowButton";
+import Image from "next/image";
+import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   return templates.map((t) => ({ id: t.id.toString() }));
@@ -72,6 +74,17 @@ export default async function TemplateDetailsPage({
   const { id } = await params;
   const template = templates.find((t) => t.id === parseInt(id));
   const IsFree = template?.price === 0;
+
+  // Navigation Logic
+  const currentIndex = templates.findIndex((t) => t.id === parseInt(id));
+  const prevTemplate = currentIndex > 0 ? templates[currentIndex - 1] : null;
+  const nextTemplate =
+    currentIndex < templates.length - 1 ? templates[currentIndex + 1] : null;
+
+  // Other Templates (excluding current)
+  const otherTemplates = templates
+    .filter((t) => t.id !== parseInt(id))
+    .slice(0, 3);
 
   if (!template) {
     return (
@@ -216,6 +229,90 @@ export default async function TemplateDetailsPage({
       {template?.techStack?.length && (
         <TechStack techStack={template.techStack} />
       )}
+
+      {/* Navigation */}
+      <section className="mx-auto max-w-6xl py-12 md:px-6">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row">
+          {prevTemplate ? (
+            <Link
+              href={`/templates/${prevTemplate.id}`}
+              className="group flex flex-1 items-center justify-start gap-3 rounded-xl border bg-neutral-50 p-4 transition-colors hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+            >
+              <div className="bg-background flex size-10 items-center justify-center rounded-full border shadow-sm transition-transform group-hover:-translate-x-1">
+                <IconArrowLeft size={16} />
+              </div>
+              <div className="text-left">
+                <div className="text-muted-foreground text-xs">Previous</div>
+                <div className="font-medium">{prevTemplate.title}</div>
+              </div>
+            </Link>
+          ) : (
+            <div className="flex-1" />
+          )}
+
+          {nextTemplate ? (
+            <Link
+              href={`/templates/${nextTemplate.id}`}
+              className="group flex flex-1 items-center justify-end gap-3 rounded-xl border bg-neutral-50 p-4 transition-colors hover:bg-neutral-100 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+            >
+              <div className="text-right">
+                <div className="text-muted-foreground text-xs">Next</div>
+                <div className="font-medium">{nextTemplate.title}</div>
+              </div>
+              <div className="bg-background flex size-10 items-center justify-center rounded-full border shadow-sm transition-transform group-hover:translate-x-1">
+                <IconArrowRight size={16} />
+              </div>
+            </Link>
+          ) : (
+            <div className="flex-1" />
+          )}
+        </div>
+      </section>
+
+      {/* Other Templates */}
+      <section className="mx-auto max-w-6xl py-12 md:px-6">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-semibold">More Templates</h2>
+          <Link
+            href="/templates"
+            className="text-primary hover:text-primary/80 flex items-center gap-1 text-sm font-medium"
+          >
+            View all <IconArrowRight size={16} />
+          </Link>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {otherTemplates.map((t) => (
+            <Link
+              key={t.id}
+              href={`/templates/${t.id}`}
+              className="group relative flex flex-col overflow-hidden rounded-xl border bg-neutral-50 transition-shadow hover:shadow-lg dark:bg-neutral-900"
+            >
+              <div className="relative aspect-video w-full overflow-hidden border-b">
+                <Image
+                  src={t.image}
+                  alt={t.title}
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex flex-1 flex-col p-4">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="bg-primary/10 text-primary rounded px-2 py-0.5 text-[10px] font-medium">
+                    {t.category}
+                  </span>
+                  <span className="text-muted-foreground text-xs">
+                    {t.price === 0 ? "Free" : `$${t.price}`}
+                  </span>
+                </div>
+                <h3 className="mb-1 line-clamp-1 font-semibold">{t.title}</h3>
+                <p className="text-muted-foreground line-clamp-2 text-sm">
+                  {t.description}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }

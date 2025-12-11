@@ -6,9 +6,9 @@ import {
 } from "@tabler/icons-react";
 import Logo from "./Logo";
 import { siteConfig } from "@/config/site";
-import { Link } from "next-view-transitions";
 import EmailForm from "./NewsLetter";
 import IconHover from "./IconHover";
+import Link from "next/link";
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();

@@ -14,11 +14,11 @@ import {
 import { useState, useEffect } from "react";
 import { Components } from "@/types";
 import { motion, AnimatePresence } from "motion/react";
-import { Link } from "next-view-transitions";
 import { templates } from "@/lib/constants";
 import { usePathname } from "next/navigation";
 import { ProgressiveBlur } from "./motion-primitives/progressive-blur";
 import IconHover from "./IconHover";
+import Link from "next/link";
 
 const Sidebar = () => {
   const [components, setComponents] = useState<Components[]>([]);

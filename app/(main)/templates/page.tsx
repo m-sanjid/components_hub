@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { templates } from "@/lib/constants";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { IconArrowRight, IconExternalLink } from "@tabler/icons-react";
 import { Input } from "@/components/ui/input";
 

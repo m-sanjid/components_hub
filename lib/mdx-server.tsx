@@ -67,7 +67,6 @@ export async function processMdx(source: string, components: any) {
 }
 
 // Compile an MDX file from the templates directory with provided components
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function getTemplateMdx(
   filename: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

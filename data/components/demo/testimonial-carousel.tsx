@@ -21,6 +21,6 @@ export const testimonials = [
   },
 ];
 
-export default function Page() {
+export default function TestimonialCarouselDemo() {
   return <TestimonialCarousel testimonials={testimonials} />;
 }

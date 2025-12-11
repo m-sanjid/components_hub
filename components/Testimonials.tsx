@@ -4,6 +4,7 @@ import { Star } from "lucide-react";
 import React from "react";
 import { motion } from "motion/react";
 import { testimonials } from "@/lib/constants";
+import Image from "next/image";
 
 const Testimonials = () => {
   return (
@@ -42,10 +43,12 @@ const Testimonials = () => {
               whileHover={{ y: -5 }}
             >
               <div className="mb-4 flex items-center gap-4">
-                <img
+                <Image
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="h-12 w-12 rounded-full"
+                  width={48}
+                  height={48}
+                  className="rounded-full"
                 />
                 <div>
                   <h4 className="font-bold">{testimonial.name}</h4>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SwipeToConfirm } from "../code/swipe";
+import { Swipe } from "../code/swipe";
 import {
   Archive,
   Check,
@@ -69,7 +69,7 @@ export default function SwipeDemo() {
                   </p>
                 </div>
               </div>
-              <SwipeToConfirm
+              <Swipe
                 confirmText="Archive"
                 dismissText="Delete"
                 neutralText="Swipe to manage"
@@ -102,7 +102,7 @@ export default function SwipeDemo() {
               </div>
             </div>
             <div className="h-48 rounded-lg bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900"></div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Like"
               dismissText="Skip"
               neutralText="Swipe to react"
@@ -132,7 +132,7 @@ export default function SwipeDemo() {
               <p className="text-2xl font-bold text-neutral-900 dark:text-neutral-100">
                 $199
               </p>
-              <SwipeToConfirm
+              <Swipe
                 confirmText="Add to Cart"
                 dismissText="Wishlist"
                 neutralText="Swipe to shop"
@@ -165,7 +165,7 @@ export default function SwipeDemo() {
                 <span>${cartItems * 199}</span>
               </div>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Pay Now"
               dismissText="Cancel"
               neutralText="Swipe to purchase"
@@ -196,7 +196,7 @@ export default function SwipeDemo() {
                 Device is {isPoweredOn ? "ON" : "OFF"}
               </p>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Power On"
               dismissText="Shutdown"
               neutralText="Swipe to toggle"
@@ -224,7 +224,7 @@ export default function SwipeDemo() {
                 Device is {isLocked ? "LOCKED" : "UNLOCKED"}
               </p>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Unlock"
               dismissText="Lock"
               neutralText="Swipe to secure"
@@ -252,7 +252,7 @@ export default function SwipeDemo() {
                 Sound is {isMuted ? "MUTED" : "ON"}
               </p>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Unmute"
               dismissText="Mute"
               neutralText="Swipe for sound"
@@ -285,7 +285,7 @@ export default function SwipeDemo() {
                 <span className="text-sm text-neutral-500">Alex • 2:34 PM</span>
               </div>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Send Reply"
               dismissText="Mark Read"
               neutralText="Swipe to respond"
@@ -320,7 +320,7 @@ export default function SwipeDemo() {
                 </p>
               </div>
             </div>
-            <SwipeToConfirm
+            <Swipe
               confirmText="Open File"
               dismissText="Delete"
               neutralText="Swipe to manage"

@@ -7,7 +7,7 @@ import {
   IconMaximize,
   IconMinimize,
 } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useEventListener } from "usehooks-ts";
 import { cn } from "@/lib/utils";
@@ -53,7 +53,7 @@ export function ResponsivePreview({ children }: ResponsivePreviewProps) {
 
   const stopResizing = () => setResizing(false);
 
-  const onResize = (e: MouseEvent) => {
+  const onResize = useCallback((e: MouseEvent) => {
     if (!resizing) return;
     const rect = containerRef.current?.getBoundingClientRect();
     if (!rect) return;
@@ -64,7 +64,7 @@ export function ResponsivePreview({ children }: ResponsivePreviewProps) {
       width: Math.max(320, newWidth),
       height: Math.max(300, newHeight),
     });
-  };
+  }, [resizing, customSize]);
 
   useEffect(() => {
     if (resizing) {
@@ -75,7 +75,7 @@ export function ResponsivePreview({ children }: ResponsivePreviewProps) {
       window.removeEventListener("mousemove", onResize);
       window.removeEventListener("mouseup", stopResizing);
     };
-  }, [resizing]);
+  }, [resizing, onResize]);
 
   useEventListener("keydown", (e) => {
     if (e.key === "Escape" && isMaximized) {
@@ -98,11 +98,10 @@ export function ResponsivePreview({ children }: ResponsivePreviewProps) {
                 setViewport(key);
                 setCustomSize(viewports[key]);
               }}
-              className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground hover:bg-muted/50"
-              }`}
+              className={`flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${isActive
+                ? "bg-primary text-primary-foreground"
+                : "bg-muted text-muted-foreground hover:bg-muted/50"
+                }`}
             >
               {viewports[key].icon}
               <span className="hidden sm:inline">{viewports[key].name}</span>

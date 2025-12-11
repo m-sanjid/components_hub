@@ -58,6 +58,18 @@ export function GalleryRoot({
     [images.length],
   );
 
+  //click outside to close
+  useEffect(() => {
+    if (index === null) return;
+    const handler = (e: MouseEvent) => {
+      if (e.target instanceof Element && !e.target.closest(".gallery-viewer")) {
+        setIndex(null);
+      }
+    };
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [index]);
+
   // keyboard support
   useEffect(() => {
     if (index === null) return;
@@ -152,42 +164,44 @@ export function GalleryViewer({
 
       {/* Main image */}
       <div className="relative flex flex-1 items-center justify-center">
-        {firstOpen ? (
-          <motion.div
-            key={images[index]}
-            layoutId={`img-${index}`}
-            className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl"
-            initial={{ opacity: 0.8, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", stiffness: 180, damping: 20 }}
-            onAnimationComplete={() => setFirstOpen(false)}
-          >
-            <Image
-              src={images[index]}
-              alt={`Image ${index + 1}`}
-              fill
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        ) : (
-          <motion.div
-            key={images[index]}
-            className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Image
-              src={images[index]}
-              alt={`Image ${index + 1}`}
-              fill
-              className="object-cover"
-              priority
-            />
-          </motion.div>
-        )}
+        <AnimatePresence mode="popLayout">
+          {firstOpen ? (
+            <motion.div
+              key={images[index]}
+              layoutId={`img-${index}`}
+              className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl"
+              initial={{ opacity: 0.8, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ type: "spring", stiffness: 180, damping: 20 }}
+              onAnimationComplete={() => setFirstOpen(false)}
+            >
+              <Image
+                src={images[index]}
+                alt={`Image ${index + 1}`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={images[index]}
+              className="relative aspect-video w-full max-w-5xl overflow-hidden rounded-xl"
+              initial={{ opacity: 0, filter: "blur(4px)" }}
+              animate={{ opacity: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, filter: "blur(4px)" }}
+              transition={{ duration: 0.15 }}
+            >
+              <Image
+                src={images[index]}
+                alt={`Image ${index + 1}`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
         <GalleryNavButton dir="left" onClick={prev} />
         <GalleryNavButton dir="right" onClick={next} />
       </div>
@@ -254,7 +268,7 @@ export function GalleryThumbnailStrip({
             <button
               key={i}
               onClick={() => setIndex(i)}
-              className="relative h-20 w-28 flex-shrink-0 snap-center rounded-xl transition-all duration-300"
+              className="relative h-20 w-28 cursor-pointer active:scale-95 hover:scale-105 flex-shrink-0 snap-center rounded-xl transition-all duration-200"
               aria-label={`Show image ${i + 1}`}
             >
               <div className="relative h-full w-full overflow-hidden rounded-xl">
