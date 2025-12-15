@@ -58,7 +58,7 @@ function getClientIP(request: NextRequest): string {
   return "unknown";
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // Only apply rate limiting to newsletter API
   if (request.nextUrl.pathname === "/api/newsletter/subscribe") {
     const ip = getClientIP(request);
