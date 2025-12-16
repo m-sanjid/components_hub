@@ -182,13 +182,12 @@ export function ContactField({
         variants={labelVariants}
         animate={shouldFloat ? "focused" : "default"}
         transition={{ duration: 0.3 }}
-        className={`pointer-events-none absolute text-sm font-medium ${
-          errors[name]
+        className={`pointer-events-none absolute text-sm font-medium ${errors[name]
             ? "text-red-500"
             : shouldFloat
               ? "text-primary"
               : "text-neutral-500"
-        }`}
+          }`}
       >
         {label}
       </motion.label>
@@ -204,7 +203,6 @@ export function ContactField({
         onChange={(e) =>
           setFormData((prev) => ({ ...prev, [name]: e.target.value }))
         }
-        whileFocus={{ scale: 1.01 }}
         className={cn(
           "mt-6 w-full rounded-md border bg-white px-4 py-1 dark:bg-neutral-800",
           {
@@ -263,13 +261,12 @@ export function ContactTextArea({
         htmlFor={name}
         variants={labelVariants}
         animate={shouldFloat ? "focused" : "default"}
-        className={`pointer-events-none absolute text-sm font-medium ${
-          errors[name]
+        className={`pointer-events-none absolute text-sm font-medium ${errors[name]
             ? "text-red-500"
             : shouldFloat
               ? "text-primary"
               : "text-neutral-500"
-        }`}
+          }`}
       >
         {label}
       </motion.label>
