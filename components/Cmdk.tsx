@@ -1,9 +1,15 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
+import { useRouter } from "next/navigation"
+import { type DialogProps } from "@radix-ui/react-dialog"
+import * as iconsReact from "@tabler/icons-react"
+import { CornerDownLeftIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
-  CommandDialog,
+  Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
@@ -11,45 +17,55 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@/components/ui/command";
+} from "@/components/ui/command"
 import {
-  IconComponents,
-  IconLoader2,
-  IconSearch,
-  IconTemplate,
-} from "@tabler/icons-react";
-import { useRouter } from "next/navigation";
-import { allTemplates } from "@/lib/constants";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { allTemplates } from "@/lib/constants"
 
 interface ComponentData {
-  id: string;
-  title: string;
-  description?: string;
-  category: string;
-  slug: string;
-  tags?: string[];
-  preview?: string;
+  id: string
+  title: string
+  description?: string
+  category: string
+  slug: string
+  tags?: string[]
+  preview?: string
 }
 
-export function CommandPalette() {
-  const [open, setOpen] = React.useState(false);
-  const [components, setComponents] = React.useState<ComponentData[]>([]);
-  // const [templates, setTemplates] = React.useState<TemplateData[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
+export function CommandMenu({
+  ...props
+}: DialogProps) {
+  const router = useRouter()
+  const [open, setOpen] = React.useState(false)
+  const [components, setComponents] = React.useState<ComponentData[]>([])
+  const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen(true);
+      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+        if (
+          (e.target instanceof HTMLElement && e.target.isContentEditable) ||
+          e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement ||
+          e.target instanceof HTMLSelectElement
+        ) {
+          return
+        }
+
+        e.preventDefault()
+        setOpen((open) => !open)
       }
-    };
+    }
 
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, []);
-
-  const router = useRouter();
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -78,131 +94,177 @@ export function CommandPalette() {
   }, [open, router]);
 
   const fetchComponents = async () => {
-    setIsLoading(true);
-    const res = await fetch("/api/components");
-    const data = await res.json();
-    setComponents(data);
-    setIsLoading(false);
-  };
-
-  // const fetchTemplates = async () => {
-  //   setIsLoading(true);
-  //   const res = await fetch("/api/templates");
-  //   const data = await res.json();
-  //   setTemplates(data);
-  //   setIsLoading(false);
-  // };
+    setIsLoading(true)
+    try {
+      const res = await fetch("/api/components")
+      const data = await res.json()
+      // Ensure data is an array before setting
+      if (Array.isArray(data)) {
+        setComponents(data)
+      } else {
+        setComponents([])
+      }
+    } catch (error) {
+      console.error("Failed to fetch components:", error)
+      setComponents([])
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   React.useEffect(() => {
-    fetchComponents();
-  }, []);
-  const navigate = (path: string) => {
-    router.push(path);
-    setOpen(false);
-  };
+    if (open) {
+      fetchComponents()
+    }
+  }, [open])
 
-  const templates = allTemplates;
+  const runCommand = React.useCallback((command: () => unknown) => {
+    setOpen(false)
+    command()
+  }, [])
 
   return (
-    <>
-      <div
-        className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 text-xs transition-all duration-200 ease-in-out hover:border-[#FF6100] md:px-3 md:py-2"
-        onClick={() => {
-          setOpen(true);
-        }}
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="outline"
+          className="text-muted-foreground shadow-derek flex cursor-pointer items-center gap-2 rounded-lg border px-2 py-1 text-xs transition-all duration-200 ease-in-out hover:border-[#FF6100] md:px-3 md:py-2"
+          onClick={() => setOpen(true)}
+          {...props}
+        >
+          <iconsReact.IconSearch
+            strokeWidth={2}
+            size={16}
+            className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md"
+          />
+          <span className="hidden md:inline">Search </span>
+          <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
+            <span className="text-xs">⌘</span>K
+          </kbd>
+        </Button>
+      </DialogTrigger>
+      <DialogContent
+        className="**:data-[slot=dialog-close]:hidden rounded-xl border-none bg-clip-padding p-2 pb-11 shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
       >
-        <IconSearch
-          strokeWidth={2}
-          size={16}
-          className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md"
-        />
-        <span className="hidden md:inline">Search </span>
-        <kbd className="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none">
-          <span className="text-xs">⌘</span>K
-        </kbd>
-      </div>
-      <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a command or search..." />
-        <CommandList>
-          <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Navigation">
-            <CommandItem
-              onSelect={() => {
-                navigate("/components");
-              }}
-            >
-              <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-              <span>Components</span>
-              <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
-                ⌘J I
-              </CommandShortcut>
-            </CommandItem>
-            <CommandItem
-              onSelect={() => {
-                navigate("/templates");
-              }}
-            >
-              <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-              <span>Templates</span>
-              <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
-                ⌘J L
-              </CommandShortcut>
-            </CommandItem>
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Components">
-            {isLoading ? (
-              <CommandItem>
-                <IconLoader2 className="animate-spin" />
-                <span>Loading...</span>
-              </CommandItem>
-            ) : components.length === 0 ? (
-              <CommandItem>
-                <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-                <span>No components found</span>
-              </CommandItem>
-            ) : (
-              components.map((component, index) => (
-                <CommandItem
-                  key={index}
-                  onSelect={() => {
-                    navigate("/components/" + component.slug);
-                  }}
-                >
-                  <IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-                  <span>{component.title}</span>
-                </CommandItem>
-              ))
+        <DialogHeader className="sr-only">
+          <DialogTitle>Search documentation...</DialogTitle>
+          <DialogDescription>Search for a command to run...</DialogDescription>
+        </DialogHeader>
+        <Command
+          className="**:data-[slot=command-input-wrapper]:bg-input/50 **:data-[slot=command-input-wrapper]:border-input rounded-none bg-transparent **:data-[slot=command-input]:h-9! **:data-[slot=command-input]:py-0 **:data-[slot=command-input-wrapper]:mb-0 **:data-[slot=command-input-wrapper]:h-9! **:data-[slot=command-input-wrapper]:rounded-md **:data-[slot=command-input-wrapper]:border"
+        >
+          <div className="relative">
+            <CommandInput placeholder="Search documentation..." />
+            {isLoading && (
+              <div className="pointer-events-none absolute top-1/2 right-3 z-10 flex -translate-y-1/2 items-center justify-center">
+                <iconsReact.IconLoader2 className="text-muted-foreground size-4 animate-spin" />
+              </div>
             )}
-          </CommandGroup>
-          <CommandSeparator />
-          <CommandGroup heading="Templates">
-            {isLoading ? (
-              <CommandItem>
-                <IconLoader2 className="animate-spin" />
-                <span>Loading...</span>
-              </CommandItem>
-            ) : templates.length === 0 ? (
-              <CommandItem>
-                <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-                <span>No templates found</span>
-              </CommandItem>
-            ) : (
-              templates.map((template, index) => (
-                <CommandItem
-                  key={index}
-                  onSelect={() => {
-                    navigate("/templates/" + template.id);
-                  }}
+          </div>
+          <CommandList className="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
+            <CommandEmpty className="text-muted-foreground py-12 text-center text-sm">
+              {isLoading ? "Searching..." : "No results found."}
+            </CommandEmpty>
+
+            <CommandGroup
+              heading="Navigation"
+              className="p-0! **:[[cmdk-group-heading]]:scroll-mt-16 **:[[cmdk-group-heading]]:p-3! **:[[cmdk-group-heading]]:pb-1!"
+            >
+              <CommandMenuStyledItem
+                onSelect={() => runCommand(() => router.push("/components"))}
+              >
+                <iconsReact.IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                Components
+                <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
+                  ⌘J I
+                </CommandShortcut>
+              </CommandMenuStyledItem>
+              <CommandMenuStyledItem
+                onSelect={() => runCommand(() => router.push("/templates"))}
+              >
+                <iconsReact.IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                Templates
+                <CommandShortcut className="rounded border bg-black/10 px-1 text-[10px] tracking-tight backdrop-blur-md">
+                  ⌘J L
+                </CommandShortcut>
+              </CommandMenuStyledItem>
+            </CommandGroup>
+
+            <CommandSeparator />
+
+            <CommandGroup
+              heading="Components"
+              className="p-0! **:[[cmdk-group-heading]]:scroll-mt-16 **:[[cmdk-group-heading]]:p-3! **:[[cmdk-group-heading]]:pb-1!"
+            >
+              {!isLoading && components.map((component) => (
+                <CommandMenuStyledItem
+                  key={component.slug}
+                  value={component.title}
+                  onSelect={() => runCommand(() => router.push(`/components/${component.slug}`))}
                 >
-                  <IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
-                  <span>{template.title}</span>
-                </CommandItem>
-              ))
-            )}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-    </>
-  );
+                  <iconsReact.IconComponents className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                  {component.title}
+                </CommandMenuStyledItem>
+              ))}
+            </CommandGroup>
+
+            <CommandGroup
+              heading="Templates"
+              className="p-0! **:[[cmdk-group-heading]]:scroll-mt-16 **:[[cmdk-group-heading]]:p-3! **:[[cmdk-group-heading]]:pb-1!"
+            >
+              {allTemplates.map((template) => (
+                <CommandMenuStyledItem
+                  key={template.id}
+                  value={template.title}
+                  onSelect={() => runCommand(() => router.push(`/templates/${template.id}`))}
+                >
+                  <iconsReact.IconTemplate className="bg-primary/10 size-6 rounded-md border p-1 backdrop-blur-md" />
+                  {template.title}
+                </CommandMenuStyledItem>
+              ))}
+            </CommandGroup>
+
+          </CommandList>
+        </Command>
+        <div className="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800">
+          <div className="flex items-center gap-2">
+            <CommandMenuKbd>
+              <CornerDownLeftIcon />
+            </CommandMenuKbd>{" "}
+            Open
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+function CommandMenuStyledItem({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof CommandItem>) {
+  return (
+    <CommandItem
+      className={cn(
+        "data-[selected=true]:border-input data-[selected=true]:bg-input/50 h-9 rounded-md border border-transparent px-3! font-medium",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </CommandItem>
+  )
+}
+
+function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
+  return (
+    <kbd
+      className={cn(
+        "bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
+        className
+      )}
+      {...props}
+    />
+  )
 }
