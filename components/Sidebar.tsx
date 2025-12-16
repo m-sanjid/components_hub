@@ -7,11 +7,12 @@ import {
   IconFileDescription,
   IconMenu2,
   IconPhone,
+  IconProps,
   IconTemplate,
   IconX,
   TablerIcon,
 } from "@tabler/icons-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, ComponentType } from "react";
 import { Components } from "@/types";
 import { motion, AnimatePresence } from "motion/react";
 import { templates } from "@/lib/constants";
@@ -60,7 +61,7 @@ const Sidebar = () => {
     title: string;
     index: number;
     isTemplate?: boolean;
-    icon?: TablerIcon;
+    icon?: ComponentType<IconProps>;
     link?: string;
   }) => {
     const isActive =
