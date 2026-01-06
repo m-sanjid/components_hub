@@ -14,7 +14,7 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { IconTemplate, IconCircleDashed, IconMenu2 } from "@tabler/icons-react";
-import { CommandPalette } from "./Cmdk";
+import { CommandMenu } from "./Cmdk";
 import { cn } from "@/lib/utils";
 import IconHover from "./IconHover";
 
@@ -81,11 +81,10 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${
-        isScrolled
+      className={`sticky z-50 w-full transition-all duration-400 ease-in-out ${isScrolled
           ? "bg-background/95 supports-[backdrop-filter]:bg-background/80 top-0 mx-auto max-w-6xl border-b border-[#FF6100]/20 shadow-lg backdrop-blur md:top-3 md:rounded-2xl md:border"
           : "bg-background/95 top-0 mx-auto w-full max-w-[100rem] backdrop-blur"
-      }`}
+        }`}
       onMouseLeave={handleMouseLeave}
       onClick={(e) => e.stopPropagation()}
     >
@@ -173,7 +172,7 @@ export default function Navbar() {
 
         {/* Theme Toggle */}
         <div className="flex items-center gap-2">
-          <CommandPalette />
+          <CommandMenu />
           <ThemeToggle />
         </div>
       </div>
